@@ -60,7 +60,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="address">Address:</label>
                         <input value="{{ $user->address }}" placeholder="Enter address" type="text" class="form-control"
@@ -112,7 +112,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="sq_no_1_ans">Answer:</label>
+                        <label for="sq_no_1_ans">Security Question 1 Answer:</label>
                         <input value="{{ $user->sq_no_1_ans }}" placeholder="Enter answer" type="text"
                             class="form-control" id="sq_no_1_ans" name="sq_no_1_ans">
                     </div>
@@ -132,7 +132,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="sq_no_2_ans">Answer:</label>
+                        <label for="sq_no_2_ans">Security Question 2 Answer:</label>
                         <input value="{{ $user->sq_no_2_ans }}" placeholder="Enter answer" type="text"
                             class="form-control" id="sq_no_2_ans" name="sq_no_2_ans">
                     </div>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="password">Password:</label>
                         <input type="password" class="form-control" id="password" name="password">
