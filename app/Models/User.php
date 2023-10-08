@@ -19,11 +19,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,12 +41,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function is_admin():BelongsTo
+    public function is_admin(): BelongsTo
     {
         return $this->belongsTo(Admins_list::class);
     }
 
-    public function department():HasMany
+    public function department(): HasMany
     {
         return $this->hasMany(Admins_list::class);
     }
