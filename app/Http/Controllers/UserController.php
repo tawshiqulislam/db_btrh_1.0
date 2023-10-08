@@ -105,6 +105,7 @@ class UserController extends Controller
             'sq_no_2_ans' => ['nullable'],
             'pro_pic' => ['nullable', 'image', 'max:2048'],
             'date_of_birth' => ['nullable'],
+            'password' => ['nullable', 'min:8'],
         ]);
 
         $user =  User::find($id);

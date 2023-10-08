@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins_lists', function (Blueprint $table) {
+        Schema::create('admin_lists', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('user_type'); // super_admin || admin
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admins_lists');
+        Schema::dropIfExists('admin_lists');
     }
 };

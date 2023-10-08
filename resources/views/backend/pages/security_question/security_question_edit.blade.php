@@ -19,6 +19,9 @@
                 <label for="security_question">Security Question:</label>
                 <input value="{{ $security_question->name }}" placeholder="Enter security question" type="text"
                     class="form-control" id="security_question" name="name" required>
+                @if ($errors->has("security_question"))
+                    <p class="text-danger">{{ $errors->first("security_question") }}</p>
+                @endif
             </div>
             <button type="submit" class="btn btn-primary btn-sm mt-3 text-white">
                 <i class="fa-solid fa-floppy-disk"></i> Save

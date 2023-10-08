@@ -1,7 +1,7 @@
 @extends("backend.layouts.master")
 @section("content")
     <div class="pagetitle">
-        <h1>Security Questions</h1>
+        <h1>Security Question</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route("security_question.index") }}">Sequrity Questions</a></li>
@@ -19,6 +19,9 @@
                 <label for="security_question">Security Question:</label>
                 <input type="text" placeholder="Enter security question" class="form-control" id="security_question"
                     name="name" required>
+                @if ($errors->has("name"))
+                    <p class="text-danger">{{ $errors->first("name") }}</p>
+                @endif
             </div>
 
             <button type="submit" class="btn btn-primary btn-sm mt-3 text-white">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -38,4 +39,15 @@ Route::prefix('admin/user')->group(function () {
     Route::get('/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::post('/update/{id}', [UserController::class, 'update'])->name('user.update');
     Route::get('/info/{id}', [UserController::class, 'info'])->name('user.info');
+});
+
+//admin user department
+Route::prefix('admin/department')->group(function () {
+    Route::get('/index', [DepartmentController::class, 'index'])->name('department.index');
+    Route::get('/create', [DepartmentController::class, 'create'])->name('department.create');
+    Route::post('/store', [DepartmentController::class, 'store'])->name('department.store');
+    Route::get('/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
+    Route::get('/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
+    Route::post('/update/{id}', [DepartmentController::class, 'update'])->name('department.update');
+    Route::get('/info/{id}', [DepartmentController::class, 'info'])->name('department.info');
 });

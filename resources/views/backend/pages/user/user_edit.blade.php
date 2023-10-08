@@ -142,6 +142,9 @@
                     <div class="form-group">
                         <label for="pro_pic">Profile Picture:</label>
                         <input type="file" class="form-control" id="pro_pic" name="pro_pic">
+                        @if ($errors->has("pro_pic"))
+                            <p class="text-danger">{{ $errors->first("pro_pic") }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -157,6 +160,9 @@
                     <div class="form-group">
                         <label for="password">Password:</label>
                         <input type="password" class="form-control" id="password" name="password">
+                        @if ($errors->has("password"))
+                            <p class="text-danger">{{ $errors->first("password") }}</p>
+                        @endif
                     </div>
                 </div>
 
