@@ -12,7 +12,7 @@
     </div><!-- End Page Title -->
 
     <div class="container">
-        <h2>Edit Security Question</h2>
+
         <form action="{{ route("security_question.update", $security_question->id) }}" method="POST">
             @csrf
             <div class="form-group mb-3">

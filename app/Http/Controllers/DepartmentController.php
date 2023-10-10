@@ -29,15 +29,6 @@ class DepartmentController extends Controller
             'name' => ['required', 'unique:departments'],
         ]);
 
-        // $name = $request->name;
-        // $user_ids = $request->user_id;
-        // // dd($user_ids);
-        // foreach ($user_ids as $user_id) {
-        //     Department::create([
-        //         'name' => $name,
-        //         'user_id' => $user_id
-        //     ]);
-        // }
         $user = User::where('email', $request->user_email)->first();
 
         if ($user) {
@@ -100,8 +91,6 @@ class DepartmentController extends Controller
         } else {
             $department->update([
                 'name' => $request->name,
-
-
             ]);
         }
 

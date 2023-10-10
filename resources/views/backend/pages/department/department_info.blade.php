@@ -19,11 +19,13 @@
 
             <div class="col-md-12 mx-auto">
                 <div class="card">
-                    <div class="card-title p-2">
-                        <h5>Department</h5>
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 class="card-text">{{ $department->name ?? "" }}</h5>
+                        <a href="{{ route("department.edit", $department->id) }}" class="btn btn-primary btn-sm text-white">
+                            <i class="fa-solid fa-file-pen"></i> Edit</a>
                     </div>
                     <div class="card-body">
-                        <p class="card-text mt-3">{{ $department->name ?? "" }}</p>
+                        <p>There is no description</p>
                     </div>
                 </div>
             </div>

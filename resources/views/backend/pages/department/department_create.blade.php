@@ -11,7 +11,7 @@
         <hr>
     </div><!-- End Page Title -->
     <div class="container">
-        <h2>Add Department</h2>
+
         <form action="{{ route("department.store") }}" method="POST">
             @csrf
 

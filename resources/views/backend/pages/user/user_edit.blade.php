@@ -12,7 +12,7 @@
     </div><!-- End Page Title -->
 
     <div class="container">
-        <h2>Edit User</h2>
+
         <form action="{{ route("user.update", $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-3">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //admin panel
-Route::get('/admin', [BackendController::class, 'admin'])->name('admin');
+Route::get('/admin', [BackendController::class, 'admin'])->name('admin.dashboard');
 
-//admin sques routes
+//admin security question routes
 Route::prefix('admin/security_question')->group(function () {
     Route::get('/index', [SecurityQuestionController::class, 'index'])->name('security_question.index');
     Route::get('/create', [SecurityQuestionController::class, 'create'])->name('security_question.create');
@@ -41,7 +42,7 @@ Route::prefix('admin/user')->group(function () {
     Route::get('/info/{id}', [UserController::class, 'info'])->name('user.info');
 });
 
-//admin user department
+//admin department routes
 Route::prefix('admin/department')->group(function () {
     Route::get('/index', [DepartmentController::class, 'index'])->name('department.index');
     Route::get('/create', [DepartmentController::class, 'create'])->name('department.create');
@@ -50,4 +51,15 @@ Route::prefix('admin/department')->group(function () {
     Route::get('/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
     Route::post('/update/{id}', [DepartmentController::class, 'update'])->name('department.update');
     Route::get('/info/{id}', [DepartmentController::class, 'info'])->name('department.info');
+});
+
+//admin project category routes
+Route::prefix('admin/project_category')->group(function () {
+    Route::get('/index', [ProjectCategoryController::class, 'index'])->name('project_category.index'); //index page
+    Route::get('/create', [ProjectCategoryController::class, 'create'])->name('project_category.create'); //create page
+    Route::post('/store', [ProjectCategoryController::class, 'store'])->name('project_category.store'); // store
+    Route::get('/delete/{id}', [ProjectCategoryController::class, 'delete'])->name('project_category.delete'); // delete
+    Route::get('/edit/{id}', [ProjectCategoryController::class, 'edit'])->name('project_category.edit'); //edit page
+    Route::post('/update/{id}', [ProjectCategoryController::class, 'update'])->name('project_category.update'); //update
+    Route::get('/info/{id}', [ProjectCategoryController::class, 'info'])->name('project_category.info'); //info page
 });

@@ -1,5 +1,6 @@
 @extends("backend.layouts.master")
-@include("backend.layouts.partials.page_title")
+
 @section("content")
+    @include("backend.layouts.partials.page_title")
     admin page
 @endsection
