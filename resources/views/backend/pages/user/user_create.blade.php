@@ -12,7 +12,7 @@
     </div><!-- End Page Title -->
 
     <div class="container">
-        <h2>Add User</h2>
+
         <form action="{{ route("user.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
 

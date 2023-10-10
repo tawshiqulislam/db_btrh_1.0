@@ -21,19 +21,26 @@
                     <div class="row p-2">
                         <div class="col-md-6">
                             @if ($user->pro_pic)
-                                <img style="width:250px" src="{{ asset("storage/user/" . $user->pro_pic) }}"
-                                    class="card-img-top" alt="{{ $user->name }}">
+                                <img style="width:200px" src="{{ asset("storage/user/" . $user->pro_pic) }}"
+                                    class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
                             @endif
                         </div>
-                        <div class="col-md-6 ">
-                            <a href="{{ route("user.edit", $user->id) }}"
-                                class="float-end btn btn-primary btn-sm mb-3 text-white"><i
-                                    class="fa-solid fa-file-pen"></i>
-                                Edit</a>
+                        <div class="col-md-12">
+                            <div class="card-header d-flex justify-content-between">
+
+                                <h5>{{ $user->name ?? "" }}</h5>
+
+                                <a href="{{ route("user.edit", $user->id) }}" class=" btn btn-primary btn-sm text-white"><i
+                                        class="fa-solid fa-file-pen"></i>
+                                    Edit</a>
+
+                            </div>
                         </div>
+
                     </div>
+
                     <div class="card-body">
-                        <h5 class="card-title">{{ $user->name ?? "" }}</h5>
+
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <p class="card-text"><strong>Username:</strong> {{ $user->username ?? "" }}</p>
@@ -55,7 +62,8 @@
                                 <p class="card-text"><strong>ID type:</strong> {{ $user->id_type ?? "" }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p class="card-text"><strong>Security question 1:</strong> {{ $user->sq_no_1 ?? "" }}</p>
+                                <p class="card-text"><strong>Security question 1:</strong> {{ $user->sq_no_1 ?? "" }}
+                                </p>
                             </div>
                             <div class="col-md-6">
                                 <p class="card-text"><strong>Security question 1 answer:</strong>
@@ -63,7 +71,8 @@
                                 </p>
                             </div>
                             <div class="col-md-6">
-                                <p class="card-text"><strong>Security question 2:</strong> {{ $user->sq_no_2 ?? "" }}</p>
+                                <p class="card-text"><strong>Security question 2:</strong> {{ $user->sq_no_2 ?? "" }}
+                                </p>
                             </div>
                             <div class="col-md-6">
                                 <p class="card-text"><strong>Security question 2
@@ -71,7 +80,8 @@
                                 </p>
                             </div>
                             <div class="col-md-6">
-                                <p class="card-text"><strong>Date of Birth:</strong> {{ $user->date_of_birth ?? "" }}</p>
+                                <p class="card-text"><strong>Date of Birth:</strong> {{ $user->date_of_birth ?? "" }}
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,6 @@
             <a href="{{ route("user.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
                     class="fa-solid fa-plus"></i>
                 Add User</a>
-
         </div>
     @else
         <div class="container">
@@ -44,7 +43,6 @@
                             <td>{{ $user->username ?? "" }}</td>
                             <td>{{ $user->email ?? "" }}</td>
                             <td>{{ $user->phone_no ?? "" }}</td>
-
                             <td>
                                 <a href="{{ route("user.info", $user->id) }}" class="btn btn-info btn-sm text-white">
                                     <i class="fa-solid fa-circle-info"></i> Info</a>

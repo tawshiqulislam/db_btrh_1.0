@@ -12,7 +12,7 @@
     </div><!-- End Page Title -->
 
     <div class="container">
-        <h2>Edit Department</h2>
+
         <form action="{{ route("department.update", $department->id) }}" method="POST">
             @csrf
             <div class="row g-3">

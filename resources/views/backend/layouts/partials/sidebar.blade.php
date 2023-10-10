@@ -3,12 +3,12 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="">
+            <a class="nav-link " href="{{ route("admin.dashboard") }}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
             {{-- user --}}
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
                 href="{{ route("user.index") }}">
                 <i class="fa-solid fa-users"></i><span>User</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -53,8 +53,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_departments" data-bs-toggle="collapse"
                 href="{{ route("department.index") }}">
-                <i class="fa-solid fa-circle-question"></i><span>Department</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                <i class="fa-solid fa-building"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav_departments" class="nav-content collapse " data-bs-parent="#sidebar-nav_departments">
                 <li>
@@ -65,6 +64,29 @@
                 <li>
                     <a href="{{ route("department.create") }}">
                         <i class="bi bi-circle"></i><span>Add Department</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        {{-- departments --}}
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_project_category" data-bs-toggle="collapse"
+                href="{{ route("project_category.index") }}">
+                <i class="fa-solid fa-briefcase"></i><span>Project Category</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_project_category" class="nav-content collapse "
+                data-bs-parent="#sidebar-nav_project_category">
+                <li>
+                    <a href="{{ route("project_category.index") }}">
+                        <i class="bi bi-circle"></i><span>Project Category List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("project_category.create") }}">
+                        <i class="bi bi-circle"></i><span>Add Project Category</span>
                     </a>
                 </li>
             </ul>

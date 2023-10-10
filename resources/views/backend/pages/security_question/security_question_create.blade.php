@@ -11,7 +11,7 @@
         <hr>
     </div><!-- End Page Title -->
     <div class="container">
-        <h2>Add Security Question</h2>
+
         <form action="{{ route("security_question.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
 

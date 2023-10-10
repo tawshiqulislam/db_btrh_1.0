@@ -19,8 +19,14 @@
             <!-- Single security_question Card -->
             <div class="col-md-12 mx-auto">
                 <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 class="card-text">{{ $security_question->name ?? "" }}</h5>
+                        <a href="{{ route("security_question.edit", $security_question->id) }}"
+                            class="btn btn-primary btn-sm text-white">
+                            <i class="fa-solid fa-file-pen"></i> Edit</a>
+                    </div>
                     <div class="card-body">
-                        <p class="card-text mt-3">{{ $security_question->name ?? "" }}</p>
+                        <p>There is no description</p>
                     </div>
                 </div>
             </div>
