@@ -7,7 +7,7 @@
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
-            {{-- user --}}
+            <!--user-->
         <li class="nav-item active">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
                 href="{{ route("user.index") }}">
@@ -27,7 +27,7 @@
             </ul>
         </li>
 
-        {{-- security question --}}
+        <!--security question-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_security_question" data-bs-toggle="collapse"
                 href="{{ route("security_question.index") }}">
@@ -48,7 +48,8 @@
                 </li>
             </ul>
         </li>
-        {{-- departments --}}
+
+        <!--departments-->
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_departments" data-bs-toggle="collapse"
@@ -69,8 +70,7 @@
             </ul>
         </li>
 
-        {{-- departments --}}
-
+        <!--project category-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_project_category" data-bs-toggle="collapse"
                 href="{{ route("project_category.index") }}">
@@ -87,6 +87,27 @@
                 <li>
                     <a href="{{ route("project_category.create") }}">
                         <i class="bi bi-circle"></i><span>Add Project Category</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--project initiation-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_project_initiation" data-bs-toggle="collapse"
+                href="{{ route("project_initiation.index") }}">
+                <i class="fa-brands fa-osi"></i><span>Project Initiation</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_project_initiation" class="nav-content collapse "
+                data-bs-parent="#sidebar-nav_project_initiation">
+                <li>
+                    <a href="{{ route("project_initiation.index") }}">
+                        <i class="bi bi-circle"></i><span>Project Initiation List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("project_initiation.create") }}">
+                        <i class="bi bi-circle"></i><span>Add Project Initiation</span>
                     </a>
                 </li>
             </ul>
