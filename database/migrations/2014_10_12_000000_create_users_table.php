@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('sq_no_2_ans')->nullable(); // Ans 2 for SQ 2
             $table->string('pro_pic')->nullable(); // profile picture
             $table->date('date_of_birth');
+            $table->unsignedBigInteger('verified_by')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken()->nullable;

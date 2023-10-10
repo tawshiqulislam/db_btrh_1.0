@@ -37,7 +37,7 @@ class UserController extends Controller
             'sq_no_1_ans' => ['nullable'],
             'sq_no_2' => ['nullable'],
             'sq_no_2_ans' => ['nullable'],
-            'pro_pic' => ['nullable', 'image', 'max:2048'],
+            'pro_pic' => ['nullable', 'image', 'max:5120'],
             'date_of_birth' => ['nullable'],
             'password' => ['required', 'min:8'],
         ]);
