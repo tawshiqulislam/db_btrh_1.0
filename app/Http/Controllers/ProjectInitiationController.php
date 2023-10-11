@@ -136,7 +136,30 @@ class ProjectInitiationController extends Controller
         $project_initiation = ProjectInitiation::find($id);
         return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation'));
     }
+    //project verification
+    public function verify($id)
+    {
 
+        $this->authorize('super_admin_admin');  //authorization
+        $project_initiation = ProjectInitiation::find($id);
+        $project_initiation->update([
+            'verified_by' => auth()->user()->id,
+        ]);
+        toastr()->success('Project initiation is verified now!', 'Congrats');
+        return redirect()->back();
+    }
+    //project unverification
+    public function unverify($id)
+    {
+
+        $this->authorize('super_admin_admin'); //authorizaiton
+        $project_initiation = ProjectInitiation::find($id);
+        $project_initiation->update([
+            'verified_by' => null,
+        ]);
+        toastr()->warning('Project initiation is unverified now!', 'Warning');
+        return redirect()->back();
+    }
     //file upload function
     public function uploadFile($title, $file)
     {

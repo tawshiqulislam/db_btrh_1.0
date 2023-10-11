@@ -9,6 +9,12 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->authorize('admin');
+    // }
+
     public function index()
     {
         $users = User::paginate(10);

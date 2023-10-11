@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('last_login')->nullable();
             $table->boolean('isVerified')->default(0);
             $table->string('address');
-            $table->string('id_number'); // irth Certificate, NID, Passport (number)
+            $table->string('id_number'); // Birth Certificate, NID, Passport (number)
             $table->string('id_type'); // Birth Certificate, NID, Passport
             $table->string('sq_no_1')->nullable(); // Security Question 1  // another table
             $table->string('sq_no_1_ans')->nullable(); // Ans 1 for SQ 1

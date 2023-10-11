@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        \App\Models\User::create([
             'name' => 'Super Admin',
             'username' => 'super_admin',
             'email' => 'admin@example.com',
@@ -37,6 +37,10 @@ class DatabaseSeeder extends Seeder
             'remember_token' => null,
             'created_at' => now(),
             'updated_at' => now(),
+        ]);
+        \App\Models\AdminList::create([
+            'user_id' => 1,
+            'user_type' => 'super_admin', // or 'admin' depending on the user type
         ]);
     }
 }

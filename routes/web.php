@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProjectCategoryController;
@@ -19,10 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //admin panel
-Route::get('/admin', [BackendController::class, 'admin'])->name('admin.dashboard');
+Route::get('/admin', [BackendController::class, 'admin'])->name('admin.dashboard')->middleware(['auth']);
+
+
+//authentication route
+Route::get('/register', [AuthenticationController::class, 'register'])->name('register');
+Route::post('/register/store', [AuthenticationController::class, 'register_store'])->name('register.store');
+Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
+Route::post('/login/store', [AuthenticationController::class, 'login_store'])->name('login.store');
+Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 //admin security question routes
-Route::prefix('admin/security_question')->group(function () {
+Route::prefix('admin/security_question')->middleware(['auth'])->group(function () {
     Route::get('/index', [SecurityQuestionController::class, 'index'])->name('security_question.index');
     Route::get('/create', [SecurityQuestionController::class, 'create'])->name('security_question.create');
     Route::post('/store', [SecurityQuestionController::class, 'store'])->name('security_question.store');
@@ -33,7 +42,7 @@ Route::prefix('admin/security_question')->group(function () {
 });
 
 //admin user routes
-Route::prefix('admin/user')->group(function () {
+Route::prefix('admin/user')->middleware(['auth'])->group(function () {
     Route::get('/index', [UserController::class, 'index'])->name('user.index');
     Route::get('/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/store', [UserController::class, 'store'])->name('user.store');
@@ -46,7 +55,7 @@ Route::prefix('admin/user')->group(function () {
 });
 
 //admin department routes
-Route::prefix('admin/department')->group(function () {
+Route::prefix('admin/department')->middleware(['auth'])->group(function () {
     Route::get('/index', [DepartmentController::class, 'index'])->name('department.index');
     Route::get('/create', [DepartmentController::class, 'create'])->name('department.create');
     Route::post('/store', [DepartmentController::class, 'store'])->name('department.store');
@@ -57,7 +66,7 @@ Route::prefix('admin/department')->group(function () {
 });
 
 //admin project category routes
-Route::prefix('admin/project_category')->group(function () {
+Route::prefix('admin/project_category')->middleware(['auth'])->group(function () {
     Route::get('/index', [ProjectCategoryController::class, 'index'])->name('project_category.index'); //index page
     Route::get('/create', [ProjectCategoryController::class, 'create'])->name('project_category.create'); //create page
     Route::post('/store', [ProjectCategoryController::class, 'store'])->name('project_category.store'); // store
@@ -68,7 +77,7 @@ Route::prefix('admin/project_category')->group(function () {
 });
 
 //admin project initiation routes
-Route::prefix('admin/project_initiation')->group(function () {
+Route::prefix('admin/project_initiation')->middleware(['auth'])->group(function () {
     Route::get('/index', [ProjectInitiationController::class, 'index'])->name('project_initiation.index'); //index page
     Route::get('/create', [ProjectInitiationController::class, 'create'])->name('project_initiation.create'); //create page
     Route::post('/store', [ProjectInitiationController::class, 'store'])->name('project_initiation.store'); // store
@@ -76,4 +85,6 @@ Route::prefix('admin/project_initiation')->group(function () {
     Route::get('/edit/{id}', [ProjectInitiationController::class, 'edit'])->name('project_initiation.edit'); //edit page
     Route::post('/update/{id}', [ProjectInitiationController::class, 'update'])->name('project_initiation.update'); //update
     Route::get('/info/{id}', [ProjectInitiationController::class, 'info'])->name('project_initiation.info'); //info page
+    Route::get('/verify/{id}', [ProjectInitiationController::class, 'verify'])->name('project_initiation.verify'); //project verification
+    Route::get('/unverify/{id}', [ProjectInitiationController::class, 'unverify'])->name('project_initiation.unverify'); //project unverification
 });
