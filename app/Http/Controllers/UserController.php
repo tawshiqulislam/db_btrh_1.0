@@ -136,6 +136,49 @@ class UserController extends Controller
         $user = User::find($id);
         return view('backend.pages.user.user_info', compact('user'));
     }
+
+    //remove profile picture
+    public function remove_profile_picture($id)
+    {
+        $user =  User::where('id', $id)->first();
+
+
+        if ($user->pro_pic) {
+            $this->unlink($user->pro_pic);
+        }
+        $user->update([
+            'pro_pic' => null
+        ]);
+        toastr()->error('Profile picture deleted!', 'Delete');
+        return redirect()->back();
+    }
+    //upload profile picture
+    public function update_profile_picture(Request $request, $id)
+    {
+        $request->validate([
+
+            'pro_pic' => ['nullable', 'image', 'max:2048'],
+
+        ]);
+
+        $user =  User::find($id);
+
+        $data = $request->except('_token');
+
+
+
+        if ($request->hasFile('pro_pic')) {
+            $user = user::where('id', $id)->first();
+
+            $this->unlink($user->pro_pic);
+
+            $data['pro_pic'] = $this->uploadImage($user->name, $request->pro_pic);
+        }
+        $user->update($data);
+
+        toastr()->success('Profile picture save successfully!', 'Congrats');
+        return redirect()->back();
+    }
     //image function
 
     public function uploadImage($title, $image)

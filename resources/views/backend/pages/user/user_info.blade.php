@@ -19,20 +19,54 @@
             <div class="col-md-12 mx-auto">
                 <div class="card">
                     <div class="row p-2">
+                        <!--cheking profile picture is present or not-->
                         <div class="col-md-6">
                             @if ($user->pro_pic)
-                                <img style="width:200px" src="{{ asset("storage/user/" . $user->pro_pic) }}"
-                                    class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
+                                <div class="row g-2">
+                                    <div class="col-md-12">
+                                        <img style="width:200px" src="{{ asset("storage/user/" . $user->pro_pic) }}"
+                                            class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
+                                    </div>
+
+                                </div>
+                            @else
+                                <div class="row g-2">
+                                    <div class="col-md-12">
+                                        <img style="width:200px" src="{{ asset("image/no_profile_picture.png") }}"
+                                            class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
+                                    </div>
+
+                                </div>
                             @endif
                         </div>
                         <div class="col-md-12">
-                            <div class="card-header d-flex justify-content-between">
+                            <div class="card-header float-end">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @if ($user->pro_pic)
+                                            <button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#profilePictureUpdateModal"
+                                                class="btn btn-sm btn-warning text-white "><i class="fa-solid fa-image"></i>
+                                                Update
+                                                Picture</button>
+                                            <a href="{{ route("user.remove_profile_picture", $user->id) }}"
+                                                class="btn btn-sm btn-danger text-white "><i class="fa-solid fa-minus"></i>
+                                                Remove
+                                                Picture</a>
+                                        @else
+                                            <button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#profilePictureUpdateModal"
+                                                class="btn btn-sm btn-info text-white "><i class="fa-solid fa-image"></i>
+                                                Upload
+                                                Picture</button>
+                                        @endif
 
-                                <h5>{{ $user->name ?? "" }}</h5>
+                                        <a href="{{ route("user.edit", $user->id) }}"
+                                            class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
+                                            Edit Profile</a>
+                                    </div>
 
-                                <a href="{{ route("user.edit", $user->id) }}" class=" btn btn-primary btn-sm text-white"><i
-                                        class="fa-solid fa-file-pen"></i>
-                                    Edit</a>
+                                </div>
 
                             </div>
                         </div>
@@ -41,52 +75,144 @@
 
                     <div class="card-body">
 
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Username:</strong> {{ $user->username ?? "" }}</p>
+                        <div class="row g-2">
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Name
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->name ?? "" }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Username
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->username ?? "" }}
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Email:</strong> {{ $user->email ?? "" }}</p>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Email
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->email ?? "" }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Phone number:</strong> {{ $user->phone_no ?? "" }}</p>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Phone number
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->phone_no ?? "" }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Address:</strong> {{ $user->address ?? "" }}</p>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Address
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->address ?? "" }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>ID Number:</strong> {{ $user->id_number ?? "" }}</p>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        ID Number
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->id_number ?? "" }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>ID type:</strong> {{ $user->id_type ?? "" }}</p>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        ID type
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->id_type ?? "" }}
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Security question 1:</strong> {{ $user->sq_no_1 ?? "" }}
-                                </p>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Security question 1
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->sq_no_1 ?? "" }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Security question 1 answer:</strong>
-                                    {{ $user->sq_no_1_ans ?? "" }}
-                                </p>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Security question 1 answer
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->sq_no_1_ans ?? "" }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Security question 2:</strong> {{ $user->sq_no_2 ?? "" }}
-                                </p>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Security question 2
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->sq_no_2 ?? "" }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Security question 2
-                                        answer:</strong>{{ $user->sq_no_2_ans ?? "" }}
-                                </p>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Security question 2 answer
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->sq_no_2_ans ?? "" }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Date of Birth:</strong> {{ $user->date_of_birth ?? "" }}
-                                </p>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Date of Birth
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->date_of_birth ?? "" }}
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include("includes.profile_picture_modal")
 @endsection

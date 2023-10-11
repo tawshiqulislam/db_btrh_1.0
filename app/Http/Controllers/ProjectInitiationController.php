@@ -132,6 +132,7 @@ class ProjectInitiationController extends Controller
     }
     public function info($id)
     {
+        //find the current data
         $project_initiation = ProjectInitiation::find($id);
         return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation'));
     }

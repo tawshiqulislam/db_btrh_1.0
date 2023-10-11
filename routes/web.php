@@ -41,6 +41,8 @@ Route::prefix('admin/user')->group(function () {
     Route::get('/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::post('/update/{id}', [UserController::class, 'update'])->name('user.update');
     Route::get('/info/{id}', [UserController::class, 'info'])->name('user.info');
+    Route::get('/remove_profile_picture/{id}', [UserController::class, 'remove_profile_picture'])->name('user.remove_profile_picture');
+    Route::post('/update_profile_picture/{id}', [UserController::class, 'update_profile_picture'])->name('user.update_profile_picture');
 });
 
 //admin department routes
