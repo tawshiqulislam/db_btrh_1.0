@@ -12,8 +12,13 @@ class AuthenticationController extends Controller
 {
     public function register()
     {
-        $security_questions = SecurityQuestion::all();
-        return view('authentication.register', compact('security_questions'));
+        //if not logged in user
+        if (!auth()->user()) {
+            $security_questions = SecurityQuestion::all();
+            return view('authentication.register', compact('security_questions'));
+        } else {
+            return redirect()->route('admin.dashboard'); //if logged in user
+        }
     }
     public function register_store(Request $request)
     {
@@ -57,7 +62,12 @@ class AuthenticationController extends Controller
 
     public function login()
     {
-        return view('authentication.login');
+        //if not logged in user
+        if (!auth()->user()) {
+            return view('authentication.login');
+        } else {
+            return redirect()->route('admin.dashboard'); //if logged in user
+        }
     }
 
     public function login_store(Request $request)

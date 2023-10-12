@@ -136,7 +136,15 @@
                             name="sq_no_2_ans">
                     </div>
                 </div>
-
+                <!-- uploaded image -->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="uploaded_image">Your Image:</label><br>
+                        <img style="width: 100px" class="border border-1 p-1" id="uploaded_image" src=""
+                            alt="">
+                    </div>
+                </div>
+                <!-- Profile picture -->
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="pro_pic">Profile Picture:</label>
@@ -146,7 +154,6 @@
                         @endif
                     </div>
                 </div>
-
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="date_of_birth">Date of Birth:</label>
@@ -175,4 +182,5 @@
             </button>
         </form>
     </div>
+    @include("includes.uploaded_image_preview")
 @endsection

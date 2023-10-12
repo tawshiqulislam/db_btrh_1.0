@@ -17,8 +17,19 @@ class ProjectInitiationController extends Controller
         $project_initiations = ProjectInitiation::paginate(10);
         //serial number
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
+        //wheich projects are verified and unverified
+        $verified_project_initiations = ProjectInitiation::whereNotNull('verified_by')->get();
+        $unverified_project_initiations = ProjectInitiation::whereNull('verified_by')->get();
         //return index page
-        return view('backend.pages.project_initiation.project_initiation_index', compact('project_initiations', 'sl'));
+        return view(
+            'backend.pages.project_initiation.project_initiation_index',
+            [
+                'project_initiations' => $project_initiations,
+                'sl' => $sl,
+                'verified_project_initiations' => $verified_project_initiations,
+                'unverified_project_initiations' => $unverified_project_initiations
+            ]
+        );
     }
 
     public function create()
@@ -160,6 +171,22 @@ class ProjectInitiationController extends Controller
         toastr()->warning('Project initiation is unverified now!', 'Warning');
         return redirect()->back();
     }
+    //search method using ajax
+    public function search(Request $request)
+    {
+        $project_initiations = ProjectInitiation::where('name', 'like', '%' . $request->search_string . '%')
+            ->orWhere('description', 'like', '%' . $request->search_string . '%')
+            ->orderBy('id', 'desc')->get();
+        if ($project_initiations->count() >= 1) {
+            return view('backend.pages.project_initiation.project_initiatioin_search', compact('project_initiations'))->render();
+        } else {
+            return response()->json([
+                'status' => 'nothing_found'
+            ]);
+        }
+    }
+
+
     //file upload function
     public function uploadFile($title, $file)
     {

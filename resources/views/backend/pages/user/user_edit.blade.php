@@ -137,7 +137,24 @@
                             class="form-control" id="sq_no_2_ans" name="sq_no_2_ans">
                     </div>
                 </div>
-
+                <!--current picture-->
+                <div class="col-md-12" id="current_image">
+                    <label for="current_image">Current Image:</label><br>
+                    @if ($user->pro_pic)
+                        <img style="width: 100px" class="border border-1 p-1"
+                            src="{{ asset("storage/user/" . $user->image) }}" alt="{{ $user->name }}">
+                    @else
+                        <img style="width: 100px" class="border border-1 p-1" src="{{ asset("image/no_image.png") }}"
+                            alt="no image">
+                    @endif
+                </div>
+                <!-- uploaded image (hidden by default) -->
+                <div class="col-md-12" id="uploaded_image" style="display: none;">
+                    <label for="uploaded_image">Uploaded Image:</label><br>
+                    <img style="width: 100px" class="border border-1 p-1" id="uploaded_image_display" src=""
+                        alt="">
+                </div>
+                <!--profile picture-->
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="pro_pic">Profile Picture:</label>
@@ -173,4 +190,5 @@
             </button>
         </form>
     </div>
+    @include("includes.current_image_uploaded_image_preview")
 @endsection

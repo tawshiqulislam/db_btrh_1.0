@@ -87,4 +87,5 @@ Route::prefix('admin/project_initiation')->middleware(['auth'])->group(function 
     Route::get('/info/{id}', [ProjectInitiationController::class, 'info'])->name('project_initiation.info'); //info page
     Route::get('/verify/{id}', [ProjectInitiationController::class, 'verify'])->name('project_initiation.verify'); //project verification
     Route::get('/unverify/{id}', [ProjectInitiationController::class, 'unverify'])->name('project_initiation.unverify'); //project unverification
+    Route::get('/project_initiation_search', [ProjectInitiationController::class, 'search'])->name('project_initiation.search'); // ajax search
 });
