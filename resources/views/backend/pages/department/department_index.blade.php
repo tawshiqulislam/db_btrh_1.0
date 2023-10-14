@@ -1,5 +1,6 @@
 @extends("backend.layouts.master")
 @section("content")
+
     <div class="pagetitle">
         <h1>Department</h1>
         <nav>
@@ -29,7 +30,8 @@
                     <tr>
                         <th>SL No</th>
                         <th>Department</th>
-                        <th>Total Users</th>
+                        <th>Username</th>
+                        <th>Designation</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -41,9 +43,12 @@
                             <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 {{ $department->name ?? "" }}</td>
                             <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-
+                                {{ $department->user->username ?? "" }}
                             </td>
-                            {{-- {{ $department->users->count() }} --}}
+                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                {{ $department->designation }}
+                            </td>
+
                             <td>
                                 <a href="{{ route("department.info", $department->id) }}"
                                     class="btn btn-info btn-sm text-white">

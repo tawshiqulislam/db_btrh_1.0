@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('user_type'); // super_admin || admin
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

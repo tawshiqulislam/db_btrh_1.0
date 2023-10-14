@@ -175,7 +175,6 @@ class ProjectInitiationController extends Controller
     public function search(Request $request)
     {
         $project_initiations = ProjectInitiation::where('name', 'like', '%' . $request->search_string . '%')
-            ->orWhere('description', 'like', '%' . $request->search_string . '%')
             ->orderBy('id', 'desc')->get();
         if ($project_initiations->count() >= 1) {
             return view('backend.pages.project_initiation.project_initiatioin_search', compact('project_initiations'))->render();

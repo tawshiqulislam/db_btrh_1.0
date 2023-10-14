@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectInitiationController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDetailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,4 +89,15 @@ Route::prefix('admin/project_initiation')->middleware(['auth'])->group(function 
     Route::get('/verify/{id}', [ProjectInitiationController::class, 'verify'])->name('project_initiation.verify'); //project verification
     Route::get('/unverify/{id}', [ProjectInitiationController::class, 'unverify'])->name('project_initiation.unverify'); //project unverification
     Route::get('/project_initiation_search', [ProjectInitiationController::class, 'search'])->name('project_initiation.search'); // ajax search
+});
+
+//admin user detail routes
+Route::prefix('admin/user_detail')->middleware(['auth'])->group(function () {
+    Route::get('/index', [UserDetailController::class, 'index'])->name('user_detail.index'); //index page
+    Route::get('/create', [UserDetailController::class, 'create'])->name('user_detail.create'); //create page
+    Route::post('/store', [UserDetailController::class, 'store'])->name('user_detail.store'); // store
+    Route::get('/delete/{id}', [UserDetailController::class, 'delete'])->name('user_detail.delete'); // delete
+    Route::get('/edit/{id}', [UserDetailController::class, 'edit'])->name('user_detail.edit'); //edit page
+    Route::post('/update/{id}', [UserDetailController::class, 'update'])->name('user_detail.update'); //update
+    Route::get('/info/{id}', [UserDetailController::class, 'info'])->name('user_detail.info'); //info page
 });

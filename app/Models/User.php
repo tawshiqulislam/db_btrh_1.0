@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\AdminList;
 use App\Models\Department;
+use App\Models\UserDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,7 +49,11 @@ class User extends Authenticatable
 
     public function department()
     {
-        return $this->hasMany(Department::class);
+        return $this->hasOne(Department::class);
+    }
+    public function user_details()
+    {
+        return $this->hasMany(UserDetail::class);
     }
 
     //role creation
