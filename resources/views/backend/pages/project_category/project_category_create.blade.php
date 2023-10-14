@@ -2,8 +2,8 @@
 @section("content")
     <!-- Page Title -->
     <div class="pagetitle">
-        <h1>Project Category</h1>
-        <nav>
+        <h1 class="mb-2">Project Category</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route("project_category.index") }}">Project Category</a></li>
                 <li class="breadcrumb-item active">Add Project Category</li>
@@ -13,7 +13,7 @@
     </div>
     <!-- End Page Title -->
     <!-- main container -->
-    <div class="container">
+    <div class="container form_create">
         <form action="{{ route("project_category.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
 

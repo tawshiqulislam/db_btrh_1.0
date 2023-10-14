@@ -1,19 +1,19 @@
-@extends("backend.layouts.master")
-@section("content")
+@extends('backend.layouts.master')
+@section('content')
     <div class="pagetitle">
-        <h1>User</h1>
-        <nav>
+        <h1 class="mb-2">User</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route("user.index") }}">User</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
                 <li class="breadcrumb-item active">Add User</li>
             </ol>
         </nav>
         <hr>
     </div><!-- End Page Title -->
 
-    <div class="container">
+    <div class="container form_create">
 
-        <form action="{{ route("user.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="row g-3">
@@ -22,8 +22,8 @@
                         <label for="userName">Name:</label>
                         <input placeholder="Enter your name" type="text" class="form-control" id="userName"
                             name="name" required>
-                        @if ($errors->has("name"))
-                            <p class="text-danger">{{ $errors->first("name") }}</p>
+                        @if ($errors->has('name'))
+                            <p class="text-danger">{{ $errors->first('name') }}</p>
                         @endif
                     </div>
                 </div>
@@ -33,8 +33,8 @@
                         <label for="user_name">Username:</label>
                         <input placeholder="Enter username" type="text" class="form-control" id="user_name"
                             name="username" required>
-                        @if ($errors->has("username"))
-                            <p class="text-danger">{{ $errors->first("username") }}</p>
+                        @if ($errors->has('username'))
+                            <p class="text-danger">{{ $errors->first('username') }}</p>
                         @endif
                     </div>
                 </div>
@@ -44,8 +44,8 @@
                         <label for="email">Email:</label>
                         <input placeholder="Enter your email" type="email" class="form-control" id="email"
                             name="email" required>
-                        @if ($errors->has("email"))
-                            <p class="text-danger">{{ $errors->first("email") }}</p>
+                        @if ($errors->has('email'))
+                            <p class="text-danger">{{ $errors->first('email') }}</p>
                         @endif
                     </div>
                 </div>
@@ -55,8 +55,8 @@
                         <label for="phone_no">Phone Number:</label>
                         <input placeholder="Enter phone number" type="text" class="form-control" id="phone_no"
                             name="phone_no" required>
-                        @if ($errors->has("phone_no"))
-                            <p class="text-danger">{{ $errors->first("phone_no") }}</p>
+                        @if ($errors->has('phone_no'))
+                            <p class="text-danger">{{ $errors->first('phone_no') }}</p>
                         @endif
                     </div>
                 </div>
@@ -66,8 +66,8 @@
                         <label for="address">Address:</label>
                         <input placeholder="Enter address" type="text" class="form-control" id="address" name="address"
                             required>
-                        @if ($errors->has("address"))
-                            <p class="text-danger">{{ $errors->first("address") }}</p>
+                        @if ($errors->has('address'))
+                            <p class="text-danger">{{ $errors->first('address') }}</p>
                         @endif
                     </div>
                 </div>
@@ -77,8 +77,8 @@
                         <label for="id_number">ID Number(Birth Registration/NID/Passport):</label>
                         <input placeholder="Enter ID number" type="text" class="form-control" id="id_number"
                             name="id_number" required>
-                        @if ($errors->has("id_number"))
-                            <p class="text-danger">{{ $errors->first("id_number") }}</p>
+                        @if ($errors->has('id_number'))
+                            <p class="text-danger">{{ $errors->first('id_number') }}</p>
                         @endif
                     </div>
                 </div>
@@ -91,8 +91,8 @@
                             <option value="NID">NID</option>
                             <option value="Passport">Passport</option>
                         </select>
-                        @if ($errors->has("id_type"))
-                            <p class="text-danger">{{ $errors->first("id_type") }}</p>
+                        @if ($errors->has('id_type'))
+                            <p class="text-danger">{{ $errors->first('id_type') }}</p>
                         @endif
                     </div>
                 </div>
@@ -141,8 +141,8 @@
                     <div class="form-group">
                         <label for="pro_pic">Profile Picture:</label>
                         <input type="file" class="form-control" id="pro_pic" name="pro_pic">
-                        @if ($errors->has("pro_pic"))
-                            <p class="text-danger">{{ $errors->first("pro_pic") }}</p>
+                        @if ($errors->has('pro_pic'))
+                            <p class="text-danger">{{ $errors->first('pro_pic') }}</p>
                         @endif
                     </div>
                 </div>
@@ -151,8 +151,8 @@
                     <div class="form-group">
                         <label for="date_of_birth">Date of Birth:</label>
                         <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
-                        @if ($errors->has("date_of_birth"))
-                            <p class="text-danger">{{ $errors->first("date_of_birth") }}</p>
+                        @if ($errors->has('date_of_birth'))
+                            <p class="text-danger">{{ $errors->first('date_of_birth') }}</p>
                         @endif
                     </div>
                 </div>
@@ -161,15 +161,15 @@
                     <div class="form-group">
                         <label for="password">Password:</label>
                         <input type="password" class="form-control" id="password" name="password" required>
-                        @if ($errors->has("password"))
-                            <p class="text-danger">{{ $errors->first("password") }}</p>
+                        @if ($errors->has('password'))
+                            <p class="text-danger">{{ $errors->first('password') }}</p>
                         @endif
                     </div>
                 </div>
 
             </div>
 
-            <button type="submit" class="btn btn-primary btn-sm mt-3 text-white">
+            <button type="submit" class="btn btn-primary btn-sm mt-3 p-2 text-white">
                 <i class="fa-solid fa-floppy-disk"></i> Save
             </button>
         </form>

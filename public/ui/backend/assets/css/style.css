@@ -481,8 +481,16 @@ h6 {
   max-height: 36px;
 }
 
+.dropdown-menu .dropdown-header img {
+  max-height: 64px;
+}
+
+.dropdown-menu .dropdown-header-profile {
+  gap: 10px;
+}
+
 .header-nav .nav-profile span {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
 }
 
@@ -591,7 +599,9 @@ h6 {
 }
 
 .header-nav .profile .dropdown-item:hover {
-  background-color: #f6f9ff;
+  /* background-color: #f6f9ff; */
+  background-color: #0c4da2;
+  color: white;
 }
 
 /*--------------------------------------------------------------
@@ -664,6 +674,7 @@ h6 {
 .sidebar-nav li {
   padding: 0;
   margin: 0;
+  margin-bottom: 6px;
   list-style: none;
 }
 
@@ -688,7 +699,7 @@ h6 {
   transition: 0.3;
   background: #f6f9ff;
   padding: 10px 15px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .sidebar-nav .nav-link i {
@@ -707,8 +718,8 @@ h6 {
 }
 
 .sidebar-nav .nav-link:hover {
-  color: #4154f1;
-  background: #f6f9ff;
+  color: royalblue;
+  background: #dce7fe;
 }
 
 .sidebar-nav .nav-link:hover i {
@@ -735,22 +746,26 @@ h6 {
   align-items: center;
   font-size: 14px;
   font-weight: 600;
-  color: #012970;
+  /* color: #012970; */
+  color: #0c4da2;
   transition: 0.3;
   padding: 10px 0 10px 40px;
   transition: 0.3s;
+  border-radius: 6px;
 }
 
 .sidebar-nav .nav-content a i {
-  font-size: 6px;
-  margin-right: 8px;
+  font-size: 16px;
+  margin-right: 10px;
   line-height: 0;
   border-radius: 50%;
 }
 
-.sidebar-nav .nav-content a:hover,
-.sidebar-nav .nav-content a.active {
-  color: #4154f1;
+
+.sidebar-nav .nav-content a.active,
+.sidebar-nav .nav-content a:hover {
+  background-color: #0c4da2;
+  color: white;
 }
 
 .sidebar-nav .nav-content a.active i {
@@ -760,6 +775,12 @@ h6 {
 /*--------------------------------------------------------------
 # Dashboard
 --------------------------------------------------------------*/
+/* Security table */
+.table_create .table thead th{
+  background: linear-gradient(360deg,rgb(49,93,159) 0%,rgb(28,60,108) 100%);
+  color: white;
+}
+
 /* Filter dropdown */
 .dashboard .filter {
   position: absolute;
@@ -995,6 +1016,20 @@ h6 {
 }
 
 /*--------------------------------------------------------------
+# User create
+--------------------------------------------------------------*/
+.form_create .form-group label {
+  margin-bottom: 8px;
+  margin-left: 2px;
+  font-weight: 600;
+}
+
+.form_create .form-group .form-control::placeholder {
+  color: rgba(124, 132, 140, 0.75);
+  opacity: 1;
+}
+
+/*--------------------------------------------------------------
 # Profie Page
 --------------------------------------------------------------*/
 .profile .profile-card img {
@@ -1218,6 +1253,9 @@ h6 {
   font-size: 14px;
   transition: all 0.3s;
   border-top: 1px solid #cddfff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
 .footer .copyright {

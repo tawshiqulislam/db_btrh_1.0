@@ -1,10 +1,10 @@
-@extends("backend.layouts.master")
-@section("content")
+@extends('backend.layouts.master')
+@section('content')
     <div class="pagetitle">
-        <h1>Security Question</h1>
-        <nav>
+        <h1 class="mb-2">Security Question</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route("security_question.index") }}">Security Question</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('security_question.index') }}">Security Question</a></li>
                 <li class="breadcrumb-item active">Index</li>
             </ol>
         </nav>
@@ -14,14 +14,14 @@
     @if ($security_questions->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no security question added yet.</h4>
-            <a href="{{ route("security_question.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
+            <a href="{{ route('security_question.create') }}" class="btn btn-primary btn-sm mb-3 text-white"><i
                     class="fa-solid fa-plus"></i>
                 Add Security Question</a>
 
         </div>
     @else
-        <div class="container">
-            <a href="{{ route("security_question.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
+        <div class="container table_create">
+            <a href="{{ route('security_question.create') }}" class="btn btn-primary btn-sm mb-3 text-white"><i
                     class="fa-solid fa-plus"></i>
                 Add Security Question</a>
             <table class="table table-bordered">
@@ -38,23 +38,23 @@
                             <td>{{ ++$sl }}</td>
 
                             <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                {{ $security_question->name ?? "" }}</td>
+                                {{ $security_question->name ?? '' }}</td>
 
                             <td>
-                                <a href="{{ route("security_question.info", $security_question->id) }}"
-                                    class="btn btn-info btn-sm text-white">
+                                <a href="{{ route('security_question.info', $security_question->id) }}"
+                                    class="btn btn-info btn-sm text-white mb-2">
                                     <i class="fa-solid fa-circle-info"></i> Info</a>
-                                <a href="{{ route("security_question.edit", $security_question->id) }}"
-                                    class="btn btn-primary btn-sm text-white">
+                                <a href="{{ route('security_question.edit', $security_question->id) }}"
+                                    class="btn btn-primary btn-sm text-white mb-2">
                                     <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                <a href="{{ route("security_question.delete", $security_question->id) }}"
-                                    class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i> Delete</a>
+                                <a href="{{ route('security_question.delete', $security_question->id) }}"
+                                    class="btn btn-danger btn-sm text-white mb-2"><i class="fa-solid fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            {{ $security_questions->links("pagination::bootstrap-4") }}
+            {{ $security_questions->links('pagination::bootstrap-4') }}
         </div>
     @endif
 

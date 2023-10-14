@@ -1,8 +1,8 @@
 @extends("backend.layouts.master")
 @section("content")
     <div class="pagetitle">
-        <h1>User</h1>
-        <nav>
+        <h1 class="mb-2">User</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route("user.index") }}">User</a></li>
                 <li class="breadcrumb-item active">Index</li>

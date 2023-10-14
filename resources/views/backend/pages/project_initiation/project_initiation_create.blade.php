@@ -3,8 +3,8 @@
 @section("content")
     <!--page title-->
     <div class="pagetitle">
-        <h1>Project Initiation</h1>
-        <nav>
+        <h1 class="mb-2">Project Initiation</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route("project_initiation.index") }}">Project Initiation</a></li>
                 <li class="breadcrumb-item active">Add Project Initiation</li>
@@ -13,7 +13,7 @@
         <hr>
     </div>
     <!--main container-->
-    <div class="container">
+    <div class="container form_create">
 
         <form action="{{ route("project_initiation.store") }}" method="POST" enctype="multipart/form-data">
             @csrf

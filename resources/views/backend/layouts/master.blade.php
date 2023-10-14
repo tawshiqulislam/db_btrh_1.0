@@ -35,7 +35,7 @@
         </main><!-- End #main -->
 
         <!-- ======= Footer ======= -->
-        @include("backend.layouts.partials.footer")
+        {{-- @include("backend.layouts.partials.footer") --}}
         <!-- End Footer -->
 
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
@@ -43,6 +43,7 @@
 
         <!-- Vendor JS Files -->
         @include("backend.layouts.partials.script")
+        @include('backend.layouts.partials.siedebar_script')
     </body>
 
 </html>

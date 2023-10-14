@@ -1,8 +1,8 @@
 @extends("backend.layouts.master")
 @section("content")
     <div class="pagetitle">
-        <h1>Department</h1>
-        <nav>
+        <h1 class="mb-2">Department</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route("department.index") }}">Department</a></li>
                 <li class="breadcrumb-item active">Add Department</li>
@@ -10,7 +10,7 @@
         </nav>
         <hr>
     </div><!-- End Page Title -->
-    <div class="container">
+    <div class="container form_create">
 
         <form action="{{ route("department.store") }}" method="POST">
             @csrf

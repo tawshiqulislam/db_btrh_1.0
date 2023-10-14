@@ -2,8 +2,8 @@
 @section("content")
     <!-- Page Title -->
     <div class="pagetitle">
-        <h1>Project Category</h1>
-        <nav>
+        <h1 class="mb-2">Project Category</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route("project_category.index") }}">Project Category</a></li>
                 <li class="breadcrumb-item active">Index</li>
@@ -23,7 +23,7 @@
         </div>
         <!-- if data are present in project categories table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <a href="{{ route("project_category.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
                     class="fa-solid fa-plus"></i>
                 Add Project Category</a>

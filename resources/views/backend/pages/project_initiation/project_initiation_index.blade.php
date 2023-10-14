@@ -2,8 +2,8 @@
 @section("content")
     <!-- Page Title -->
     <div class="pagetitle">
-        <h1>Project Initiation</h1>
-        <nav>
+        <h1 class="mb-2">Project Initiation</h1>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route("project_initiation.index") }}">Project Initiation</a></li>
                 <li class="breadcrumb-item active">Index</li>
@@ -24,7 +24,7 @@
 
         <!-- if the data are present in project initiations table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
                     class="fa-solid fa-plus"></i>
                 Add Project Initiation</a>
