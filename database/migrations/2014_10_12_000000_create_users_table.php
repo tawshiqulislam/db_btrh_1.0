@@ -32,6 +32,8 @@ return new class extends Migration
             $table->unsignedBigInteger('verified_by')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('user_type');
+
             $table->rememberToken()->nullable;
             $table->timestamps();
         });

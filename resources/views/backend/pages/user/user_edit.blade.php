@@ -183,6 +183,34 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Registration as:</label>
+                        <div class="form-check">
+                            <input value="office" class="form-check-input" type="radio" name="user_type"
+                                id="user_type_office">
+                            <label class="form-check-label" for="user_type_office">User</label>
+                        </div>
+                        <div class="form-check">
+                            <input value="vendor" class="form-check-input" type="radio" name="user_type"
+                                id="user_type_vendor">
+                            <label class="form-check-label" for="user_type_vendor">Vendor</label>
+                        </div>
+                        @if ($errors->has("user_type"))
+                            <p class="text-danger">{{ $errors->first("user_type") }}</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-12" id='document_div' style='display: none'>
+                    <div class="form-group">
+                        <label for="document">Upload Vendor Documents:</label>
+                        <input type="file" class="form-control" id="document" name="document">
+                        @if ($errors->has("document"))
+                            <p class="text-danger">{{ $errors->first("document") }}</p>
+                        @endif
+                    </div>
+                </div>
+
             </div>
 
             <button type="submit" class="btn btn-primary btn-sm mt-3 text-white">
@@ -190,5 +218,6 @@
             </button>
         </form>
     </div>
+    @include("includes.user_create_registration_edit_document_upload")
     @include("includes.current_image_uploaded_image_preview")
 @endsection

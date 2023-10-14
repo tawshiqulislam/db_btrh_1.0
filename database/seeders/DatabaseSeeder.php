@@ -37,9 +37,11 @@ class DatabaseSeeder extends Seeder
             'date_of_birth' => '1990-01-01',
             'email_verified_at' => null,
             'password' => Hash::make('adminpassword'),
+            'user_type' => 'office', //or vendor
             'remember_token' => null,
             'created_at' => now(),
             'updated_at' => now(),
+
         ]);
         \App\Models\AdminList::create([
             'user_id' => 1,
@@ -85,6 +87,7 @@ class DatabaseSeeder extends Seeder
                 'verified_by' => $faker->optional(0.3, null)->numberBetween(1, 10),
                 'email_verified_at' => $faker->boolean(90) ? now() : null, // 90% chance of being verified
                 'password' => Hash::make('password123'), // You can change the default password
+                'user_type' => 'office', //or vendor
             ]);
         }
 

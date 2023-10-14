@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use App\Models\SecurityQuestion;
 use App\Models\User;
 use Exception;
@@ -40,19 +41,36 @@ class AuthenticationController extends Controller
             'pro_pic' => ['nullable', 'image', 'max:5120'],
             'date_of_birth' => ['nullable'],
             'password' => ['required', 'min:8'],
+            'user_type' => ['required'],
+            'document' => ['file', 'max:5120']
         ]);
 
 
 
         try {
-            $data = $request->all();
+            if ($request->document) {
+                $data = $request->except('document');
+            } else {
+                $data = $request->all();
+            }
+
 
             if ($request->pro_pic) {
                 $image = $this->uploadImage($request->name, $request->pro_pic);
                 $data['pro_pic'] = $image;
             }
 
-            User::create($data);
+
+            $user = User::create($data);
+            if ($request->document) {
+
+                $document = $this->uploadImage($request->name, $request->document);
+                Document::create([
+                    'document' => $document,
+                    'user_id' => $user->id
+                ]);
+            }
+
             toastr()->success('Registration successful!', 'Congrats');
             return redirect()->route('login');
         } catch (Exception $e) {

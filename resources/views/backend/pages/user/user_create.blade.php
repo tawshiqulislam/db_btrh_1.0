@@ -101,7 +101,7 @@
                     <div class="form-group">
                         <label for="sq_no_1">Security Question 1:</label>
                         <select name="sq_no_1" id="sq_no_1" class="form-control">
-                            <option selected disabled>Select security question</option>
+                            <option value="">Select security question</option>
                             @foreach ($security_questions as $security_question)
                                 <option value="{{ $security_question->name }}">{{ $security_question->name }}</option>
                             @endforeach
@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label for="sq_no_1">Security Question 2:</label>
                         <select name="sq_no_2" id="sq_no_2" class="form-control">
-                            <option selected disabled>Select security question</option>
+                            <option value="">Select security question</option>
                             @foreach ($security_questions as $security_question)
                                 <option value="{{ $security_question->name }}">{{ $security_question->name }}</option>
                             @endforeach
@@ -137,7 +137,7 @@
                     </div>
                 </div>
                 <!-- uploaded image -->
-                <div class="col-md-12">
+                <div class="col-md-12" style='display:none' id='image_preview_div'>
                     <div class="form-group">
                         <label for="uploaded_image">Your Image:</label><br>
                         <img style="width: 100px" class="border border-1 p-1" id="uploaded_image" src=""
@@ -175,6 +175,34 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Registration as:</label>
+                        <div class="form-check">
+                            <input value="office" class="form-check-input" type="radio" name="user_type"
+                                id="user_type_office">
+                            <label class="form-check-label" for="user_type_office">User</label>
+                        </div>
+                        <div class="form-check">
+                            <input value="vendor" class="form-check-input" type="radio" name="user_type"
+                                id="user_type_vendor">
+                            <label class="form-check-label" for="user_type_vendor">Vendor</label>
+                        </div>
+                        @if ($errors->has("user_type"))
+                            <p class="text-danger">{{ $errors->first("user_type") }}</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-12" id='document_div' style='display: none'>
+                    <div class="form-group">
+                        <label for="document">Upload Vendor Documents:</label>
+                        <input type="file" class="form-control" id="document" name="document">
+                        @if ($errors->has("document"))
+                            <p class="text-danger">{{ $errors->first("document") }}</p>
+                        @endif
+                    </div>
+                </div>
+
             </div>
 
             <button type="submit" class="btn btn-primary btn-sm mt-3 text-white">
@@ -182,5 +210,6 @@
             </button>
         </form>
     </div>
+    @include("includes.user_create_registration_edit_document_upload")
     @include("includes.uploaded_image_preview")
 @endsection

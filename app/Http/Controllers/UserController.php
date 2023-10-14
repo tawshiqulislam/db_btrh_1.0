@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use App\Models\SecurityQuestion;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,6 +32,8 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+
+
         $request->validate([
             'name' => ['required'],
             'username' => ['required', 'unique:users'],
@@ -46,16 +49,32 @@ class UserController extends Controller
             'pro_pic' => ['nullable', 'image', 'max:5120'],
             'date_of_birth' => ['nullable'],
             'password' => ['required', 'min:8'],
+            'user_type' => ['required'],
+            'document' => ['file', 'max:5120']
         ]);
 
-        $data = $request->all();
+        if ($request->document) {
+            $data = $request->except('document');
+        } else {
+            $data = $request->all();
+        }
+
 
         if ($request->pro_pic) {
             $image = $this->uploadImage($request->name, $request->pro_pic);
             $data['pro_pic'] = $image;
         }
 
-        User::create($data);
+
+        $user = User::create($data);
+        if ($request->document) {
+
+            $document = $this->uploadImage($request->name, $request->document);
+            Document::create([
+                'document' => $document,
+                'user_id' => $user->id
+            ]);
+        }
         toastr()->success('User created successfully!', 'Congrats');
         return redirect()->route('user.index');
     }
@@ -63,10 +82,17 @@ class UserController extends Controller
     public function delete($id)
     {
         $user =  User::where('id', $id)->first();
+        // $user_documents = Document::where('id', $id)->get();
 
 
         if ($user->pro_pic) {
             $this->unlink($user->pro_pic);
+        }
+        if ($user->documents) {
+            foreach ($user->documents as $document) {
+                $this->unlink($document->document);
+                $document->delete();
+            }
         }
         $user->delete();
         toastr()->error('User deleted!', 'Delete');
@@ -112,27 +138,35 @@ class UserController extends Controller
             'pro_pic' => ['nullable', 'image', 'max:2048'],
             'date_of_birth' => ['nullable'],
             'password' => ['nullable', 'min:8'],
+            'document' => ['file', 'max:5120']
         ]);
 
         $user =  User::find($id);
-
-        $data = $request->except('_token');
-
+        if ($request->document) {
+            $data = $request->except(['document', '_token']);
+        } else {
+            $data = $request->except('_token');
+        }
 
         if ($request->password == null) {
             $data['password'] = $user->password;
         }
 
-
-
         if ($request->hasFile('pro_pic')) {
-            $user = user::where('id', $id)->first();
 
             $this->unlink($user->pro_pic);
 
             $data['pro_pic'] = $this->uploadImage($request->name, $request->pro_pic);
         }
         $user->update($data);
+
+        if ($request->hasFile('document')) {
+            $user = Document::where('id', $id)->first();
+
+            $this->unlink($user->pro_pic);
+
+            $data['pro_pic'] = $this->uploadImage($request->name, $request->pro_pic);
+        }
 
         toastr()->success('User updated successfully!', 'Congrats');
         return redirect()->route('user.index');

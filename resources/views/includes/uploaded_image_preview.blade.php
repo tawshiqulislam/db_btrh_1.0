@@ -13,6 +13,7 @@
             };
 
             reader.readAsDataURL(fileInput.files[0]);
+            document.getElementById('image_preview_div').style.display = 'block';
         }
     });
 </script>
