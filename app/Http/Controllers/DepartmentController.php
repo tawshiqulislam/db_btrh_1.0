@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminList;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,31 +21,18 @@ class DepartmentController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('backend.pages.department.department_create', compact('users'));
+        $adminlists = AdminList::all();
+        return view('backend.pages.department.department_create', compact('users', 'adminlists'));
     }
 
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => ['required', 'unique:departments'],
+
         ]);
-
-        $user = User::where('email', $request->user_email)->first();
-
-        if ($user) {
-            Department::create([
-                'name' => $request->name,
-                'user_id' => $user->id
-
-            ]);
-        } else {
-            Department::create([
-                'name' => $request->name,
-
-            ]);
-        }
-
-
+        Department::create($request->all());
         toastr()->success('Department created successfully!', 'Congrats');
         return redirect()->route('department.index');
     }
@@ -67,8 +55,12 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = Department::find($id);
+        $user_id = $department->user_id;
+        $select_user = User::where('id', $user_id)->first();
+
         $users = User::all();
-        return view('backend.pages.department.department_edit', compact('department', 'users'));
+        $adminlists = AdminList::all();
+        return view('backend.pages.department.department_edit', compact('department', 'users', 'adminlists', 'select_user'));
     }
     public function update(Request $request, $id)
     {
@@ -77,23 +69,11 @@ class DepartmentController extends Controller
                 'required',
                 Rule::unique('departments')->ignore($id),
             ],
+
         ]);
         $data = $request->except('_token');
-        $user = User::where('email', $request->user_email)->first();
         $department = Department::where('id', $id)->first();
-
-        if ($user) {
-            $department->update([
-                'name' => $request->name,
-                'user_id' => $user->id
-
-            ]);
-        } else {
-            $department->update([
-                'name' => $request->name,
-            ]);
-        }
-
+        $department->update($data);
         toastr()->success('Department updated successfully!', 'Congrats');
         return redirect()->route('department.index');
     }

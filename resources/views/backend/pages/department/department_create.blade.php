@@ -28,14 +28,31 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="user_email">User:</label>
+                        <label for="user_id">User:</label>
                         <div class="row">
                             <div class="col-md-12">
-                                <select name="user_email" id="user_email" class="form-control">
-                                    <option selected disabled>Select User
+                                <select name="user_id" id="user_id" class="form-control">
+                                    <option value="">Select User
                                     </option>
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->email }}">{{ $user->name }}({{ $user->email }})
+                                        <option value="{{ $user->id }}">{{ $user->name }}({{ $user->email }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="designation">Designation:</label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <select name="designation" id="designation" class="form-control">
+                                    <option value="">Select</option>
+                                    @foreach ($adminlists as $adminlist)
+                                        <option value="{{ $adminlist->user_type }}">{{ $adminlist->user_type }}
                                         </option>
                                     @endforeach
                                 </select>

@@ -3,6 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\AdminList;
+use App\Models\Department;
+use App\Models\Document;
+use App\Models\UserDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -39,13 +43,51 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function is_admin()
+    public function admin_list()
     {
         return $this->hasOne(AdminList::class);
     }
 
     public function department()
     {
-        return $this->hasMany(Department::class);
+        return $this->hasOne(Department::class);
+    }
+    public function user_details()
+    {
+        return $this->hasMany(UserDetail::class);
+    }
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
+    //role creation
+    const SUPER_ADMIN = 'super_admin';
+    const ADMIN = 'admin';
+
+
+    public static function isSuperAdmin()
+    {
+        if (auth()->user()->admin_list) {
+            if (auth()->user()->admin_list->user_type == self::SUPER_ADMIN) {
+                return true;
+            }
+        }
+    }
+
+    public static function isAdmin()
+    {
+        if (auth()->user()->admin_list) {
+            if (auth()->user()->admin_list->user_type == self::ADMIN) {
+                return true;
+            }
+        }
+    }
+
+    public static function isUser()
+    {
+        if (!auth()->user()->admin_list) {
+            return true;
+        }
     }
 }

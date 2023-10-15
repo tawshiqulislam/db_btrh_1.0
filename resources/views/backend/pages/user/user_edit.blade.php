@@ -137,7 +137,24 @@
                             class="form-control" id="sq_no_2_ans" name="sq_no_2_ans">
                     </div>
                 </div>
-
+                <!--current picture-->
+                <div class="col-md-12" id="current_image">
+                    <label for="current_image">Current Image:</label><br>
+                    @if ($user->pro_pic)
+                        <img style="width: 100px" class="border border-1 p-1"
+                            src="{{ asset("storage/user/" . $user->image) }}" alt="{{ $user->name }}">
+                    @else
+                        <img style="width: 100px" class="border border-1 p-1" src="{{ asset("image/no_image.png") }}"
+                            alt="no image">
+                    @endif
+                </div>
+                <!-- uploaded image (hidden by default) -->
+                <div class="col-md-12" id="uploaded_image" style="display: none;">
+                    <label for="uploaded_image">Uploaded Image:</label><br>
+                    <img style="width: 100px" class="border border-1 p-1" id="uploaded_image_display" src=""
+                        alt="">
+                </div>
+                <!--profile picture-->
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="pro_pic">Profile Picture:</label>
@@ -166,6 +183,34 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Registration as:</label>
+                        <div class="form-check">
+                            <input value="office" class="form-check-input" type="radio" name="user_type"
+                                id="user_type_office">
+                            <label class="form-check-label" for="user_type_office">User</label>
+                        </div>
+                        <div class="form-check">
+                            <input value="vendor" class="form-check-input" type="radio" name="user_type"
+                                id="user_type_vendor">
+                            <label class="form-check-label" for="user_type_vendor">Vendor</label>
+                        </div>
+                        @if ($errors->has("user_type"))
+                            <p class="text-danger">{{ $errors->first("user_type") }}</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-12" id='document_div' style='display: none'>
+                    <div class="form-group">
+                        <label for="document">Upload Vendor Documents:</label>
+                        <input type="file" class="form-control" id="document" name="document">
+                        @if ($errors->has("document"))
+                            <p class="text-danger">{{ $errors->first("document") }}</p>
+                        @endif
+                    </div>
+                </div>
+
             </div>
 
             <button type="submit" class="btn btn-primary btn-sm mt-3 text-white">
@@ -173,4 +218,6 @@
             </button>
         </form>
     </div>
+    @include("includes.user_create_registration_edit_document_upload")
+    @include("includes.current_image_uploaded_image_preview")
 @endsection

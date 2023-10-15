@@ -26,9 +26,27 @@
 
                                 <h5>{{ $project_initiation->name ?? "" }}</h5>
 
-                                <a href="{{ route("project_initiation.edit", $project_initiation->id) }}"
-                                    class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
-                                    Edit</a>
+                                <div class="button-group">
+                                    <a href="{{ route("project_initiation.edit", $project_initiation->id) }}"
+                                        class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
+                                        Edit</a>
+                                    <!--verify and unverify button-->
+
+                                    @if ($project_initiation->verified_by == null)
+                                        @can("super_admin_admin")
+                                            <a href="{{ route("project_initiation.verify", $project_initiation->id) }}"
+                                                class="btn btn-success btn-sm text-white"><i
+                                                    class="fa-solid fa-certificate"></i>
+                                                Verify</a>
+                                        @endcan
+                                    @else
+                                        @can("super_admin_admin")
+                                            <a href="{{ route("project_initiation.unverify", $project_initiation->id) }}"
+                                                class="btn btn-dark btn-sm text-white"><i class="fa-solid fa-certificate"></i>
+                                                Univerify</a>
+                                        @endcan
+                                    @endif
+                                </div>
 
                             </div>
                         </div>

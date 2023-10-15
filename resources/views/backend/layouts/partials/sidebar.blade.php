@@ -26,7 +26,25 @@
                 </li>
             </ul>
         </li>
-
+        <!--user detail-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_user_detail" data-bs-toggle="collapse"
+                href="{{ route("user_detail.index") }}">
+                <i class="fa-brands fa-osi"></i><span>User Detail</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_user_detail" class="nav-content collapse " data-bs-parent="#sidebar-nav_user_detail">
+                <li>
+                    <a href="{{ route("user_detail.index") }}">
+                        <i class="bi bi-circle"></i><span>User Detail List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("user_detail.create") }}">
+                        <i class="bi bi-circle"></i><span>Add User Detail</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <!--security question-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_security_question" data-bs-toggle="collapse"
