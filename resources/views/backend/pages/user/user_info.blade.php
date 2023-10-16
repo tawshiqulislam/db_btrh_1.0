@@ -24,16 +24,14 @@
                             @if ($user->pro_pic)
                                 <div class="row g-2">
                                     <div class="col-md-12">
-                                        <img style="width:200px" src="{{ asset("storage/user/" . $user->pro_pic) }}"
-                                            class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
+                                        <img style="width:200px" src="{{ asset("storage/user/" . $user->pro_pic) }}" class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
                                     </div>
 
                                 </div>
                             @else
                                 <div class="row g-2">
                                     <div class="col-md-12">
-                                        <img style="width:200px" src="{{ asset("image/no_profile_picture.png") }}"
-                                            class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
+                                        <img style="width:200px" src="{{ asset("image/no_profile_picture.png") }}" class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
                                     </div>
 
                                 </div>
@@ -44,25 +42,21 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         @if ($user->pro_pic)
-                                            <button type="button" data-bs-toggle="modal"
-                                                data-bs-target="#profilePictureUpdateModal"
-                                                class="btn btn-sm btn-warning text-white "><i class="fa-solid fa-image"></i>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-warning text-white "><i class="fa-solid fa-image"></i>
                                                 Update
                                                 Picture</button>
-                                            <a href="{{ route("user.remove_profile_picture", $user->id) }}"
-                                                class="btn btn-sm btn-danger text-white "><i class="fa-solid fa-minus"></i>
+                                            <a href="{{ route("user.remove_profile_picture", $user->id) }}" class="btn btn-sm btn-danger text-white "><i class="fa-solid fa-minus"></i>
                                                 Remove
                                                 Picture</a>
                                         @else
-                                            <button type="button" data-bs-toggle="modal"
-                                                data-bs-target="#profilePictureUpdateModal"
-                                                class="btn btn-sm btn-info text-white "><i class="fa-solid fa-image"></i>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-info text-white "><i class="fa-solid fa-image"></i>
                                                 Upload
                                                 Picture</button>
                                         @endif
 
-                                        <a href="{{ route("user.edit", $user->id) }}"
-                                            class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
+                                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#documentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
+
+                                        <a href="{{ route("user.edit", $user->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                             Edit Profile</a>
                                     </div>
 
@@ -207,6 +201,47 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        User Type
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->user_type ?? "" }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        Documents:
+                                    </div>
+
+                                    <div class="col-12">
+                                        @if (!$user->documents->count() == 0)
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Document</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach ($user->documents as $document)
+                                                        <tr>
+                                                            <td><a target="_blank" href="{{ asset("storage/document/" . $document->document) }}">{{ $document->document ?? "" }}</a></td>
+                                                            <td> <a target="_blank" href="{{ asset("storage/document/" . $document->document) }}" class="btn btn-sm btn-primary text-white"><i class="fa-solid fa-eye"></i> View</a></td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            There are no documents
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -215,4 +250,5 @@
         </div>
     </div>
     @include("includes.profile_picture_modal")
+    @include("includes.upload_document_modal")
 @endsection

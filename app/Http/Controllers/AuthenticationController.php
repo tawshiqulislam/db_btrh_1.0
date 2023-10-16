@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FileDocuments;
 use App\Models\Document;
 use App\Models\SecurityQuestion;
 use App\Models\User;
@@ -64,7 +65,7 @@ class AuthenticationController extends Controller
             $user = User::create($data);
             if ($request->document) {
 
-                $document = $this->uploadImage($request->name, $request->document);
+                $document = FileDocuments::uploadDocument($request->name, $request->document);
                 Document::create([
                     'document' => $document,
                     'user_id' => $user->id

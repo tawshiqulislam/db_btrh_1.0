@@ -48,9 +48,9 @@ class DatabaseSeeder extends Seeder
             'user_type' => 'super_admin', // or 'admin' depending on the user type
         ]);
         //random adminlist creation
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             DB::table('admin_lists')->insert([
-                'user_id' => $faker->numberBetween(2, 15), // Replace with an appropriate range
+                'user_id' => $faker->numberBetween(2, 5), // Replace with an appropriate range
                 'user_type' => $faker->randomElement(['super_admin', 'admin']),
             ]);
         }
@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
 
         ]);
         //random user creation
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'username' => $faker->unique()->userName,
@@ -82,19 +82,19 @@ class DatabaseSeeder extends Seeder
                 'sq_no_1_ans' => $faker->optional(0.2, null)->sentence,
                 'sq_no_2' => $faker->optional(0.2, null)->sentence,
                 'sq_no_2_ans' => $faker->optional(0.2, null)->sentence,
-                'pro_pic' => $faker->optional(0.5, null)->imageUrl(200, 200, 'people'),
+                'pro_pic' =>  $faker->word . '.jpg',
                 'date_of_birth' => $faker->date,
-                'verified_by' => $faker->optional(0.3, null)->numberBetween(1, 10),
+                'verified_by' => $faker->optional(0.3, null)->numberBetween(1, 5),
                 'email_verified_at' => $faker->boolean(90) ? now() : null, // 90% chance of being verified
-                'password' => Hash::make('password123'), // You can change the default password
-                'user_type' => 'office', //or vendor
+                'password' => Hash::make('123456789'), // You can change the default password
+                'user_type' => $faker->randomElement(['office', 'vendor']), //or vendor
             ]);
         }
 
         //project category
         $data = [];
 
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $data[] = [
                 'name' => $faker->sentence,
                 'description' => $faker->paragraph,
@@ -104,10 +104,10 @@ class DatabaseSeeder extends Seeder
         DB::table('project_categories')->insert($data);
 
         //project initiation
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $verifiedBy = $faker->boolean ? 1 : null;
             DB::table('project_initiations')->insert([
-                'project_category_id' => $faker->numberBetween(1, 15),
+                'project_category_id' => $faker->numberBetween(1, 5),
                 'name' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'goal' => $faker->paragraph,
@@ -117,10 +117,10 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         //department
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             DB::table('departments')->insert([
                 'name' => $faker->word,
-                'user_id' => $faker->boolean(50) ? $faker->numberBetween(2, 15) : null, // 30% chance of having a user_id
+                'user_id' => $faker->boolean(50) ? $faker->numberBetween(2, 5) : null, // 30% chance of having a user_id
                 'designation' => $faker->optional(0.5, null)->word, // 30% chance of having a designation
             ]);
         }

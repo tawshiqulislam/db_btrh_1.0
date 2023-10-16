@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FileDocuments;
 use App\Models\Document;
 use App\Models\SecurityQuestion;
 use App\Models\User;
@@ -69,7 +70,7 @@ class UserController extends Controller
         $user = User::create($data);
         if ($request->document) {
 
-            $document = $this->uploadImage($request->name, $request->document);
+            $document = FileDocuments::uploadDocument($request->name, $request->document);
             Document::create([
                 'document' => $document,
                 'user_id' => $user->id
@@ -88,12 +89,15 @@ class UserController extends Controller
         if ($user->pro_pic) {
             $this->unlink($user->pro_pic);
         }
-        if ($user->documents) {
-            foreach ($user->documents as $document) {
-                $this->unlink($document->document);
+
+        $documents = Document::where('user_id', $id)->get();
+        if ($documents) {
+            foreach ($documents as $document) {
+                FileDocuments::unlinkDocument($document->document);
                 $document->delete();
             }
         }
+
         $user->delete();
         toastr()->error('User deleted!', 'Delete');
         return redirect()->back();
@@ -230,6 +234,8 @@ class UserController extends Controller
 
         return $file_name;
     }
+
+
 
     private function unlink($image)
     {

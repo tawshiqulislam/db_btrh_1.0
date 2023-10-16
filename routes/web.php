@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectInitiationController;
 use App\Http\Controllers\SecurityQuestionController;
@@ -100,4 +101,10 @@ Route::prefix('admin/user_detail')->middleware(['auth'])->group(function () {
     Route::get('/edit/{id}', [UserDetailController::class, 'edit'])->name('user_detail.edit'); //edit page
     Route::post('/update/{id}', [UserDetailController::class, 'update'])->name('user_detail.update'); //update
     Route::get('/info/{id}', [UserDetailController::class, 'info'])->name('user_detail.info'); //info page
+});
+//upload document routes
+Route::prefix('upload_document')->middleware(['auth'])->group(function () {
+
+    Route::post('/store/{id}', [DocumentController::class, 'store'])->name('upload_document.store'); // store
+
 });
