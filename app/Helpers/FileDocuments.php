@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 class FileDocuments
 {
+    //documnet upload
     public static function uploadDocument($title, $image)
     {
 
@@ -13,6 +14,7 @@ class FileDocuments
 
         return $file_name;
     }
+    //document unlink before update and delete
     public static function unlinkDocument($image)
     {
         $pathToUpload = storage_path() . '/app/public/document/';
