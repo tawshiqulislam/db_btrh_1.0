@@ -11,6 +11,13 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'keyword' => 'unique:documents,keyword',
+
+        ], [
+            'keyword.unique' => "Upload Failed! The keyword is already in use. Please use unique keyword",
+
+        ]);
 
         // foreach ($request->file('documents') as $document) {
         //     if ($document) {
@@ -22,7 +29,7 @@ class DocumentController extends Controller
         //         ]);
         //     }
         // }
-        $uploadedDocument = $this->uploadImage($request->keyword, $request->document);
+        $uploadedDocument = FileDocuments::uploadDocument($request->keyword, $request->document);
         Document::create([
             'user_id' => auth()->user()->id,
             'keyword' => $request->keyword,
@@ -36,18 +43,22 @@ class DocumentController extends Controller
     {
 
         $document = Document::find($id);
-        FileDocuments::unlinkDocument($document->document);
         $document->delete();
         toastr()->success('Documents deleted successfully!', 'Congrats');
         return redirect()->back();
     }
-    public function uploadImage($title, $image)
+
+    public function update(Request $request, $id)
     {
-
-        $file_name = time() . '-' . $title . '.' . $image->getClientOriginalExtension();
-
-        $image->move('storage/document', $file_name);
-
-        return $file_name;
+        $document = Document::find($id);
+        $data = $request->except('_token');
+        if ($request->hasFile('document')) {
+            // Handle profile picture upload and update
+            FileDocuments::unlinkDocument($document->document);
+            $data['document'] = FileDocuments::uploadDocument($request->keyword, $request->document);
+        }
+        $document->update($data);
+        toastr()->success('Documents updated successfully!', 'Congrats');
+        return redirect()->back();
     }
 }

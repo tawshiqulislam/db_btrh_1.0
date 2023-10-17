@@ -16,7 +16,7 @@ class ProjectDocumentController extends Controller
             'keyword' => 'unique:project_documents,keyword',
 
         ], [
-            'keyword.unique' => 'The keyword is already in use. Please use unique keyword',
+            'keyword.unique' => "Upload Failed! The keyword is already in use. Please use unique keyword",
 
         ]);
 
