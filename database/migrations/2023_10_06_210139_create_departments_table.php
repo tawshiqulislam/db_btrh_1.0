@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('designation')->nullable();
+            $table->softDeletes();
             $table->timestamps();
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });

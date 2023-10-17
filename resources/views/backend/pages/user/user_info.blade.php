@@ -231,7 +231,15 @@
                                                     @foreach ($user->documents as $document)
                                                         <tr>
                                                             <td><a target="_blank" href="{{ asset("storage/document/" . $document->document) }}">{{ $document->document ?? "" }}</a></td>
-                                                            <td> <a target="_blank" href="{{ asset("storage/document/" . $document->document) }}" class="btn btn-sm btn-primary text-white"><i class="fa-solid fa-eye"></i> View</a></td>
+                                                            <td>
+                                                                <a target="_blank" href="{{ asset("storage/document/" . $document->document) }}" class="btn btn-sm btn-primary text-white"><i class="fa-solid fa-eye"></i> View</a>
+                                                                <a data-bs-toggle="modal" data-bs-target="#updateDocumentModal" class="btn btn-warning text-white btn-sm me-1 editBtn">
+                                                                    <i class="fa-solid fa-file-pen"></i> Update
+                                                                </a>
+
+                                                                <a href="{{ route("document.delete", $document->id) }}" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i>
+                                                                    Delete</a>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -249,6 +257,9 @@
             </div>
         </div>
     </div>
+
     @include("includes.profile_picture_modal")
     @include("includes.upload_document_modal")
+    @include("includes.edit_document_modal")
+
 @endsection

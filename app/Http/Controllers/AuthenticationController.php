@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\FileDocuments;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\Document;
 use App\Models\SecurityQuestion;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
@@ -22,31 +23,8 @@ class AuthenticationController extends Controller
             return redirect()->route('admin.dashboard'); //if logged in user
         }
     }
-    public function register_store(Request $request)
+    public function register_store(RegisterRequest $request)
     {
-
-        // dd($request->all());
-
-        $request->validate([
-            'name' => ['required'],
-            'username' => ['required', 'unique:users'],
-            'email' => ['required', 'email', 'unique:users'],
-            'phone_no' => ['required', 'max:20', 'unique:users'],
-            'address' => ['required'],
-            'id_number' => ['required', 'unique:users'],
-            'id_type' => ['required'],
-            'sq_no_1' => ['nullable'],
-            'sq_no_1_ans' => ['nullable'],
-            'sq_no_2' => ['nullable'],
-            'sq_no_2_ans' => ['nullable'],
-            'pro_pic' => ['nullable', 'image', 'max:5120'],
-            'date_of_birth' => ['nullable'],
-            'password' => ['required', 'min:8'],
-            'user_type' => ['required'],
-            'document' => ['file', 'max:5120']
-        ]);
-
-
 
         try {
             if ($request->document) {
@@ -83,20 +61,14 @@ class AuthenticationController extends Controller
     {
         //if not logged in user
         if (!auth()->user()) {
-            return view('authentication.login');
+            return view('authentication.login'); //if not logged in user
         } else {
             return redirect()->route('admin.dashboard'); //if logged in user
         }
     }
 
-    public function login_store(Request $request)
+    public function login_store(LoginRequest $request)
     {
-        $request->validate([
-
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:8'],
-        ]);
-
 
         try {
             if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {

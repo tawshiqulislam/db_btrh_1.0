@@ -2,13 +2,16 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Str;
+
 class FileDocuments
 {
     //documnet upload
     public static function uploadDocument($title, $image)
     {
+        $uuid = Str::random(12);
 
-        $file_name = time() . '-' . $title . '.' . $image->getClientOriginalExtension();
+        $file_name = $uuid . '-' . $title . '.' . $image->getClientOriginalExtension();
 
         $image->move('storage/document', $file_name);
 

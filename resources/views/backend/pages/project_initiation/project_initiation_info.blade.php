@@ -13,8 +13,7 @@
     </div>
     <!-- main container -->
     <div class="container">
-        <a href="{{ route("project_initiation.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                class="fa-solid fa-backward"></i>
+        <a href="{{ route("project_initiation.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
             Back</a>
         <div class="row">
             <!-- Single project_initiation Card -->
@@ -27,25 +26,23 @@
                                 <h5>{{ $project_initiation->name ?? "" }}</h5>
 
                                 <div class="button-group">
-                                    <a href="{{ route("project_initiation.edit", $project_initiation->id) }}"
-                                        class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
+                                    <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                         Edit</a>
                                     <!--verify and unverify button-->
 
                                     @if ($project_initiation->verified_by == null)
                                         @can("super_admin_admin")
-                                            <a href="{{ route("project_initiation.verify", $project_initiation->id) }}"
-                                                class="btn btn-success btn-sm text-white"><i
-                                                    class="fa-solid fa-certificate"></i>
+                                            <a href="{{ route("project_initiation.verify", $project_initiation->id) }}" class="btn btn-success btn-sm text-white"><i class="fa-solid fa-certificate"></i>
                                                 Verify</a>
                                         @endcan
                                     @else
                                         @can("super_admin_admin")
-                                            <a href="{{ route("project_initiation.unverify", $project_initiation->id) }}"
-                                                class="btn btn-dark btn-sm text-white"><i class="fa-solid fa-certificate"></i>
+                                            <a href="{{ route("project_initiation.unverify", $project_initiation->id) }}" class="btn btn-dark btn-sm text-white"><i class="fa-solid fa-certificate"></i>
                                                 Univerify</a>
                                         @endcan
                                     @endif
+
+                                    <button class="btn btn-warning text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
                                 </div>
 
                             </div>
@@ -77,16 +74,56 @@
 
                             @if ($project_initiation->required_file)
                                 <div class="col-md-12">
-                                    <p class="card-text"><strong>Required File:</strong> <a target="_blank"
-                                            href="{{ asset("storage/project_initiation/" . $project_initiation->required_file) }}">{{ $project_initiation->required_file }}</a>
+                                    <p class="card-text"><strong>Required File:</strong> <a target="_blank" href="{{ asset("storage/project_initiation/" . $project_initiation->required_file) }}">{{ $project_initiation->required_file }}</a>
                                     </p>
 
                                 </div>
                             @endif
+                            <!--project documents-->
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong> Project Documents:</strong>
+                                    </div>
+
+                                    <div class="col-12">
+                                        @if (!$project_initiation->project_documents->count() == 0)
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th> Document Name</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach ($project_initiation->project_documents as $project_document)
+                                                        <tr>
+                                                            <td><a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}">{{ $project_document->document ?? "" }}</a></td>
+                                                            <td>
+                                                                <a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}" class="btn btn-sm btn-primary text-white"><i class="fa-solid fa-eye"></i> View</a>
+                                                                <a data-bs-toggle="modal" data-bs-target="#updateDocumentModal" class="btn btn-warning text-white btn-sm me-1 editBtn">
+                                                                    <i class="fa-solid fa-file-pen"></i> Update
+                                                                </a>
+
+                                                                <a href="{{ route("project_document.delete", $project_document->id) }}" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i>
+                                                                    Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            There are no project documents
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include("includes.upload_project_document_modal")
 @endsection

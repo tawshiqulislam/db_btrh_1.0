@@ -5,6 +5,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProjectCategoryController;
+use App\Http\Controllers\ProjectDocumentController;
 use App\Http\Controllers\ProjectInitiationController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\UserController;
@@ -103,8 +104,17 @@ Route::prefix('admin/user_detail')->middleware(['auth'])->group(function () {
     Route::get('/info/{id}', [UserDetailController::class, 'info'])->name('user_detail.info'); //info page
 });
 //upload document routes
-Route::prefix('upload_document')->middleware(['auth'])->group(function () {
+Route::prefix('document')->middleware(['auth'])->group(function () {
+    Route::post('/store', [DocumentController::class, 'store'])->name('document.store'); // store
+    Route::post('/update/{id}', [DocumentController::class, 'update'])->name('document.update'); // update
+    Route::get('/delete/{id}', [DocumentController::class, 'delete'])->name('document.delete'); // update
 
-    Route::post('/store/{id}', [DocumentController::class, 'store'])->name('upload_document.store'); // store
+});
+
+//upload project document routes
+Route::prefix('project_document')->middleware(['auth'])->group(function () {
+    Route::post('/store/{id}', [ProjectDocumentController::class, 'store'])->name('project_document.store'); // store
+    // Route::post('/update/{id}', [ProjectDocumentController::class, 'update'])->name('project_document.update'); // update
+    Route::get('/delete/{id}', [ProjectDocumentController::class, 'delete'])->name('project_document.delete'); // delete
 
 });

@@ -2,29 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FileDocuments;
 use App\Models\Document;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $user = User::find($id);
 
-        foreach ($request->file('documents') as $document) {
-            if ($document) {
-                $uploadedDocument = $this->uploadImage($user->name, $document);
-                Document::create([
-                    'user_id' => $id,
-                    'document' => $uploadedDocument,
-                ]);
-            }
-        }
+
+        // foreach ($request->file('documents') as $document) {
+        //     if ($document) {
+        //         $uuid = Str::uuid();
+        //         $uploadedDocument = $this->uploadImage($uuid, $document);
+        //         Document::create([
+        //             'user_id' => $id,
+        //             'document' => $uploadedDocument,
+        //         ]);
+        //     }
+        // }
+        $uploadedDocument = $this->uploadImage($request->keyword, $request->document);
+        Document::create([
+            'user_id' => auth()->user()->id,
+            'keyword' => $request->keyword,
+            'document' => $uploadedDocument,
+        ]);
         toastr()->success('Documents uploaded successfully!', 'Congrats');
         return redirect()->back();
     }
 
+    public function delete($id)
+    {
+
+        $document = Document::find($id);
+        FileDocuments::unlinkDocument($document->document);
+        $document->delete();
+        toastr()->success('Documents deleted successfully!', 'Congrats');
+        return redirect()->back();
+    }
     public function uploadImage($title, $image)
     {
 

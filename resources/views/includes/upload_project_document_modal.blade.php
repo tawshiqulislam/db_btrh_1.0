@@ -1,18 +1,29 @@
+@include("includes.toastr_script")
 <!-- Modal -->
-<div class="modal fade" id="documentModal" tabindex="-1" aria-labelledby="documentModalLabel" aria-hidden="true">
-    <form action="{{ route("document.store", auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
+
+<div class="modal fade" id="projectDocumentModal" tabindex="-1" aria-labelledby="projectDocumentModalLabel" aria-hidden="true">
+    <form action="{{ route("project_document.store", $project_initiation->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="documentModalLabel">Upload Documents</h5>
+                    <h5 class="modal-title" id="projectDocumentModalLabel">Upload Project Documents</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="file-inputs-container">
                         <label for="keyword">Keyword:</label>
-                        <input placeholder="Enter Keyword" type="text" name="keyword" class="form-control mb-3" id="keyword">
-                        <input type="file" name="document" class="form-control mb-3" id="document">
+                        <input placeholder="Enter Keyword" type="text" name="keyword" class="form-control mb-3" id="keyword" required>
+                        @if ($errors->any())
+                            <script>
+                                $(document).ready(function() {
+                                    @foreach ($errors->all() as $error)
+                                        toastr.error("{{ $error }}");
+                                    @endforeach
+                                });
+                            </script>
+                        @endif
+                        <input type="file" name="document" class="form-control mb-3" id="document" required>
                     </div>
                     {{-- <a type="button" class="btn btn-primary btn-sm" id="add-more">Add More</a>
                     <a type="button" class="btn btn-danger btn-sm" id="remove-last">Remove</a> --}}

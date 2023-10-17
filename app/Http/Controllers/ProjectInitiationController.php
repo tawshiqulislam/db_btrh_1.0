@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProjectCategory;
+use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -72,12 +73,11 @@ class ProjectInitiationController extends Controller
     {
         //find the current data
         $project_initiation =  ProjectInitiation::where('id', $id)->first();
-
-        //if there is any file is present in current data
-        if ($project_initiation->required_file) {
-            $this->unlink($project_initiation->required_file);
+        $project_documents = ProjectDocument::where('project_initiation_id', $project_initiation->id)->get();
+        foreach ($project_documents as $project_document) {
+            $project_document->delete();
         }
-        //delete the data
+        //soft delete the data
         $project_initiation->delete();
         //error message
         toastr()->error('Project initiation deleted!', 'Delete');
