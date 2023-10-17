@@ -12,13 +12,13 @@ class ProjectDocumentController extends Controller
     public function store(Request $request, $id)
     {
 
-        $request->validate([
-            'keyword' => 'unique:project_documents,keyword',
-
-        ], [
-            'keyword.unique' => "Upload Failed! The keyword is already in use. Please use unique keyword",
-
-        ]);
+        // $request->validate([
+        //     'keyword' => [
+        //         Rule::unique('project_documents', 'keyword')->where('project_initiation_id', $id),
+        //     ],
+        // ], [
+        //     'keyword.unique' => "Upload Failed! The keyword is already in use. Please use a unique keyword",
+        // ]);
 
         $project_initiation = ProjectInitiation::where('id', $id)->first();
         $uploadedDocument = FileDocuments::uploadDocument($request->keyword, $request->document);
@@ -38,6 +38,29 @@ class ProjectDocumentController extends Controller
         $document = ProjectDocument::find($id);
         $document->delete();
         toastr()->success('Documents deleted successfully!', 'Congrats');
+        return redirect()->back();
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        // $request->validate([
+        //     'keyword' => [
+        //         Rule::unique('project_documents')->ignore($id),
+        //     ],
+        // ], [
+        //     'keyword.unique' => "Upload Failed! The keyword is already in use. Please use a unique keyword",
+        // ]);
+
+        $project_document = ProjectDocument::find($id);
+        $data = $request->except('_token');
+        if ($request->hasFile('document')) {
+            // Handle profile picture upload and update
+            FileDocuments::unlinkDocument($project_document->document);
+            $data['document'] = FileDocuments::uploadDocument($request->keyword, $request->document);
+        }
+        $project_document->update($data);
+        toastr()->success('Project documents updated successfully!', 'Congrats');
         return redirect()->back();
     }
 }

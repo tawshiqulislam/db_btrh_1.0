@@ -1,4 +1,4 @@
-@include("includes.toastr_script")
+{{-- @include("includes.toastr_script") --}}
 <!-- Modal -->
 
 <div class="modal fade" id="projectDocumentModal" tabindex="-1" aria-labelledby="projectDocumentModalLabel" aria-hidden="true">
@@ -14,7 +14,7 @@
                     <div id="file-inputs-container">
                         <label for="keyword">Keyword:</label>
                         <input placeholder="Enter Keyword" type="text" name="keyword" class="form-control mb-3" id="keyword" required>
-                        @if ($errors->any())
+                        {{-- @if ($errors->any())
                             <script>
                                 $(document).ready(function() {
                                     @foreach ($errors->all() as $error)
@@ -22,7 +22,7 @@
                                     @endforeach
                                 });
                             </script>
-                        @endif
+                        @endif --}}
                         <input type="file" name="document" class="form-control mb-3" id="document" required>
                     </div>
                     {{-- <a type="button" class="btn btn-primary btn-sm" id="add-more">Add More</a>

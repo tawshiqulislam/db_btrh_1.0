@@ -103,7 +103,7 @@ Route::prefix('admin/user_detail')->middleware(['auth'])->group(function () {
     Route::post('/update/{id}', [UserDetailController::class, 'update'])->name('user_detail.update'); //update
     Route::get('/info/{id}', [UserDetailController::class, 'info'])->name('user_detail.info'); //info page
 });
-//upload document routes
+//upload user document routes
 Route::prefix('document')->middleware(['auth'])->group(function () {
     Route::post('/store', [DocumentController::class, 'store'])->name('document.store'); // store
     Route::post('/update/{id}', [DocumentController::class, 'update'])->name('document.update'); // update
@@ -114,7 +114,7 @@ Route::prefix('document')->middleware(['auth'])->group(function () {
 //upload project document routes
 Route::prefix('project_document')->middleware(['auth'])->group(function () {
     Route::post('/store/{id}', [ProjectDocumentController::class, 'store'])->name('project_document.store'); // store
-    // Route::post('/update/{id}', [ProjectDocumentController::class, 'update'])->name('project_document.update'); // update
+    Route::post('/update/{id}', [ProjectDocumentController::class, 'update'])->name('project_document.update'); // update
     Route::get('/delete/{id}', [ProjectDocumentController::class, 'delete'])->name('project_document.delete'); // delete
 
 });

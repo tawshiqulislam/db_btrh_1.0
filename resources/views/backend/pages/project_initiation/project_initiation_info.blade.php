@@ -102,7 +102,7 @@
                                                             <td><a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}">{{ $project_document->document ?? "" }}</a></td>
                                                             <td>
                                                                 <a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}" class="btn btn-sm btn-primary text-white"><i class="fa-solid fa-eye"></i> View</a>
-                                                                <a data-bs-toggle="modal" data-bs-target="#updateDocumentModal" class="btn btn-warning text-white btn-sm me-1 editBtn">
+                                                                <a data-bs-toggle="modal" data-bs-target="#updateProjectDocumentModal_{{ $project_document->id }}" class="btn btn-warning text-white btn-sm me-1 editBtn">
                                                                     <i class="fa-solid fa-file-pen"></i> Update
                                                                 </a>
 
@@ -126,4 +126,5 @@
         </div>
     </div>
     @include("includes.upload_project_document_modal")
+    @include("includes.edit_project_document_modal")
 @endsection

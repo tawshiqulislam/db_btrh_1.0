@@ -11,13 +11,11 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'keyword' => 'unique:documents,keyword',
-
-        ], [
-            'keyword.unique' => "Upload Failed! The keyword is already in use. Please use unique keyword",
-
-        ]);
+        // $request->validate([
+        //     'keyword' => 'unique:documents,keyword,NULL,id,user_id,' . Auth::id(),
+        // ], [
+        //     'keyword.unique' => "Upload Failed! The keyword is already in use. Please use a unique keyword",
+        // ]);
 
         // foreach ($request->file('documents') as $document) {
         //     if ($document) {
@@ -50,6 +48,15 @@ class DocumentController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        // $request->validate([
+        //     'keyword' => [
+        //         Rule::unique('documents')->ignore($id),
+        //     ],
+        // ], [
+        //     'keyword.unique' => "Upload Failed! The keyword is already in use. Please use a unique keyword",
+        // ]);
+
         $document = Document::find($id);
         $data = $request->except('_token');
         if ($request->hasFile('document')) {
