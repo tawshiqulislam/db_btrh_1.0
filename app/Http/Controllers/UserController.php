@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FileDocuments;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\Document;
 use App\Models\SecurityQuestion;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -30,28 +32,8 @@ class UserController extends Controller
         return view('backend.pages.user.user_create', compact('security_questions'));
     }
 
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
-
-
-        $request->validate([
-            'name' => ['required'],
-            'username' => ['required', 'unique:users'],
-            'email' => ['required', 'email', 'unique:users'],
-            'phone_no' => ['required', 'max:20', 'unique:users'],
-            'address' => ['required'],
-            'id_number' => ['required', 'unique:users'],
-            'id_type' => ['required'],
-            'sq_no_1' => ['nullable'],
-            'sq_no_1_ans' => ['nullable'],
-            'sq_no_2' => ['nullable'],
-            'sq_no_2_ans' => ['nullable'],
-            'pro_pic' => ['nullable', 'image', 'max:5120'],
-            'date_of_birth' => ['nullable'],
-            'password' => ['required', 'min:8'],
-            'user_type' => ['required'],
-            'document' => ['file', 'max:5120']
-        ]);
 
         if ($request->document) {
             $data = $request->except('document');
@@ -69,7 +51,7 @@ class UserController extends Controller
         $user = User::create($data);
         if ($request->document) {
 
-            $document = $this->uploadImage($request->name, $request->document);
+            $document = FileDocuments::uploadDocument($request->name, $request->document);
             Document::create([
                 'document' => $document,
                 'user_id' => $user->id
@@ -85,15 +67,18 @@ class UserController extends Controller
         // $user_documents = Document::where('id', $id)->get();
 
 
-        if ($user->pro_pic) {
-            $this->unlink($user->pro_pic);
-        }
-        if ($user->documents) {
-            foreach ($user->documents as $document) {
-                $this->unlink($document->document);
+        // if ($user->pro_pic) {
+        //     $this->unlink($user->pro_pic);
+        // }
+
+        $documents = Document::where('user_id', $id)->get();
+        if ($documents) {
+            foreach ($documents as $document) {
+                // FileDocuments::unlinkDocument($document->document);
                 $document->delete();
             }
         }
+
         $user->delete();
         toastr()->error('User deleted!', 'Delete');
         return redirect()->back();
@@ -105,72 +90,54 @@ class UserController extends Controller
         $security_questions = SecurityQuestion::all();
         return view('backend.pages.user.user_edit', compact('user', 'security_questions'));
     }
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
+        $user = User::find($id);
+        $data = $request->except('_token');
+        $newData = [];
 
-
-        $request->validate([
-            'name' => ['required'],
-            'username' => [
-                'required',
-                Rule::unique('users')->ignore($id),
-            ],
-            'email' => [
-                'required',
-                Rule::unique('users')->ignore($id),
-                'email',
-            ],
-            'phone_no' => [
-                'required',
-                'max:20',
-                Rule::unique('users')->ignore($id),
-            ],
-            'address' => ['required'],
-            'id_number' => [
-                'required',
-                Rule::unique('users')->ignore($id),
-            ],
-            'id_type' => ['required'],
-            'sq_no_1' => ['nullable'],
-            'sq_no_1_ans' => ['nullable'],
-            'sq_no_2' => ['nullable'],
-            'sq_no_2_ans' => ['nullable'],
-            'pro_pic' => ['nullable', 'image', 'max:2048'],
-            'date_of_birth' => ['nullable'],
-            'password' => ['nullable', 'min:8'],
-            'document' => ['file', 'max:5120']
-        ]);
-
-        $user =  User::find($id);
         if ($request->document) {
-            $data = $request->except(['document', '_token']);
-        } else {
-            $data = $request->except('_token');
+            $data = $request->except('document');
+            // Handle document upload and update
+            $newData['document'] = FileDocuments::uploadDocument($request->name, $request->document);
+
+            // Remove the previous document (if any)
+            if (!empty($user->document)) {
+                FileDocuments::unlinkDocument($user->document);
+            }
         }
 
-        if ($request->password == null) {
+        if ($request->password === null) {
             $data['password'] = $user->password;
         }
 
         if ($request->hasFile('pro_pic')) {
-
+            // Handle profile picture upload and update
             $this->unlink($user->pro_pic);
-
             $data['pro_pic'] = $this->uploadImage($request->name, $request->pro_pic);
         }
+
         $user->update($data);
 
-        if ($request->hasFile('document')) {
-            $user = Document::where('id', $id)->first();
-
-            $this->unlink($user->pro_pic);
-
-            $data['pro_pic'] = $this->uploadImage($request->name, $request->pro_pic);
+        // Update the user's document (if necessary)
+        if (!empty($newData)) {
+            $document = Document::where('user_id', $id)->first();
+            if ($document) {
+                FileDocuments::unlinkDocument($document->document);
+                $document->update($newData);
+            } else {
+                // If the document record doesn't exist, create a new one
+                Document::create([
+                    'user_id' => $id,
+                    'document' => $newData['document'],
+                ]);
+            }
         }
 
         toastr()->success('User updated successfully!', 'Congrats');
         return redirect()->route('user.index');
     }
+
     public function info($id)
     {
         $user = User::find($id);
@@ -230,6 +197,8 @@ class UserController extends Controller
 
         return $file_name;
     }
+
+
 
     private function unlink($image)
     {

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectInitiationRequest;
+use App\Http\Requests\ProjectInitiationUpdateRequest;
 use App\Models\ProjectCategory;
+use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 
 class ProjectInitiationController extends Controller
@@ -40,18 +42,8 @@ class ProjectInitiationController extends Controller
         return view('backend.pages.project_initiation.project_initiation_create', compact('project_categorys'));
     }
 
-    public function store(Request $request)
+    public function store(ProjectInitiationRequest $request)
     {
-        // dd($request->all());
-        //validation rules
-        $request->validate([
-            'name' => 'required | string | max:255| unique:project_initiations',
-            'description' => 'required',
-            'goal' => 'required',
-            'deadline' => 'required',
-            'required_file' => 'nullable|file|max:5120',
-
-        ]);
 
         $data = $request->all();
 
@@ -72,12 +64,11 @@ class ProjectInitiationController extends Controller
     {
         //find the current data
         $project_initiation =  ProjectInitiation::where('id', $id)->first();
-
-        //if there is any file is present in current data
-        if ($project_initiation->required_file) {
-            $this->unlink($project_initiation->required_file);
+        $project_documents = ProjectDocument::where('project_initiation_id', $project_initiation->id)->get();
+        foreach ($project_documents as $project_document) {
+            $project_document->delete();
         }
-        //delete the data
+        //soft delete the data
         $project_initiation->delete();
         //error message
         toastr()->error('Project initiation deleted!', 'Delete');
@@ -95,24 +86,9 @@ class ProjectInitiationController extends Controller
         //return the edit page with all the project categories
         return view('backend.pages.project_initiation.project_initiation_edit', compact('project_initiation', 'project_categorys'));
     }
-    public function update(Request $request, $id)
+    public function update(ProjectInitiationUpdateRequest $request, $id)
     {
-        //validation rules
-        $request->validate([
 
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('project_initiations')->ignore($id), //unique except the current id
-            ],
-            'description' => 'required',
-            'goal' => 'required',
-            'deadline' => 'required',
-            'required_file' => 'nullable|file|max:5120',
-
-
-        ]);
         //find the current data
         $project_initiation =  ProjectInitiation::find($id);
         //except the _token

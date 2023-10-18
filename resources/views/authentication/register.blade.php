@@ -5,8 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bootstrap demo</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
 
     <body>
@@ -19,8 +18,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="userName">Name:</label>
-                            <input placeholder="Enter your name" type="text" class="form-control" id="userName"
-                                name="name" required>
+                            <input placeholder="Enter your name" type="text" class="form-control" id="userName" name="name" required>
                             @if ($errors->has("name"))
                                 <p class="text-danger">{{ $errors->first("name") }}</p>
                             @endif
@@ -30,8 +28,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="user_name">Username:</label>
-                            <input placeholder="Enter username" type="text" class="form-control" id="user_name"
-                                name="username" required>
+                            <input placeholder="Enter username" type="text" class="form-control" id="user_name" name="username" required>
                             @if ($errors->has("username"))
                                 <p class="text-danger">{{ $errors->first("username") }}</p>
                             @endif
@@ -41,8 +38,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input placeholder="Enter your email" type="email" class="form-control" id="email"
-                                name="email" required>
+                            <input placeholder="Enter your email" type="email" class="form-control" id="email" name="email" required>
                             @if ($errors->has("email"))
                                 <p class="text-danger">{{ $errors->first("email") }}</p>
                             @endif
@@ -52,8 +48,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="phone_no">Phone Number:</label>
-                            <input placeholder="Enter phone number" type="text" class="form-control" id="phone_no"
-                                name="phone_no" required>
+                            <input placeholder="Enter phone number" type="text" class="form-control" id="phone_no" name="phone_no" required>
                             @if ($errors->has("phone_no"))
                                 <p class="text-danger">{{ $errors->first("phone_no") }}</p>
                             @endif
@@ -63,8 +58,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="address">Address:</label>
-                            <input placeholder="Enter address" type="text" class="form-control" id="address"
-                                name="address" required>
+                            <input placeholder="Enter address" type="text" class="form-control" id="address" name="address" required>
                             @if ($errors->has("address"))
                                 <p class="text-danger">{{ $errors->first("address") }}</p>
                             @endif
@@ -74,8 +68,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="id_number">ID Number(Birth Registration/NID/Passport):</label>
-                            <input placeholder="Enter ID number" type="text" class="form-control" id="id_number"
-                                name="id_number" required>
+                            <input placeholder="Enter ID number" type="text" class="form-control" id="id_number" name="id_number" required>
                             @if ($errors->has("id_number"))
                                 <p class="text-danger">{{ $errors->first("id_number") }}</p>
                             @endif
@@ -86,6 +79,7 @@
                         <div class="form-group">
                             <label for="id_type">ID Type(Birth Registration/NID/Passport):</label>
                             <select name="id_type" id="id_type" class="form-control" required>
+                                <option selected disabled>Select</option>
                                 <option value="Birth Registration">Birth Registration</option>
                                 <option value="NID">NID</option>
                                 <option value="Passport">Passport</option>
@@ -112,8 +106,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="sq_no_1_ans">Security Question 1 Answer:</label>
-                            <input placeholder="Enter answer" type="text" class="form-control" id="sq_no_1_ans"
-                                name="sq_no_1_ans">
+                            <input placeholder="Enter answer" type="text" class="form-control" id="sq_no_1_ans" name="sq_no_1_ans">
                         </div>
                     </div>
 
@@ -133,16 +126,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="sq_no_2_ans">Security Question 2 Answer:</label>
-                            <input placeholder="Enter answer" type="text" class="form-control" id="sq_no_2_ans"
-                                name="sq_no_2_ans">
+                            <input placeholder="Enter answer" type="text" class="form-control" id="sq_no_2_ans" name="sq_no_2_ans">
                         </div>
                     </div>
                     <!-- uploaded image -->
                     <div class="col-md-12" style='display:none' id='image_preview_div'>
                         <div class="form-group">
                             <label for="uploaded_image">Your Image:</label><br>
-                            <img style="width: 100px" class="border border-1 p-1" id="uploaded_image" src=""
-                                alt="">
+                            <img style="width: 100px" class="border border-1 p-1" id="uploaded_image" src="" alt="">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -179,13 +170,11 @@
                         <div class="form-group">
                             <label>Registration as:</label>
                             <div class="form-check">
-                                <input value="office" class="form-check-input" type="radio" name="user_type"
-                                    id="user_type_office">
+                                <input value="office" class="form-check-input" type="radio" name="user_type" id="user_type_office">
                                 <label class="form-check-label" for="user_type_office">User</label>
                             </div>
                             <div class="form-check">
-                                <input value="vendor" class="form-check-input" type="radio" name="user_type"
-                                    id="user_type_vendor">
+                                <input value="vendor" class="form-check-input" type="radio" name="user_type" id="user_type_vendor">
                                 <label class="form-check-label" for="user_type_vendor">Vendor</label>
                             </div>
                             @if ($errors->has("user_type"))
@@ -210,9 +199,7 @@
                 </button>
             </form>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         @include("includes.uploaded_image_preview")
         @include("includes.user_create_registration_edit_document_upload")
     </body>

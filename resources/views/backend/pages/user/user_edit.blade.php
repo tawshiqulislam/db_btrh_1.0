@@ -19,8 +19,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="userName">Name:</label>
-                        <input value="{{ $user->name }}" placeholder="Enter your name" type="text" class="form-control"
-                            id="userName" name="name" required>
+                        <input value="{{ $user->name }}" placeholder="Enter your name" type="text" class="form-control" id="userName" name="name" required>
                         @if ($errors->has("name"))
                             <p class="text-danger">{{ $errors->first("name") }}</p>
                         @endif
@@ -30,8 +29,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="user_name">Username:</label>
-                        <input value="{{ $user->username }}" placeholder="Enter username" type="text"
-                            class="form-control" id="user_name" name="username" required>
+                        <input value="{{ $user->username }}" placeholder="Enter username" type="text" class="form-control" id="user_name" name="username" required>
                         @if ($errors->has("username"))
                             <p class="text-danger">{{ $errors->first("username") }}</p>
                         @endif
@@ -41,8 +39,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input value="{{ $user->email }}" placeholder="Enter your email" type="email"
-                            class="form-control" id="email" name="email" required>
+                        <input value="{{ $user->email }}" placeholder="Enter your email" type="email" class="form-control" id="email" name="email" required>
                         @if ($errors->has("email"))
                             <p class="text-danger">{{ $errors->first("email") }}</p>
                         @endif
@@ -52,8 +49,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="phone_no">Phone Number:</label>
-                        <input value="{{ $user->phone_no }}" placeholder="Enter phone number" type="text"
-                            class="form-control" id="phone_no" name="phone_no" required>
+                        <input value="{{ $user->phone_no }}" placeholder="Enter phone number" type="text" class="form-control" id="phone_no" name="phone_no" required>
                         @if ($errors->has("phone_no"))
                             <p class="text-danger">{{ $errors->first("phone_no") }}</p>
                         @endif
@@ -63,8 +59,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="address">Address:</label>
-                        <input value="{{ $user->address }}" placeholder="Enter address" type="text" class="form-control"
-                            id="address" name="address" required>
+                        <input value="{{ $user->address }}" placeholder="Enter address" type="text" class="form-control" id="address" name="address" required>
                         @if ($errors->has("address"))
                             <p class="text-danger">{{ $errors->first("address") }}</p>
                         @endif
@@ -74,8 +69,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="id_number">ID Number(Birth Registration/NID/Passport):</label>
-                        <input value="{{ $user->id_number }}" placeholder="Enter ID number" type="text"
-                            class="form-control" id="id_number" name="id_number" required>
+                        <input value="{{ $user->id_number }}" placeholder="Enter ID number" type="text" class="form-control" id="id_number" name="id_number" required>
                         @if ($errors->has("id_number"))
                             <p class="text-danger">{{ $errors->first("id_number") }}</p>
                         @endif
@@ -113,8 +107,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="sq_no_1_ans">Security Question 1 Answer:</label>
-                        <input value="{{ $user->sq_no_1_ans }}" placeholder="Enter answer" type="text"
-                            class="form-control" id="sq_no_1_ans" name="sq_no_1_ans">
+                        <input value="{{ $user->sq_no_1_ans }}" placeholder="Enter answer" type="text" class="form-control" id="sq_no_1_ans" name="sq_no_1_ans">
                     </div>
                 </div>
 
@@ -133,26 +126,22 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="sq_no_2_ans">Security Question 2 Answer:</label>
-                        <input value="{{ $user->sq_no_2_ans }}" placeholder="Enter answer" type="text"
-                            class="form-control" id="sq_no_2_ans" name="sq_no_2_ans">
+                        <input value="{{ $user->sq_no_2_ans }}" placeholder="Enter answer" type="text" class="form-control" id="sq_no_2_ans" name="sq_no_2_ans">
                     </div>
                 </div>
                 <!--current picture-->
                 <div class="col-md-12" id="current_image">
                     <label for="current_image">Current Image:</label><br>
                     @if ($user->pro_pic)
-                        <img style="width: 100px" class="border border-1 p-1"
-                            src="{{ asset("storage/user/" . $user->image) }}" alt="{{ $user->name }}">
+                        <img style="width: 100px" class="border border-1 p-1" src="{{ asset("storage/user/" . $user->pro_pic) }}" alt="{{ $user->name }}">
                     @else
-                        <img style="width: 100px" class="border border-1 p-1" src="{{ asset("image/no_image.png") }}"
-                            alt="no image">
+                        <img style="width: 100px" class="border border-1 p-1" src="{{ asset("image/no_image.png") }}" alt="no image">
                     @endif
                 </div>
                 <!-- uploaded image (hidden by default) -->
                 <div class="col-md-12" id="uploaded_image" style="display: none;">
                     <label for="uploaded_image">Uploaded Image:</label><br>
-                    <img style="width: 100px" class="border border-1 p-1" id="uploaded_image_display" src=""
-                        alt="">
+                    <img style="width: 100px" class="border border-1 p-1" id="uploaded_image_display" src="" alt="">
                 </div>
                 <!--profile picture-->
                 <div class="col-md-6">
@@ -168,8 +157,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="date_of_birth">Date of Birth:</label>
-                        <input value="{{ $user->date_of_birth }}" type="date" class="form-control"
-                            id="date_of_birth" name="date_of_birth" required>
+                        <input value="{{ $user->date_of_birth }}" type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
                     </div>
                 </div>
 
@@ -187,13 +175,11 @@
                     <div class="form-group">
                         <label>Registration as:</label>
                         <div class="form-check">
-                            <input value="office" class="form-check-input" type="radio" name="user_type"
-                                id="user_type_office">
+                            <input value="office" class="form-check-input" type="radio" name="user_type" id="user_type_office">
                             <label class="form-check-label" for="user_type_office">User</label>
                         </div>
                         <div class="form-check">
-                            <input value="vendor" class="form-check-input" type="radio" name="user_type"
-                                id="user_type_vendor">
+                            <input value="vendor" class="form-check-input" type="radio" name="user_type" id="user_type_vendor">
                             <label class="form-check-label" for="user_type_vendor">Vendor</label>
                         </div>
                         @if ($errors->has("user_type"))

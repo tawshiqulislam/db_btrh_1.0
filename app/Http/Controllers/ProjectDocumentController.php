@@ -3,44 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\FileDocuments;
-use App\Models\Document;
+use App\Models\ProjectDocument;
+use App\Models\ProjectInitiation;
 use Illuminate\Http\Request;
 
-class DocumentController extends Controller
+class ProjectDocumentController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
 
         // $request->validate([
-        //     'keyword' => 'unique:documents,keyword,NULL,id,user_id,' . Auth::id(),
+        //     'keyword' => [
+        //         Rule::unique('project_documents', 'keyword')->where('project_initiation_id', $id),
+        //     ],
         // ], [
         //     'keyword.unique' => "Upload Failed! The keyword is already in use. Please use a unique keyword",
         // ]);
 
-        // foreach ($request->file('documents') as $document) {
-        //     if ($document) {
-        //         $uuid = Str::uuid();
-        //         $uploadedDocument = $this->uploadImage($uuid, $document);
-        //         Document::create([
-        //             'user_id' => $id,
-        //             'document' => $uploadedDocument,
-        //         ]);
-        //     }
-        // }
+        $project_initiation = ProjectInitiation::where('id', $id)->first();
         $uploadedDocument = FileDocuments::uploadDocument($request->keyword, $request->document);
-        Document::create([
-            'user_id' => auth()->user()->id,
+        ProjectDocument::create([
+            'project_category_id' => $project_initiation->project_category->id,
+            'project_initiation_id' => $project_initiation->id,
             'keyword' => $request->keyword,
             'document' => $uploadedDocument,
         ]);
-        toastr()->success('Documents uploaded successfully!', 'Congrats');
+        toastr()->success('Project document uploaded successfully!', 'Congrats');
         return redirect()->back();
     }
 
     public function delete($id)
     {
 
-        $document = Document::find($id);
+        $document = ProjectDocument::find($id);
         $document->delete();
         toastr()->success('Documents deleted successfully!', 'Congrats');
         return redirect()->back();
@@ -51,21 +46,21 @@ class DocumentController extends Controller
 
         // $request->validate([
         //     'keyword' => [
-        //         Rule::unique('documents')->ignore($id),
+        //         Rule::unique('project_documents')->ignore($id),
         //     ],
         // ], [
         //     'keyword.unique' => "Upload Failed! The keyword is already in use. Please use a unique keyword",
         // ]);
 
-        $document = Document::find($id);
+        $project_document = ProjectDocument::find($id);
         $data = $request->except('_token');
         if ($request->hasFile('document')) {
             // Handle profile picture upload and update
-            FileDocuments::unlinkDocument($document->document);
+            FileDocuments::unlinkDocument($project_document->document);
             $data['document'] = FileDocuments::uploadDocument($request->keyword, $request->document);
         }
-        $document->update($data);
-        toastr()->success('Documents updated successfully!', 'Congrats');
+        $project_document->update($data);
+        toastr()->success('Project documents updated successfully!', 'Congrats');
         return redirect()->back();
     }
 }

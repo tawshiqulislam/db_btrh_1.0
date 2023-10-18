@@ -63,10 +63,7 @@ class UserDetailController extends Controller
         //find the current data
         $user_detail =  UserDetail::where('id', $id)->first();
 
-        //if there is any file is present in current data
-        if ($user_detail->file) {
-            $this->unlink($user_detail->file);
-        }
+
         //delete the data
         $user_detail->delete();
         //error message

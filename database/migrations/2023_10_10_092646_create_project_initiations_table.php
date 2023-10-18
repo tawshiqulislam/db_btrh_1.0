@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('required_file')->nullable();
             $table->unsignedBigInteger('verified_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
