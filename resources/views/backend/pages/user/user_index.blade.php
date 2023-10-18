@@ -15,14 +15,12 @@
     @if ($users->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no user added yet.</h4>
-            <a href="{{ route("user.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                    class="fa-solid fa-plus"></i>
+            <a href="{{ route("user.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add User</a>
         </div>
     @else
         <div class="container">
-            <a href="{{ route("user.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                    class="fa-solid fa-plus"></i>
+            <a href="{{ route("user.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add User</a>
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -40,8 +38,7 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td>{{ ++$sl }}</td>
-                                <td
-                                    style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $user->name ?? "" }}</td>
                                 <td>{{ $user->username ?? "" }}</td>
                                 <td>{{ $user->email ?? "" }}</td>
@@ -51,8 +48,7 @@
                                         <i class="fa-solid fa-circle-info"></i> Info</a>
                                     <a href="{{ route("user.edit", $user->id) }}" class="btn btn-primary btn-sm text-white">
                                         <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                    <a href="{{ route("user.delete", $user->id) }}"
-                                        class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i>
+                                    <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#userDeleteModal_{{ $user->id }}"><i class="fa-solid fa-trash"></i>
                                         Delete</a>
                                 </td>
                             </tr>
@@ -63,5 +59,5 @@
             {{ $users->links("pagination::bootstrap-4") }}
         </div>
     @endif
-
+    @include("includes.user_delete_confirmation_modal")
 @endsection

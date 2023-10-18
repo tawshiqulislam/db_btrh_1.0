@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserDetailStoreRequest;
 use App\Models\User;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
@@ -33,15 +34,8 @@ class UserDetailController extends Controller
         return view('backend.pages.user_detail.user_detail_create', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store(UserDetailStoreRequest $request)
     {
-        //validation rules
-        $request->validate([
-            'user_id' => 'required',
-            'name' => 'required | string | max:255',
-            'file' => 'required|file|max:5120',
-
-        ]);
 
         $data = $request->all();
 

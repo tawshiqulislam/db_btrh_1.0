@@ -40,15 +40,8 @@ class DepartmentController extends Controller
     public function delete($id)
     {
         $department =  Department::where('id', $id)->first();
-
-
-        if ($department->user_id == null) {
-            $department->delete();
-            toastr()->error('Department deleted!', 'Delete');
-        } else {
-            toastr()->warning('There are users in the department!', 'Warning');
-        }
-
+        $department->delete();
+        toastr()->error('Department deleted!', 'Delete');
         return redirect()->back();
     }
 

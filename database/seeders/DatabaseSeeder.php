@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'pro_pic' => null,
             'date_of_birth' => '1990-01-01',
             'email_verified_at' => null,
-            'password' => Hash::make('adminpassword'),
+            'password' => Hash::make('admin@example.com'),
             'user_type' => 'office', //or vendor
             'remember_token' => null,
             'created_at' => now(),

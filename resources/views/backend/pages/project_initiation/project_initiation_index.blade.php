@@ -24,8 +24,7 @@
     @if ($project_initiations->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no project initiation added yet.</h4>
-            <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                    class="fa-solid fa-plus"></i>
+            <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add Project Initiation</a>
         </div>
 
@@ -34,8 +33,7 @@
         <div class="container">
             <div class="top-button-group d-flex justify-content-between mb-3">
                 <div class="add_project_initiation_btn">
-                    <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm text-white"><i
-                            class="fa-solid fa-plus"></i>
+                    <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>
                         Add Project Initiation</a>
                 </div>
                 <div class="verify_unverify_btn">
@@ -61,23 +59,18 @@
                         @foreach ($project_initiations as $project_initiation)
                             <tr>
                                 <td>{{ ++$sl }}</td>
-                                <td
-                                    style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $project_initiation->name ?? "" }}</td>
-                                <td
-                                    style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $project_initiation->project_category->name ?? "" }}</td>
                                 <td>{{ $project_initiation->deadline ?? "" }}</td>
                                 <td>{{ $project_initiation->verified_by ?? "Not Verified" }}</td>
                                 <td>
-                                    <a href="{{ route("project_initiation.info", $project_initiation->id) }}"
-                                        class="btn btn-info btn-sm text-white">
+                                    <a href="{{ route("project_initiation.info", $project_initiation->id) }}" class="btn btn-info btn-sm text-white">
                                         <i class="fa-solid fa-circle-info"></i> Info</a>
-                                    <a href="{{ route("project_initiation.edit", $project_initiation->id) }}"
-                                        class="btn btn-primary btn-sm text-white">
+                                    <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class="btn btn-primary btn-sm text-white">
                                         <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                    <a href="{{ route("project_initiation.delete", $project_initiation->id) }}"
-                                        class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i>
+                                    <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiationDeleteModal_{{ $project_initiation->id }}"><i class="fa-solid fa-trash"></i>
                                         Delete</a>
 
                                 </td>
@@ -92,4 +85,5 @@
         </div>
         @include("includes.ajax_search_script")
     @endif
+    @include("includes.project_initiation_delete_confirmation_modal")
 @endsection

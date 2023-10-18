@@ -32,7 +32,7 @@
 
                                     @if ($project_initiation->verified_by == null)
                                         @can("super_admin_admin")
-                                            <a href="{{ route("project_initiation.verify", $project_initiation->id) }}" class="btn btn-success btn-sm text-white"><i class="fa-solid fa-certificate"></i>
+                                            <a href="{{ route("project_initiation.verify", $project_initiation->id) }}" class="btn btn-info btn-sm text-white"><i class="fa-solid fa-certificate"></i>
                                                 Verify</a>
                                         @endcan
                                     @else
@@ -42,7 +42,7 @@
                                         @endcan
                                     @endif
 
-                                    <button class="btn btn-warning text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
+                                    <button class="btn btn-success text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
                                 </div>
 
                             </div>
@@ -106,7 +106,7 @@
                                                                     <i class="fa-solid fa-file-pen"></i> Update
                                                                 </a>
 
-                                                                <a href="{{ route("project_document.delete", $project_document->id) }}" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i>
+                                                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_documentDeleteModal_{{ $project_document->id }}"><i class="fa-solid fa-trash"></i>
                                                                     Delete</a>
                                                             </td>
                                                         </tr>
@@ -127,4 +127,5 @@
     </div>
     @include("includes.upload_project_document_modal")
     @include("includes.edit_project_document_modal")
+    @include("includes.project_document_delete_confirmation")
 @endsection

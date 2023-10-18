@@ -11,11 +11,13 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
 
+        //working validation
         // $request->validate([
-        //     'keyword' => 'unique:documents,keyword,NULL,id,user_id,' . Auth::id(),
-        // ], [
-        //     'keyword.unique' => "Upload Failed! The keyword is already in use. Please use a unique keyword",
+        //     'title' => [Rule::unique('documents,keyword')->where(function ($query) {
+        //         return $query->where('user_id', '!=', auth()->id());
+        //     })],
         // ]);
+
 
         // foreach ($request->file('documents') as $document) {
         //     if ($document) {
