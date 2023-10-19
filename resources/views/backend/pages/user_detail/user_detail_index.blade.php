@@ -70,5 +70,5 @@
 
         </div>
     @endif
-    @include("includes.user_detail_delete_confirmation_modal")
+    @include("backend.pages.user_detail.user_detail_delete_confirmation_modal")
 @endsection

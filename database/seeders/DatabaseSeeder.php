@@ -105,15 +105,17 @@ class DatabaseSeeder extends Seeder
 
         //project initiation
         for ($i = 0; $i < 5; $i++) {
-            $verifiedBy = $faker->boolean ? 1 : null;
+            // $verifiedBy = $faker->boolean ? 1 : null;
+            // $isVerified = $faker->boolean ? true : false;
             DB::table('project_initiations')->insert([
+                'user_id' => $faker->numberBetween(1, 5),
                 'project_category_id' => $faker->numberBetween(1, 5),
                 'name' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'goal' => $faker->paragraph,
                 'deadline' => $faker->date,
                 'required_file' => $faker->word . '.pdf',
-                'verified_by' => $verifiedBy,
+                // 'verified_by' => $verifiedBy,
             ]);
         }
         //department
@@ -122,6 +124,13 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->word,
                 'user_id' => $faker->boolean(50) ? $faker->numberBetween(2, 5) : null, // 30% chance of having a user_id
                 'designation' => $faker->optional(0.5, null)->word, // 30% chance of having a designation
+            ]);
+        }
+        //status
+        $statuses = ['active', 'inactive', 'pending', 'canceled'];
+        foreach ($statuses as $status) {
+            DB::table('statuses')->insert([
+                'status' => $status,
             ]);
         }
     }

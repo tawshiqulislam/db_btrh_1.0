@@ -53,5 +53,5 @@
             {{ $security_questions->links("pagination::bootstrap-4") }}
         </div>
     @endif
-    @include("includes.security_question_delete_confirmation_modal")
+    @include("backend.pages.security_question.security_question_delete_confirmation_modal")
 @endsection

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserDetailStoreRequest;
+use App\Http\Requests\UserDetailUpdateRequest;
 use App\Models\User;
 use App\Models\UserDetail;
-use Illuminate\Http\Request;
 
 class UserDetailController extends Controller
 {
@@ -76,16 +76,9 @@ class UserDetailController extends Controller
         //return the edit page with all the project categories
         return view('backend.pages.user_detail.user_detail_edit', compact('user_detail', 'users'));
     }
-    public function update(Request $request, $id)
+    public function update(UserDetailUpdateRequest $request, $id)
     {
 
-        //validation rules
-        $request->validate([
-            'user_id' => 'required',
-            'name' => 'required | string | max:255',
-            'file' => 'nullable|file|max:5120',
-
-        ]);
         //find the current data
         $user_detail =  UserDetail::find($id);
         //except the _token

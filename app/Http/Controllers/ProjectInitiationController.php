@@ -7,6 +7,8 @@ use App\Http\Requests\ProjectInitiationUpdateRequest;
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
+use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -20,16 +22,17 @@ class ProjectInitiationController extends Controller
         //serial number
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
         //wheich projects are verified and unverified
-        $verified_project_initiations = ProjectInitiation::whereNotNull('verified_by')->get();
-        $unverified_project_initiations = ProjectInitiation::whereNull('verified_by')->get();
+        $total_verified_project_initiations = ProjectInitiation::where('isVerified', true)->get()->count();
+        $total_unverified_project_initiations = ProjectInitiation::where('isVerified', false)->get()->count();
+        // dd($unverified_project_initiations->count());
         //return index page
         return view(
             'backend.pages.project_initiation.project_initiation_index',
             [
                 'project_initiations' => $project_initiations,
                 'sl' => $sl,
-                'verified_project_initiations' => $verified_project_initiations,
-                'unverified_project_initiations' => $unverified_project_initiations
+                'total_verified_project_initiations' => $total_verified_project_initiations,
+                'total_unverified_project_initiations' => $total_unverified_project_initiations
             ]
         );
     }
@@ -52,6 +55,7 @@ class ProjectInitiationController extends Controller
             $required_file = $this->uploadFile($request->name, $request->required_file);
             $data['required_file'] = $required_file;
         }
+        $data['user_id'] = auth()->user()->id;
         //Insert data
         ProjectInitiation::create($data);
         //success message
@@ -100,6 +104,7 @@ class ProjectInitiationController extends Controller
         }
 
 
+
         //if there is file in the request
         if ($request->hasFile('required_file')) {
             $project_initiation = ProjectInitiation::where('id', $id)->first();
@@ -109,6 +114,7 @@ class ProjectInitiationController extends Controller
             $data['required_file'] = $this->uploadFile($request->name, $request->required_file);
         }
         // dd($data);
+        $data['user_id'] = auth()->user()->id;
         //update the data
         $project_initiation->update($data);
 
@@ -121,7 +127,9 @@ class ProjectInitiationController extends Controller
     {
         //find the current data
         $project_initiation = ProjectInitiation::find($id);
-        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation'));
+        $statuses = Status::all();
+        $users = User::all();
+        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users'));
     }
     //project verification
     public function verify($id)
@@ -131,6 +139,7 @@ class ProjectInitiationController extends Controller
         $project_initiation = ProjectInitiation::find($id);
         $project_initiation->update([
             'verified_by' => auth()->user()->id,
+            'isVerified' => true,
         ]);
         toastr()->success('Project initiation is verified now!', 'Congrats');
         return redirect()->back();
@@ -143,6 +152,7 @@ class ProjectInitiationController extends Controller
         $project_initiation = ProjectInitiation::find($id);
         $project_initiation->update([
             'verified_by' => null,
+            'isVerified' => false,
         ]);
         toastr()->warning('Project initiation is unverified now!', 'Warning');
         return redirect()->back();
@@ -161,7 +171,28 @@ class ProjectInitiationController extends Controller
         }
     }
 
+    //active project
+    public function active($id)
+    {
+        $project_initiation = ProjectInitiation::find($id);
+        if ($project_initiation->isVerified == false) {
+            toastr()->warning('Before activate this project, please verify the project at first!', 'Warning');
+            return redirect()->back();
+        }
+    }
 
+    public function activate(Request $request, $id)
+    {
+        $project_initiation = ProjectInitiation::find($id);
+        $project_initiation->update([
+            'activated_by' => auth()->user()->id,
+            'assigned_to' => $request->assigned_to,
+            'assigned_by' => auth()->user()->id,
+            'status' => $request->status,
+        ]);
+        toastr()->success('Project Initiation activated successfully!', 'Warning');
+        return redirect()->back();
+    }
     //file upload function
     public function uploadFile($title, $file)
     {

@@ -258,9 +258,9 @@
         </div>
     </div>
 
-    @include("includes.profile_picture_modal")
-    @include("includes.upload_document_modal")
-    @include("includes.edit_document_modal")
-    @include("includes.document_delete_confirm_modal")
+    @include("backend.pages.user.user_profile_picture_upload_modal")
+    @include("backend.pages.user.user_document_upload_modal")
+    @include("backend.pages.user.user_document_edit_modal")
+    @include("backend.pages.user.user_document_delete_confirmation_modal")
 
 @endsection

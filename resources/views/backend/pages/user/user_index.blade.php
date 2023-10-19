@@ -59,5 +59,5 @@
             {{ $users->links("pagination::bootstrap-4") }}
         </div>
     @endif
-    @include("includes.user_delete_confirmation_modal")
+    @include("backend.pages.user.user_delete_confirmation_modal")
 @endsection

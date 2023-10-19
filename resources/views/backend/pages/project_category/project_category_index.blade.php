@@ -60,5 +60,5 @@
             {{ $project_categorys->links("pagination::bootstrap-4") }}
         </div>
     @endif
-    @include("includes.project_category_delete_confirmation_modal")
+    @include("backend.pages.project_category.project_category_delete_confirmation_modal")
 @endsection

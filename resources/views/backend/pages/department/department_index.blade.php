@@ -62,5 +62,5 @@
             {{ $departments->links("pagination::bootstrap-4") }}
         </div>
     @endif
-    @include("includes.department_delete_confirmation")
+    @include("backend.pages.department.department_delete_confirmation_modal")
 @endsection

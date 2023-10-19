@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepartmentStoreRequest;
+use App\Http\Requests\DepartmentUpdateRequest;
 use App\Models\AdminList;
 use App\Models\Department;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class DepartmentController extends Controller
 {
@@ -25,13 +25,9 @@ class DepartmentController extends Controller
         return view('backend.pages.department.department_create', compact('users', 'adminlists'));
     }
 
-    public function store(Request $request)
+    public function store(DepartmentStoreRequest $request)
     {
 
-        $request->validate([
-            'name' => ['required', 'unique:departments'],
-
-        ]);
         Department::create($request->all());
         toastr()->success('Department created successfully!', 'Congrats');
         return redirect()->route('department.index');
@@ -55,15 +51,8 @@ class DepartmentController extends Controller
         $adminlists = AdminList::all();
         return view('backend.pages.department.department_edit', compact('department', 'users', 'adminlists', 'select_user'));
     }
-    public function update(Request $request, $id)
+    public function update(DepartmentUpdateRequest $request, $id)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                Rule::unique('departments')->ignore($id),
-            ],
-
-        ]);
         $data = $request->except('_token');
         $department = Department::where('id', $id)->first();
         $department->update($data);
