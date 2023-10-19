@@ -153,6 +153,7 @@ class ProjectInitiationController extends Controller
         $project_initiation->update([
             'verified_by' => null,
             'isVerified' => false,
+            'unverified_by' => auth()->user()->id
         ]);
         toastr()->warning('Project initiation is unverified now!', 'Warning');
         return redirect()->back();
@@ -191,6 +192,18 @@ class ProjectInitiationController extends Controller
             'status' => $request->status,
         ]);
         toastr()->success('Project Initiation activated successfully!', 'Warning');
+        return redirect()->back();
+    }
+
+    public function inactivate($id)
+    {
+        $project_initiation = ProjectInitiation::find($id);
+        $project_initiation->update([
+            'inactivated_by' => auth()->user()->id,
+            'activated_by' => null,
+            'status' => 'inactive',
+        ]);
+        toastr()->warning('Project Initiation inactivated!', 'Warning');
         return redirect()->back();
     }
     //file upload function

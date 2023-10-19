@@ -67,7 +67,7 @@
                                     {{ $project_initiation->project_category->name ?? "" }}</td>
                                 <td>{{ $project_initiation->deadline ?? "" }}</td>
                                 <td>{{ $project_initiation->isVerified == true ? "Yes" : "No" }}</td>
-                                <td>{{ $project_initiation->status ?? "" }}</td>
+                                <td>{{ ucfirst($project_initiation->status) ?? "" }}</td>
 
                                 <td>
                                     <a href="{{ route("project_initiation.info", $project_initiation->id) }}" class="btn btn-info btn-sm text-white">

@@ -21,9 +21,11 @@ return new class extends Migration
             $table->date('deadline');
             $table->string('required_file')->nullable();
             $table->unsignedBigInteger('activated_by')->nullable();
+            $table->unsignedBigInteger('inactivated_by')->nullable();
             $table->unsignedBigInteger('assigned_to')->nullable();
             $table->unsignedBigInteger('assigned_by')->nullable();
             $table->unsignedBigInteger('verified_by')->nullable();
+            $table->unsignedBigInteger('unverified_by')->nullable();
             $table->boolean('isVerified')->default(false);
             $table->string('status')->default('inactive');
             $table->timestamps();

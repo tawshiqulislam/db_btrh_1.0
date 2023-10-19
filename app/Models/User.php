@@ -71,9 +71,18 @@ class User extends Authenticatable
         return $this->hasMany(ProjectInitiation::class, 'verified_by');
     }
 
+    public function unverified_by_project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class, 'unverified_by');
+    }
+
     public function activated_by_project_initiaons()
     {
         return $this->hasMany(ProjectInitiation::class, 'activated_by');
+    }
+    public function inactivated_by_project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class, 'inactivated_by');
     }
 
     public function assigned_to_project_initiaons()

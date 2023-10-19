@@ -22,11 +22,11 @@
                 <div class="card">
                     <div class="row p-2">
                         <div class="col-md-12">
-                            <div class="card-header d-flex justify-content-between">
+                            <div class="card-header">
 
                                 <h5>{{ $project_initiation->name ?? "" }}</h5>
 
-                                <div class="button-group">
+                                <div class="button-group d-flex justify-content-end  gap-2 ">
                                     <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                         Edit</a>
                                     <!--verify and unverify button-->
@@ -53,13 +53,13 @@
                                     @if ($project_initiation->status == "inactive" && $project_initiation->isVerified == true)
                                         @can("super_admin_admin")
                                             <a type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal" class="btn btn-warning btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
-                                                Active Project </a>
+                                                Active This Project </a>
                                         @endcan
                                     @endif
 
                                     @if ($project_initiation->status == "active")
                                         @can("super_admin_admin")
-                                            <a href="{{ route("project_initiation.verify", $project_initiation->id) }}" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
+                                            <a href="{{ route("project_initiation.inactivate", $project_initiation->id) }}" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
                                                 Inactive This Project </a>
                                         @endcan
                                     @endif
@@ -110,29 +110,45 @@
                                 </p>
                             </div>
 
-                            <div class="col-md-12">
-                                <p class="card-text"><strong>Verified By:</strong> {{ $project_initiation->verified_by_user->username ?? "Unverifed" }}
-                                </p>
-                            </div>
-
-                            <div class="col-md-12">
-                                <p class="card-text"><strong>Status:</strong> {{ $project_initiation->status ?? "" }}
-                                </p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="card-text"><strong>Activated By:</strong> {{ $project_initiation->activated_by_user->username ?? $project_initiation->status }}
-                                </p>
-                            </div>
-                            @if ($project_initiation->project_detail)
+                            @if ($project_initiation->verified_by)
                                 <div class="col-md-12">
-                                    <p class="card-text"><strong>Assignd To:</strong> {{ $project_initiation->assigned_to_user->username ?? "Not assigned yet" }}
-                                    </p>
-                                </div>
-                                <div class="col-md-12">
-                                    <p class="card-text"><strong>Assignd By:</strong> {{ $project_initiation->assigned_to_by->username ?? "Not assigned yet" }}
+                                    <p class="card-text"><strong>Verified By:</strong> {{ $project_initiation->verified_by_user->username ?? "Not verified yet" }}
                                     </p>
                                 </div>
                             @endif
+                            @if ($project_initiation->unverified_by)
+                                <div class="col-md-12">
+                                    <p class="card-text"><strong>Unverified By:</strong> {{ $project_initiation->unverified_by_user->username ?? "Not verified yet" }}
+                                    </p>
+                                </div>
+                            @endif
+
+                            <div class="col-md-12">
+                                <p class="card-text"><strong>Status:</strong> {{ ucfirst($project_initiation->status) ?? "" }}
+                                </p>
+                            </div>
+                            @if ($project_initiation->activated_by)
+                                <div class="col-md-12">
+                                    <p class="card-text"><strong>Activated By:</strong> {{ $project_initiation->activated_by_user->username ?? "Not activated yet" }}
+                                    </p>
+                                </div>
+                            @endif
+
+                            @if ($project_initiation->inactivated_by)
+                                <div class="col-md-12">
+                                    <p class="card-text"><strong>Inactivated By:</strong> {{ $project_initiation->inactivated_by_user->username ?? "Project is active" }}
+                                    </p>
+                                </div>
+                            @endif
+
+                            <div class="col-md-12">
+                                <p class="card-text"><strong>Assignd To:</strong> {{ $project_initiation->assigned_to_user->username ?? "Not assigned yet" }}
+                                </p>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="card-text"><strong>Assignd By:</strong> {{ $project_initiation->assigned_by_user->username ?? "Not assigned yet" }}
+                                </p>
+                            </div>
 
                             <!--project documents-->
                             <div class="col-md-12">

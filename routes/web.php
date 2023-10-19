@@ -94,6 +94,7 @@ Route::prefix('admin/project_initiation')->middleware(['auth'])->group(function 
     Route::get('/active/{id}', [ProjectInitiationController::class, 'active'])->name('project_initiation.active'); //project active
     Route::get('/project_initiation_search', [ProjectInitiationController::class, 'search'])->name('project_initiation.search'); // ajax search
     Route::post('/activate/{id}', [ProjectInitiationController::class, 'activate'])->name('project_initiation.activate'); //project activate
+    Route::get('/inactivate/{id}', [ProjectInitiationController::class, 'inactivate'])->name('project_initiation.inactivate');
 });
 
 //admin user detail routes
