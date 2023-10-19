@@ -15,15 +15,13 @@
     @if ($departments->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no department added yet.</h4>
-            <a href="{{ route("department.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                    class="fa-solid fa-plus"></i>
+            <a href="{{ route("department.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add Department</a>
 
         </div>
     @else
         <div class="container">
-            <a href="{{ route("department.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                    class="fa-solid fa-plus"></i>
+            <a href="{{ route("department.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add Department</a>
             <table class="table table-bordered">
                 <thead>
@@ -50,14 +48,12 @@
                             </td>
 
                             <td>
-                                <a href="{{ route("department.info", $department->id) }}"
-                                    class="btn btn-info btn-sm text-white">
+                                <a href="{{ route("department.info", $department->id) }}" class="btn btn-info btn-sm text-white">
                                     <i class="fa-solid fa-circle-info"></i> Info</a>
-                                <a href="{{ route("department.edit", $department->id) }}"
-                                    class="btn btn-primary btn-sm text-white">
+                                <a href="{{ route("department.edit", $department->id) }}" class="btn btn-primary btn-sm text-white">
                                     <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                <a href="{{ route("department.delete", $department->id) }}"
-                                    class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i> Delete</a>
+                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#departmentDeleteModal_{{ $department->id }}"><i class="fa-solid fa-trash"></i>
+                                    Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -66,5 +62,5 @@
             {{ $departments->links("pagination::bootstrap-4") }}
         </div>
     @endif
-
+    @include("backend.pages.department.department_delete_confirmation_modal")
 @endsection

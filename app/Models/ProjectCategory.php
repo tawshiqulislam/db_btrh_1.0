@@ -21,4 +21,9 @@ class ProjectCategory extends Model
     {
         return $this->hasMany(ProjectDocument::class);
     }
+
+    public function project_details()
+    {
+        return $this->hasMany(ProjectDetail::class);
+    }
 }

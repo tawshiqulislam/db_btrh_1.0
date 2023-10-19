@@ -14,15 +14,13 @@
     @if ($security_questions->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no security question added yet.</h4>
-            <a href="{{ route("security_question.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                    class="fa-solid fa-plus"></i>
+            <a href="{{ route("security_question.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add Security Question</a>
 
         </div>
     @else
         <div class="container">
-            <a href="{{ route("security_question.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                    class="fa-solid fa-plus"></i>
+            <a href="{{ route("security_question.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add Security Question</a>
             <table class="table table-bordered">
                 <thead>
@@ -41,14 +39,12 @@
                                 {{ $security_question->name ?? "" }}</td>
 
                             <td>
-                                <a href="{{ route("security_question.info", $security_question->id) }}"
-                                    class="btn btn-info btn-sm text-white">
+                                <a href="{{ route("security_question.info", $security_question->id) }}" class="btn btn-info btn-sm text-white">
                                     <i class="fa-solid fa-circle-info"></i> Info</a>
-                                <a href="{{ route("security_question.edit", $security_question->id) }}"
-                                    class="btn btn-primary btn-sm text-white">
+                                <a href="{{ route("security_question.edit", $security_question->id) }}" class="btn btn-primary btn-sm text-white">
                                     <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                <a href="{{ route("security_question.delete", $security_question->id) }}"
-                                    class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i> Delete</a>
+                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#security_questionDeleteModal_{{ $security_question->id }}"><i class="fa-solid fa-trash"></i>
+                                    Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -57,5 +53,5 @@
             {{ $security_questions->links("pagination::bootstrap-4") }}
         </div>
     @endif
-
+    @include("backend.pages.security_question.security_question_delete_confirmation_modal")
 @endsection

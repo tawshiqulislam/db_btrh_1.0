@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SecurityQuestionStoreRequest;
+use App\Http\Requests\SecurityQuestionUpdateRequest;
 use App\Models\SecurityQuestion;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class SecurityQuestionController extends Controller
 {
@@ -22,12 +22,8 @@ class SecurityQuestionController extends Controller
         return view('backend.pages.security_question.security_question_create');
     }
 
-    public function store(Request $request)
+    public function store(SecurityQuestionStoreRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'unique:security_questions'],
-        ]);
-
 
         SecurityQuestion::create($request->all());
         toastr()->success('Security question created successfully!', 'Congrats');
@@ -47,14 +43,9 @@ class SecurityQuestionController extends Controller
         $security_question = SecurityQuestion::find($id);
         return view('backend.pages.security_question.security_question_edit', compact('security_question'));
     }
-    public function update(Request $request, $id)
+    public function update(SecurityQuestionUpdateRequest $request, $id)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                Rule::unique('security_questions')->ignore($id),
-            ],
-        ]);
+
         $data = $request->except('_token');
         SecurityQuestion::where('id', $id)->update($data);
         toastr()->success('Security question updated successfully!', 'Congrats');

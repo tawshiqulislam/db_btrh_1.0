@@ -237,7 +237,7 @@
                                                                     <i class="fa-solid fa-file-pen"></i> Update
                                                                 </a>
 
-                                                                <a href="{{ route("document.delete", $document->id) }}" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i>
+                                                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#documentDeleteModal_{{ $document->id }}"><i class="fa-solid fa-trash"></i>
                                                                     Delete</a>
                                                             </td>
                                                         </tr>
@@ -258,8 +258,9 @@
         </div>
     </div>
 
-    @include("includes.profile_picture_modal")
-    @include("includes.upload_document_modal")
-    @include("includes.edit_document_modal")
+    @include("backend.pages.user.user_profile_picture_upload_modal")
+    @include("backend.pages.user.user_document_upload_modal")
+    @include("backend.pages.user.user_document_edit_modal")
+    @include("backend.pages.user.user_document_delete_confirmation_modal")
 
 @endsection

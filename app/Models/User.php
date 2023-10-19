@@ -61,10 +61,46 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class);
     }
+    public function project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class);
+    }
+
+    public function verified_by_project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class, 'verified_by');
+    }
+
+    public function unverified_by_project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class, 'unverified_by');
+    }
+
+    public function activated_by_project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class, 'activated_by');
+    }
+    public function inactivated_by_project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class, 'inactivated_by');
+    }
+
+    public function assigned_to_project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class, 'assigned_to');
+    }
+
+    public function assigned_by_project_initiaons()
+    {
+        return $this->hasMany(ProjectInitiation::class, 'assigned_by');
+    }
+
 
     //role creation
     const SUPER_ADMIN = 'super_admin';
     const ADMIN = 'admin';
+    const OFFICE = 'office';
+    const VENDOR = 'vendor';
 
 
     public static function isSuperAdmin()
@@ -88,6 +124,22 @@ class User extends Authenticatable
     public static function isUser()
     {
         if (!auth()->user()->admin_list) {
+            return true;
+        }
+    }
+
+    public static function isOffice()
+    {
+        $user = User::find(auth()->user()->id);
+        if ($user->user_type == self::OFFICE) {
+            return true;
+        }
+    }
+
+    public static function isVendor()
+    {
+        $user = User::find(auth()->user()->id);
+        if ($user->user_type == self::VENDOR) {
             return true;
         }
     }

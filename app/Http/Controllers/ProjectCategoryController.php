@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectCategoryStoreRequest;
+use App\Http\Requests\ProjectCategoryUpdateRequest;
 use App\Models\ProjectCategory;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class ProjectCategoryController extends Controller
 {
@@ -24,13 +24,9 @@ class ProjectCategoryController extends Controller
         return view('backend.pages.project_category.project_category_create');
     }
 
-    public function store(Request $request)
+    public function store(ProjectCategoryStoreRequest $request)
     {
-        //validation rules
-        $request->validate([
-            'name' => ['required', 'unique:project_categories'],
-            'description' => ['nullable', 'unique:project_categories'],
-        ]);
+
 
         //insert data
         ProjectCategory::create($request->all());
@@ -59,19 +55,8 @@ class ProjectCategoryController extends Controller
         //return view page
         return view('backend.pages.project_category.project_category_edit', compact('project_category'));
     }
-    public function update(Request $request, $id)
+    public function update(ProjectCategoryUpdateRequest $request, $id)
     {
-        //validation rules except the current id
-        $request->validate([
-            'name' => [
-                'required',
-                Rule::unique('project_categories')->ignore($id),
-            ],
-            'description' => [
-                'nullable',
-                Rule::unique('project_categories')->ignore($id),
-            ],
-        ]);
 
         //except the _token
         $data = $request->except('_token');

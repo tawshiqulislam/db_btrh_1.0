@@ -8,6 +8,7 @@ use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectDocumentController;
 use App\Http\Controllers\ProjectInitiationController;
 use App\Http\Controllers\SecurityQuestionController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDetailController;
 use Illuminate\Support\Facades\Route;
@@ -90,7 +91,10 @@ Route::prefix('admin/project_initiation')->middleware(['auth'])->group(function 
     Route::get('/info/{id}', [ProjectInitiationController::class, 'info'])->name('project_initiation.info'); //info page
     Route::get('/verify/{id}', [ProjectInitiationController::class, 'verify'])->name('project_initiation.verify'); //project verification
     Route::get('/unverify/{id}', [ProjectInitiationController::class, 'unverify'])->name('project_initiation.unverify'); //project unverification
+    Route::get('/active/{id}', [ProjectInitiationController::class, 'active'])->name('project_initiation.active'); //project active
     Route::get('/project_initiation_search', [ProjectInitiationController::class, 'search'])->name('project_initiation.search'); // ajax search
+    Route::post('/activate/{id}', [ProjectInitiationController::class, 'activate'])->name('project_initiation.activate'); //project activate
+    Route::get('/inactivate/{id}', [ProjectInitiationController::class, 'inactivate'])->name('project_initiation.inactivate');
 });
 
 //admin user detail routes
@@ -103,6 +107,7 @@ Route::prefix('admin/user_detail')->middleware(['auth'])->group(function () {
     Route::post('/update/{id}', [UserDetailController::class, 'update'])->name('user_detail.update'); //update
     Route::get('/info/{id}', [UserDetailController::class, 'info'])->name('user_detail.info'); //info page
 });
+
 //upload user document routes
 Route::prefix('document')->middleware(['auth'])->group(function () {
     Route::post('/store', [DocumentController::class, 'store'])->name('document.store'); // store
@@ -117,4 +122,14 @@ Route::prefix('project_document')->middleware(['auth'])->group(function () {
     Route::post('/update/{id}', [ProjectDocumentController::class, 'update'])->name('project_document.update'); // update
     Route::get('/delete/{id}', [ProjectDocumentController::class, 'delete'])->name('project_document.delete'); // delete
 
+});
+
+//admin project_status routes
+Route::prefix('admin/status')->middleware(['auth'])->group(function () {
+    Route::get('/index', [StatusController::class, 'index'])->name('status.index');
+    Route::get('/create', [StatusController::class, 'create'])->name('status.create');
+    Route::post('/store', [StatusController::class, 'store'])->name('status.store');
+    Route::get('/delete/{id}', [StatusController::class, 'delete'])->name('status.delete');
+    Route::get('/edit/{id}', [StatusController::class, 'edit'])->name('status.edit');
+    Route::post('/update/{id}', [StatusController::class, 'update'])->name('status.update');
 });

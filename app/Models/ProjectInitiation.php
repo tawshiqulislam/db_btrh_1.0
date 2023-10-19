@@ -23,4 +23,40 @@ class ProjectInitiation extends Model
     {
         return $this->hasMany(ProjectDocument::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function verified_by_user()
+    {
+        return $this->belongsTo(User::class, 'verified_by');
+    }
+
+    public function unverified_by_user()
+    {
+        return $this->belongsTo(User::class, 'unverified_by');
+    }
+
+    public function activated_by_user()
+    {
+        return $this->belongsTo(User::class, 'activated_by');
+    }
+
+    public function inactivated_by_user()
+    {
+        return $this->belongsTo(User::class, 'inactivated_by');
+    }
+
+
+    public function assigned_to_user()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
+    }
+
+    public function assigned_by_user()
+    {
+        return $this->belongsTo(User::class, 'assigned_by');
+    }
 }
