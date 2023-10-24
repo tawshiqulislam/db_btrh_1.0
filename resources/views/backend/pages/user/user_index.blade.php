@@ -44,7 +44,7 @@
                                 <td>{{ $user->user_type ?? "" }}</td>
                                 <td>
                                     @foreach ($user->roles as $role)
-                                        <span class="badge bg-info">{{ $role->name }}</span>
+                                        <span class="badge bg-info rounded-pill">{{ $role->name }}</span>
                                     @endforeach
                                 </td>
                                 <td>

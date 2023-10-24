@@ -2,5 +2,5 @@
 
 @section("content")
     @include("backend.layouts.partials.page_title")
-    admin page
+    admin page demo
 @endsection

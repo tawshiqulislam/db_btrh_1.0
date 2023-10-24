@@ -229,7 +229,7 @@
                                     </div>
                                     <div class="col-7">
                                         : @foreach ($user->roles as $role)
-                                            <span class="badge bg-danger">{{ $role->name ?? "" }}</span>
+                                            <span class="badge bg-danger rounded-pill">{{ $role->name ?? "" }}</span>
                                         @endforeach
                                     </div>
                                 </div>

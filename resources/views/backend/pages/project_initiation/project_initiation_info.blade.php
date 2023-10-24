@@ -23,10 +23,7 @@
                     <div class="row p-2">
                         <div class="col-md-12">
                             <div class="card-header">
-
-                                <h5>{{ $project_initiation->name ?? "" }}</h5>
-
-                                <div class="button-group d-flex justify-content-end  gap-2 ">
+                                <div class="button-group d-flex justify-content-end  gap-2 mb-2">
                                     <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                         Edit</a>
                                     <!--verify and unverify button-->
@@ -44,13 +41,13 @@
                                     {{-- project active inactive --}}
                                     @if ($project_initiation->status == "inactive" && $project_initiation->isVerified == false)
                                         @role("super_admin")
-                                            <a href="{{ route("project_initiation.active", $project_initiation->id) }}" class="btn btn-warning btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
+                                            <a href="{{ route("project_initiation.active", $project_initiation->id) }}" class="btn btn-success btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
                                                 Active This Project </a>
                                         @endrole
                                     @endif
                                     @if ($project_initiation->status == "inactive" && $project_initiation->isVerified == true)
                                         @role("super_admin")
-                                            <a type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal" class="btn btn-warning btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
+                                            <a type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal" class="btn btn-success btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
                                                 Active This Project </a>
                                         @endrole
                                     @endif
@@ -62,8 +59,9 @@
                                         @endrole
                                     @endif
 
-                                    <button class="btn btn-success text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
+                                    <button class="btn btn-secondary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
                                 </div>
+                                <h5>{{ $project_initiation->name ?? "" }}</h5>
 
                             </div>
                         </div>
