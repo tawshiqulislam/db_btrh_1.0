@@ -23,14 +23,14 @@
             <a href="{{ route("user.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add User</a>
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
                             <th>SL No</th>
                             <th>Name</th>
                             <th>Username</th>
-                            <th>Email</th>
                             <th>User Type</th>
+                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -41,8 +41,12 @@
                                 <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $user->name ?? "" }}</td>
                                 <td>{{ $user->username ?? "" }}</td>
-                                <td>{{ $user->email ?? "" }}</td>
                                 <td>{{ $user->user_type ?? "" }}</td>
+                                <td>
+                                    @foreach ($user->roles as $role)
+                                        <span class="badge bg-info">{{ $role->name }}</span>
+                                    @endforeach
+                                </td>
                                 <td>
                                     <a href="{{ route("user.info", $user->id) }}" class="btn btn-info btn-sm text-white">
                                         <i class="fa-solid fa-circle-info"></i> Info</a>

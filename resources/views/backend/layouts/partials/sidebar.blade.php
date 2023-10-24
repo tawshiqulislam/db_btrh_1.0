@@ -25,6 +25,24 @@
                 </li>
             </ul>
         </li>
+        <!--Role-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_role" data-bs-toggle="collapse" href="{{ route("role.index") }}">
+                <i class="fa-solid fa-circle"></i></i><span>Role</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_role" class="nav-content collapse " data-bs-parent="#sidebar-nav_role">
+                <li>
+                    <a href="{{ route("role.index") }}">
+                        <i class="bi bi-circle"></i><span>Role List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("role.create") }}">
+                        <i class="bi bi-circle"></i><span>Add Role</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <!--user detail-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_user_detail" data-bs-toggle="collapse" href="{{ route("user_detail.index") }}">

@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 use Faker\Factory as FakerFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $roles = ['super_admin', 'admin', 'office', 'vendor', 'controller'];
+        foreach ($roles as $role) {
+            Role::create(['name' => $role]);
+        }
+
         $faker = FakerFactory::create();
         \App\Models\User::create([
             'name' => 'Super Admin',
@@ -37,24 +41,12 @@ class DatabaseSeeder extends Seeder
             'date_of_birth' => '1990-01-01',
             'email_verified_at' => null,
             'password' => Hash::make('admin@example.com'),
-            'user_type' => 'office', //or vendor
+            'user_type' => 'super_admin', //or vendor
             'remember_token' => null,
             'created_at' => now(),
             'updated_at' => now(),
 
-        ]);
-        \App\Models\AdminList::create([
-            'user_id' => 1,
-            'user_type' => 'super_admin', // or 'admin' depending on the user type
-        ]);
-        //random adminlist creation
-        for ($i = 0; $i < 5; $i++) {
-            DB::table('admin_lists')->insert([
-                'user_id' => $faker->numberBetween(2, 5), // Replace with an appropriate range
-                'user_type' => $faker->randomElement(['super_admin', 'admin']),
-            ]);
-        }
-
+        ])->assignRole('super_admin');
         //security question
         DB::table('security_questions')->insert([
             ['name' => 'In what city were you born?'],

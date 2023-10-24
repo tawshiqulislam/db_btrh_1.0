@@ -1,11 +1,11 @@
 @extends("backend.layouts.master")
 @section("content")
     <div class="pagetitle">
-        <h1>Security Question</h1>
+        <h1>Role</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route("security_question.index") }}">Security Question</a></li>
-                <li class="breadcrumb-item active">Edit Security Question</li>
+                <li class="breadcrumb-item"><a href="{{ route("role.index") }}">Role</a></li>
+                <li class="breadcrumb-item active">Edit Role</li>
             </ol>
         </nav>
         <hr>
@@ -13,11 +13,11 @@
 
     <div class="container">
 
-        <form action="{{ route("security_question.update", $security_question->id) }}" method="POST">
+        <form action="{{ route("role.update", $role->id) }}" method="POST">
             @csrf
             <div class="form-group mb-3">
-                <label for="security_question">Security Question:</label>
-                <input value="{{ $security_question->name }}" placeholder="Enter security question" type="text" class="form-control" id="security_question" name="name" required>
+                <label for="role">Role:</label>
+                <input value="{{ $role->name }}" placeholder="Enter role" type="text" class="form-control" id="role" name="name" required>
                 @if ($errors->has("name"))
                     <p class="text-danger">{{ $errors->first("name") }}</p>
                 @endif

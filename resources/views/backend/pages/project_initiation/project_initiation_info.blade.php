@@ -30,38 +30,36 @@
                                     <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                         Edit</a>
                                     <!--verify and unverify button-->
-
                                     @if ($project_initiation->isVerified == false)
-                                        @can("super_admin_admin")
+                                        @role("super_admin")
                                             <a href="{{ route("project_initiation.verify", $project_initiation->id) }}" class="btn btn-info btn-sm text-white"><i class="fa-solid fa-certificate"></i>
                                                 Verify</a>
-                                        @endcan
+                                        @endrole
                                     @else
-                                        @can("super_admin_admin")
+                                        @role("super_admin")
                                             <a href="{{ route("project_initiation.unverify", $project_initiation->id) }}" class="btn btn-dark btn-sm text-white"><i class="fa-solid fa-certificate"></i>
                                                 Univerify</a>
-                                        @endcan
+                                        @endrole
                                     @endif
                                     {{-- project active inactive --}}
                                     @if ($project_initiation->status == "inactive" && $project_initiation->isVerified == false)
-                                        @can("super_admin_admin")
+                                        @role("super_admin")
                                             <a href="{{ route("project_initiation.active", $project_initiation->id) }}" class="btn btn-warning btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
                                                 Active This Project </a>
-                                        @endcan
+                                        @endrole
                                     @endif
-
                                     @if ($project_initiation->status == "inactive" && $project_initiation->isVerified == true)
-                                        @can("super_admin_admin")
+                                        @role("super_admin")
                                             <a type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal" class="btn btn-warning btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
                                                 Active This Project </a>
-                                        @endcan
+                                        @endrole
                                     @endif
 
                                     @if ($project_initiation->status == "active")
-                                        @can("super_admin_admin")
+                                        @role("super_admin")
                                             <a href="{{ route("project_initiation.inactivate", $project_initiation->id) }}" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
                                                 Inactive This Project </a>
-                                        @endcan
+                                        @endrole
                                     @endif
 
                                     <button class="btn btn-success text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
@@ -69,18 +67,14 @@
 
                             </div>
                         </div>
-
                     </div>
 
                     <div class="card-body">
-
                         <div class="row g-2">
-
                             <div class="col-md-12">
                                 <p class="card-text"><strong>Project Category:</strong>
                                     {{ $project_initiation->project_category->name ?? "" }}</p>
                             </div>
-
                             <div class="col-md-12">
                                 <p class="card-text"><strong>Description:</strong></p>
                                 <p class="card-text">{!! $project_initiation->description ?? "" !!}</p>
@@ -93,7 +87,6 @@
                                 <p class="card-text"><strong>Deadline:</strong> {{ $project_initiation->deadline ?? "" }}
                                 </p>
                             </div>
-
                             @if ($project_initiation->required_file)
                                 <div class="col-md-12">
                                     <p class="card-text"><strong>Required File:</strong> <a target="_blank" href="{{ asset("storage/project_initiation/" . $project_initiation->required_file) }}">{{ $project_initiation->required_file }}</a>
@@ -103,13 +96,11 @@
                             <div class="col-md-12">
                                 <p class="card-text"><strong>Project Initiated By:</strong> {{ $project_initiation->user->username }}
                                 </p>
-
                             </div>
                             <div class="col-md-12">
                                 <p class="card-text"><strong>isVerified:</strong> {{ $project_initiation->isVerified == true ? "Yes" : "No" }}
                                 </p>
                             </div>
-
                             @if ($project_initiation->verified_by)
                                 <div class="col-md-12">
                                     <p class="card-text"><strong>Verified By:</strong> {{ $project_initiation->verified_by_user->username ?? "Not verified yet" }}
@@ -122,7 +113,6 @@
                                     </p>
                                 </div>
                             @endif
-
                             <div class="col-md-12">
                                 <p class="card-text"><strong>Status:</strong> {{ ucfirst($project_initiation->status) ?? "" }}
                                 </p>
@@ -133,14 +123,12 @@
                                     </p>
                                 </div>
                             @endif
-
                             @if ($project_initiation->inactivated_by)
                                 <div class="col-md-12">
                                     <p class="card-text"><strong>Inactivated By:</strong> {{ $project_initiation->inactivated_by_user->username ?? "Project is active" }}
                                     </p>
                                 </div>
                             @endif
-
                             <div class="col-md-12">
                                 <p class="card-text"><strong>Assignd To:</strong> {{ $project_initiation->assigned_to_user->username ?? "Not assigned yet" }}
                                 </p>

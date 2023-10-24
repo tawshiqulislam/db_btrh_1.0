@@ -41,6 +41,15 @@
                             <div class="card-header float-end">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <span class="dropdown">
+                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Role
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleAssignModal">Assign Role</a></li>
+                                                <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleDeleteModal">Remove Role</a></li>
+                                            </ul>
+                                        </span>
                                         @if ($user->pro_pic)
                                             <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-warning text-white "><i class="fa-solid fa-image"></i>
                                                 Update
@@ -58,6 +67,7 @@
 
                                         <a href="{{ route("user.edit", $user->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                             Edit Profile</a>
+
                                     </div>
 
                                 </div>
@@ -211,6 +221,19 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Roles
+                                    </div>
+                                    <div class="col-7">
+                                        : @foreach ($user->roles as $role)
+                                            <span class="badge bg-danger">{{ $role->name ?? "" }}</span>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-12">
@@ -262,5 +285,7 @@
     @include("backend.pages.user.user_document_upload_modal")
     @include("backend.pages.user.user_document_edit_modal")
     @include("backend.pages.user.user_document_delete_confirmation_modal")
+    @include("backend.pages.user.user_role_assign_modal")
+    @include("backend.pages.user.user_role_delete_modal")
 
 @endsection
