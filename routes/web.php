@@ -7,6 +7,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectDocumentController;
 use App\Http\Controllers\ProjectInitiationController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
@@ -56,6 +57,8 @@ Route::prefix('admin/user')->middleware(['auth'])->group(function () {
     Route::get('/info/{id}', [UserController::class, 'info'])->name('user.info');
     Route::get('/remove_profile_picture/{id}', [UserController::class, 'remove_profile_picture'])->name('user.remove_profile_picture');
     Route::post('/update_profile_picture/{id}', [UserController::class, 'update_profile_picture'])->name('user.update_profile_picture');
+    Route::post('/role_assign/{id}', [UserController::class, 'role_assign'])->name('user.role_assign');
+    Route::post('/role_delete/{id}', [UserController::class, 'role_delete'])->name('user.role_delete');
 });
 
 //admin department routes
@@ -132,4 +135,14 @@ Route::prefix('admin/status')->middleware(['auth'])->group(function () {
     Route::get('/delete/{id}', [StatusController::class, 'delete'])->name('status.delete');
     Route::get('/edit/{id}', [StatusController::class, 'edit'])->name('status.edit');
     Route::post('/update/{id}', [StatusController::class, 'update'])->name('status.update');
+});
+
+//admin roles routes
+Route::prefix('admin/role')->middleware(['auth'])->group(function () {
+    Route::get('/index', [RoleController::class, 'index'])->name('role.index');
+    Route::get('/create', [RoleController::class, 'create'])->name('role.create');
+    Route::post('/store', [RoleController::class, 'store'])->name('role.store');
+    Route::get('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
+    Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
+    Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update');
 });

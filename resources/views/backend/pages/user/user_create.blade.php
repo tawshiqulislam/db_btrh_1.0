@@ -199,6 +199,6 @@
             </button>
         </form>
     </div>
-    @include("includes.user_create_registration_edit_document_upload")
-    @include("includes.uploaded_image_preview")
+    @include("includes.user_create_registration_edit_document_upload_script")
+    @include("includes.uploaded_image_preview_script")
 @endsection

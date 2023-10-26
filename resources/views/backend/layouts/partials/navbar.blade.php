@@ -171,14 +171,11 @@
 
              <li class="nav-item dropdown pe-3">
 
-                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                     data-bs-toggle="dropdown">
+                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                      @if (auth()->user()->pro_pic)
-                         <img src="{{ asset("storage/user/" . auth()->user()->pro_pic) }}" alt="Profile"
-                             class="rounded-circle">
+                         <img src="{{ asset("storage/user/" . auth()->user()->pro_pic) }}" alt="Profile" class="rounded-circle">
                      @else
-                         <img src="{{ asset("image/no_profile_picture_circular.png") }}" alt="Profile"
-                             class="rounded-circle">
+                         <img src="{{ asset("image/no_profile_picture_circular.png") }}" alt="Profile" class="rounded-circle">
                      @endif
                      <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->username ?? "" }}</span>
                  </a><!-- End Profile Iamge Icon -->
@@ -187,15 +184,14 @@
                      <li class="dropdown-header">
                          <h6>{{ auth()->user()->name ?? "" }}</h6>
 
-                         <span>{{ auth()->user()->admin_list->user_type ?? "user" }}</span>
+                         <span>{{ auth()->user()->user_type ?? "user" }}</span>
                      </li>
                      <li>
                          <hr class="dropdown-divider">
                      </li>
 
                      <li>
-                         <a class="dropdown-item d-flex align-items-center"
-                             href="{{ route("user.info", auth()->user()->id) }}">
+                         <a class="dropdown-item d-flex align-items-center" href="{{ route("user.info", auth()->user()->id) }}">
                              <i class="bi bi-person"></i>
                              <span>My Profile</span>
                          </a>

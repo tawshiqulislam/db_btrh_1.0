@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Models\SecurityQuestion;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -56,6 +57,12 @@ class UserController extends Controller
                 'document' => $document,
                 'user_id' => $user->id
             ]);
+        }
+        if ($user->user_type == 'office') {
+            $user->assignRole('office');
+        }
+        if ($user->user_type == 'vendor') {
+            $user->assignRole('vendor');
         }
         toastr()->success('User created successfully!', 'Congrats');
         return redirect()->route('user.index');
@@ -141,7 +148,8 @@ class UserController extends Controller
     public function info($id)
     {
         $user = User::find($id);
-        return view('backend.pages.user.user_info', compact('user'));
+        $roles = Role::all();
+        return view('backend.pages.user.user_info', compact('user', 'roles'));
     }
 
     //remove profile picture
@@ -184,6 +192,33 @@ class UserController extends Controller
         $user->update($data);
 
         toastr()->success('Profile picture save successfully!', 'Congrats');
+        return redirect()->back();
+    }
+    //role assign
+    public function role_assign(Request $request, $id)
+    {
+
+
+        $user = User::find($id);
+        if ($user->hasRole($request->name)) {
+            toastr()->error('Role already exist!', 'Alert');
+        }
+        if (!$user->hasRole($request->name)) {
+            $user->assignRole($request->name);
+            toastr()->success('Role assigned successfully!', 'Congrats');
+        }
+
+        return redirect()->back();
+    }
+    public function role_delete(Request $request, $id)
+    {
+
+        $user = User::find($id);
+        foreach ($request->roles as $role) {
+
+            $user->removeRole($role);
+        };
+        toastr()->error('Role removed!', 'Alert');
         return redirect()->back();
     }
     //image function

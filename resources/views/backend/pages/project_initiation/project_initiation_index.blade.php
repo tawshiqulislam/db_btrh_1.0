@@ -36,31 +36,38 @@
                     <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>
                         Add Project Initiation</a>
                 </div>
-                <div class="verify_unverify_btn">
-                    <a href="" class="btn btn-success btn-sm text-white">Verified Project
-                        ({{ $total_verified_project_initiations }})</a>
-                    <a href="" class="btn btn-dark btn-sm text-white">Unverified Project
-                        ({{ $total_unverified_project_initiations }})</a>
+                <div class="verify_unverify_btn d-flex gap-3">
+                    <button type="button" class="btn btn-success btn-sm position-relative">
+                        Verified Project
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ $total_verified_project_initiations }}
+                        </span>
+                    </button>
+                    <button type="button" class="btn btn-dark btn-sm position-relative">
+                        Unverified Project
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ $total_unverified_project_initiations }}
+                        </span>
+                    </button>
                 </div>
             </div>
-            <div class="table-data">
-                <table class="table table-bordered table-responsive">
+            <div class="table-data table-responsive">
+                <table class="table table-sm table-bordered ">
                     <thead>
                         <tr>
-                            <th>SL No</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Deadline</th>
-                            <th>isVerified</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">SL No</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">isVerified</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach ($project_initiations as $project_initiation)
                             <tr>
-                                <td>{{ ++$sl }}</td>
+                                <td scope='row'>{{ ++$sl }}</td>
                                 <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $project_initiation->name ?? "" }}</td>
                                 <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -68,7 +75,6 @@
                                 <td>{{ $project_initiation->deadline ?? "" }}</td>
                                 <td>{{ $project_initiation->isVerified == true ? "Yes" : "No" }}</td>
                                 <td>{{ ucfirst($project_initiation->status) ?? "" }}</td>
-
                                 <td>
                                     <a href="{{ route("project_initiation.info", $project_initiation->id) }}" class="btn btn-info btn-sm text-white">
                                         <i class="fa-solid fa-circle-info"></i> Info</a>
@@ -76,7 +82,6 @@
                                         <i class="fa-solid fa-file-pen"></i> Edit</a>
                                     <a type="button" class=" btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiationDeleteModal_{{ $project_initiation->id }}"><i class="fa-solid fa-trash"></i>
                                         Delete</a>
-
                                 </td>
                             </tr>
                         @endforeach
@@ -85,7 +90,6 @@
                 <!-- pagination link -->
                 {{ $project_initiations->links("pagination::bootstrap-4") }}
             </div>
-
         </div>
         @include("includes.ajax_search_script")
     @endif

@@ -49,7 +49,12 @@ class AuthenticationController extends Controller
                     'user_id' => $user->id
                 ]);
             }
-
+            if ($user->user_type == 'office') {
+                $user->assignRole('office');
+            }
+            if ($user->user_type == 'vendor') {
+                $user->assignRole('vendor');
+            }
             toastr()->success('Registration successful!', 'Congrats');
             return redirect()->route('login');
         } catch (Exception $e) {

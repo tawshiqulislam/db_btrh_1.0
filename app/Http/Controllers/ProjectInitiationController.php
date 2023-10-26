@@ -134,8 +134,6 @@ class ProjectInitiationController extends Controller
     //project verification
     public function verify($id)
     {
-
-        $this->authorize('super_admin_admin');  //authorization
         $project_initiation = ProjectInitiation::find($id);
         $project_initiation->update([
             'verified_by' => auth()->user()->id,
@@ -148,7 +146,6 @@ class ProjectInitiationController extends Controller
     public function unverify($id)
     {
 
-        $this->authorize('super_admin_admin'); //authorizaiton
         $project_initiation = ProjectInitiation::find($id);
         $project_initiation->update([
             'verified_by' => null,
