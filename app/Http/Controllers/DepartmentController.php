@@ -12,8 +12,7 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $departments = Department::paginate(10);
-
+        $departments = Department::pluck('name')->unique();
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
         return view('backend.pages.department.department_index', compact('departments', 'sl'));
     }
@@ -28,7 +27,19 @@ class DepartmentController extends Controller
     public function store(DepartmentStoreRequest $request)
     {
 
-        Department::create($request->all());
+
+
+        foreach ($request->user_ids as $user_id) {
+
+            Department::create([
+                'name' => $request->name,
+                'user_id' => $user_id,
+                'designation' => $request->designations[$user_id]
+            ]);
+        }
+
+
+
         toastr()->success('Department created successfully!', 'Congrats');
         return redirect()->route('department.index');
     }

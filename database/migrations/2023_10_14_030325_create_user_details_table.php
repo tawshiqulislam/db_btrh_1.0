@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('file');
+            $table->string('designation');
             $table->softDeletes();
             $table->timestamps();
         });
