@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class DepartmentUpdateRequest extends FormRequest
 {
@@ -24,8 +23,7 @@ class DepartmentUpdateRequest extends FormRequest
     {
         return [
             'name' => [
-                'required',
-                Rule::unique('departments')->ignore($this->id),
+                'required'
             ],
         ];
     }
@@ -33,8 +31,7 @@ class DepartmentUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The department name is required.',
-            'name.unique' => 'The department name is already in use.',
+            'name.required' => 'The department name is required.'
         ];
     }
 }

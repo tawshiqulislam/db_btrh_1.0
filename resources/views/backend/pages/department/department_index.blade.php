@@ -28,8 +28,6 @@
                     <tr>
                         <th>SL No</th>
                         <th>Department</th>
-                        <th>Username</th>
-                        <th>Designation</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -40,13 +38,6 @@
 
                             <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 {{ $department->name ?? "" }}</td>
-                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                {{ $department->user->username ?? "" }}
-                            </td>
-                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                {{ $department->designation }}
-                            </td>
-
                             <td>
                                 <a href="{{ route("department.info", $department->id) }}" class="btn btn-info btn-sm text-white">
                                     <i class="fa-solid fa-circle-info"></i> Info</a>
