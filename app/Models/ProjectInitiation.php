@@ -59,4 +59,8 @@ class ProjectInitiation extends Model
     {
         return $this->belongsTo(User::class, 'assigned_by');
     }
+    public function project_initiation_overviews()
+    {
+        return $this->hasMany(ProjectInitiationOverview::class);
+    }
 }

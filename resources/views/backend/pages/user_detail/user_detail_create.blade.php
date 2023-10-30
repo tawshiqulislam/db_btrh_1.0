@@ -36,8 +36,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="name">File Name:</label>
-                        <input placeholder="Enter file name" type="text" class="form-control" id="name"
-                            name="name" required>
+                        <input placeholder="Enter file name" type="text" class="form-control" id="name" name="name" required>
                         @if ($errors->has("name"))
                             <p class="text-danger">{{ $errors->first("name") }}</p>
                         @endif

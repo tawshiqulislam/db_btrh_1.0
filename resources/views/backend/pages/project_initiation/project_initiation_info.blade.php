@@ -128,8 +128,34 @@
                                 </div>
                             @endif
                             <div class="col-md-12">
-                                <p class="card-text"><strong>Assignd To:</strong> {{ $project_initiation->assigned_to_user->username ?? "Not assigned yet" }}
-                                </p>
+                                <p class="card-text"><strong>Assignd To:</strong></p>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>SL No.</th>
+                                            <th>Name</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Designation</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($project_initiation_overviews as $key => $project_initiation_overview)
+                                            <tr>
+                                                <td>{{ ++$key }}</td>
+                                                <td>{{ $project_initiation_overview->user->name }}</td>
+                                                <td>{{ $project_initiation_overview->user->username }}</td>
+                                                <td>{{ $project_initiation_overview->user->email }}</td>
+                                                <td>{{ $project_initiation_overview->designation }}</td>
+                                                <td>
+                                                    <a type="button" class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
+                                                        Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="col-md-12">
                                 <p class="card-text"><strong>Assignd By:</strong> {{ $project_initiation->assigned_by_user->username ?? "Not assigned yet" }}

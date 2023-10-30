@@ -12,12 +12,16 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <label for="assigned_to">Assigned To:</label>
-                            <select name="assigned_to" id="assigned_to" class="form-control" required>
-                                <option selected disabled>Select</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}({{ $user->email }})</option>
-                                @endforeach
-                            </select>
+                            @foreach ($users as $user)
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="user_ids[]" value="{{ $user->id }}" id="user_{{ $user->id }}">
+                                    <label class="form-check-label" for="user_{{ $user->id }}">
+                                        {{ $user->name }} ({{ $user->email }})
+                                    </label>
+                                    <input type="text" class="form-control designation-input mb-2" id="designation_{{ $user->id }}" name="designations[{{ $user->id }}]" placeholder="Enter Designation" style="display: none;">
+                                    <input type="text" class="form-control comment-input" id="comment_{{ $user->id }}" name="comments[{{ $user->id }}]" placeholder="Enter Comment" style="display: none;">
+                                </div>
+                            @endforeach
                         </div>
                         <div class="col-md-12">
                             <label for="status">Select Status:</label>
@@ -38,3 +42,13 @@
         </div>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('input[type="checkbox"]').change(function() {
+            var userId = $(this).val();
+            $('#designation_' + userId).toggle();
+            $('#comment_' + userId).toggle();
+        });
+    });
+</script>

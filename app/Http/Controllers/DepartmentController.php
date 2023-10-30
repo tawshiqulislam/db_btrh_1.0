@@ -14,6 +14,7 @@ class DepartmentController extends Controller
     {
         $departments = Department::paginate(10);
 
+
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
         return view('backend.pages.department.department_index', compact('departments', 'sl'));
     }
@@ -28,7 +29,19 @@ class DepartmentController extends Controller
     public function store(DepartmentStoreRequest $request)
     {
 
-        Department::create($request->all());
+
+
+        foreach ($request->user_ids as $user_id) {
+
+            Department::create([
+                'name' => $request->name,
+                'user_id' => $user_id,
+                'designation' => $request->designations[$user_id]
+            ]);
+        }
+
+
+
         toastr()->success('Department created successfully!', 'Congrats');
         return redirect()->route('department.index');
     }
@@ -36,7 +49,12 @@ class DepartmentController extends Controller
     public function delete($id)
     {
         $department =  Department::where('id', $id)->first();
-        $department->delete();
+        $departments = Department::where('name', $department->name)->get();
+
+        foreach ($departments as $department) {
+            $department->delete();
+        }
+
         toastr()->error('Department deleted!', 'Delete');
         return redirect()->back();
     }
@@ -54,15 +72,32 @@ class DepartmentController extends Controller
     public function update(DepartmentUpdateRequest $request, $id)
     {
         $data = $request->except('_token');
-        $department = Department::where('id', $id)->first();
-        $department->update($data);
+
+        $departments = Department::where('name', $request->name)->get();
+        foreach ($departments as $department) {
+            foreach ($request->user_ids as $user_id) {
+
+                $department->update([
+                    'name' => $request->name,
+                    'user_id' => $user_id,
+                    'designation' => $request->designations[$user_id]
+                ]);
+            }
+        }
+
+
+
+
         toastr()->success('Department updated successfully!', 'Congrats');
         return redirect()->route('department.index');
     }
     public function info($id)
     {
         $department = Department::find($id);
-        return view('backend.pages.department.department_info', compact('department'));
+        $departments = Department::where('name', $department->name)->get();
+
+
+        return view('backend.pages.department.department_info', compact('department', 'departments'));
     }
     //image function
 

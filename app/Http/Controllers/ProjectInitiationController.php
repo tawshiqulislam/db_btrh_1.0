@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\UniqueID;
 use App\Http\Requests\ProjectInitiationRequest;
 use App\Http\Requests\ProjectInitiationUpdateRequest;
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
+use App\Models\ProjectInitiationOverview;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -48,6 +50,11 @@ class ProjectInitiationController extends Controller
     public function store(ProjectInitiationRequest $request)
     {
 
+
+        // Create a unique ID using the components
+        $project_unique_id = UniqueID::generateUniqueID();
+
+
         $data = $request->all();
 
         //if any file is present
@@ -56,6 +63,7 @@ class ProjectInitiationController extends Controller
             $data['required_file'] = $required_file;
         }
         $data['user_id'] = auth()->user()->id;
+        $data['project_unique_id'] = $project_unique_id;
         //Insert data
         ProjectInitiation::create($data);
         //success message
@@ -69,8 +77,13 @@ class ProjectInitiationController extends Controller
         //find the current data
         $project_initiation =  ProjectInitiation::where('id', $id)->first();
         $project_documents = ProjectDocument::where('project_initiation_id', $project_initiation->id)->get();
+        $project_initiation_overviews = ProjectInitiationOverview::where('project_initiation_id', $id)->get();
+
         foreach ($project_documents as $project_document) {
             $project_document->delete();
+        }
+        foreach ($project_initiation_overviews as $project_initiation_overview) {
+            $project_initiation_overview->delete();
         }
         //soft delete the data
         $project_initiation->delete();
@@ -129,7 +142,8 @@ class ProjectInitiationController extends Controller
         $project_initiation = ProjectInitiation::find($id);
         $statuses = Status::all();
         $users = User::all();
-        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users'));
+        $project_initiation_overviews = ProjectInitiationOverview::where('project_initiation_id', $id)->get();
+        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users', 'project_initiation_overviews'));
     }
     //project verification
     public function verify($id)
@@ -181,13 +195,24 @@ class ProjectInitiationController extends Controller
 
     public function activate(Request $request, $id)
     {
+
         $project_initiation = ProjectInitiation::find($id);
         $project_initiation->update([
             'activated_by' => auth()->user()->id,
-            'assigned_to' => $request->assigned_to,
+            // 'assigned_to' => $request->assigned_to,
             'assigned_by' => auth()->user()->id,
             'status' => $request->status,
         ]);
+        foreach ($request->user_ids as $user_id) {
+            ProjectInitiationOverview::create([
+                'project_initiation_id' => $id,
+                'user_id' => $user_id,
+                'designation' => $request->designations[$user_id],
+                'comment' => $request->comments[$user_id],
+                'assigned_by' => auth()->user()->id,
+
+            ]);
+        }
         toastr()->success('Project Initiation activated successfully!', 'Warning');
         return redirect()->back();
     }

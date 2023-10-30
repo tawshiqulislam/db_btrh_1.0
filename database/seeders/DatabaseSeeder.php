@@ -111,10 +111,11 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         //department
-        for ($i = 0; $i < 5; $i++) {
+        $departments = ['Backend Developement', 'ForontEnd Development', 'Mobile Application', 'UI/UX'];
+        foreach ($departments as $department) {
             DB::table('departments')->insert([
-                'name' => $faker->word,
-                'user_id' => $faker->boolean(50) ? $faker->numberBetween(2, 5) : null, // 30% chance of having a user_id
+                'name' => $department,
+                'user_id' => $faker->boolean(50) ? $faker->numberBetween(1, 5) : null, // 30% chance of having a user_id
                 'designation' => $faker->optional(0.5, null)->word, // 30% chance of having a designation
             ]);
         }

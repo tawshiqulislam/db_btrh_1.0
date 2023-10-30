@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\AdminList;
 use App\Models\Department;
 use App\Models\Document;
+use App\Models\ProjectInitiationOverview;
 use App\Models\UserDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -94,6 +95,10 @@ class User extends Authenticatable
     public function assigned_by_project_initiaons()
     {
         return $this->hasMany(ProjectInitiation::class, 'assigned_by');
+    }
+    public function project_initiation_overviews()
+    {
+        return $this->hasMany(ProjectInitiationOverview::class);
     }
 
 
