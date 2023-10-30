@@ -26,6 +26,7 @@ return new class extends Migration
             $table->unsignedBigInteger('assigned_by')->nullable();
             $table->unsignedBigInteger('verified_by')->nullable();
             $table->unsignedBigInteger('unverified_by')->nullable();
+            $table->string('project_unique_id')->nullable();
             $table->boolean('isVerified')->default(false);
             $table->string('status')->default('inactive');
             $table->timestamps();
