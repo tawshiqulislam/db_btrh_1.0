@@ -41,15 +41,18 @@
                             <div class="card-header float-end">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class="dropdown">
-                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Role
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleAssignModal">Assign Role</a></li>
-                                                <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleDeleteModal">Remove Role</a></li>
-                                            </ul>
-                                        </span>
+                                        @if (!$user->user_type == "vendor")
+                                            <span class="dropdown">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Role
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleAssignModal">Assign Role</a></li>
+                                                    <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleDeleteModal">Remove Role</a></li>
+                                                </ul>
+                                            </span>
+                                        @endif
+
                                         @if ($user->pro_pic)
                                             <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-warning text-white "><i class="fa-solid fa-image"></i>
                                                 Update

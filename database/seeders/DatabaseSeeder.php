@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['super_admin', 'admin', 'office', 'vendor', 'controller'];
+        $roles = ['super_admin', 'admin', 'user', 'vendor', 'controller'];
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'phone_no' => '0123456789',
             'TFA' => 0,
             'last_login' => null,
-            'isVerified' => 0,
+            'isVerified' => true,
             'address' => '123 Main St, City',
             'id_number' => '123456789',
             'id_type' => 'NID',
@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             'pro_pic' => null,
             'date_of_birth' => '1990-01-01',
             'email_verified_at' => null,
+            'verified_by' => 1,
             'password' => Hash::make('admin@example.com'),
             'user_type' => 'super_admin', //or vendor
             'remember_token' => null,
@@ -66,7 +67,7 @@ class DatabaseSeeder extends Seeder
                 'phone_no' => $faker->unique()->phoneNumber,
                 'TFA' => $faker->randomElement([0, 1, 2]),
                 'last_login' => $faker->dateTimeThisYear,
-                'isVerified' => $faker->boolean(80), // 80% chance of being verified
+                'isVerified' => false, // 80% chance of being verified
                 'address' => $faker->address,
                 'id_number' => $faker->unique()->randomNumber(8),
                 'id_type' => $faker->randomElement(['Birth Certificate', 'NID', 'Passport']),
@@ -76,10 +77,10 @@ class DatabaseSeeder extends Seeder
                 'sq_no_2_ans' => $faker->optional(0.2, null)->sentence,
                 'pro_pic' =>  $faker->word . '.jpg',
                 'date_of_birth' => $faker->date,
-                'verified_by' => $faker->optional(0.3, null)->numberBetween(1, 5),
+                // 'verified_by' => $faker->optional(0.3, null)->numberBetween(1, 5),
                 'email_verified_at' => $faker->boolean(90) ? now() : null, // 90% chance of being verified
                 'password' => Hash::make('123456789'), // You can change the default password
-                'user_type' => $faker->randomElement(['office', 'vendor']), //or vendor
+                'user_type' => 'user', //or vendor
             ]);
         }
 
