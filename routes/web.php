@@ -12,6 +12,7 @@ use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDetailController;
+use App\Http\Middleware\isVerified;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //admin panel
-Route::get('/admin', [BackendController::class, 'admin'])->name('admin.dashboard')->middleware(['auth']);
+Route::get('/admin', [BackendController::class, 'admin'])->name('admin.dashboard')->middleware(['auth', isVerified::class]);
 
 
 //authentication route
@@ -36,7 +37,7 @@ Route::post('/login/store', [AuthenticationController::class, 'login_store'])->n
 Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 //admin security question routes
-Route::prefix('admin/security_question')->middleware(['auth'])->group(function () {
+Route::prefix('admin/security_question')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [SecurityQuestionController::class, 'index'])->name('security_question.index');
     Route::get('/create', [SecurityQuestionController::class, 'create'])->name('security_question.create');
     Route::post('/store', [SecurityQuestionController::class, 'store'])->name('security_question.store');
@@ -47,7 +48,7 @@ Route::prefix('admin/security_question')->middleware(['auth'])->group(function (
 });
 
 //admin user routes
-Route::prefix('admin/user')->middleware(['auth'])->group(function () {
+Route::prefix('admin/user')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [UserController::class, 'index'])->name('user.index');
     Route::get('/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/store', [UserController::class, 'store'])->name('user.store');
@@ -62,7 +63,7 @@ Route::prefix('admin/user')->middleware(['auth'])->group(function () {
 });
 
 //admin department routes
-Route::prefix('admin/department')->middleware(['auth'])->group(function () {
+Route::prefix('admin/department')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [DepartmentController::class, 'index'])->name('department.index');
     Route::get('/create', [DepartmentController::class, 'create'])->name('department.create');
     Route::post('/store', [DepartmentController::class, 'store'])->name('department.store');
@@ -73,7 +74,7 @@ Route::prefix('admin/department')->middleware(['auth'])->group(function () {
 });
 
 //admin project category routes
-Route::prefix('admin/project_category')->middleware(['auth'])->group(function () {
+Route::prefix('admin/project_category')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [ProjectCategoryController::class, 'index'])->name('project_category.index'); //index page
     Route::get('/create', [ProjectCategoryController::class, 'create'])->name('project_category.create'); //create page
     Route::post('/store', [ProjectCategoryController::class, 'store'])->name('project_category.store'); // store
@@ -84,7 +85,7 @@ Route::prefix('admin/project_category')->middleware(['auth'])->group(function ()
 });
 
 //admin project initiation routes
-Route::prefix('admin/project_initiation')->middleware(['auth'])->group(function () {
+Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [ProjectInitiationController::class, 'index'])->name('project_initiation.index'); //index page
     Route::get('/create', [ProjectInitiationController::class, 'create'])->name('project_initiation.create'); //create page
     Route::post('/store', [ProjectInitiationController::class, 'store'])->name('project_initiation.store'); // store
@@ -98,10 +99,11 @@ Route::prefix('admin/project_initiation')->middleware(['auth'])->group(function 
     Route::get('/project_initiation_search', [ProjectInitiationController::class, 'search'])->name('project_initiation.search'); // ajax search
     Route::post('/activate/{id}', [ProjectInitiationController::class, 'activate'])->name('project_initiation.activate'); //project activate
     Route::get('/inactivate/{id}', [ProjectInitiationController::class, 'inactivate'])->name('project_initiation.inactivate');
+    Route::get('/delete/overview/{id}', [ProjectInitiationController::class, 'delete_assigned_user'])->name('delete_assigned_user.delete');
 });
 
 //admin user detail routes
-Route::prefix('admin/user_detail')->middleware(['auth'])->group(function () {
+Route::prefix('admin/user_detail')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [UserDetailController::class, 'index'])->name('user_detail.index'); //index page
     Route::get('/create', [UserDetailController::class, 'create'])->name('user_detail.create'); //create page
     Route::post('/store', [UserDetailController::class, 'store'])->name('user_detail.store'); // store
@@ -112,7 +114,7 @@ Route::prefix('admin/user_detail')->middleware(['auth'])->group(function () {
 });
 
 //upload user document routes
-Route::prefix('document')->middleware(['auth'])->group(function () {
+Route::prefix('document')->middleware(['auth', isVerified::class])->group(function () {
     Route::post('/store', [DocumentController::class, 'store'])->name('document.store'); // store
     Route::post('/update/{id}', [DocumentController::class, 'update'])->name('document.update'); // update
     Route::get('/delete/{id}', [DocumentController::class, 'delete'])->name('document.delete'); // update
@@ -120,7 +122,7 @@ Route::prefix('document')->middleware(['auth'])->group(function () {
 });
 
 //upload project document routes
-Route::prefix('project_document')->middleware(['auth'])->group(function () {
+Route::prefix('project_document')->middleware(['auth', isVerified::class])->group(function () {
     Route::post('/store/{id}', [ProjectDocumentController::class, 'store'])->name('project_document.store'); // store
     Route::post('/update/{id}', [ProjectDocumentController::class, 'update'])->name('project_document.update'); // update
     Route::get('/delete/{id}', [ProjectDocumentController::class, 'delete'])->name('project_document.delete'); // delete
@@ -128,7 +130,7 @@ Route::prefix('project_document')->middleware(['auth'])->group(function () {
 });
 
 //admin project_status routes
-Route::prefix('admin/status')->middleware(['auth'])->group(function () {
+Route::prefix('admin/status')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [StatusController::class, 'index'])->name('status.index');
     Route::get('/create', [StatusController::class, 'create'])->name('status.create');
     Route::post('/store', [StatusController::class, 'store'])->name('status.store');
@@ -138,7 +140,7 @@ Route::prefix('admin/status')->middleware(['auth'])->group(function () {
 });
 
 //admin roles routes
-Route::prefix('admin/role')->middleware(['auth'])->group(function () {
+Route::prefix('admin/role')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [RoleController::class, 'index'])->name('role.index');
     Route::get('/create', [RoleController::class, 'create'])->name('role.create');
     Route::post('/store', [RoleController::class, 'store'])->name('role.store');

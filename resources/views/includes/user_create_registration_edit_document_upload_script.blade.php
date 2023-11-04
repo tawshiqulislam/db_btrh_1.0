@@ -6,10 +6,10 @@
             userTypes[i].addEventListener('change', function() {
                 if (this.value === 'vendor') {
                     document.getElementById('document_div').style.display = 'block';
-                    documentInput.required = true;
+                    // documentInput.required = true;
                 } else {
                     document.getElementById('document_div').style.display = 'none';
-                    documentInput.required = false;
+                    // documentInput.required = false;
                 }
             });
         }

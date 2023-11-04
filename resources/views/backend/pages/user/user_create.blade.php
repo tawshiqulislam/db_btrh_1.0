@@ -170,7 +170,7 @@
                     <div class="form-group">
                         <label>Registration as:</label>
                         <div class="form-check">
-                            <input value="office" class="form-check-input" type="radio" name="user_type" id="user_type_office">
+                            <input value="user" class="form-check-input" type="radio" name="user_type" id="user_type_user">
                             <label class="form-check-label" for="user_type_office">User</label>
                         </div>
                         <div class="form-check">

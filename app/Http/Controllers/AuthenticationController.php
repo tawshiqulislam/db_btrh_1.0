@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\FileDocuments;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Document;
 use App\Models\SecurityQuestion;
 use App\Models\User;
 use Exception;
@@ -41,20 +39,24 @@ class AuthenticationController extends Controller
 
 
             $user = User::create($data);
-            if ($request->document) {
+            // $user->assignRole('user');
+            $user->update([
+                'user_type' => 'user',
+            ]);
+            // if ($request->document) {
 
-                $document = FileDocuments::uploadDocument($request->name, $request->document);
-                Document::create([
-                    'document' => $document,
-                    'user_id' => $user->id
-                ]);
-            }
-            if ($user->user_type == 'office') {
-                $user->assignRole('office');
-            }
-            if ($user->user_type == 'vendor') {
-                $user->assignRole('vendor');
-            }
+            //     $document = FileDocuments::uploadDocument($request->name, $request->document);
+            //     Document::create([
+            //         'document' => $document,
+            //         'user_id' => $user->id
+            //     ]);
+            // }
+            // if ($user->user_type == 'office') {
+            //     $user->assignRole('office');
+            // }
+            // if ($user->user_type == 'vendor') {
+            //     $user->assignRole('vendor');
+            // }
             toastr()->success('Registration successful!', 'Congrats');
             return redirect()->route('login');
         } catch (Exception $e) {
@@ -65,7 +67,7 @@ class AuthenticationController extends Controller
     public function login()
     {
         //if not logged in user
-        if (!auth()->user()) {
+        if (!auth()->user() || auth()->user()->isVerified === 0) {
             return view('authentication.login'); //if not logged in user
         } else {
             return redirect()->route('admin.dashboard'); //if logged in user
@@ -82,7 +84,15 @@ class AuthenticationController extends Controller
                 // } else {
                 //     return redirect()->route('admin');
                 // }
-                return redirect()->route('admin.dashboard');
+                if (auth()->user()->isVerified === 1) {
+
+                    return redirect()->route('admin.dashboard');
+                }
+                if (auth()->user()->isVerified === 0) {
+
+                    toastr()->error("You are not verifed user!", 'Sorry');
+                    return redirect()->route('login');
+                }
             } else {
                 toastr()->error("Coudn't found the account!", 'Sorry');
                 return redirect()->back();

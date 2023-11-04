@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone_no')->unique();
             $table->string('TFA')->default(0); // 0 for no two-factor authentication, 1 for phone number, 2 for email
             $table->string('last_login')->nullable();
-            $table->boolean('isVerified')->default(0);
+            $table->boolean('isVerified')->default(false);
             $table->string('address');
             $table->string('id_number'); // Birth Certificate, NID, Passport (number)
             $table->string('id_type'); // Birth Certificate, NID, Passport
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->unsignedBigInteger('verified_by')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('user_type');
+            $table->string('user_type')->nullable();
             $table->softDeletes();
 
             $table->rememberToken()->nullable;

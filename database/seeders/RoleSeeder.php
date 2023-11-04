@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Faker\Factory as FakerFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
@@ -13,7 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['super_admin', 'admin', 'office', 'vendor', 'controller'];
+        $roles = ['super_admin', 'admin', 'user', 'vendor', 'controller'];
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }

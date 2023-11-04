@@ -23,7 +23,8 @@ class UniqueID
         $second = $now->second;
 
         // Create a unique ID using the components
-        $uniqueId = "{$year}{$month}{$day}{$hour}{$minute}{$second}";
+        $uniqueId = uniqid() . "{$year}{$month}{$day}{$hour}{$minute}{$second}";
+        // $uniqueId = Str::uuid();
 
         return $uniqueId;
     }

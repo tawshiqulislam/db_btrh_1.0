@@ -141,9 +141,10 @@ class ProjectInitiationController extends Controller
         //find the current data
         $project_initiation = ProjectInitiation::find($id);
         $statuses = Status::all();
-        $users = User::all();
+        $users = User::where('user_type', 'user')->get();
+        $vendors = User::where('user_type', 'vendor')->get();
         $project_initiation_overviews = ProjectInitiationOverview::where('project_initiation_id', $id)->get();
-        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users', 'project_initiation_overviews'));
+        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users', 'project_initiation_overviews', 'vendors'));
     }
     //project verification
     public function verify($id)
@@ -226,6 +227,12 @@ class ProjectInitiationController extends Controller
             'status' => 'inactive',
         ]);
         toastr()->warning('Project Initiation inactivated!', 'Warning');
+        return redirect()->back();
+    }
+
+    public function delete_assigned_user($id)
+    {
+        ProjectInitiationOverview::find($id)->delete();
         return redirect()->back();
     }
     //file upload function

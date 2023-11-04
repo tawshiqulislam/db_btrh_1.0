@@ -58,12 +58,12 @@ class UserController extends Controller
                 'user_id' => $user->id
             ]);
         }
-        if ($user->user_type == 'office') {
-            $user->assignRole('office');
-        }
-        if ($user->user_type == 'vendor') {
-            $user->assignRole('vendor');
-        }
+        // if ($user->user_type == 'user') {
+        //     $user->assignRole('user');
+        // }
+        // if ($user->user_type == 'vendor') {
+        //     $user->assignRole('vendor');
+        // }
         toastr()->success('User created successfully!', 'Congrats');
         return redirect()->route('user.index');
     }
@@ -205,6 +205,10 @@ class UserController extends Controller
         }
         if (!$user->hasRole($request->name)) {
             $user->assignRole($request->name);
+            $user->update([
+                'isVarified' => true,
+                'verified_by' => auth()->user()->id,
+            ]);
             toastr()->success('Role assigned successfully!', 'Congrats');
         }
 

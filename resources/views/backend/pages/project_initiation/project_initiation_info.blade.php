@@ -128,34 +128,44 @@
                                 </div>
                             @endif
                             <div class="col-md-12">
-                                <p class="card-text"><strong>Assignd To:</strong></p>
-                                <table class="table table-sm table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>SL No.</th>
-                                            <th>Name</th>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Designation</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($project_initiation_overviews as $key => $project_initiation_overview)
+                                <p class="card-text"><strong>Assignd To: </strong>
+                                    @if (!$project_initiation->activated_by)
+                                        <span>Don't assigned yet</span>
+                                    @else
+                                        <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal">Assign more</a>
+                                    @endif
+
+                                </p>
+                                @if ($project_initiation->activated_by)
+                                    <table class="table table-sm table-bordered">
+                                        <thead>
                                             <tr>
-                                                <td>{{ ++$key }}</td>
-                                                <td>{{ $project_initiation_overview->user->name }}</td>
-                                                <td>{{ $project_initiation_overview->user->username }}</td>
-                                                <td>{{ $project_initiation_overview->user->email }}</td>
-                                                <td>{{ $project_initiation_overview->designation }}</td>
-                                                <td>
-                                                    <a type="button" class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
-                                                        Delete</a>
-                                                </td>
+                                                <th>SL No.</th>
+                                                <th>Name</th>
+                                                <th>Username</th>
+                                                <th>Email</th>
+                                                <th>Designation</th>
+                                                <th>Actions</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($project_initiation_overviews as $key => $project_initiation_overview)
+                                                <tr>
+                                                    <td>{{ ++$key }}</td>
+                                                    <td>{{ $project_initiation_overview->user->name }}</td>
+                                                    <td>{{ $project_initiation_overview->user->username }}</td>
+                                                    <td>{{ $project_initiation_overview->user->email }}</td>
+                                                    <td>{{ $project_initiation_overview->designation }}</td>
+                                                    <td>
+                                                        <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')" class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
+                                                            Delete</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+
                             </div>
                             <div class="col-md-12">
                                 <p class="card-text"><strong>Assignd By:</strong> {{ $project_initiation->assigned_by_user->username ?? "Not assigned yet" }}
