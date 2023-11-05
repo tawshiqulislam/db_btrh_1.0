@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
+use App\Models\Resource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -62,5 +63,9 @@ class ProjectInitiation extends Model
     public function project_initiation_overviews()
     {
         return $this->hasMany(ProjectInitiationOverview::class);
+    }
+    public function resources()
+    {
+        return $this->hasMany(Resource::class);
     }
 }

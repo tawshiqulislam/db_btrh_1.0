@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'phone_no' => '0123456789',
             'TFA' => 0,
             'last_login' => null,
-            'isVerified' => true,
+            'isVerified' => 1,
             'address' => '123 Main St, City',
             'id_number' => '123456789',
             'id_type' => 'NID',

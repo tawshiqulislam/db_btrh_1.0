@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_initiation_overviews', function (Blueprint $table) {
+        Schema::create('resources', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_initiation_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('designation')->nullable();
-            $table->text('comment')->nullable();
-            $table->unsignedBigInteger('assigned_by');
+            $table->string('name');
+            $table->longText('description')->nullable();
+            $table->string('resource_type');
+            $table->integer('quantity')->nullable();
+            $table->decimal('cost', 10, 2)->nullable();
+            $table->string('document')->nullable();
+            $table->date('date_added')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_initiation_overviews');
+        Schema::dropIfExists('resources');
     }
 };

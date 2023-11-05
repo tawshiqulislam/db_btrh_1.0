@@ -1,0 +1,111 @@
+@extends("backend.layouts.master")
+@section("content")
+    <!--  Page Title -->
+    <div class="pagetitle">
+        <h1>Resource</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route("resource.index") }}">Resource</a></li>
+                <li class="breadcrumb-item active">Edit Resource</li>
+            </ol>
+        </nav>
+        <hr>
+    </div>
+    <!--main container-->
+    <div class="container">
+        <form action="{{ route("resource.update", $resource->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="row g-3">
+                <!--Project Initiation-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="project_initiation_id">Project Initiation:</label>
+                        <select class="form-control" name="project_initiation_id" id="project_initiation_id" required>
+                            <option value="{{ $resource->project_initiation->id }}">{{ $resource->project_initiation->name }}</option>
+                            @foreach ($project_initiations as $project_initiation)
+                                <option value="{{ $project_initiation->id }}">{{ $project_initiation->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <!--Resource name-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name">Resource Name:</label>
+                        <input value="{{ $resource->name }}" placeholder="Enter resource name" type="text" class="form-control" id="name" name="name" required>
+                        @if ($errors->has("name"))
+                            <p class="text-danger">{{ $errors->first("name") }}</p>
+                        @endif
+                    </div>
+                </div>
+                <!--Resource description-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea placeholder="Write description" class="form-control" name="description" id="editor_1" cols="30" rows="10">{{ $resource->description }}</textarea>
+                        @if ($errors->has("description"))
+                            <p class="text-danger">{{ $errors->first("description") }}</p>
+                        @endif
+                    </div>
+                </div>
+                <!--Resource type-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="resource_type">Resource Type:</label>
+                        <input value="{{ $resource->resource_type }}" placeholder="Enter resource type" type="text" class="form-control" id="resource_type" name="resource_type" required>
+                        @if ($errors->has("resource_type"))
+                            <p class="text-danger">{{ $errors->first("resource_type") }}</p>
+                        @endif
+                    </div>
+                </div>
+                <!--Resource quantity-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="quantity">Resource Quantity:</label>
+                        <input value="{{ $resource->quantity }}" placeholder="Enter quantity" type="number" class="form-control" id="quantity" name="quantity">
+                        @if ($errors->has("quantity"))
+                            <p class="text-danger">{{ $errors->first("quantity") }}</p>
+                        @endif
+                    </div>
+                </div>
+                <!--Resource cost-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="cost">Resource Cost: (in TK)</label>
+                        <input value="{{ $resource->cost }}" placeholder="Enter cost" type="number" class="form-control" id="cost" name="cost">
+                        @if ($errors->has("cost"))
+                            <p class="text-danger">{{ $errors->first("cost") }}</p>
+                        @endif
+                    </div>
+                </div>
+                <!--required file upload-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="document">Document:</label>
+                        <input type="file" class="form-control" id="document" name="document">
+                        @if ($errors->has("document"))
+                            <p class="text-danger">{{ $errors->first("document") }}</p>
+                        @endif
+                    </div>
+                </div>
+
+                <!--Resource added-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="date_added">Resource Added:</label>
+                        <input value="{{ $resource->date_added }}" type="date" class="form-control" id="date_added" name="date_added">
+                        @if ($errors->has("date_added"))
+                            <p class="text-danger">{{ $errors->first("date_added") }}</p>
+                        @endif
+                    </div>
+                </div>
+
+            </div>
+            <!--update button-->
+            <button type="submit" class="btn btn-primary btn-sm mt-3 text-white">
+                <i class="fa-solid fa-floppy-disk"></i> Save
+            </button>
+        </form>
+    </div>
+    @include("includes.ck_editor")
+@endsection

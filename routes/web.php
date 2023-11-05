@@ -7,6 +7,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectDocumentController;
 use App\Http\Controllers\ProjectInitiationController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\StatusController;
@@ -147,4 +148,15 @@ Route::prefix('admin/role')->middleware(['auth', isVerified::class])->group(func
     Route::get('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
     Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
     Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update');
+});
+
+//admin resource routes
+Route::prefix('admin/resource')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [ResourceController::class, 'index'])->name('resource.index');
+    Route::get('/create', [ResourceController::class, 'create'])->name('resource.create');
+    Route::post('/store', [ResourceController::class, 'store'])->name('resource.store');
+    Route::get('/delete/{id}', [ResourceController::class, 'delete'])->name('resource.delete');
+    Route::get('/edit/{id}', [ResourceController::class, 'edit'])->name('resource.edit');
+    Route::post('/update/{id}', [ResourceController::class, 'update'])->name('resource.update');
+    Route::get('/info/{id}', [ResourceController::class, 'info'])->name('resource.info');
 });

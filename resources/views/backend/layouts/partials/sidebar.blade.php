@@ -140,7 +140,7 @@
         <!--status-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_status" data-bs-toggle="collapse" href="{{ route("status.index") }}">
-                <i class="fa-solid fa-bullseye"></i></i><span>Status</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fa-solid fa-bullseye"></i><span>Status</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav_status" class="nav-content collapse " data-bs-parent="#sidebar-nav_status">
                 <li>
@@ -151,6 +151,25 @@
                 <li>
                     <a href="{{ route("status.create") }}">
                         <i class="bi bi-circle"></i><span>Add Status</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!--resource-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_resource" data-bs-toggle="collapse" href="{{ route("status.index") }}">
+                <i class="fa-brands fa-osi"></i><span>Resource</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_resource" class="nav-content collapse " data-bs-parent="#sidebar-nav_resource">
+                <li>
+                    <a href="{{ route("resource.index") }}">
+                        <i class="bi bi-circle"></i><span>Resource List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("resource.create") }}">
+                        <i class="bi bi-circle"></i><span>Add Resource</span>
                     </a>
                 </li>
             </ul>
