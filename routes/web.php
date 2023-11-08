@@ -60,6 +60,8 @@ Route::prefix('admin/user')->middleware(['auth', isVerified::class])->group(func
     Route::post('/update_profile_picture/{id}', [UserController::class, 'update_profile_picture'])->name('user.update_profile_picture');
     Route::post('/role_assign/{id}', [UserController::class, 'role_assign'])->name('user.role_assign');
     Route::post('/role_delete/{id}', [UserController::class, 'role_delete'])->name('user.role_delete');
+    Route::get('/verified/{id}', [UserController::class, 'user_verified'])->name('user.verified');
+    Route::get('/unverified/{id}', [UserController::class, 'user_unverified'])->name('user.unverified');
 });
 
 //admin department routes
