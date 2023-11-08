@@ -112,7 +112,7 @@ class ResourceController extends Controller
         //find the current data
         $resource = Resource::find($id);
         $project_initiations = ProjectInitiation::latest()->get();
-        $users = User::latest()->get();
+        $users = User::where('isVerified', true)->get();
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
         return view('backend.pages.resource.resource_info', compact('resource', 'users', 'project_initiations', 'sl'));
     }
