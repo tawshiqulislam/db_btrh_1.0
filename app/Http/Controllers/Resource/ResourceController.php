@@ -119,22 +119,44 @@ class ResourceController extends Controller
 
     public function assign_user(Request $request, $id)
     {
-        ResourceManagement::create([
-            'user_id' => $request->user_id,
-            'resource_id' => $id,
-            'assigned_by' => auth()->user()->id,
-        ]);
+        $resource = ResourceManagement::where('resource_id', $id)->first();
+
+        if ($resource) {
+            $resource->update([
+                'user_id' => $request->user_id,
+                'resource_id' => $id,
+                'assigned_by' => auth()->user()->id,
+            ]);
+        }
+        if (!$resource) {
+            ResourceManagement::create([
+                'user_id' => $request->user_id,
+                'resource_id' => $id,
+                'assigned_by' => auth()->user()->id,
+            ]);
+        }
         toastr()->success('Resource assigned to user successfully!', 'Congrats');
         return redirect()->back();
     }
 
     public function assign_project(Request $request, $id)
     {
-        ResourceManagement::create([
-            'project_initiation_id' => $request->project_initiation_id,
-            'resource_id' => $id,
-            'assigned_by' => auth()->user()->id,
-        ]);
+        $resource = ResourceManagement::where('resource_id', $id)->first();
+
+        if ($resource) {
+            $resource->update([
+                'project_initiation_id' => $request->project_initiation_id,
+                'resource_id' => $id,
+                'assigned_by' => auth()->user()->id,
+            ]);
+        }
+        if (!$resource) {
+            ResourceManagement::create([
+                'project_initiation_id' => $request->project_initiation_id,
+                'resource_id' => $id,
+                'assigned_by' => auth()->user()->id,
+            ]);
+        }
         toastr()->success('Resource assigned to project successfully!', 'Congrats');
         return redirect()->back();
     }

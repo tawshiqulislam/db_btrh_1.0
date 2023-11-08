@@ -129,7 +129,7 @@ class DatabaseSeeder extends Seeder
         }
 
         //resources
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             DB::table('resources')->insert([
                 'added_by' => 1, // Replace with the user ID who added the resource
                 'name' => $faker->name,

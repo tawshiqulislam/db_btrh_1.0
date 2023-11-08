@@ -13,7 +13,7 @@
     </div>
     <!-- main container -->
     <div class="container">
-        <a href="{{ route("project_initiation.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
+        <a href="{{ route("resource.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
             Back</a>
         <div class="row">
             <!-- Single project_initiation Card -->
@@ -102,7 +102,7 @@
                                                 <td>{{ $resource_management->project_initiation->name ?? "" }}</td>
                                                 <td>{{ $resource_management->assigned_by_user->username ?? "" }}</td>
                                                 <td>
-                                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                    <a href="{{ route("resource_management.delete", $resource->id) }}" onclick="confirm('Do you want to delete?')" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach
