@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Resource;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ResourceCreateRequest;
 use App\Models\ProjectInitiation;
-use App\Models\Resource;
+use App\Models\Resource\Resource;
+use App\Models\Resource\ResourceManagement;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class ResourceController extends Controller
 {
@@ -15,6 +19,7 @@ class ResourceController extends Controller
         $resources = Resource::paginate(10);
         //serial number
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
+
         //return index page
         return view(
             'backend.pages.resource.resource_index',
@@ -43,7 +48,7 @@ class ResourceController extends Controller
             $document = $this->uploadFile($request->name, $request->document);
             $data['document'] = $document;
         }
-        $data['user_id'] = auth()->user()->id;
+        $data['added_by'] = auth()->user()->id;
 
         //Insert data
         Resource::create($data);
@@ -93,7 +98,7 @@ class ResourceController extends Controller
             $data['document'] = $this->uploadFile($request->name, $request->document);
         }
         // dd($data);
-        $data['user_id'] = auth()->user()->id;
+        $data['added_by'] = auth()->user()->id;
         //update the data
         $resource->update($data);
 
@@ -106,7 +111,32 @@ class ResourceController extends Controller
     {
         //find the current data
         $resource = Resource::find($id);
-        return view('backend.pages.resource.resource_info', compact('resource'));
+        $project_initiations = ProjectInitiation::latest()->get();
+        $users = User::latest()->get();
+        $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
+        return view('backend.pages.resource.resource_info', compact('resource', 'users', 'project_initiations', 'sl'));
+    }
+
+    public function assign_user(Request $request, $id)
+    {
+        ResourceManagement::create([
+            'user_id' => $request->user_id,
+            'resource_id' => $id,
+            'assigned_by' => auth()->user()->id,
+        ]);
+        toastr()->success('Resource assigned to user successfully!', 'Congrats');
+        return redirect()->back();
+    }
+
+    public function assign_project(Request $request, $id)
+    {
+        ResourceManagement::create([
+            'project_initiation_id' => $request->project_initiation_id,
+            'resource_id' => $id,
+            'assigned_by' => auth()->user()->id,
+        ]);
+        toastr()->success('Resource assigned to project successfully!', 'Congrats');
+        return redirect()->back();
     }
 
 

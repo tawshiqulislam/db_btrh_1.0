@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_initiation_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('added_by')->constrained('users')->cascadeOnDelete();
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('resource_type');

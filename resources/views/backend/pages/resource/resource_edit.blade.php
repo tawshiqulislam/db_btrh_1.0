@@ -16,18 +16,6 @@
         <form action="{{ route("resource.update", $resource->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-3">
-                <!--Project Initiation-->
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="project_initiation_id">Project Initiation:</label>
-                        <select class="form-control" name="project_initiation_id" id="project_initiation_id" required>
-                            <option value="{{ $resource->project_initiation->id }}">{{ $resource->project_initiation->name }}</option>
-                            @foreach ($project_initiations as $project_initiation)
-                                <option value="{{ $project_initiation->id }}">{{ $project_initiation->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
                 <!--Resource name-->
                 <div class="col-md-12">
                     <div class="form-group">

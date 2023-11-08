@@ -43,7 +43,6 @@
                         <tr>
                             <th scope="col">SL No</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Project</th>
                             <th scope="col">Resource Type</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -54,8 +53,6 @@
                                 <td scope='row'>{{ ++$sl }}</td>
                                 <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $resource->name ?? "" }}</td>
-                                <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                    {{ $resource->project_initiation->name ?? "" }}</td>
                                 <td>{{ $resource->resource_type ?? "" }}</td>
                                 <td>
                                     <a href="{{ route("resource.info", $resource->id) }}" class="btn btn-info btn-sm text-white">

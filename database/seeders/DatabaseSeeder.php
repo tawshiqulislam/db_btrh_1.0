@@ -127,5 +127,19 @@ class DatabaseSeeder extends Seeder
                 'status' => $status,
             ]);
         }
+
+        //resources
+        for ($i = 0; $i < 4; $i++) {
+            DB::table('resources')->insert([
+                'added_by' => 1, // Replace with the user ID who added the resource
+                'name' => $faker->name,
+                'description' => $faker->sentence,
+                'resource_type' => $faker->word,
+                'quantity' => $faker->randomNumber(2),
+                'cost' => $faker->randomFloat(2, 10, 1000),
+                'document' => $faker->word . '.pdf',
+                'date_added' => $faker->date,
+            ]);
+        }
     }
 }

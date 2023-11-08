@@ -25,6 +25,15 @@
                                 <div class="button-group d-flex justify-content-end  gap-2 mb-2">
                                     <a href="{{ route("resource.edit", $resource->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                         Edit</a>
+                                    <span class="dropdown">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Assign Resource
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                            <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#resourceAssignUserModal">Assign to User</a></li>
+                                            <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#resourceAssignProjectModal">Assign to Project</a></li>
+                                        </ul>
+                                    </span>
                                 </div>
                                 <h5>{{ $resource->name ?? "" }}</h5>
 
@@ -35,11 +44,7 @@
                     <div class="card-body">
                         <div class="row g-2">
                             <div class="col-md-12">
-                                <p class="card-text"><strong>Project:</strong>
-                                    {{ $resource->project_initiation->name ?? "" }}</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="card-text"><strong>Project:</strong>{!! $resource->description ?? "" !!}</p>
+                                <p class="card-text"><strong>Description:</strong>{!! $resource->description ?? "" !!}</p>
                             </div>
 
                         </div>
@@ -60,14 +65,58 @@
                             </p>
                         </div>
                         <div class="col-md-12">
-                            <p class="card-text"><strong>Date Added:</strong> <a href="{{ asset("storage/resource/" . $resource->document) }}">{{ $resource->document }}</a>
+                            <p class="card-text"><strong>Added By:</strong> {{ $resource->added_by_user->username ?? "" }}
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="card-text"><strong>Added By:</strong> {{ $resource->added_by_user->username ?? "" }}
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="card-text"><strong>Added By:</strong> {{ $resource->added_by_user->username ?? "" }}
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="card-text"><strong>Documents:</strong> <a href="{{ asset("storage/resource/" . $resource->document) }}">{{ $resource->document }}</a>
                             </p>
                         </div>
 
+                        @if ($resource->resource_managements->count() != 0)
+                            <div class="col-md-12">
+                                <p class="card-text"><strong>Assigned Resource:</strong></p>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl No.</th>
+                                            <th>Assigned User</th>
+                                            <th>Assigned Project</th>
+                                            <th>Assigned By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($resource->resource_managements as $resource_management)
+                                            <tr>
+                                                <td>{{ ++$sl ?? " " }}</td>
+                                                <td>{{ $resource_management->user->username ?? "" }}</td>
+                                                <td>{{ $resource_management->project_initiation->name ?? "" }}</td>
+                                                <td>{{ $resource_management->assigned_by_user->username ?? "" }}</td>
+                                                <td>
+                                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                </p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
     </div>
+    @include("backend.pages.resource.resource_assign_user_modal")
+    @include("backend.pages.resource.resource_assign_project_modal")
 @endsection
