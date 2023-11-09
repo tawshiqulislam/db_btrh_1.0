@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'phone_no' => '0123456789',
             'TFA' => 0,
             'last_login' => null,
-            'isVerified' => true,
+            'isVerified' => 1,
             'address' => '123 Main St, City',
             'id_number' => '123456789',
             'id_type' => 'NID',
@@ -125,6 +125,20 @@ class DatabaseSeeder extends Seeder
         foreach ($statuses as $status) {
             DB::table('statuses')->insert([
                 'status' => $status,
+            ]);
+        }
+
+        //resources
+        for ($i = 0; $i < 5; $i++) {
+            DB::table('resources')->insert([
+                'added_by' => 1, // Replace with the user ID who added the resource
+                'name' => $faker->name,
+                'description' => $faker->sentence,
+                'resource_type' => $faker->word,
+                'quantity' => $faker->randomNumber(2),
+                'cost' => $faker->randomFloat(2, 10, 1000),
+                'document' => $faker->word . '.pdf',
+                'date_added' => $faker->date,
             ]);
         }
     }

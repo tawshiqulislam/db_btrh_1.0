@@ -15,7 +15,7 @@ class isVerified
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->isVerified == true) {
+        if ($request->user()->isVerified == 1) {
             return $next($request);
         } else {
             return abort(401);

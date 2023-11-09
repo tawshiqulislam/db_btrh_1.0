@@ -205,10 +205,10 @@ class UserController extends Controller
         }
         if (!$user->hasRole($request->name)) {
             $user->assignRole($request->name);
-            $user->update([
-                'isVarified' => true,
-                'verified_by' => auth()->user()->id,
-            ]);
+            // $user->update([
+            //     'isVerified' => true,
+            //     'verified_by' => auth()->user()->id,
+            // ]);
             toastr()->success('Role assigned successfully!', 'Congrats');
         }
 
@@ -218,11 +218,30 @@ class UserController extends Controller
     {
 
         $user = User::find($id);
+
         foreach ($request->roles as $role) {
 
             $user->removeRole($role);
         };
         toastr()->error('Role removed!', 'Alert');
+        return redirect()->back();
+    }
+    public function user_verified($id)
+    {
+        User::find($id)->update([
+            'isVerified' => true,
+            'verified_by' => auth()->user()->id
+        ]);
+        toastr()->success('User is verified now!', 'Congrats!');
+        return redirect()->back();
+    }
+    public function user_unverified($id)
+    {
+        User::find($id)->update([
+            'isVerified' => false,
+            'unverified_by' => auth()->user()->id
+        ]);
+        toastr()->error('User is unverified now!', 'Alert!');
         return redirect()->back();
     }
     //image function

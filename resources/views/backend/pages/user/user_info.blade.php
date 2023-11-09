@@ -41,30 +41,64 @@
                             <div class="card-header float-end">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        @if (!$user->user_type == "vendor")
-                                            <span class="dropdown">
-                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Role
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleAssignModal">Assign Role</a></li>
-                                                    <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleDeleteModal">Remove Role</a></li>
-                                                </ul>
-                                            </span>
+                                        @if ($user->isVerified)
+                                            @if ($user->user_type == "vendor")
+                                            @else
+                                                <span class="dropdown">
+                                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Role
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleAssignModal">Assign Role</a></li>
+                                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleDeleteModal">Remove Role</a></li>
+                                                    </ul>
+                                                </span>
+                                            @endif
                                         @endif
+                                        <span class="dropdown">
+                                            <button class="btn btn-info text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Profile Picture
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                @if ($user->pro_pic)
+                                                    <li> <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal">Update Picture</a></li>
+                                                    <li> <a class="dropdown-item" href="{{ route("user.remove_profile_picture", $user->id) }}">Remove Picture</a></li>
+                                                @else
+                                                    <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal">Upload Picture</a></li>
+                                                @endif
+                                            </ul>
+                                        </span>
 
-                                        @if ($user->pro_pic)
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-warning text-white "><i class="fa-solid fa-image"></i>
+                                        <span class="dropdown">
+                                            <button class="btn btn-dark text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                User Verification
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                @if ($user->isVerified)
+                                                    <li> <a class="dropdown-item" onclick="confirm('Do you want to unverified this user?')" href="{{ route("user.unverified", $user->id) }}">Unverified
+                                                            User</a>
+                                                    </li>
+                                                @else
+                                                    <li> <a class="dropdown-item" onclick="confirm('Do you want to verified this user?')" href="{{ route("user.verified", $user->id) }}">Verified
+                                                            User</a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </span>
+                                        {{-- @if ($user->pro_pic)
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-warning text-white "><i
+                                                    class="fa-solid fa-image"></i>
                                                 Update
                                                 Picture</button>
                                             <a href="{{ route("user.remove_profile_picture", $user->id) }}" class="btn btn-sm btn-danger text-white "><i class="fa-solid fa-minus"></i>
                                                 Remove
                                                 Picture</a>
                                         @else
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-info text-white "><i class="fa-solid fa-image"></i>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-info text-white "><i
+                                                    class="fa-solid fa-image"></i>
                                                 Upload
                                                 Picture</button>
-                                        @endif
+                                        @endif --}}
 
                                         <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#documentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
 
@@ -156,6 +190,17 @@
                                     </div>
                                     <div class="col-7">
                                         : {{ $user->id_type ?? "" }}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        isVerified
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $user->isVerified == true ? "Verified" : "Unverified" }}
                                     </div>
                                 </div>
 
@@ -258,12 +303,15 @@
                                                         <tr>
                                                             <td><a target="_blank" href="{{ asset("storage/document/" . $document->document) }}">{{ $document->document ?? "" }}</a></td>
                                                             <td>
-                                                                <a target="_blank" href="{{ asset("storage/document/" . $document->document) }}" class="btn btn-sm btn-primary text-white"><i class="fa-solid fa-eye"></i> View</a>
-                                                                <a data-bs-toggle="modal" data-bs-target="#updateDocumentModal_{{ $document->id }}" class="btn btn-warning text-white btn-sm me-1 editBtn">
+                                                                <a target="_blank" href="{{ asset("storage/document/" . $document->document) }}" class="btn btn-sm btn-primary text-white"><i
+                                                                        class="fa-solid fa-eye"></i> View</a>
+                                                                <a data-bs-toggle="modal" data-bs-target="#updateDocumentModal_{{ $document->id }}"
+                                                                    class="btn btn-warning text-white btn-sm me-1 editBtn">
                                                                     <i class="fa-solid fa-file-pen"></i> Update
                                                                 </a>
 
-                                                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#documentDeleteModal_{{ $document->id }}"><i class="fa-solid fa-trash"></i>
+                                                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#documentDeleteModal_{{ $document->id }}"><i
+                                                                        class="fa-solid fa-trash"></i>
                                                                     Delete</a>
                                                             </td>
                                                         </tr>

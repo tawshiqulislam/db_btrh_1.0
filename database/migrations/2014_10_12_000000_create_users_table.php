@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('pro_pic')->nullable(); // profile picture
             $table->date('date_of_birth');
             $table->unsignedBigInteger('verified_by')->nullable();
+            $table->unsignedBigInteger('unverified_by')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('user_type')->nullable();

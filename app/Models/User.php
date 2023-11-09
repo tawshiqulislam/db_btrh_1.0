@@ -7,6 +7,8 @@ use App\Models\AdminList;
 use App\Models\Department;
 use App\Models\Document;
 use App\Models\ProjectInitiationOverview;
+use App\Models\Resource\Resource;
+use App\Models\Resource\ResourceManagement;
 use App\Models\UserDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -100,53 +102,65 @@ class User extends Authenticatable
     {
         return $this->hasMany(ProjectInitiationOverview::class);
     }
-
-
-    //role creation
-    const SUPER_ADMIN = 'super_admin';
-    const ADMIN = 'admin';
-    const OFFICE = 'office';
-    const VENDOR = 'vendor';
-
-
-    public static function isSuperAdmin()
+    public function resource_managements()
     {
-        if (auth()->user()->admin_list) {
-            if (auth()->user()->admin_list->user_type == self::SUPER_ADMIN) {
-                return true;
-            }
-        }
+        return $this->hasMany(ResourceManagement::class);
+    }
+    public function added_by_resources()
+    {
+        return $this->hasMany(Resource::class, 'added_by');
+    }
+    public function assigned_by_resource_managements()
+    {
+        return $this->hasMany(ResourceManagement::class, 'assigned_by');
     }
 
-    public static function isAdmin()
-    {
-        if (auth()->user()->admin_list) {
-            if (auth()->user()->admin_list->user_type == self::ADMIN) {
-                return true;
-            }
-        }
-    }
 
-    public static function isUser()
-    {
-        if (!auth()->user()->admin_list) {
-            return true;
-        }
-    }
+    // //role creation
+    // const SUPER_ADMIN = 'super_admin';
+    // const ADMIN = 'admin';
+    // const OFFICE = 'office';
+    // const VENDOR = 'vendor';
 
-    public static function isOffice()
-    {
-        $user = User::find(auth()->user()->id);
-        if ($user->user_type == self::OFFICE) {
-            return true;
-        }
-    }
 
-    public static function isVendor()
-    {
-        $user = User::find(auth()->user()->id);
-        if ($user->user_type == self::VENDOR) {
-            return true;
-        }
-    }
+    // public static function isSuperAdmin()
+    // {
+    //     if (auth()->user()->admin_list) {
+    //         if (auth()->user()->admin_list->user_type == self::SUPER_ADMIN) {
+    //             return true;
+    //         }
+    //     }
+    // }
+
+    // public static function isAdmin()
+    // {
+    //     if (auth()->user()->admin_list) {
+    //         if (auth()->user()->admin_list->user_type == self::ADMIN) {
+    //             return true;
+    //         }
+    //     }
+    // }
+
+    // public static function isUser()
+    // {
+    //     if (!auth()->user()->admin_list) {
+    //         return true;
+    //     }
+    // }
+
+    // public static function isOffice()
+    // {
+    //     $user = User::find(auth()->user()->id);
+    //     if ($user->user_type == self::OFFICE) {
+    //         return true;
+    //     }
+    // }
+
+    // public static function isVendor()
+    // {
+    //     $user = User::find(auth()->user()->id);
+    //     if ($user->user_type == self::VENDOR) {
+    //         return true;
+    //     }
+    // }
 }
