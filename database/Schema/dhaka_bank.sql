@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 05, 2023 at 05:15 AM
+-- Generation Time: Nov 10, 2023 at 05:16 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -56,10 +56,10 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `name`, `user_id`, `designation`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Backend Developement', NULL, NULL, NULL, NULL, NULL),
-(2, 'ForontEnd Development', 1, NULL, NULL, NULL, NULL),
-(3, 'Mobile Application', NULL, 'recusandae', NULL, NULL, NULL),
-(4, 'UI/UX', NULL, NULL, NULL, NULL, NULL);
+(1, 'Backend Developement', 4, NULL, NULL, NULL, NULL),
+(2, 'ForontEnd Development', NULL, 'explicabo', NULL, NULL, NULL),
+(3, 'Mobile Application', NULL, 'consequatur', NULL, NULL, NULL),
+(4, 'UI/UX', 2, 'totam', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -124,7 +124,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2023_10_19_075807_create_statuses_table', 1),
 (14, '2023_10_24_052315_create_permission_tables', 1),
 (15, '2023_10_30_035158_create_project_initiation_overviews_table', 1),
-(16, '2023_11_04_033652_create_resources_table', 1);
+(16, '2023_11_04_033652_create_resources_table', 1),
+(17, '2023_11_07_184019_create_resource_management_table', 1);
 
 -- --------------------------------------------------------
 
@@ -222,11 +223,11 @@ CREATE TABLE `project_categories` (
 --
 
 INSERT INTO `project_categories` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Qui facilis natus totam.', 'Qui aut dolores rerum pariatur eius exercitationem sit aliquid. Nulla laborum omnis ut magni. Aliquam doloremque pariatur qui culpa. Placeat ipsum qui qui doloribus.', NULL, NULL, NULL),
-(2, 'Consequatur recusandae harum omnis qui hic in.', 'Voluptatem quibusdam tempore quasi quae tempora. Rerum natus atque quasi consequatur. Libero sit ipsum cum nemo et.', NULL, NULL, NULL),
-(3, 'Quia velit nulla est a.', 'Odit modi ipsa quibusdam provident omnis earum. Vel qui vel iure non ut dolore ut. Corporis vero debitis et incidunt exercitationem officiis fugit.', NULL, NULL, NULL),
-(4, 'Iure velit laboriosam eligendi ratione.', 'Et incidunt minus expedita eaque voluptatem veniam. Debitis qui enim perferendis. Similique temporibus aut maiores quas.', NULL, NULL, NULL),
-(5, 'Quasi ea incidunt autem.', 'Dolores enim mollitia dolores qui sed. Dolor repudiandae ut eligendi est earum enim. Excepturi sequi ut dicta itaque suscipit sed itaque maxime.', NULL, NULL, NULL);
+(1, 'Et voluptatibus id et delectus facilis unde facere.', 'Molestiae reprehenderit illum ea. Rerum error reiciendis voluptas sint. Debitis porro optio eaque dolores dolores.', NULL, NULL, NULL),
+(2, 'Rerum id et et delectus.', 'Accusantium exercitationem libero neque minima quia consequatur incidunt. Aut sapiente consequatur est ipsum rerum recusandae.', NULL, NULL, NULL),
+(3, 'Dicta beatae aut fuga beatae molestiae.', 'Enim sunt voluptatem optio veritatis eaque quia iure. Reiciendis possimus illo et. Porro eum ullam omnis officia enim qui tenetur. Architecto sint ut aut minima.', NULL, NULL, NULL),
+(4, 'Ab fuga non illum corrupti.', 'Error maxime architecto quis non. Cupiditate distinctio perspiciatis quia dolores maxime rem ut. Explicabo voluptatum sed beatae reiciendis distinctio magnam fuga. Quia sit rerum tenetur est voluptas.', NULL, NULL, NULL),
+(5, 'Cumque enim nihil rerum neque itaque.', 'Ea voluptatem nemo non aut. Placeat hic accusantium incidunt quod aut deleniti. Numquam soluta et sapiente velit quibusdam necessitatibus et.', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -279,11 +280,11 @@ CREATE TABLE `project_initiations` (
 --
 
 INSERT INTO `project_initiations` (`id`, `user_id`, `project_category_id`, `name`, `description`, `goal`, `deadline`, `required_file`, `activated_by`, `inactivated_by`, `assigned_to`, `assigned_by`, `verified_by`, `unverified_by`, `project_unique_id`, `isVerified`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 2, 'Ipsa pariatur libero nihil vitae itaque iure.', 'Et est quos nesciunt expedita soluta perspiciatis. Magnam et accusamus sed accusantium et. Ut voluptatibus ex laboriosam.', 'Sequi et sed est distinctio. Itaque molestiae voluptatem autem quam sit ea dolorem eligendi. Ab suscipit eveniet qui consequatur autem blanditiis omnis. Quia facilis expedita saepe natus.', '2018-02-15', 'saepe.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
-(2, 5, 5, 'Tempora non nulla ducimus quae vel tempora.', 'Rerum quia nemo nostrum ex nostrum occaecati. Qui expedita temporibus voluptas neque et inventore voluptas quae. Ea consequuntur perferendis officiis qui aut amet impedit animi. Placeat asperiores laborum et.', 'Voluptatem qui est voluptas blanditiis minus. Quidem odio quibusdam adipisci vel amet. Repudiandae vel laudantium ex nostrum debitis distinctio praesentium. Necessitatibus dolor deserunt blanditiis cumque laborum cupiditate molestiae.', '1998-06-19', 'suscipit.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
-(3, 1, 1, 'Qui et ipsum qui ut maxime provident aut.', 'Minima tempora et qui ex. Quis cum autem excepturi sit aut velit. Assumenda tempore exercitationem iste ut. Nihil doloremque quidem ut. Blanditiis sunt minus aliquid neque.', 'Quasi sit impedit enim aut. Laborum eos odit vero doloribus atque. Temporibus natus animi impedit.', '1993-04-06', 'omnis.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
-(4, 3, 5, 'Mollitia iste hic mollitia numquam.', 'Eaque soluta ut corporis itaque voluptatem occaecati. Distinctio nihil ratione velit a hic nisi. Qui amet et qui tempora quia.', 'Voluptatum numquam commodi impedit ipsum consequuntur. Quisquam repellendus hic quos recusandae reprehenderit adipisci qui tempora. Aut et qui alias rerum.', '2020-07-16', 'et.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
-(5, 2, 3, 'Sequi fugit vitae sint unde alias dolor blanditiis.', 'Ducimus accusamus exercitationem quaerat libero harum optio. Quidem sequi cumque eaque dicta veritatis. Qui ut dolores dignissimos eaque ratione sapiente. Aut molestias exercitationem ex.', 'Magnam sed quia numquam quia. Qui provident consectetur expedita eveniet in.', '2010-04-23', 'expedita.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL);
+(1, 3, 3, 'Alias voluptas aut dignissimos quam corrupti possimus quia.', 'Ut facere quo voluptates voluptatem dolorum sapiente voluptatibus rerum. Voluptatum libero et temporibus quae mollitia. Doloremque et dolore ut debitis.', 'Sunt et quidem quo. Ut ducimus rerum est ut dignissimos ut. Consequatur sint soluta ipsum fugiat consequatur magni quaerat rerum.', '1983-04-04', 'porro.pdf', NULL, 1, NULL, 1, NULL, 1, NULL, 0, 'inactive', NULL, '2023-11-10 11:15:41', NULL),
+(2, 5, 4, 'Et ea voluptatem deserunt laudantium quidem.', 'Dolore ad enim id aspernatur. Sapiente fugiat laudantium molestiae.', 'Exercitationem et enim adipisci non natus ea nulla. Nulla eveniet explicabo ad culpa.', '1988-03-30', 'eum.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
+(3, 5, 3, 'Blanditiis excepturi nihil adipisci iusto dolore.', 'Facere quae fuga enim est in blanditiis dolores. Ut voluptatem nesciunt praesentium magnam incidunt. Minima asperiores reiciendis id ut illo quae est.', 'Sit vitae minus autem mollitia tenetur fugiat. Sint et repellat et ut voluptas.', '2022-01-21', 'maxime.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
+(4, 2, 2, 'Eius et distinctio dolor sunt illo aspernatur doloremque.', 'Voluptas eaque est dolores praesentium reiciendis. Explicabo atque ipsum libero ut consequatur. Beatae commodi quasi in. Consequuntur quae voluptatum dolore possimus.', 'Ut facere cum nobis praesentium ex soluta. Et fuga velit rem consectetur temporibus. Culpa officia non neque sit blanditiis enim veritatis. Aut et impedit sed sapiente non et et.', '1991-11-23', 'in.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
+(5, 2, 1, 'Laboriosam voluptatem ea fuga quibusdam praesentium in.', 'Facere amet perferendis perspiciatis nihil iste sint ut. Molestiae sed voluptatum repudiandae.', 'Distinctio delectus quisquam necessitatibus ut provident at unde. Laboriosam voluptas quo laudantium quasi consequatur facere sint doloribus. Ipsum iusto rerum officiis magni. Asperiores non recusandae qui est praesentium.', '2008-03-06', 'eos.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -303,6 +304,16 @@ CREATE TABLE `project_initiation_overviews` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `project_initiation_overviews`
+--
+
+INSERT INTO `project_initiation_overviews` (`id`, `project_initiation_id`, `user_id`, `designation`, `comment`, `assigned_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, NULL, NULL, 1, NULL, '2023-11-10 11:15:17', '2023-11-10 11:15:17'),
+(2, 1, 4, 'Mollit aut quo quisq', 'Totam dicta ducimus', 1, NULL, '2023-11-10 11:15:17', '2023-11-10 11:15:17'),
+(3, 1, 5, 'Nisi vel porro est m', 'Rem enim suscipit as', 1, NULL, '2023-11-10 11:15:17', '2023-11-10 11:15:17'),
+(4, 1, 6, 'Vero earum eaque nis', 'Adipisicing magni in', 1, NULL, '2023-11-10 11:15:17', '2023-11-10 11:15:17');
+
 -- --------------------------------------------------------
 
 --
@@ -311,8 +322,7 @@ CREATE TABLE `project_initiation_overviews` (
 
 CREATE TABLE `resources` (
   `id` bigint UNSIGNED NOT NULL,
-  `project_initiation_id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED NOT NULL,
+  `added_by` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci,
   `resource_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -329,9 +339,29 @@ CREATE TABLE `resources` (
 -- Dumping data for table `resources`
 --
 
-INSERT INTO `resources` (`id`, `project_initiation_id`, `user_id`, `name`, `description`, `resource_type`, `quantity`, `cost`, `document`, `date_added`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, 'Luke Huber', '<p>Luke Huber</p>', 'Fugiat ea ut sequi a', 862, 92.00, '1699160992-Luke Huber.docx', '1974-11-26', '2023-11-04 23:13:57', '2023-11-04 23:09:52', '2023-11-04 23:13:57'),
-(2, 3, 1, 'Keiko Becker', '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam</p>', 'Incidunt consequat', 557, 80.00, '1699161275-Keiko Becker.docx', '2017-08-21', NULL, '2023-11-04 23:14:35', '2023-11-04 23:14:35');
+INSERT INTO `resources` (`id`, `added_by`, `name`, `description`, `resource_type`, `quantity`, `cost`, `document`, `date_added`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Forrest Grimes', 'Sit nihil eius autem sit repellendus impedit ut.', 'incidunt', 23, 141.84, 'iste.pdf', '2016-07-29', NULL, NULL, NULL),
+(2, 1, 'Consuelo Kohler IV', 'Sit ratione sit consequatur ducimus aut.', 'sed', 9, 295.49, 'a.pdf', '1979-01-17', NULL, NULL, NULL),
+(3, 1, 'Dr. Devan Bartell PhD', 'Aut cum natus dolor quo.', 'asperiores', 98, 897.79, 'consequuntur.pdf', '2023-06-30', NULL, NULL, NULL),
+(4, 1, 'Wallace Mayer', 'A ut sed reiciendis occaecati praesentium.', 'vel', 76, 353.72, 'placeat.pdf', '1982-09-08', NULL, NULL, NULL),
+(5, 1, 'Bernadette Hayes', 'Quasi quam aliquam totam aut commodi possimus harum.', 'est', 4, 282.28, 'numquam.pdf', '1982-01-19', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resource_management`
+--
+
+CREATE TABLE `resource_management` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `resource_id` bigint UNSIGNED NOT NULL,
+  `project_initiation_id` bigint UNSIGNED DEFAULT NULL,
+  `assigned_by` bigint UNSIGNED NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -352,11 +382,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'super_admin', 'web', '2023-11-04 22:49:18', '2023-11-04 22:49:18'),
-(2, 'admin', 'web', '2023-11-04 22:49:18', '2023-11-04 22:49:18'),
-(3, 'user', 'web', '2023-11-04 22:49:19', '2023-11-04 22:49:19'),
-(4, 'vendor', 'web', '2023-11-04 22:49:19', '2023-11-04 22:49:19'),
-(5, 'controller', 'web', '2023-11-04 22:49:19', '2023-11-04 22:49:19');
+(1, 'super_admin', 'web', '2023-11-08 05:21:49', '2023-11-08 05:21:49'),
+(2, 'admin', 'web', '2023-11-08 05:21:49', '2023-11-08 05:21:49'),
+(3, 'user', 'web', '2023-11-08 05:21:49', '2023-11-08 05:21:49'),
+(4, 'vendor', 'web', '2023-11-08 05:21:49', '2023-11-08 05:21:49'),
+(5, 'controller', 'web', '2023-11-08 05:21:49', '2023-11-08 05:21:49');
 
 -- --------------------------------------------------------
 
@@ -443,6 +473,7 @@ CREATE TABLE `users` (
   `pro_pic` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_of_birth` date NOT NULL,
   `verified_by` bigint UNSIGNED DEFAULT NULL,
+  `unverified_by` bigint UNSIGNED DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -456,13 +487,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone_no`, `TFA`, `last_login`, `isVerified`, `address`, `id_number`, `id_type`, `sq_no_1`, `sq_no_1_ans`, `sq_no_2`, `sq_no_2_ans`, `pro_pic`, `date_of_birth`, `verified_by`, `email_verified_at`, `password`, `user_type`, `deleted_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'super_admin', 'admin@example.com', '0123456789', '0', NULL, 1, '123 Main St, City', '123456789', 'NID', NULL, NULL, NULL, NULL, NULL, '1990-01-01', 1, NULL, '$2y$10$znOI.Dxl/fRDyuJ7f2WPgOqTe.oDSGyIHBfOFwBvZqNlJUkisDUvu', 'super_admin', NULL, NULL, '2023-11-04 22:49:19', '2023-11-04 22:49:19'),
-(2, 'Prof. Carlo Gleason', 'corwin.josiane', 'emmerich.mallie@example.com', '+1-214-800-2113', '2', '2023-07-18 21:31:38', 0, '978 Alessia Creek\nJuanatown, OR 93799-0255', '50949654', 'Birth Certificate', 'Accusantium dicta sint occaecati.', NULL, NULL, NULL, 'voluptatibus.jpg', '2002-03-05', NULL, '2023-11-04 22:49:19', '$2y$10$1z.Kcgrp9/sZHEY5DU3L1uj2QkzWgW/p5we4CvuKiqahoWnlkdjN6', 'user', NULL, NULL, NULL, NULL),
-(3, 'Mr. Jarret Hermann V', 'mohammed.metz', 'durgan.mac@example.net', '(678) 673-8500', '0', '2023-06-14 19:21:19', 0, '220 Nicolas Corners\nAlessandraside, MA 56312', '31298617', 'Birth Certificate', NULL, 'Qui pariatur inventore ullam nobis molestias velit.', NULL, NULL, 'et.jpg', '1984-08-04', NULL, '2023-11-04 22:49:19', '$2y$10$czp/HGbekC8M.iyKd75z0.8Da6LM1sRMCMv8UWEoCpDFXrwWo6pXm', 'user', NULL, NULL, NULL, NULL),
-(4, 'Orval Funk', 'florida.abbott', 'leanne.skiles@example.com', '+1-574-573-9835', '1', '2023-01-05 10:28:23', 0, '1277 Roxanne Flat Suite 305\nLake Dionshire, TX 02195', '96455605', 'Passport', 'Voluptas eos voluptas nostrum eius exercitationem et.', NULL, NULL, NULL, 'quidem.jpg', '2016-09-08', NULL, '2023-11-04 22:49:19', '$2y$10$ZbQK8yOprYNPVi6Cnrewvu4glO0nkJfrIH6lT8pAd6Ua95tGGTwq6', 'user', NULL, NULL, NULL, NULL),
-(5, 'Fabiola Gibson V', 'jane66', 'bettie01@example.com', '253.350.7373', '1', '2023-03-23 12:31:08', 0, '23189 Graham Mews\nDaytonstad, KS 87898', '9752024', 'Passport', 'Dicta omnis temporibus beatae esse error.', 'Et quo recusandae aut ea accusamus est maiores.', 'Unde perferendis ipsum error quos molestiae vitae neque corporis.', NULL, 'illum.jpg', '1999-10-21', NULL, '2023-11-04 22:49:20', '$2y$10$auHyg3lVMuTvszEEM5DrXexlDkU7bDIkfrL.LT5mFVYDhAm2J5G5m', 'user', NULL, NULL, NULL, NULL),
-(6, 'Hershel Cummerata', 'zprohaska', 'orlando.davis@example.net', '(209) 598-8635', '1', '2023-08-31 14:18:01', 0, '3154 Karl Junction\nWintheiserfort, MT 51023-8732', '21962437', 'NID', NULL, NULL, NULL, 'Explicabo doloribus et ipsum eligendi vel in perferendis.', 'non.jpg', '1991-10-10', NULL, '2023-11-04 22:49:20', '$2y$10$Mbz2NjH09691TDKxzYRHo.kc.ePtmq4x3CO7nCmRjVAK9CqK/QDk2', 'user', NULL, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone_no`, `TFA`, `last_login`, `isVerified`, `address`, `id_number`, `id_type`, `sq_no_1`, `sq_no_1_ans`, `sq_no_2`, `sq_no_2_ans`, `pro_pic`, `date_of_birth`, `verified_by`, `unverified_by`, `email_verified_at`, `password`, `user_type`, `deleted_at`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'super_admin', 'admin@example.com', '0123456789', '0', NULL, 1, '123 Main St, City', '123456789', 'NID', NULL, NULL, NULL, NULL, NULL, '1990-01-01', 1, NULL, NULL, '$2y$10$Gv/8ZQVQYLhrMoWYf.szR.uyRgf26C8JbisB7uUMlF6I5KViyj9l.', 'super_admin', NULL, NULL, '2023-11-08 05:21:50', '2023-11-08 05:21:50'),
+(2, 'Mr. Orrin Streich III', 'tsporer', 'jacobson.eugenia@example.net', '762.356.5750', '1', '2023-03-08 21:41:25', 1, '43914 O\'Keefe Prairie\nWest Mckayla, MS 36058-7577', '55064248', 'NID', NULL, NULL, NULL, 'Minus aut in recusandae et qui est.', 'facere.jpg', '2014-03-09', 1, 1, '2023-11-08 05:21:50', '$2y$10$eXh.s9FRNMpkAGaOuA/lEuF7xBpFjc6tRA.5i3i5b66RkV.xPbmru', 'user', NULL, NULL, NULL, '2023-11-08 05:25:31'),
+(3, 'Anais Brekke', 'mellie.rodriguez', 'ramona.wilkinson@example.net', '386-603-4803', '2', '2023-07-05 17:10:11', 0, '119 Laverne Gateway\nEast Donny, OR 48725', '92309230', 'NID', NULL, 'Molestiae vel natus labore esse voluptatum consequatur quidem.', NULL, NULL, 'consequatur.jpg', '2016-10-02', NULL, NULL, '2023-11-08 05:21:50', '$2y$10$tk0jIcu7fEGgzZsoDs5n9.BKtfvxylk2XTPjDza4ga1tICWn4Wk6K', 'user', NULL, NULL, NULL, NULL),
+(4, 'Buford Hand', 'swunsch', 'crunolfsdottir@example.org', '+1 (626) 929-4628', '0', '2023-09-20 02:23:31', 0, '65072 Ben Point\nBrandynside, NH 82556-3332', '3335950', 'Passport', NULL, NULL, NULL, NULL, 'minima.jpg', '2013-06-22', NULL, NULL, '2023-11-08 05:21:50', '$2y$10$zWzrTKITlqHeiTDQBoTXB.B41Fxq9H.aM/06n3y9DEEza4OSeU0oy', 'user', NULL, NULL, NULL, NULL),
+(5, 'Abdiel Block', 'gwisozk', 'celestino.jacobson@example.org', '+1-561-863-6957', '2', '2023-07-19 07:32:41', 0, '6887 Linnie Expressway\nRueckertown, MO 18170-0769', '49846328', 'NID', 'Aut qui impedit non sit eaque.', NULL, NULL, 'Enim ducimus quidem impedit nihil est.', 'sequi.jpg', '2022-09-30', NULL, NULL, '2023-11-08 05:21:50', '$2y$10$Wa9W5.3mnCKLqMCOgZJrcuDuLKGtCyOuEXb0dRKYqvmHaVMvBO.Gq', 'user', NULL, NULL, NULL, NULL),
+(6, 'Josiah Will', 'moshe.anderson', 'ohomenick@example.org', '+1 (563) 687-6895', '0', '2023-10-21 07:26:16', 0, '6152 Isaias Garden\nAlejandrafurt, VA 00242', '5274937', 'Passport', NULL, 'Cum repellat animi temporibus occaecati ratione doloremque accusantium.', NULL, 'Sed laudantium sit et fugit et quisquam ut.', 'praesentium.jpg', '1970-09-19', NULL, NULL, '2023-11-08 05:21:51', '$2y$10$7J7T4txhuRexIfd58/ONuuFg8OdvHuqFnm06z5WmATo6csgxXHgyS', 'user', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -579,7 +610,17 @@ ALTER TABLE `project_initiation_overviews`
 -- Indexes for table `resources`
 --
 ALTER TABLE `resources`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `resources_added_by_foreign` (`added_by`);
+
+--
+-- Indexes for table `resource_management`
+--
+ALTER TABLE `resource_management`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `resource_management_user_id_foreign` (`user_id`),
+  ADD KEY `resource_management_resource_id_foreign` (`resource_id`),
+  ADD KEY `resource_management_project_initiation_id_foreign` (`project_initiation_id`);
 
 --
 -- Indexes for table `roles`
@@ -654,7 +695,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -690,13 +731,19 @@ ALTER TABLE `project_initiations`
 -- AUTO_INCREMENT for table `project_initiation_overviews`
 --
 ALTER TABLE `project_initiation_overviews`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `resources`
 --
 ALTER TABLE `resources`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `resource_management`
+--
+ALTER TABLE `resource_management`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -743,6 +790,20 @@ ALTER TABLE `model_has_permissions`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `resources`
+--
+ALTER TABLE `resources`
+  ADD CONSTRAINT `resources_added_by_foreign` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `resource_management`
+--
+ALTER TABLE `resource_management`
+  ADD CONSTRAINT `resource_management_project_initiation_id_foreign` FOREIGN KEY (`project_initiation_id`) REFERENCES `project_initiations` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `resource_management_resource_id_foreign` FOREIGN KEY (`resource_id`) REFERENCES `resources` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `resource_management_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `role_has_permissions`
