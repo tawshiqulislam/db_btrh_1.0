@@ -26,40 +26,103 @@
                                 <div class="button-group d-flex justify-content-end  gap-2 mb-2">
                                     <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                         Edit</a>
+
                                     <!--verify and unverify button-->
-                                    @if ($project_initiation->isVerified == false)
+                                    @role("super_admin")
+                                        <span class="dropdown">
+                                            <button class="btn btn-dark text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa-solid fa-certificate"></i> Project Verification
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                                @if (!$project_initiation->isVerified)
+                                                    <li> <a class="dropdown-item" onclick="return confirm('Do you want to verify this project?')"
+                                                            href="{{ route("project_initiation.verify", $project_initiation->id) }}">
+                                                            Verify</a></li>
+                                                @endif
+
+                                                @if ($project_initiation->isVerified)
+                                                    <li> <a class="dropdown-item" onclick=" return confirm('Do you want to unverify this project?')"
+                                                            href="{{ route("project_initiation.unverify", $project_initiation->id) }}">
+                                                            Univerify</a></li>
+                                                @endif
+
+                                            </ul>
+                                        </span>
+                                    @endrole
+                                    {{-- @if ($project_initiation->isVerified == false)
                                         @role("super_admin")
-                                            <a href="{{ route("project_initiation.verify", $project_initiation->id) }}" class="btn btn-info btn-sm text-white"><i class="fa-solid fa-certificate"></i>
+                                            <a onclick="confirm('Do you want to verify this project?')" href="{{ route("project_initiation.verify", $project_initiation->id) }}"
+                                                class="btn btn-info btn-sm text-white"><i class="fa-solid fa-certificate"></i>
                                                 Verify</a>
                                         @endrole
                                     @else
                                         @role("super_admin")
-                                            <a href="{{ route("project_initiation.unverify", $project_initiation->id) }}" class="btn btn-dark btn-sm text-white"><i class="fa-solid fa-certificate"></i>
+                                            <a onclick="confirm('Do you want to unverify this project?')" href="{{ route("project_initiation.unverify", $project_initiation->id) }}"
+                                                class="btn btn-dark btn-sm text-white"><i class="fa-solid fa-certificate"></i>
                                                 Univerify</a>
                                         @endrole
-                                    @endif
-                                    {{-- project active inactive --}}
-                                    @if ($project_initiation->status == "inactive" && $project_initiation->isVerified == false)
+                                    @endif --}}
+                                    {{-- project status --}}
+                                    @if ($project_initiation->isVerified)
                                         @role("super_admin")
-                                            <a href="{{ route("project_initiation.active", $project_initiation->id) }}" class="btn btn-success btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
+                                            <span class="dropdown">
+                                                <button class="btn btn-success text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-circle-check"></i> Project Status
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+
+                                                    @if ($project_initiation->status == "inactive")
+                                                        <li> <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal">
+                                                                Active</a>
+                                                        </li>
+                                                    @endif
+                                                    @if ($project_initiation->status == "active")
+                                                        <li>
+                                                            <a class="dropdown-item" onclick="return confirm('Do you want to inactive this project?')"
+                                                                href="{{ route("project_initiation.inactivate", $project_initiation->id) }}">
+                                                                Inactive</a>
+
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </span>
+                                        @endrole
+                                    @endif
+
+                                    {{-- @if ($project_initiation->status == "inactive" && $project_initiation->isVerified == false)
+                                        @role("super_admin")
+                                            <a onclick="confirm('Do you want to active this project?')" href="{{ route("project_initiation.active", $project_initiation->id) }}"
+                                                class="btn btn-success btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
                                                 Active This Project </a>
                                         @endrole
                                     @endif
                                     @if ($project_initiation->status == "inactive" && $project_initiation->isVerified == true)
                                         @role("super_admin")
-                                            <a type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal" class="btn btn-success btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
-                                                Active This Project </a>
+                                            <a type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal" class="btn btn-success btn-sm text-white"><i
+                                                    class="fa-solid fa-circle-check"></i>
+                                                Activate This Project </a>
                                         @endrole
                                     @endif
 
                                     @if ($project_initiation->status == "active")
                                         @role("super_admin")
-                                            <a href="{{ route("project_initiation.inactivate", $project_initiation->id) }}" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
+                                            <a onclick="confirm('Do you want to inactive this project?')" href="{{ route("project_initiation.inactivate", $project_initiation->id) }}"
+                                                class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-circle-check"></i>
                                                 Inactive This Project </a>
                                         @endrole
+                                    @endif --}}
+                                    @if ($project_initiation->status == "active")
+                                        <button class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_time_Modal"><i class="fa-solid fa-clock"></i> Set Project
+                                            Time</button>
                                     @endif
-
-                                    <button class="btn btn-secondary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
+                                    @if ($project_initiation->time_duration)
+                                        <button class="btn btn-danger text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_issue_Modal"><i class="fa-solid fa-box-tissue"></i>
+                                            Create
+                                            Issue</button>
+                                    @endif
+                                    <button class="btn btn-secondary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload
+                                        Documents</button>
                                 </div>
                                 <h5>{{ $project_initiation->name ?? "" }}</h5>
 
@@ -82,12 +145,17 @@
                                 <p>{!! $project_initiation->goal ?? "" !!}</p>
                             </div>
                             <div class="col-md-12">
-                                <p class="card-text"><strong>Deadline:</strong> {{ $project_initiation->deadline ?? "" }}
+                                <p class="card-text"><strong>Starting Date:</strong> {{ $project_initiation->time_duration->starting_date ?? "" }}
+                                </p>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="card-text"><strong>Ending Date:</strong> {{ $project_initiation->time_duration->ending_date ?? "" }}
                                 </p>
                             </div>
                             @if ($project_initiation->required_file)
                                 <div class="col-md-12">
-                                    <p class="card-text"><strong>Required File:</strong> <a target="_blank" href="{{ asset("storage/project_initiation/" . $project_initiation->required_file) }}">{{ $project_initiation->required_file }}</a>
+                                    <p class="card-text"><strong>Required File:</strong> <a target="_blank"
+                                            href="{{ asset("storage/project_initiation/" . $project_initiation->required_file) }}">{{ $project_initiation->required_file }}</a>
                                     </p>
                                 </div>
                             @endif
@@ -157,7 +225,8 @@
                                                     <td>{{ $project_initiation_overview->user->email }}</td>
                                                     <td>{{ $project_initiation_overview->designation }}</td>
                                                     <td>
-                                                        <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')" class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
+                                                        <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
+                                                            class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
                                                             Delete</a>
                                                     </td>
                                                 </tr>
@@ -192,14 +261,18 @@
 
                                                     @foreach ($project_initiation->project_documents as $project_document)
                                                         <tr>
-                                                            <td><a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}">{{ $project_document->document ?? "" }}</a></td>
+                                                            <td><a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}">{{ $project_document->document ?? "" }}</a>
+                                                            </td>
                                                             <td>
-                                                                <a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}" class="btn btn-sm btn-primary text-white"><i class="fa-solid fa-eye"></i> View</a>
-                                                                <a data-bs-toggle="modal" data-bs-target="#updateProjectDocumentModal_{{ $project_document->id }}" class="btn btn-warning text-white btn-sm me-1 editBtn">
+                                                                <a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}" class="btn btn-sm btn-primary text-white"><i
+                                                                        class="fa-solid fa-eye"></i> View</a>
+                                                                <a data-bs-toggle="modal" data-bs-target="#updateProjectDocumentModal_{{ $project_document->id }}"
+                                                                    class="btn btn-warning text-white btn-sm me-1 editBtn">
                                                                     <i class="fa-solid fa-file-pen"></i> Update
                                                                 </a>
 
-                                                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_documentDeleteModal_{{ $project_document->id }}"><i class="fa-solid fa-trash"></i>
+                                                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                                    data-bs-target="#project_documentDeleteModal_{{ $project_document->id }}"><i class="fa-solid fa-trash"></i>
                                                                     Delete</a>
                                                             </td>
                                                         </tr>
@@ -208,6 +281,47 @@
                                             </table>
                                         @else
                                             There are no project documents
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Key deliver-->
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong> Project Issue:</strong>
+                                    </div>
+
+                                    <div class="col-12">
+                                        @if (!$project_initiation->key_deliveres->count() == 0)
+                                            <table class="table table-sm table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>SL No.</th>
+                                                        <th>Project Initiation</th>
+                                                        <th>Subject</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($project_initiation->key_deliveres as $key => $key_delivery)
+                                                        <tr>
+                                                            <td>{{ ++$key }}</td>
+                                                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $project_initiation->name }}</td>
+                                                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $key_delivery->subject }}</td>
+                                                            <td>
+                                                                <button class="btn btn-info text-white btn-sm" data-bs-toggle="modal"
+                                                                    data-bs-target="#project_initiation_issue_read_Modal_{{ $key_delivery->id }}"><i class="fa-solid fa-book-open"></i> Read</button>
+                                                                <a href="{{ route("create_issue.delete", $key_delivery->id) }}" target='_blank' onclick="return confirm('Are you sure?')"
+                                                                    class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
+                                                                    Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            There are no project issues create yet!
                                         @endif
                                     </div>
                                 </div>
@@ -222,4 +336,7 @@
     @include("backend.pages.project_initiation.project_document_edit_modal")
     @include("backend.pages.project_initiation.project_document_delete_confirmation_modal")
     @include("backend.pages.project_initiation.project_initiation_active_modal")
+    @include("backend.pages.project_initiation.project_initiation_time_modal")
+    @include("backend.pages.project_initiation.project_initiation_issue_modal")
+    @include("backend.pages.project_initiation.project_initiation_issue__read_modal")
 @endsection

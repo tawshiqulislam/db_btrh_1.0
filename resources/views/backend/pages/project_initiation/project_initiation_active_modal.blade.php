@@ -12,7 +12,7 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <label for="user_type">User Type:</label>
-                            <select id="user_type" name="user_type" class="form-control">
+                            <select id="user_type" name="user_type" class="form-control" required>
                                 <option value="" selected disabled>Select One</option>
                                 <option value="user">User</option>
                                 <option value="vendor">Vendor</option>
@@ -26,8 +26,10 @@
                                     <label class="form-check-label" for="user_{{ $user->id }}">
                                         {{ $user->name }} ({{ $user->email }})
                                     </label>
-                                    <input type="text" class="form-control designation-input mb-2" id="designation_{{ $user->id }}" name="designations[{{ $user->id }}]" placeholder="Enter Designation" style="display: none;">
-                                    <input type="text" class="form-control comment-input" id="comment_{{ $user->id }}" name="comments[{{ $user->id }}]" placeholder="Enter Comment" style="display: none;">
+                                    <input type="text" class="form-control designation-input mb-2" id="designation_{{ $user->id }}" name="designations[{{ $user->id }}]"
+                                        placeholder="Enter Designation" style="display: none;">
+                                    <input type="text" class="form-control comment-input" id="comment_{{ $user->id }}" name="comments[{{ $user->id }}]" placeholder="Enter Comment"
+                                        style="display: none;">
                                 </div>
                             @endforeach
                         </div>
@@ -40,8 +42,10 @@
                                     <label class="form-check-label" for="user_{{ $vendor->id }}">
                                         {{ $vendor->name }} ({{ $vendor->email }})
                                     </label>
-                                    <input type="text" class="form-control designation-input mb-2" id="designation_{{ $vendor->id }}" name="designations[{{ $vendor->id }}]" placeholder="Enter Designation" style="display: none;">
-                                    <input type="text" class="form-control comment-input" id="comment_{{ $vendor->id }}" name="comments[{{ $vendor->id }}]" placeholder="Enter Comment" style="display: none;">
+                                    <input type="text" class="form-control designation-input mb-2" id="designation_{{ $vendor->id }}" name="designations[{{ $vendor->id }}]"
+                                        placeholder="Enter Designation" style="display: none;">
+                                    <input type="text" class="form-control comment-input" id="comment_{{ $vendor->id }}" name="comments[{{ $vendor->id }}]" placeholder="Enter Comment"
+                                        style="display: none;">
                                 </div>
                             @endforeach
                         </div>

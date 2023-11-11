@@ -102,6 +102,9 @@ Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class
     Route::post('/activate/{id}', [ProjectInitiationController::class, 'activate'])->name('project_initiation.activate'); //project activate
     Route::get('/inactivate/{id}', [ProjectInitiationController::class, 'inactivate'])->name('project_initiation.inactivate');
     Route::get('/delete/overview/{id}', [ProjectInitiationController::class, 'delete_assigned_user'])->name('delete_assigned_user.delete');
+    Route::post('/set_time/{id}', [ProjectInitiationController::class, 'set_time'])->name('set_time.store');
+    Route::post('/create_issue/{id}', [ProjectInitiationController::class, 'create_issue'])->name('create_issue.store');
+    Route::get('/create_issue/delete/{id}', [ProjectInitiationController::class, 'create_issue_delete'])->name('create_issue.delete');
 });
 
 //admin user detail routes

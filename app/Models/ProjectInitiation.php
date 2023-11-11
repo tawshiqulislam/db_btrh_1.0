@@ -69,4 +69,12 @@ class ProjectInitiation extends Model
     {
         return $this->hasMany(ResourceManagement::class);
     }
+    public function time_duration()
+    {
+        return $this->hasOne(TimeDuration::class);
+    }
+    public function key_deliveres()
+    {
+        return $this->hasMany(KeyDeliverable::class);
+    }
 }

@@ -114,6 +114,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(ResourceManagement::class, 'assigned_by');
     }
+    public function time_durations()
+    {
+        return $this->hasMany(TimeDuration::class);
+    }
+
+    public function key_deliveres()
+    {
+        return $this->hasMany(KeyDeliverable::class);
+    }
 
 
     // //role creation
