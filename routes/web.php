@@ -10,6 +10,7 @@ use App\Http\Controllers\ProjectInitiationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDetailController;
 use App\Http\Middleware\isVerified;
@@ -152,6 +153,17 @@ Route::prefix('admin/role')->middleware(['auth', isVerified::class])->group(func
     Route::get('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
     Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
     Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update');
+});
+
+//admin task routes
+Route::prefix('admin/task')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [TaskController::class, 'index'])->name('task.index');
+    Route::get('/create', [TaskController::class, 'create'])->name('task.create');
+    Route::post('/store', [TaskController::class, 'store'])->name('task.store');
+    Route::get('/info/{task}', [TaskController::class, 'info'])->name('task.info');
+    Route::get('/delete/{task}', [TaskController::class, 'delete'])->name('task.delete');
+    Route::get('/edit/{task}', [TaskController::class, 'edit'])->name('task.edit');
+    Route::post('/update/{task}', [TaskController::class, 'update'])->name('task.update');
 });
 //admin resource routes
 require __DIR__ . './resource.php';

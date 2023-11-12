@@ -174,6 +174,24 @@
                 </li>
             </ul>
         </li>
+        <!--task-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_task" data-bs-toggle="collapse" href="{{ route("task.index") }}">
+                <i class="fa-solid fa-list-check"></i><span>Task</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_task" class="nav-content collapse " data-bs-parent="#sidebar-nav_task">
+                <li>
+                    <a href="{{ route("task.index") }}">
+                        <i class="bi bi-circle"></i><span>Task List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("task.create") }}">
+                        <i class="bi bi-circle"></i><span>Assign Task</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
 
     </ul>
 

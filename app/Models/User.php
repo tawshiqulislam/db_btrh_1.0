@@ -123,6 +123,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(KeyDeliverable::class);
     }
+    public function assigned_by_tasks()
+    {
+        return $this->hasMany(Task::class, 'assigned_by');
+    }
+    public function assigned_to_tasks()
+    {
+        return $this->hasMany(Task::class, 'assigned_to');
+    }
 
 
     // //role creation
