@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Helpers\UniqueID;
 use App\Http\Requests\ProjectInitiationRequest;
 use App\Http\Requests\ProjectInitiationUpdateRequest;
+use App\Models\KeyDeliverable;
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
 use App\Models\ProjectInitiationOverview;
 use App\Models\Status;
+use App\Models\TimeDuration;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -141,7 +143,7 @@ class ProjectInitiationController extends Controller
         //find the current data
         $project_initiation = ProjectInitiation::find($id);
         $statuses = Status::all();
-        $users = User::where('user_type', 'user')->get();
+        $users = User::where('user_type', 'user')->where('isVerified', 1)->get();
         $vendors = User::where('user_type', 'vendor')->get();
         $project_initiation_overviews = ProjectInitiationOverview::where('project_initiation_id', $id)->get();
         return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users', 'project_initiation_overviews', 'vendors'));
@@ -150,6 +152,11 @@ class ProjectInitiationController extends Controller
     public function verify($id)
     {
         $project_initiation = ProjectInitiation::find($id);
+        // if ($project_initiation->isVerified) {
+        //     toastr()->error('Project initiation is already verified!', 'Alert');
+        //     return redirect()->back();
+        // }
+
         $project_initiation->update([
             'verified_by' => auth()->user()->id,
             'isVerified' => true,
@@ -162,6 +169,10 @@ class ProjectInitiationController extends Controller
     {
 
         $project_initiation = ProjectInitiation::find($id);
+        // if (!$project_initiation->isVerified) {
+        //     toastr()->error('Project initiation is already unverified!', 'Alert');
+        //     return redirect()->back();
+        // }
         $project_initiation->update([
             'verified_by' => null,
             'isVerified' => false,
@@ -184,20 +195,24 @@ class ProjectInitiationController extends Controller
         }
     }
 
-    //active project
-    public function active($id)
-    {
-        $project_initiation = ProjectInitiation::find($id);
-        if ($project_initiation->isVerified == false) {
-            toastr()->warning('Before activate this project, please verify the project at first!', 'Warning');
-            return redirect()->back();
-        }
-    }
+    // //active project
+    // public function active($id)
+    // {
+    //     $project_initiation = ProjectInitiation::find($id);
+    //     if ($project_initiation->isVerified == false) {
+    //         toastr()->warning('Before activate this project, please verify the project at first!', 'Warning');
+    //         return redirect()->back();
+    //     }
+    // }
 
     public function activate(Request $request, $id)
     {
 
         $project_initiation = ProjectInitiation::find($id);
+        // if ($project_initiation->status == 'active') {
+        //     toastr()->error('Project initiation is already active!', 'Alert');
+        //     return redirect()->back();
+        // }
         $project_initiation->update([
             'activated_by' => auth()->user()->id,
             // 'assigned_to' => $request->assigned_to,
@@ -221,6 +236,10 @@ class ProjectInitiationController extends Controller
     public function inactivate($id)
     {
         $project_initiation = ProjectInitiation::find($id);
+        // if ($project_initiation->status == 'inactive') {
+        //     toastr()->error('Project initiation is already inactive!', 'Alert');
+        //     return redirect()->back();
+        // }
         $project_initiation->update([
             'inactivated_by' => auth()->user()->id,
             'activated_by' => null,
@@ -230,9 +249,68 @@ class ProjectInitiationController extends Controller
         return redirect()->back();
     }
 
+    public function set_time(Request $request, $id)
+    {
+        $set_time = TimeDuration::where('project_initiation_id', $id)->first();
+        if ($set_time) {
+            $set_time->update([
+                'user_id' => auth()->user()->id,
+                'project_initiation_id' => $id,
+                'starting_date' => $request->starting_date,
+                'ending_date' => $request->ending_date,
+            ]);
+        }
+        if (!$set_time) {
+            TimeDuration::create([
+                'user_id' => auth()->user()->id,
+                'project_initiation_id' => $id,
+                'starting_date' => $request->starting_date,
+                'ending_date' => $request->ending_date,
+            ]);
+        }
+
+        toastr()->success('Time set in this project successfully!', 'Congrats');
+        return redirect()->back();
+    }
     public function delete_assigned_user($id)
     {
         ProjectInitiationOverview::find($id)->delete();
+        return redirect()->back();
+    }
+    //create issue key deliverale method
+    public function create_issue(Request $request, $id)
+    {
+
+        $request->validate([
+            'message' => ['required'],
+            'subject' => ['required'],
+            'document' => ['nullable', 'max:2048'],
+        ], [
+            'message.required' => 'The message field is required.',
+            'subject.required' => 'The subject field is required.',
+            'document.max' => 'The document size must not exceed 2MB.',
+        ]);
+
+        $data = $request->all();
+
+
+        //if any file is present
+        if ($request->document) {
+            $document = $this->uploadFile($request->subject, $request->document);
+            $data['document'] = $document;
+        }
+        $data['user_id'] = auth()->user()->id;
+        $data['project_initiation_id'] = $id;
+        KeyDeliverable::create($data);
+        toastr()->success('The project issue has been sent successfully!', 'Notice!');
+        return redirect()->back();
+    }
+
+    //create issue key deliverable delete
+    public function create_issue_delete($id)
+    {
+        KeyDeliverable::find($id)->delete();
+        toastr()->error('The project issue has been deleted!', 'Warning!');
         return redirect()->back();
     }
     //file upload function
