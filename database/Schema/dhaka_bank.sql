@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 11, 2023 at 11:15 AM
+-- Generation Time: Nov 12, 2023 at 05:01 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -116,7 +116,8 @@ CREATE TABLE `key_deliverables` (
 
 INSERT INTO `key_deliverables` (`id`, `user_id`, `project_initiation_id`, `subject`, `message`, `document`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 'Cillum natus volupta', 'Dolore qui harum off', '1699699325-Cillum natus volupta.docx', '2023-11-11 04:54:02', '2023-11-11 04:42:05', '2023-11-11 04:54:02'),
-(2, 1, 1, 'Est fugiat non volu', 'Voluptas irure tenet', '1699700102-Est fugiat non volu.docx', NULL, '2023-11-11 04:55:02', '2023-11-11 04:55:02');
+(2, 1, 1, 'Est fugiat non volu', 'Voluptas irure tenet', '1699700102-Est fugiat non volu.docx', NULL, '2023-11-11 04:55:02', '2023-11-11 04:55:02'),
+(3, 1, 1, 'Sapiente consequatur', 'Sapiente fuga Eum d', NULL, NULL, '2023-11-11 05:16:24', '2023-11-11 05:16:24');
 
 -- --------------------------------------------------------
 
@@ -153,7 +154,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2023_11_04_033652_create_resources_table', 1),
 (17, '2023_11_07_184019_create_resource_management_table', 1),
 (18, '2023_11_11_054913_create_time_durations_table', 1),
-(19, '2023_11_11_060559_create_key_deliverables_table', 1);
+(19, '2023_11_11_060559_create_key_deliverables_table', 1),
+(20, '2023_11_12_093315_create_tasks_table', 2);
 
 -- --------------------------------------------------------
 
@@ -477,6 +479,34 @@ INSERT INTO `statuses` (`id`, `status`, `deleted_at`, `created_at`, `updated_at`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tasks`
+--
+
+CREATE TABLE `tasks` (
+  `id` bigint UNSIGNED NOT NULL,
+  `assigned_by` bigint UNSIGNED NOT NULL,
+  `assigned_to` bigint UNSIGNED NOT NULL,
+  `project_initiation_id` bigint UNSIGNED NOT NULL,
+  `task` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `document` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deadline` date DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `assigned_by`, `assigned_to`, `project_initiation_id`, `task`, `document`, `deadline`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 6, 4, '<p>sfasdfasdf</p>', '1699791173-7b118779-f972-4ee5-bc00-51530abef9c3.jpg', '1974-10-28', 'active', NULL, '2023-11-12 06:12:53', '2023-11-12 06:24:48'),
+(2, 1, 1, 2, '<p>sdafasdfadsf</p>', NULL, '2019-04-01', 'canceled', '2023-11-12 06:22:44', '2023-11-12 06:16:38', '2023-11-12 06:22:44');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `time_durations`
 --
 
@@ -706,6 +736,13 @@ ALTER TABLE `statuses`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tasks`
+--
+ALTER TABLE `tasks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tasks_project_initiation_id_foreign` (`project_initiation_id`);
+
+--
 -- Indexes for table `time_durations`
 --
 ALTER TABLE `time_durations`
@@ -759,13 +796,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `key_deliverables`
 --
 ALTER TABLE `key_deliverables`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -834,6 +871,12 @@ ALTER TABLE `statuses`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `tasks`
+--
+ALTER TABLE `tasks`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `time_durations`
 --
 ALTER TABLE `time_durations`
@@ -893,6 +936,12 @@ ALTER TABLE `resource_management`
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tasks`
+--
+ALTER TABLE `tasks`
+  ADD CONSTRAINT `tasks_project_initiation_id_foreign` FOREIGN KEY (`project_initiation_id`) REFERENCES `project_initiations` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `time_durations`
