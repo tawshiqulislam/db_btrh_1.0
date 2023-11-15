@@ -231,6 +231,9 @@ class UserController extends Controller
             'isVerified' => true,
             'verified_by' => auth()->user()->id
         ]);
+        $user = User::find($id);
+
+        $user->assignRole('user');
         toastr()->success('User is verified now!', 'Congrats!');
         return redirect()->back();
     }

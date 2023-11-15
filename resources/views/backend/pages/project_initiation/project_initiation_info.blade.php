@@ -239,7 +239,21 @@
                                                     View User</a>
                                                 <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
                                                     class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
-                                                    Delete</a>
+                                                    Remove</a>
+                                                @php
+                                                    $task = App\Models\Task::where("project_initiation_id", $project_initiation_overview->project_initiation->id)
+                                                        ->where("assigned_to", $project_initiation_overview->user->id)
+                                                        ->first();
+                                                @endphp
+                                                @if ($project_initiation_overview->user->assigned_to_tasks->count() > 0 && $project_initiation_overview->project_initiation->tasks->count() > 0)
+                                                    <a href="{{ route("task.info", $task->id) }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-eye"></i>
+                                                        View Task</a>
+                                                @else
+                                                    <a class="text-white btn btn-sm btn-warning" type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#project_initiation_user_assign_task_Modal_{{ $project_initiation_overview->id }}"><i class="fa-solid fa-thumbtack"></i> Assign
+                                                        Task</a>
+                                                @endif
+
                                             </td>
                                             </tr>
                                 @endforeach
@@ -353,5 +367,7 @@
     @include("backend.pages.project_initiation.project_initiation_key_deliverable_modal")
     @include("backend.pages.project_initiation.project_initiation_key_deliverable_read_modal")
     @include("backend.pages.project_initiation.project_initiation_user_designation_modal")
+    @include("backend.pages.project_initiation.project_initiation_user_task_assign_modal")
+    @include("includes.ck_editor")
 
 @endsection

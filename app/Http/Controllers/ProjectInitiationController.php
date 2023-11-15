@@ -12,9 +12,12 @@ use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
 use App\Models\ProjectInitiationOverview;
 use App\Models\Status;
+use App\Models\Task;
 use App\Models\TimeDuration;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class ProjectInitiationController extends Controller
@@ -349,6 +352,51 @@ class ProjectInitiationController extends Controller
         toastr()->success('The designation has been added!', 'Success!');
         return redirect()->back();
     }
+    //user assign task
+    public function user_assign_task(Request $request, $id)
+    {
+        $request->validate([
+            'task' => 'required',
+            'document' => 'nullable|file',
+            'deadline' => 'nullable|date',
+        ], [
+            'task.required' => 'The task field is required.',
+            'document.file' => 'The document must be a file.',
+            'deadline.date' => 'The deadline must be a valid date.',
+        ]);
+        try {
+            $project_initiation = ProjectInitiationOverview::find($id)->project_initiation()->first();
+            $project_initiation_overview = ProjectInitiationOverview::find($id);
+            $data = $request->all();
+            $file_name = Str::uuid();
+            //if any file is present
+            if ($request->document) {
+                $document = $this->uploadTask($file_name, $request->document);
+                $data['document'] = $document;
+            }
+            $data['assigned_by'] = auth()->user()->id;
+
+            $data['assigned_to'] =  $project_initiation_overview->user->id;
+            $data['project_initiation_id'] = $project_initiation->id;
+
+
+            Task::create($data);
+            //success message
+            toastr()->success('Task has been assigned successfully!', 'Congrats');
+            //redirect to index page
+            return redirect()->back();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    // public function user_view_task($id)
+    // {
+    //     $project_initiation_id = ProjectInitiationOverview::find($id)->project_initiation()->first()->id;
+    //     $user_id = ProjectInitiationOverview::find($id)->user->id;
+    //     $task = Task::where('project_initation_id');
+
+    // }
     //file upload function
     public function uploadFile($title, $file)
     {
@@ -366,5 +414,16 @@ class ProjectInitiationController extends Controller
         if ($file != '' && file_exists($pathToUpload . $file)) {
             @unlink($pathToUpload . $file);
         }
+    }
+
+    //file upload function
+    public function uploadTask($title, $file)
+    {
+
+        $file_name = time() . '-' . $title . '.' . $file->getClientOriginalExtension();
+
+        $file->move('storage/task', $file_name);
+
+        return $file_name;
     }
 }

@@ -29,7 +29,7 @@
         <!--vendor-->
         <li class="nav-item active">
             <a class="nav-link collapsed" data-bs-target="#components-nav_vendor" data-bs-toggle="collapse" href="{{ route("vendor.index") }}">
-                <i class="fa-solid fa-users"></i><span>Vendor</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fa-solid fa-user-tie"></i><span>Vendor</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav_vendor" class="nav-content collapse " data-bs-parent="#sidebar-nav_vendor">
                 <li>

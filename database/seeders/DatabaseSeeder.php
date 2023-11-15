@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
                 'phone_no' => $faker->unique()->phoneNumber,
                 'TFA' => $faker->randomElement([0, 1, 2]),
                 'last_login' => $faker->dateTimeThisYear,
-                'isVerified' => true,
+                'isVerified' => false,
                 'address' => $faker->address,
                 'id_number' => $faker->unique()->randomNumber(8),
                 'id_type' => $faker->randomElement(['Birth Certificate', 'NID', 'Passport']),

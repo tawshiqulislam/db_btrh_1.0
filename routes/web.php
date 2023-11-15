@@ -127,6 +127,7 @@ Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class
     Route::get('/key_deliverable/delete/{id}', [ProjectInitiationController::class, 'key_deliverable_delete'])->name('key_deliverable.delete');
     Route::post('/user/designation/{id}', [ProjectInitiationController::class, 'user_designation'])->name('user_designation.store');
     Route::post('/assign_member/{id}', [ProjectInitiationController::class, 'assign_member'])->name('assign_member.store');
+    Route::post('/user_assign_task/{id}', [ProjectInitiationController::class, 'user_assign_task'])->name('user_assign_task.store');
 });
 
 //admin user detail routes
