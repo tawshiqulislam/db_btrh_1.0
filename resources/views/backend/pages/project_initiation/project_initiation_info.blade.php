@@ -117,9 +117,9 @@
                                             Time</button>
                                     @endif
                                     @if ($project_initiation->time_duration)
-                                        <button class="btn btn-danger text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_issue_Modal"><i class="fa-solid fa-box-tissue"></i>
-                                            Create
-                                            Issue</button>
+                                        <button class="btn btn-danger text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_key_deliverable_Modal"><i
+                                                class="fa-solid fa-box-tissue"></i>
+                                            Key Deliverable</button>
                                     @endif
                                     <button class="btn btn-secondary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload
                                         Documents</button>
@@ -198,13 +198,13 @@
                             <div class="col-md-12">
                                 <p class="card-text"><strong>Assignd To: </strong>
                                     @if (!$project_initiation->activated_by)
-                                        <span>Don't assigned yet</span>
+                                        <span>Project not activated</span>
                                     @else
-                                        <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#project_initiation_active_Modal">Assign more</a>
+                                        <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#project_initiation_assign_member_Modal">Assign member</a>
                                     @endif
 
                                 </p>
-                                @if ($project_initiation->activated_by)
+                                @if (App\Models\ProjectInitiationOverview::where("project_initiation_id", $project_initiation->id)->count() > 0)
                                     <table class="table table-sm table-bordered">
                                         <thead>
                                             <tr>
@@ -223,16 +223,28 @@
                                                     <td>{{ $project_initiation_overview->user->name }}</td>
                                                     <td>{{ $project_initiation_overview->user->username }}</td>
                                                     <td>{{ $project_initiation_overview->user->email }}</td>
-                                                    <td>{{ $project_initiation_overview->designation }}</td>
                                                     <td>
-                                                        <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
-                                                            class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
-                                                            Delete</a>
+                                                        @if ($project_initiation_overview->designation)
+                                                            {{ $project_initiation_overview->designation }}
+                                                        @else
+                                                            <a class="text-primary" type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#project_initiation_user_designation_Modal_{{ $project_initiation_overview->id }}">Add
+                                                                Designation</a>
                                                     </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            @endif
+
+                                            <td>
+                                                <a target="_blank" href="{{ route("user.info", $project_initiation_overview->user->id) }}" class=" btn btn-info text-white btn-sm"><i
+                                                        class="fa-solid fa-eye"></i>
+                                                    View User</a>
+                                                <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
+                                                    class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
+                                                    Delete</a>
+                                            </td>
+                                            </tr>
+                                @endforeach
+                                </tbody>
+                                </table>
                                 @endif
 
                             </div>
@@ -289,7 +301,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <strong> Project Issue:</strong>
+                                        <strong> Key Deliver:</strong>
                                     </div>
 
                                     <div class="col-12">
@@ -312,7 +324,7 @@
                                                             <td>
                                                                 <button class="btn btn-info text-white btn-sm" data-bs-toggle="modal"
                                                                     data-bs-target="#project_initiation_issue_read_Modal_{{ $key_delivery->id }}"><i class="fa-solid fa-book-open"></i> Read</button>
-                                                                <a href="{{ route("create_issue.delete", $key_delivery->id) }}" target='_blank' onclick="return confirm('Are you sure?')"
+                                                                <a href="{{ route("key_deliverable.delete", $key_delivery->id) }}" target='_blank' onclick="return confirm('Are you sure?')"
                                                                     class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
                                                                     Delete</a>
                                                             </td>
@@ -336,7 +348,10 @@
     @include("backend.pages.project_initiation.project_document_edit_modal")
     @include("backend.pages.project_initiation.project_document_delete_confirmation_modal")
     @include("backend.pages.project_initiation.project_initiation_active_modal")
+    @include("backend.pages.project_initiation.project_initiation_assign_member_modal")
     @include("backend.pages.project_initiation.project_initiation_time_modal")
-    @include("backend.pages.project_initiation.project_initiation_issue_modal")
-    @include("backend.pages.project_initiation.project_initiation_issue__read_modal")
+    @include("backend.pages.project_initiation.project_initiation_key_deliverable_modal")
+    @include("backend.pages.project_initiation.project_initiation_key_deliverable_read_modal")
+    @include("backend.pages.project_initiation.project_initiation_user_designation_modal")
+
 @endsection

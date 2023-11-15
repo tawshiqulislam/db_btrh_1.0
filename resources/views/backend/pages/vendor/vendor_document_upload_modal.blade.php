@@ -1,7 +1,7 @@
 @include("includes.toastr_script")
 <!-- Modal -->
 <div class="modal fade" id="documentModal" tabindex="-1" aria-labelledby="documentModalLabel" aria-hidden="true">
-    <form action="{{ route("document.store", $user->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route("document.store", $vendor->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-dialog">
             <div class="modal-content">

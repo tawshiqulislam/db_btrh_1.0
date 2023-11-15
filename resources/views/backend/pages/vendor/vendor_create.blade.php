@@ -1,11 +1,11 @@
 @extends("backend.layouts.master")
 @section("content")
     <div class="pagetitle">
-        <h1>User</h1>
+        <h1>Vendor</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route("user.index") }}">User</a></li>
-                <li class="breadcrumb-item active">Add User</li>
+                <li class="breadcrumb-item"><a href="{{ route("vendor.index") }}">Vendor</a></li>
+                <li class="breadcrumb-item active">Add Vendor</li>
             </ol>
         </nav>
         <hr>
@@ -13,14 +13,14 @@
 
     <div class="container">
 
-        <form action="{{ route("user.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("vendor.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="row g-3">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="userName">Name:</label>
-                        <input placeholder="Enter your name" type="text" class="form-control" id="userName" name="name" required>
+                        <input placeholder="Enter vendor name" type="text" class="form-control" id="userName" name="name" required>
                         @if ($errors->has("name"))
                             <p class="text-danger">{{ $errors->first("name") }}</p>
                         @endif
@@ -40,7 +40,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input placeholder="Enter your email" type="email" class="form-control" id="email" name="email" required>
+                        <input placeholder="Enter vendors email" type="email" class="form-control" id="email" name="email" required>
                         @if ($errors->has("email"))
                             <p class="text-danger">{{ $errors->first("email") }}</p>
                         @endif
@@ -50,7 +50,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="phone_no">Phone Number:</label>
-                        <input placeholder="Enter phone number" type="text" class="form-control" id="phone_no" name="phone_no" required>
+                        <input placeholder="Enter vendors phone number" type="text" class="form-control" id="phone_no" name="phone_no" required>
                         @if ($errors->has("phone_no"))
                             <p class="text-danger">{{ $errors->first("phone_no") }}</p>
                         @endif
@@ -132,7 +132,7 @@
                 <!-- uploaded image -->
                 <div class="col-md-12" style='display:none' id='image_preview_div'>
                     <div class="form-group">
-                        <label for="uploaded_image">Your Image:</label><br>
+                        <label for="uploaded_image">Vendor Image:</label><br>
                         <img style="width: 100px" class="border border-1 p-1" id="uploaded_image" src="" alt="">
                     </div>
                 </div>
@@ -170,8 +170,8 @@
                     <div class="form-group">
                         <label>Registration as:</label>
                         <div class="form-check">
-                            <input value="user" class="form-check-input" type="radio" name="user_type" id="user_type_user">
-                            <label class="form-check-label" for="user_type_office">User</label>
+                            <input value="vendor" class="form-check-input" type="radio" name="user_type" id="user_type_user">
+                            <label class="form-check-label" for="user_type_office">vendor</label>
                         </div>
                         <div class="form-check">
                             <input value="vendor" class="form-check-input" type="radio" name="user_type" id="user_type_vendor">
@@ -182,7 +182,7 @@
                         @endif
                     </div>
                 </div> --}}
-                {{-- <div class="col-md-12" id='document_div' style='display: none'>
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="document">Upload Vendor Documents:</label>
                         <input type="file" class="form-control" id="document" name="document">
@@ -190,7 +190,7 @@
                             <p class="text-danger">{{ $errors->first("document") }}</p>
                         @endif
                     </div>
-                </div> --}}
+                </div>
 
             </div>
 

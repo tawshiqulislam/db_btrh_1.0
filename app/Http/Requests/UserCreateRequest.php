@@ -29,15 +29,15 @@ class UserCreateRequest extends FormRequest
             'address' => 'required',
             'id_number' => 'required|unique:users',
             'id_type' => 'required',
-            'sq_no_1' => 'nullable',
-            'sq_no_1_ans' => 'nullable',
-            'sq_no_2' => 'nullable',
-            'sq_no_2_ans' => 'nullable',
+            // 'sq_no_1' => 'nullable',
+            // 'sq_no_1_ans' => 'nullable',
+            // 'sq_no_2' => 'nullable',
+            // 'sq_no_2_ans' => 'nullable',
             'pro_pic' => 'nullable|image|max:5120',
             'date_of_birth' => 'nullable',
             'password' => 'required|min:8',
-            'user_type' => 'required',
-            'document' => 'file|max:5120',
+            // 'user_type' => 'required',
+            // 'document' => 'file|max:5120',
         ];
     }
     public function messages()
@@ -60,9 +60,9 @@ class UserCreateRequest extends FormRequest
             'pro_pic.max' => 'The image size should not exceed 5120 KB.',
             'password.required' => 'Please enter a password.',
             'password.min' => 'The password must be at least 8 characters.',
-            'user_type.required' => 'Please select your user type.',
-            'document.file' => 'Please upload a valid document file.',
-            'document.max' => 'The document size should not exceed 5120 KB.',
+            // 'user_type.required' => 'Please select your user type.',
+            // 'document.file' => 'Please upload a valid document file.',
+            // 'document.max' => 'The document size should not exceed 5120 KB.',
         ];
     }
 }

@@ -22,8 +22,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="name">Project Initiation Name:</label>
-                        <input placeholder="Enter project initiation name" type="text" class="form-control"
-                            id="name" name="name" required>
+                        <input placeholder="Enter project initiation name" type="text" class="form-control" id="name" name="name" required>
                         @if ($errors->has("name"))
                             <p class="text-danger">{{ $errors->first("name") }}</p>
                         @endif
@@ -45,8 +44,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea placeholder="Write description" class="form-control" name="description" id="editor_1" cols="30"
-                            rows="10"></textarea>
+                        <textarea placeholder="Write description" class="form-control" name="description" id="editor_1" cols="30" rows="10"></textarea>
                         @if ($errors->has("description"))
                             <p class="text-danger">{{ $errors->first("description") }}</p>
                         @endif
@@ -57,14 +55,13 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="goal">Goal:</label>
-                        <textarea placeholder="Write project goal" class="form-control" name="goal" id="editor_2" cols="30"
-                            rows="10"></textarea>
+                        <textarea placeholder="Write project goal" class="form-control" name="goal" id="editor_2" cols="30" rows="10"></textarea>
                         @if ($errors->has("goal"))
                             <p class="text-danger">{{ $errors->first("goal") }}</p>
                         @endif
                     </div>
                 </div>
-                <!--project deadline-->
+                {{-- <!--project deadline-->
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="deadline">Deadline:</label>
@@ -73,7 +70,7 @@
                             <p class="text-danger">{{ $errors->first("deadline") }}</p>
                         @endif
                     </div>
-                </div>
+                </div> --}}
                 <!--required file upload-->
                 <div class="col-md-12">
                     <div class="form-group">

@@ -13,16 +13,14 @@
     </div>
     <!--main container-->
     <div class="container">
-        <form action="{{ route("project_initiation.update", $project_initiation->id) }}" method="POST"
-            enctype="multipart/form-data">
+        <form action="{{ route("project_initiation.update", $project_initiation->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-3">
                 <!--project initiation name-->
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="name">Project Initiation Name:</label>
-                        <input value="{{ $project_initiation->name }}" placeholder="Enter project initiation name"
-                            type="text" class="form-control" id="name" name="name" required>
+                        <input value="{{ $project_initiation->name }}" placeholder="Enter project initiation name" type="text" class="form-control" id="name" name="name" required>
                         @if ($errors->has("name"))
                             <p class="text-danger">{{ $errors->first("name") }}</p>
                         @endif
@@ -47,8 +45,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea placeholder="Write description" class="form-control" name="description" id="editor_1" cols="30"
-                            rows="10">{{ $project_initiation->description }}</textarea>
+                        <textarea placeholder="Write description" class="form-control" name="description" id="editor_1" cols="30" rows="10">{{ $project_initiation->description }}</textarea>
                         @if ($errors->has("description"))
                             <p class="text-danger">{{ $errors->first("description") }}</p>
                         @endif
@@ -59,14 +56,13 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="goal">Goal:</label>
-                        <textarea placeholder="Write project goal" class="form-control" name="goal" id="editor_2" cols="30"
-                            rows="10">{{ $project_initiation->description }}</textarea>
+                        <textarea placeholder="Write project goal" class="form-control" name="goal" id="editor_2" cols="30" rows="10">{{ $project_initiation->description }}</textarea>
                         @if ($errors->has("goal"))
                             <p class="text-danger">{{ $errors->first("goal") }}</p>
                         @endif
                     </div>
                 </div>
-                <!--project deadline-->
+                {{-- <!--project deadline-->
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="deadline">Deadline:</label>
@@ -76,13 +72,12 @@
                             <p class="text-danger">{{ $errors->first("deadline") }}</p>
                         @endif
                     </div>
-                </div>
+                </div> --}}
                 <!--required file upload-->
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="required_file">Required File:</label>
-                        <input value=' {{ $project_initiation->required_file }}' type="file" class="form-control"
-                            id="required_file" name="required_file">
+                        <input value=' {{ $project_initiation->required_file }}' type="file" class="form-control" id="required_file" name="required_file">
                         @if ($errors->has("required_file"))
                             <p class="text-danger">{{ $errors->first("required_file") }}</p>
                         @endif

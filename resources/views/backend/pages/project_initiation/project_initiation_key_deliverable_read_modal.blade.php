@@ -10,13 +10,20 @@
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-12">
-                            <label for="message">Message:</label>
-                            <p>{{ $key_delivery->message }}</p>
+                            <label for="message"><strong>Message:</strong></label>
+                            <p>{{ $key_delivery->message ?? "" }}</p>
                         </div>
-                        <div class="col-md-12">
-                            <label for="document">Document:</label>
-                            <a href="{{ asset("storage/project_initiation/" . $key_delivery->document) }}">{{ $key_delivery->document }}</a>
-                        </div>
+                        @if ($key_delivery->document)
+                            <div class="col-md-12">
+                                <label for="document">Document:</label>
+                                <a href="{{ asset("storage/project_initiation/" . $key_delivery->document) }}">{{ $key_delivery->document }}</a>
+                            </div>
+                        @endif
+                        @if ($key_delivery->date)
+                            <div class="col-md-12">
+                                <p><strong>Date:</strong> {{ $key_delivery->date ?? "" }}</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="modal-footer">

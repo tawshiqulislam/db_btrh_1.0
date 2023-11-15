@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\FileDocuments;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Document;
@@ -21,7 +20,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::where('user_type', 'user')->paginate(10);
 
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
         return view('backend.pages.user.user_index', compact('users', 'sl'));
@@ -48,16 +47,16 @@ class UserController extends Controller
             $data['pro_pic'] = $image;
         }
 
-
+        $data['user_type'] = 'user';
         $user = User::create($data);
-        if ($request->document) {
+        // if ($request->document) {
 
-            $document = FileDocuments::uploadDocument($request->name, $request->document);
-            Document::create([
-                'document' => $document,
-                'user_id' => $user->id
-            ]);
-        }
+        //     $document = FileDocuments::uploadDocument($request->name, $request->document);
+        //     Document::create([
+        //         'document' => $document,
+        //         'user_id' => $user->id
+        //     ]);
+        // }
         // if ($user->user_type == 'user') {
         //     $user->assignRole('user');
         // }
@@ -103,16 +102,16 @@ class UserController extends Controller
         $data = $request->except('_token');
         $newData = [];
 
-        if ($request->document) {
-            $data = $request->except('document');
-            // Handle document upload and update
-            $newData['document'] = FileDocuments::uploadDocument($request->name, $request->document);
+        // if ($request->document) {
+        //     $data = $request->except('document');
+        //     // Handle document upload and update
+        //     $newData['document'] = FileDocuments::uploadDocument($request->name, $request->document);
 
-            // Remove the previous document (if any)
-            if (!empty($user->document)) {
-                FileDocuments::unlinkDocument($user->document);
-            }
-        }
+        //     // Remove the previous document (if any)
+        //     if (!empty($user->document)) {
+        //         FileDocuments::unlinkDocument($user->document);
+        //     }
+        // }
 
         if ($request->password === null) {
             $data['password'] = $user->password;
@@ -126,20 +125,20 @@ class UserController extends Controller
 
         $user->update($data);
 
-        // Update the user's document (if necessary)
-        if (!empty($newData)) {
-            $document = Document::where('user_id', $id)->first();
-            if ($document) {
-                FileDocuments::unlinkDocument($document->document);
-                $document->update($newData);
-            } else {
-                // If the document record doesn't exist, create a new one
-                Document::create([
-                    'user_id' => $id,
-                    'document' => $newData['document'],
-                ]);
-            }
-        }
+        // // Update the user's document (if necessary)
+        // if (!empty($newData)) {
+        //     $document = Document::where('user_id', $id)->first();
+        //     if ($document) {
+        //         FileDocuments::unlinkDocument($document->document);
+        //         $document->update($newData);
+        //     } else {
+        //         // If the document record doesn't exist, create a new one
+        //         Document::create([
+        //             'user_id' => $id,
+        //             'document' => $newData['document'],
+        //         ]);
+        //     }
+        // }
 
         toastr()->success('User updated successfully!', 'Congrats');
         return redirect()->route('user.index');
