@@ -1,10 +1,10 @@
 @extends("backend.layouts.master")
 @section("content")
     <div class="pagetitle">
-        <h1>User</h1>
+        <h1>Vendor</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route("user.index") }}">User</a></li>
+                <li class="breadcrumb-item"><a href="{{ route("vendor.index") }}">Vendor</a></li>
                 <li class="breadcrumb-item active">Info</li>
             </ol>
         </nav>
@@ -12,26 +12,26 @@
     </div><!-- End Page Title -->
 
     <div class="container">
-        <a href="{{ route("user.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
+        <a href="{{ route("vendor.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
             Back</a>
         <div class="row">
-            <!-- Single user Card -->
+            <!-- Single vendor Card -->
             <div class="col-md-12 mx-auto">
                 <div class="card">
                     <div class="row p-2">
                         <!--cheking profile picture is present or not-->
                         <div class="col-md-6">
-                            @if ($user->pro_pic)
+                            @if ($vendor->pro_pic)
                                 <div class="row g-2">
                                     <div class="col-md-12">
-                                        <img style="width:200px" src="{{ asset("storage/user/" . $user->pro_pic) }}" class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
+                                        <img style="width:200px" src="{{ asset("storage/vendor/" . $vendor->pro_pic) }}" class="card-img-top border border-1 p-2 rounded" alt="{{ $vendor->name }}">
                                     </div>
 
                                 </div>
                             @else
                                 <div class="row g-2">
                                     <div class="col-md-12">
-                                        <img style="width:200px" src="{{ asset("image/no_profile_picture.png") }}" class="card-img-top border border-1 p-2 rounded" alt="{{ $user->name }}">
+                                        <img style="width:200px" src="{{ asset("image/no_profile_picture.png") }}" class="card-img-top border border-1 p-2 rounded" alt="{{ $vendor->name }}">
                                     </div>
 
                                 </div>
@@ -41,8 +41,8 @@
                             <div class="card-header float-end">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        @if ($user->isVerified)
-                                            @if ($user->user_type == "vendor")
+                                        {{-- @if ($vendor->isVerified)
+                                            @if ($vendor->user_type == "vendor")
                                             @else
                                                 <span class="dropdown">
                                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,15 +54,15 @@
                                                     </ul>
                                                 </span>
                                             @endif
-                                        @endif
+                                        @endif --}}
                                         <span class="dropdown">
                                             <button class="btn btn-info text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Profile Picture
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                @if ($user->pro_pic)
+                                                @if ($vendor->pro_pic)
                                                     <li> <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal">Update Picture</a></li>
-                                                    <li> <a class="dropdown-item" href="{{ route("user.remove_profile_picture", $user->id) }}">Remove Picture</a></li>
+                                                    <li> <a class="dropdown-item" href="{{ route("vendor.remove_profile_picture", $vendor->id) }}">Remove Picture</a></li>
                                                 @else
                                                     <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal">Upload Picture</a></li>
                                                 @endif
@@ -71,27 +71,28 @@
 
                                         <span class="dropdown">
                                             <button class="btn btn-dark text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                User Verification
+                                                Vendor Verification
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                @if ($user->isVerified)
-                                                    <li> <a class="dropdown-item" onclick="return confirm('Do you want to unverified this user?')"
-                                                            href="{{ route("user.unverified", $user->id) }}">Unverified
-                                                            User</a>
+                                                @if ($vendor->isVerified)
+                                                    <li> <a class="dropdown-item" onclick="return confirm('Do you want to unverified this vendor?')"
+                                                            href="{{ route("vendor.unverified", $vendor->id) }}">Unverified
+                                                            vendor</a>
                                                     </li>
                                                 @else
-                                                    <li> <a class="dropdown-item" onclick="return confirm('Do you want to verified this user?')" href="{{ route("user.verified", $user->id) }}">Verified
-                                                            User</a>
+                                                    <li> <a class="dropdown-item" onclick="return confirm('Do you want to verified this vendor?')"
+                                                            href="{{ route("vendor.verified", $vendor->id) }}">Verified
+                                                            vendor</a>
                                                     </li>
                                                 @endif
                                             </ul>
                                         </span>
-                                        {{-- @if ($user->pro_pic)
+                                        {{-- @if ($vendor->pro_pic)
                                             <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-warning text-white "><i
                                                     class="fa-solid fa-image"></i>
                                                 Update
                                                 Picture</button>
-                                            <a href="{{ route("user.remove_profile_picture", $user->id) }}" class="btn btn-sm btn-danger text-white "><i class="fa-solid fa-minus"></i>
+                                            <a href="{{ route("vendor.remove_profile_picture", $vendor->id) }}" class="btn btn-sm btn-danger text-white "><i class="fa-solid fa-minus"></i>
                                                 Remove
                                                 Picture</a>
                                         @else
@@ -103,8 +104,8 @@
 
                                         <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#documentModal"><i class="fa-solid fa-file"></i> Upload Documents</button>
 
-                                        <a href="{{ route("user.edit", $user->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
-                                            Edit Profile</a>
+                                        <a href="{{ route("vendor.edit", $vendor->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
+                                            Edit Vendor</a>
 
                                     </div>
 
@@ -125,7 +126,7 @@
                                         Name
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->name ?? "" }}
+                                        : {{ $vendor->name ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +136,7 @@
                                         Username
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->username ?? "" }}
+                                        : {{ $vendor->username ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +147,7 @@
                                         Email
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->email ?? "" }}
+                                        : {{ $vendor->email ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +158,7 @@
                                         Phone number
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->phone_no ?? "" }}
+                                        : {{ $vendor->phone_no ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +169,7 @@
                                         Address
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->address ?? "" }}
+                                        : {{ $vendor->address ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +180,7 @@
                                         ID Number
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->id_number ?? "" }}
+                                        : {{ $vendor->id_number ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +191,7 @@
                                         ID type
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->id_type ?? "" }}
+                                        : {{ $vendor->id_type ?? "" }}
                                     </div>
                                 </div>
 
@@ -201,7 +202,7 @@
                                         isVerified
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->isVerified == true ? "Verified" : "Unverified" }}
+                                        : {{ $vendor->isVerified == true ? "Verified" : "Unverified" }}
                                     </div>
                                 </div>
 
@@ -212,7 +213,7 @@
                                         Security question 1
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->sq_no_1 ?? "" }}
+                                        : {{ $vendor->sq_no_1 ?? "" }}
                                     </div>
                                 </div>
                             </div> --}}
@@ -223,7 +224,7 @@
                                         Security question 1 answer
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->sq_no_1_ans ?? "" }}
+                                        : {{ $vendor->sq_no_1_ans ?? "" }}
                                     </div>
                                 </div>
                             </div> --}}
@@ -234,7 +235,7 @@
                                         Security question 2
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->sq_no_2 ?? "" }}
+                                        : {{ $vendor->sq_no_2 ?? "" }}
                                     </div>
                                 </div>
                             </div> --}}
@@ -245,7 +246,7 @@
                                         Security question 2 answer
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->sq_no_2_ans ?? "" }}
+                                        : {{ $vendor->sq_no_2_ans ?? "" }}
                                     </div>
                                 </div>
                             </div> --}}
@@ -256,17 +257,17 @@
                                         Date of Birth
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->date_of_birth ?? "" }}
+                                        : {{ $vendor->date_of_birth ?? "" }}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        User Type
+                                        Type
                                     </div>
                                     <div class="col-7">
-                                        : {{ $user->user_type ?? "" }}
+                                        : {{ $vendor->user_type ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -277,7 +278,7 @@
                                         Roles
                                     </div>
                                     <div class="col-7">
-                                        : @foreach ($user->roles as $role)
+                                        : @foreach ($vendor->roles as $role)
                                             <span class="badge bg-danger rounded-pill">{{ $role->name ?? "" }}</span>
                                         @endforeach
                                     </div>
@@ -291,7 +292,7 @@
 
                                     <div class="col-12">
 
-                                        @if (!$user->documents->count() == 0)
+                                        @if (!$vendor->documents->count() == 0)
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
@@ -301,7 +302,7 @@
                                                 </thead>
                                                 <tbody>
 
-                                                    @foreach ($user->documents as $document)
+                                                    @foreach ($vendor->documents as $document)
                                                         <tr>
                                                             <td><a target="_blank" href="{{ asset("storage/document/" . $document->document) }}">{{ $document->document ?? "" }}</a></td>
                                                             <td>
@@ -334,11 +335,11 @@
         </div>
     </div>
 
-    @include("backend.pages.user.user_profile_picture_upload_modal")
-    @include("backend.pages.user.user_document_upload_modal")
-    @include("backend.pages.user.user_document_edit_modal")
-    @include("backend.pages.user.user_document_delete_confirmation_modal")
-    @include("backend.pages.user.user_role_assign_modal")
-    @include("backend.pages.user.user_role_delete_modal")
+    @include("backend.pages.vendor.vendor_profile_picture_upload_modal")
+    @include("backend.pages.vendor.vendor_document_upload_modal")
+    @include("backend.pages.vendor.vendor_document_edit_modal")
+    @include("backend.pages.vendor.vendor_document_delete_confirmation_modal")
+    @include("backend.pages.vendor.vendor_role_assign_modal")
+    @include("backend.pages.vendor.vendor_role_delete_modal")
 
 @endsection

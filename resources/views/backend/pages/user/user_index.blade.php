@@ -29,7 +29,7 @@
                             <th>SL No</th>
                             <th>Name</th>
                             <th>Username</th>
-                            <th>User Type</th>
+                            <th>isVerfied</th>
                             <th>Role</th>
                             <th>Actions</th>
                         </tr>
@@ -41,11 +41,16 @@
                                 <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $user->name ?? "" }}</td>
                                 <td>{{ $user->username ?? "" }}</td>
-                                <td>{{ $user->user_type ?? "" }}</td>
+                                <td>{{ $user->isVerified == 1 ? "Verified" : "Unverified" }}</td>
                                 <td>
-                                    @foreach ($user->roles as $role)
-                                        <span class="badge bg-info rounded-pill">{{ $role->name }}</span>
-                                    @endforeach
+                                    @if ($user->roles->count() > 0)
+                                        @foreach ($user->roles as $role)
+                                            <span class="badge bg-info rounded-pill">{{ $role->name ?? "Role not assignd" }}</span>
+                                        @endforeach
+                                    @else
+                                        {{ "Role not assigned" }}
+                                    @endif
+
                                 </td>
                                 <td>
                                     <a href="{{ route("user.info", $user->id) }}" class="btn btn-info btn-sm text-white">

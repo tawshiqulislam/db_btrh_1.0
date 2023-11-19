@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Helpers\UniqueID;
 use App\Http\Requests\ProjectInitiationRequest;
 use App\Http\Requests\ProjectInitiationUpdateRequest;
+use App\Models\Designation;
 use App\Models\KeyDeliverable;
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
 use App\Models\ProjectInitiationOverview;
 use App\Models\Status;
+use App\Models\Task;
 use App\Models\TimeDuration;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class ProjectInitiationController extends Controller
@@ -142,11 +146,12 @@ class ProjectInitiationController extends Controller
     {
         //find the current data
         $project_initiation = ProjectInitiation::find($id);
+        $designations = Designation::all();
         $statuses = Status::all();
         $users = User::where('user_type', 'user')->where('isVerified', 1)->get();
         $vendors = User::where('user_type', 'vendor')->get();
         $project_initiation_overviews = ProjectInitiationOverview::where('project_initiation_id', $id)->get();
-        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users', 'project_initiation_overviews', 'vendors'));
+        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users', 'project_initiation_overviews', 'vendors', 'designations'));
     }
     //project verification
     public function verify($id)
@@ -216,20 +221,42 @@ class ProjectInitiationController extends Controller
         $project_initiation->update([
             'activated_by' => auth()->user()->id,
             // 'assigned_to' => $request->assigned_to,
-            'assigned_by' => auth()->user()->id,
+            // 'assigned_by' => auth()->user()->id,
             'status' => $request->status,
         ]);
+        // if ($request->user_ids) {
+        //     foreach ($request->user_ids as $user_id) {
+        //         ProjectInitiationOverview::create([
+        //             'project_initiation_id' => $id,
+        //             'user_id' => $user_id,
+        //             // 'designation' => $request->designations[$user_id],
+        //             // 'comment' => $request->comments[$user_id],
+        //             'assigned_by' => auth()->user()->id,
+
+        //         ]);
+        //     }
+        // }
+        toastr()->success('Project Initiation activated successfully!', 'Warning');
+        return redirect()->back();
+    }
+
+    public function assign_member(Request $request, $id)
+    {
+
         foreach ($request->user_ids as $user_id) {
             ProjectInitiationOverview::create([
                 'project_initiation_id' => $id,
                 'user_id' => $user_id,
-                'designation' => $request->designations[$user_id],
-                'comment' => $request->comments[$user_id],
+                // 'designation' => $request->designations[$user_id],
+                // 'comment' => $request->comments[$user_id],
                 'assigned_by' => auth()->user()->id,
 
             ]);
         }
-        toastr()->success('Project Initiation activated successfully!', 'Warning');
+        ProjectInitiation::find($id)->update([
+            'assigned_by' => auth()->user()->id,
+        ]);
+        toastr()->success('Member has been assigned successfully!', 'Warning');
         return redirect()->back();
     }
 
@@ -278,7 +305,7 @@ class ProjectInitiationController extends Controller
         return redirect()->back();
     }
     //create issue key deliverale method
-    public function create_issue(Request $request, $id)
+    public function create_key_deliverable(Request $request, $id)
     {
 
         $request->validate([
@@ -307,12 +334,69 @@ class ProjectInitiationController extends Controller
     }
 
     //create issue key deliverable delete
-    public function create_issue_delete($id)
+    public function key_deliverable_delete($id)
     {
         KeyDeliverable::find($id)->delete();
         toastr()->error('The project issue has been deleted!', 'Warning!');
         return redirect()->back();
     }
+
+    // user designation assign
+    public function user_designation(Request $request, $id)
+    {
+        $user = ProjectInitiationOverview::find($id);
+        $user->update([
+            'designation' => $request->name,
+
+        ]);
+        toastr()->success('The designation has been added!', 'Success!');
+        return redirect()->back();
+    }
+    //user assign task
+    public function user_assign_task(Request $request, $id)
+    {
+        $request->validate([
+            'task' => 'required',
+            'document' => 'nullable|file',
+            'deadline' => 'nullable|date',
+        ], [
+            'task.required' => 'The task field is required.',
+            'document.file' => 'The document must be a file.',
+            'deadline.date' => 'The deadline must be a valid date.',
+        ]);
+        try {
+            $project_initiation = ProjectInitiationOverview::find($id)->project_initiation()->first();
+            $project_initiation_overview = ProjectInitiationOverview::find($id);
+            $data = $request->all();
+            $file_name = Str::uuid();
+            //if any file is present
+            if ($request->document) {
+                $document = $this->uploadTask($file_name, $request->document);
+                $data['document'] = $document;
+            }
+            $data['assigned_by'] = auth()->user()->id;
+
+            $data['assigned_to'] =  $project_initiation_overview->user->id;
+            $data['project_initiation_id'] = $project_initiation->id;
+
+
+            Task::create($data);
+            //success message
+            toastr()->success('Task has been assigned successfully!', 'Congrats');
+            //redirect to index page
+            return redirect()->back();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    // public function user_view_task($id)
+    // {
+    //     $project_initiation_id = ProjectInitiationOverview::find($id)->project_initiation()->first()->id;
+    //     $user_id = ProjectInitiationOverview::find($id)->user->id;
+    //     $task = Task::where('project_initation_id');
+
+    // }
     //file upload function
     public function uploadFile($title, $file)
     {
@@ -330,5 +414,16 @@ class ProjectInitiationController extends Controller
         if ($file != '' && file_exists($pathToUpload . $file)) {
             @unlink($pathToUpload . $file);
         }
+    }
+
+    //file upload function
+    public function uploadTask($title, $file)
+    {
+
+        $file_name = time() . '-' . $title . '.' . $file->getClientOriginalExtension();
+
+        $file->move('storage/task', $file_name);
+
+        return $file_name;
     }
 }

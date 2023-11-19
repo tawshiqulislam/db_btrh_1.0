@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectDocumentController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDetailController;
+use App\Http\Controllers\VendorController;
 use App\Http\Middleware\isVerified;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +66,23 @@ Route::prefix('admin/user')->middleware(['auth', isVerified::class])->group(func
     Route::get('/verified/{id}', [UserController::class, 'user_verified'])->name('user.verified');
     Route::get('/unverified/{id}', [UserController::class, 'user_unverified'])->name('user.unverified');
 });
+//admin vendor routes
+//admin user routes
+Route::prefix('admin/vendor')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [VendorController::class, 'index'])->name('vendor.index');
+    Route::get('/create', [VendorController::class, 'create'])->name('vendor.create');
+    Route::post('/store', [VendorController::class, 'store'])->name('vendor.store');
+    Route::get('/delete/{id}', [VendorController::class, 'delete'])->name('vendor.delete');
+    Route::get('/edit/{id}', [VendorController::class, 'edit'])->name('vendor.edit');
+    Route::post('/update/{id}', [VendorController::class, 'update'])->name('vendor.update');
+    Route::get('/info/{id}', [VendorController::class, 'info'])->name('vendor.info');
+    Route::get('/remove_profile_picture/{id}', [VendorController::class, 'remove_profile_picture'])->name('vendor.remove_profile_picture');
+    Route::post('/update_profile_picture/{id}', [VendorController::class, 'update_profile_picture'])->name('vendor.update_profile_picture');
+    Route::post('/role_assign/{id}', [VendorController::class, 'role_assign'])->name('vendor.role_assign');
+    Route::post('/role_delete/{id}', [VendorController::class, 'role_delete'])->name('vendor.role_delete');
+    Route::get('/verified/{id}', [VendorController::class, 'vendor_verified'])->name('vendor.verified');
+    Route::get('/unverified/{id}', [VendorController::class, 'vendor_unverified'])->name('vendor.unverified');
+});
 
 //admin department routes
 Route::prefix('admin/department')->middleware(['auth', isVerified::class])->group(function () {
@@ -104,8 +123,11 @@ Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class
     Route::get('/inactivate/{id}', [ProjectInitiationController::class, 'inactivate'])->name('project_initiation.inactivate');
     Route::get('/delete/overview/{id}', [ProjectInitiationController::class, 'delete_assigned_user'])->name('delete_assigned_user.delete');
     Route::post('/set_time/{id}', [ProjectInitiationController::class, 'set_time'])->name('set_time.store');
-    Route::post('/create_issue/{id}', [ProjectInitiationController::class, 'create_issue'])->name('create_issue.store');
-    Route::get('/create_issue/delete/{id}', [ProjectInitiationController::class, 'create_issue_delete'])->name('create_issue.delete');
+    Route::post('/key_deliverable/{id}', [ProjectInitiationController::class, 'create_key_deliverable'])->name('key_deliverable.store');
+    Route::get('/key_deliverable/delete/{id}', [ProjectInitiationController::class, 'key_deliverable_delete'])->name('key_deliverable.delete');
+    Route::post('/user/designation/{id}', [ProjectInitiationController::class, 'user_designation'])->name('user_designation.store');
+    Route::post('/assign_member/{id}', [ProjectInitiationController::class, 'assign_member'])->name('assign_member.store');
+    Route::post('/user_assign_task/{id}', [ProjectInitiationController::class, 'user_assign_task'])->name('user_assign_task.store');
 });
 
 //admin user detail routes
@@ -121,7 +143,7 @@ Route::prefix('admin/user_detail')->middleware(['auth', isVerified::class])->gro
 
 //upload user document routes
 Route::prefix('document')->middleware(['auth', isVerified::class])->group(function () {
-    Route::post('/store', [DocumentController::class, 'store'])->name('document.store'); // store
+    Route::post('/store/{id}', [DocumentController::class, 'store'])->name('document.store'); // store
     Route::post('/update/{id}', [DocumentController::class, 'update'])->name('document.update'); // update
     Route::get('/delete/{id}', [DocumentController::class, 'delete'])->name('document.delete'); // update
 
@@ -164,6 +186,15 @@ Route::prefix('admin/task')->middleware(['auth', isVerified::class])->group(func
     Route::get('/delete/{task}', [TaskController::class, 'delete'])->name('task.delete');
     Route::get('/edit/{task}', [TaskController::class, 'edit'])->name('task.edit');
     Route::post('/update/{task}', [TaskController::class, 'update'])->name('task.update');
+});
+//admin designation routes
+Route::prefix('admin/designation')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [DesignationController::class, 'index'])->name('designation.index');
+    Route::get('/create', [DesignationController::class, 'create'])->name('designation.create');
+    Route::post('/store', [DesignationController::class, 'store'])->name('designation.store');
+    Route::get('/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
+    Route::get('/edit/{id}', [DesignationController::class, 'edit'])->name('designation.edit');
+    Route::post('/update/{id}', [DesignationController::class, 'update'])->name('designation.update');
 });
 //admin resource routes
 require __DIR__ . './resource.php';

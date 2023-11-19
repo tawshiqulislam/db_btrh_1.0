@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description');
             $table->longText('goal');
-            $table->date('deadline');
+            $table->date('deadline')->nullable();
             $table->string('required_file')->nullable();
             $table->unsignedBigInteger('activated_by')->nullable();
             $table->unsignedBigInteger('inactivated_by')->nullable();

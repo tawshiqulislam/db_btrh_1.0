@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_initiation_overviews', function (Blueprint $table) {
+        Schema::create('designations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_initiation_id');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('designation')->nullable();
-            $table->text('comment')->nullable();
-            $table->unsignedBigInteger('assigned_by');
+            $table->string('name');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_initiation_overviews');
+        Schema::dropIfExists('designations');
     }
 };

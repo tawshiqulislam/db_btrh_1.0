@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UserUpdateRequest extends FormRequest
+class StoreVendorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,31 +21,23 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('id'); // Assuming the route parameter is named 'id'.
         return [
             'name' => 'required',
-            'username' => [
-                'required',
-                Rule::unique('users')->ignore($id),
-            ],
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('users')->ignore($id),
-            ],
-            'phone_no' => [
-                'required',
-                'max:20',
-                Rule::unique('users')->ignore($id),
-            ],
+            'username' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
+            'phone_no' => 'required|max:20|unique:users',
             'address' => 'required',
-            'id_number' => [
-                'required',
-                Rule::unique('users')->ignore($id),
-            ],
-            'pro_pic' => 'nullable|image|max:2048',
+            'id_number' => 'required|unique:users',
+            'id_type' => 'required',
+            // 'sq_no_1' => 'nullable',
+            // 'sq_no_1_ans' => 'nullable',
+            // 'sq_no_2' => 'nullable',
+            // 'sq_no_2_ans' => 'nullable',
+            'pro_pic' => 'nullable|image|max:5120',
             'date_of_birth' => 'nullable',
-            'password' => 'nullable|min:8',
+            'password' => 'required|min:8',
+            // 'user_type' => 'required',
+            'document' => 'file|max:5120',
         ];
     }
     public function messages()
@@ -66,10 +57,12 @@ class UserUpdateRequest extends FormRequest
             'id_number.unique' => 'The ID number is already in use.',
             'id_type.required' => 'Please select your ID type.',
             'pro_pic.image' => 'Please upload a valid image file.',
-            'pro_pic.max' => 'The image size should not exceed 2048 KB.',
+            'pro_pic.max' => 'The image size should not exceed 5120 KB.',
+            'password.required' => 'Please enter a password.',
             'password.min' => 'The password must be at least 8 characters.',
-            // 'document.file' => 'Please upload a valid document file.',
-            // 'document.max' => 'The document size should not exceed 5120 KB.',
+            // 'user_type.required' => 'Please select your user type.',
+            'document.file' => 'Please upload a valid document file.',
+            'document.max' => 'The document size should not exceed 5120 KB.',
         ];
     }
 }

@@ -1,16 +1,16 @@
 <!-- Modal -->
-<div class="modal fade" id="project_initiation_active_Modal" tabindex="-1" aria-labelledby="project_initiation_active_ModalLabel" aria-hidden="true">
-    <form action="{{ route("project_initiation.activate", $project_initiation->id) }}" method='POST'>
+<div class="modal fade" id="project_initiation_assign_member_Modal" tabindex="-1" aria-labelledby="project_initiation_assign_member_ModalLabel" aria-hidden="true">
+    <form action="{{ route("assign_member.store", $project_initiation->id) }}" method='POST'>
         @csrf
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="project_initiation_active_ModalLabel">Activate {{ $project_initiation->name }}</h5>
+                    <h5 class="modal-title" id="project_initiation_assign_member_ModalLabel">Assign {{ $project_initiation->name }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
-                        {{-- <div class="col-md-12">
+                        <div class="col-md-12">
                             <label for="user_type">User Type:</label>
                             <select id="user_type" name="user_type" class="form-control">
                                 <option value="" selected disabled>Select One</option>
@@ -28,9 +28,9 @@
                                     </label>
                                 </div>
                             @endforeach
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="col-md-12" id="vendor_fields" style="display: none;">
+                        <div class="col-md-12" id="vendor_fields" style="display: none;">
                             <label for="assigned_to">Assigned To:</label>
                             @foreach ($vendors as $vendor)
                                 <div class="form-check">
@@ -44,46 +44,14 @@
                                         style="display: none;">
                                 </div>
                             @endforeach
-                        </div> --}}
-
-                        <div class="col-md-12">
-                            <label for="status">Select Status:</label>
-                            <select name="status" id="statis" class="form-control" required>
-                                <option selected disabled>Select</option>
-                                @foreach ($statuses as $status)
-                                    <option value="{{ $status->status }}">{{ ucfirst($status->status) }}</option>
-                                @endforeach
-                            </select>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Active</button>
+                    <button type="submit" class="btn btn-primary">Assign</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-<script>
-    $(document).ready(function() {
-        $('input[type="checkbox"]').change(function() {
-            var userId = $(this).val();
-            $('#designation_' + userId).toggle();
-            $('#comment_' + userId).toggle();
-        });
-
-        $('#user_type').on('change', function() {
-            var userType = $(this).val();
-            if (userType === 'user') {
-                $('#user_fields').show();
-                $('#vendor_fields').hide();
-            } else if (userType === 'vendor') {
-                $('#user_fields').hide();
-                $('#vendor_fields').show();
-            }
-        });
-    });
-</script>
