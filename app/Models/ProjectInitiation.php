@@ -4,10 +4,11 @@ namespace App\Models;
 
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
-use App\Models\Resource\ResourceManagement;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ProjectSubmission;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Resource\ResourceManagement;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProjectInitiation extends Model
 {
@@ -80,5 +81,9 @@ class ProjectInitiation extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+    public function project_submission()
+    {
+        return $this->hasOne(ProjectSubmission::class);
     }
 }

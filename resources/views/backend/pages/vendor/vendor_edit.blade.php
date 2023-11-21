@@ -161,7 +161,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <div class="form-group">
                         <label for="password">Password:</label>
                         <input type="password" class="form-control" id="password" name="password">
@@ -169,7 +169,7 @@
                             <p class="text-danger">{{ $errors->first("password") }}</p>
                         @endif
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- <div class="col-md-12">
                     <div class="form-group">

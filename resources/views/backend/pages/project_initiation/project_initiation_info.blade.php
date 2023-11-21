@@ -17,6 +17,7 @@
         <a href="{{ route("project_initiation.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
             Back</a>
         <div class="row">
+
             <!-- Single project_initiation Card -->
             <div class="col-md-12 mx-auto">
                 <div class="card">
@@ -24,6 +25,10 @@
                         <div class="col-md-12">
                             <div class="card-header">
                                 <div class="button-group d-flex justify-content-end  gap-2 mb-2">
+                                    <a class="btn btn-sm btn-warning text-white" type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_task_list_ModalToggle"><i
+                                            class="fa-solid fa-eye"></i>
+                                        Task List</a>
+
                                     <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
                                         Edit</a>
 
@@ -31,7 +36,7 @@
                                     @role("super_admin")
                                         <span class="dropdown">
                                             <button class="btn btn-dark text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa-solid fa-certificate"></i> Project Verification
+                                                <i class="fa-solid fa-certificate"></i> Project
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
@@ -46,6 +51,11 @@
                                                             href="{{ route("project_initiation.unverify", $project_initiation->id) }}">
                                                             Univerify</a></li>
                                                 @endif
+                                                <li> <a class="dropdown-item" onclick=" return confirm('Do you want to unverify this project?')"
+                                                        href="{{ route("project_initiation.unverify", $project_initiation->id) }}">
+                                                        Univerify</a></li>
+                                                <li> <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#projectSubmissionModal">
+                                                        Project Submission</a></li>
 
                                             </ul>
                                         </span>
@@ -196,7 +206,7 @@
                                 </div>
                             @endif
                             <div class="col-md-12">
-                                <p class="card-text"><strong>Assignd To: </strong>
+                                <p class="card-text"><strong>Assigned To: </strong>
                                     @if (!$project_initiation->activated_by)
                                         <span>Project not activated</span>
                                     @else
@@ -369,5 +379,7 @@
     @include("backend.pages.project_initiation.project_initiation_user_designation_modal")
     @include("backend.pages.project_initiation.project_initiation_user_task_assign_modal")
     @include("includes.ck_editor")
+    @include("backend.pages.project_initiation.project_inititation_task_list_modal")
+    @include("backend.pages.project_initiation.project_initiation_submission_modal")
 
 @endsection

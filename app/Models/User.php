@@ -3,19 +3,20 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Document;
 use App\Models\AdminList;
 use App\Models\Department;
-use App\Models\Document;
-use App\Models\ProjectInitiationOverview;
-use App\Models\Resource\Resource;
-use App\Models\Resource\ResourceManagement;
 use App\Models\UserDetail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\ProjectSubmission;
+use App\Models\Resource\Resource;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use App\Models\ProjectInitiationOverview;
+use App\Models\Resource\ResourceManagement;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -132,13 +133,19 @@ class User extends Authenticatable
         return $this->hasMany(Task::class, 'assigned_to');
     }
 
-
+    public function project_submissions()
+    {
+        return $this->hasMany(ProjectSubmission::class, 'project_submitted_by');
+    }
+    public function accepted_by_project_submissions()
+    {
+        return $this->hasMany(ProjectSubmission::class, 'project_accepted_by');
+    }
     // //role creation
     // const SUPER_ADMIN = 'super_admin';
     // const ADMIN = 'admin';
     // const OFFICE = 'office';
     // const VENDOR = 'vendor';
-
 
     // public static function isSuperAdmin()
     // {

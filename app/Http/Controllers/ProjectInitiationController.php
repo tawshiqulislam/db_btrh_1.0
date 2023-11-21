@@ -150,8 +150,9 @@ class ProjectInitiationController extends Controller
         $statuses = Status::all();
         $users = User::where('user_type', 'user')->where('isVerified', 1)->get();
         $vendors = User::where('user_type', 'vendor')->get();
+        $tasks = Task::where('project_initiation_id', $id)->get();
         $project_initiation_overviews = ProjectInitiationOverview::where('project_initiation_id', $id)->get();
-        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'statuses', 'users', 'project_initiation_overviews', 'vendors', 'designations'));
+        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'tasks', 'statuses', 'users', 'project_initiation_overviews', 'vendors', 'designations'));
     }
     //project verification
     public function verify($id)
@@ -397,6 +398,16 @@ class ProjectInitiationController extends Controller
     //     $task = Task::where('project_initation_id');
 
     // }
+
+    public function task_accepted($id)
+    {
+        $task = Task::find($id);
+        $task->update([
+            'isAccepted' => true,
+        ]);
+        toastr()->success('Task has been accepted successfully!', 'Congrats');
+        return redirect()->back();
+    }
     //file upload function
     public function uploadFile($title, $file)
     {

@@ -3,12 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use App\Models\Designation;
-use Faker\Factory as FakerFactory;
 use Illuminate\Database\Seeder;
+use Faker\Factory as FakerFactory;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -60,15 +61,15 @@ class DatabaseSeeder extends Seeder
 
         ]);
         //random user creation
-        for ($i = 0; $i < 10; $i++) {
-            DB::table('users')->insert([
+        for ($i = 0; $i < 25; $i++) {
+            $user = User::create([
                 'name' => $faker->name,
                 'username' => $faker->unique()->userName,
                 'email' => $faker->unique()->safeEmail,
                 'phone_no' => $faker->unique()->phoneNumber,
                 'TFA' => $faker->randomElement([0, 1, 2]),
                 'last_login' => $faker->dateTimeThisYear,
-                'isVerified' => false,
+                'isVerified' => $faker->randomElement([true, false]),
                 'address' => $faker->address,
                 'id_number' => $faker->unique()->randomNumber(8),
                 'id_type' => $faker->randomElement(['Birth Certificate', 'NID', 'Passport']),
@@ -83,6 +84,9 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('123456789'), // You can change the default password
                 'user_type' => $faker->randomElement(['user', 'vendor']), //or vendor
             ]);
+            if ($user->isVerified == true) {
+                $user->assignRole('user');
+            }
         }
 
         //project category
@@ -122,7 +126,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         //status
-        $statuses = ['active', 'inactive', 'pending', 'canceled'];
+        $statuses = ['active', 'inactive', 'pending', 'canceled', 'completed'];
         foreach ($statuses as $status) {
             DB::table('statuses')->insert([
                 'status' => $status,
