@@ -137,9 +137,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(ProjectSubmission::class, 'project_submitted_by');
     }
-    public function accepted_by_project_submissions()
+    public function approved_by_project_submissions()
     {
-        return $this->hasMany(ProjectSubmission::class, 'project_accepted_by');
+        return $this->hasMany(ProjectSubmission::class, 'project_approved_by');
+    }
+    public function send_disburse_project_payments()
+    {
+        return $this->hasMany(DisburseProjectPayment::class, 'send_by');
+    }
+    public function disbursed_project_payments()
+    {
+        return $this->hasMany(DisburseProjectPayment::class, 'disbursed_by');
+    }
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'generated_by');
     }
     // //role creation
     // const SUPER_ADMIN = 'super_admin';

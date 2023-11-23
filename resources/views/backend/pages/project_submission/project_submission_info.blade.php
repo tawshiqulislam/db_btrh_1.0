@@ -22,10 +22,15 @@
                     <div class="card-header">
 
                         {{ $project_submission->project_initiation->name }}
-                        @if ($project_submission->isAccepted == false)
-                            <a onclick="return confirm('Are you sure?')" href="{{ route("project_submission.accepted", $project_submission->id) }}" class=" btn btn-warning text-white btn-sm float-end"><i
+                        @if ($project_submission->isApproved == false)
+                            <a onclick="return confirm('Are you sure?')" href="{{ route("project_submission.approved", $project_submission->id) }}" class=" btn btn-warning text-white btn-sm float-end"><i
                                     class="fa-solid fa-eye"></i>
-                                Accept Project</a>
+                                Approve Project</a>
+                        @endif
+                        @if ($project_submission->isApproved == true)
+                            <a data-bs-toggle="modal" data-bs-target="#disburseProjectPaymentModal" type="button" class=" btn btn-success text-white btn-sm float-end">
+                                <i class="fa-solid fa-sack-dollar"></i>
+                                Send for disbursing payment</a>
                         @endif
                     </div>
                     <div class="card-body mt-2">
@@ -35,11 +40,12 @@
                         <p><strong>Project URL: </strong>{{ $project_submission->link ?? "" }}</p>
                         <p><strong>Status: </strong>{{ $project_submission->status ?? "" }}</p>
                         <p><strong>Submitted By: </strong>{{ $project_submission->user->username ?? "" }}</p>
-                        <p><strong>isAccepted: </strong>{{ $project_submission->isAccepted ? "Yes" : "NO" }}</p>
-                        <p><strong>Accepted By: </strong>{{ $project_submission->project_accepted_by_user->username ?? "Note accepted yet!" }}</p>
+                        <p><strong>isApproved: </strong>{{ $project_submission->isApproved ? "Yes" : "No" }}</p>
+                        <p><strong>Accepted By: </strong>{{ $project_submission->project_approved_by_user->username ?? "Not accepted yet!" }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include("backend.pages.project_submission.project_submission_disbursing_project_payment_modal")
 @endsection

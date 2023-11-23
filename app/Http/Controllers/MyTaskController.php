@@ -17,14 +17,7 @@ class MyTaskController extends Controller
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
         $statuss = Status::all();
         //return index page
-        return view(
-            'backend.pages.my_task.my_task_index',
-            [
-                'my_tasks' => $my_tasks,
-                'sl' => $sl,
-                'statuss' => $statuss
-            ]
-        );
+        return view('backend.pages.my_task.my_task_index', compact('my_tasks', 'sl', 'statuss'));
     }
 
 

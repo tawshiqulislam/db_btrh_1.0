@@ -399,13 +399,13 @@ class ProjectInitiationController extends Controller
 
     // }
 
-    public function task_accepted($id)
+    public function task_approved($id)
     {
         $task = Task::find($id);
         $task->update([
-            'isAccepted' => true,
+            'isApproved' => true,
         ]);
-        toastr()->success('Task has been accepted successfully!', 'Congrats');
+        toastr()->success('Task has been approved successfully!', 'Congrats');
         return redirect()->back();
     }
     //file upload function

@@ -51,9 +51,9 @@
                                                             href="{{ route("project_initiation.unverify", $project_initiation->id) }}">
                                                             Univerify</a></li>
                                                 @endif
-                                                <li> <a class="dropdown-item" onclick=" return confirm('Do you want to unverify this project?')"
+                                                {{-- <li> <a class="dropdown-item" onclick=" return confirm('Do you want to unverify this project?')"
                                                         href="{{ route("project_initiation.unverify", $project_initiation->id) }}">
-                                                        Univerify</a></li>
+                                                        Univerify</a></li> --}}
                                                 <li> <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#projectSubmissionModal">
                                                         Project Submission</a></li>
 

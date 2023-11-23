@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         //status
-        $statuses = ['active', 'inactive', 'pending', 'canceled', 'completed'];
+        $statuses = ['active', 'inactive', 'pending', 'canceled', 'completed','approved'];
         foreach ($statuses as $status) {
             DB::table('statuses')->insert([
                 'status' => $status,

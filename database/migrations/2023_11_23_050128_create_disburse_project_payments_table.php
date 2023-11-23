@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_submissions', function (Blueprint $table) {
+        Schema::create('disburse_project_payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_initiation_id');
-            $table->unsignedBigInteger('project_submitted_by');
-            $table->unsignedBigInteger('project_approved_by');
+            $table->unsignedBigInteger('project_submission_id');
             $table->longText('description')->nullable();
-            $table->text('comment')->nullable();
-            $table->string('file')->nullable();
-            $table->text('link')->nullable();
-            $table->string('status')->nullable();
-            $table->boolean('isApproved')->default(false);
+            $table->string('payment_status')->default('pending');
+            $table->boolean('isDisbursed')->default(false);
+            $table->unsignedBigInteger('send_by')->nullable();
+            $table->unsignedBigInteger('disbursed_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_submissions');
+        Schema::dropIfExists('disburse_project_payments');
     }
 };

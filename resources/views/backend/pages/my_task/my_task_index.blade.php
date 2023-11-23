@@ -11,6 +11,7 @@
         </nav>
         <hr>
     </div>
+
     {{-- <!--  Search Bar -->
     <div class="input-group mb-3">
         <input type="search" id="search" class="form-control" placeholder="Search project initiation...">
@@ -68,6 +69,6 @@
                 {{ $my_tasks->links("pagination::bootstrap-4") }}
             </div>
         </div>
+        @include("backend.pages.my_task.my_task_change_status_modal")
     @endif
 @endsection
-@include("backend.pages.my_task.my_task_change_status_modal")

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
 use App\Models\ProjectSubmission;
+use App\Models\DisburseProjectPayment;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Resource\ResourceManagement;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -85,5 +86,13 @@ class ProjectInitiation extends Model
     public function project_submission()
     {
         return $this->hasOne(ProjectSubmission::class);
+    }
+    public function disburse_project_payment()
+    {
+        return $this->hasOne(DisburseProjectPayment::class);
+    }
+    public function info()
+    {
+        return $this->hasOne(Invoice::class);
     }
 }

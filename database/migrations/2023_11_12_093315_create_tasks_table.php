@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('document')->nullable();
             $table->date('deadline')->nullable();
             $table->string('status')->nullable();
-            $table->boolean('isAccepted')->default(false);
+            $table->boolean('isApproved')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

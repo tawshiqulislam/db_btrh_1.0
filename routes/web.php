@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\isVerified;
 use Illuminate\Support\Facades\Route;
+use App\Models\DisburseProjectPayment;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\MyTaskController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserDetailController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\ProjectDocumentController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\ProjectInitiationController;
 use App\Http\Controllers\ProjectSubmissionController;
+use App\Http\Controllers\DisburseProjectPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,8 +133,9 @@ Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class
     Route::post('/user/designation/{id}', [ProjectInitiationController::class, 'user_designation'])->name('user_designation.store');
     Route::post('/assign_member/{id}', [ProjectInitiationController::class, 'assign_member'])->name('assign_member.store');
     Route::post('/user_assign_task/{id}', [ProjectInitiationController::class, 'user_assign_task'])->name('user_assign_task.store');
-    Route::get('/task_accepted/{id}', [ProjectInitiationController::class, 'task_accepted'])->name('task_accepted.update');
+    Route::get('/task_approved/{id}', [ProjectInitiationController::class, 'task_approved'])->name('task_approved.update');
     Route::post('/project_submission/{id}', [ProjectSubmissionController::class, 'store'])->name('project_submission.store');
+    Route::post('/send_for_disbursing_payment/{id}', [ProjectSubmissionController::class, 'send_for_disbursing_payment'])->name('send_for_disbursing_payment.store');
 
     //project submission
 
@@ -217,7 +221,18 @@ Route::prefix('admin/designation')->middleware(['auth', isVerified::class])->gro
 Route::prefix('admin/project_submission')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [ProjectSubmissionController::class, 'index'])->name('project_submission.index');
     Route::get('/info/{project_submission}', [ProjectSubmissionController::class, 'info'])->name('project_submission.info');
-    Route::get('/project_submission_accepted/{project_submission}', [ProjectSubmissionController::class, 'project_submission_accepted'])->name('project_submission.accepted');
+    Route::get('/project_submission_approved/{project_submission}', [ProjectSubmissionController::class, 'project_submission_approved'])->name('project_submission.approved');
+});
+
+//admin disburse project payment routes
+Route::prefix('admin/disburse_project_payment')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [DisburseProjectPaymentController::class, 'index'])->name('disburse_project_payment.index');
+    Route::get('/info/{disburse_project_payment}', [DisburseProjectPaymentController::class, 'info'])->name('disburse_project_payment.info');
+});
+
+//admin invoice routes
+Route::prefix('admin/invoice')->middleware(['auth', isVerified::class])->group(function () {
+    Route::post('/store/{id}', [InvoiceController::class, 'store'])->name('invoice.store');
 });
 
 

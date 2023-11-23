@@ -170,6 +170,20 @@
                 </li>
             </ul>
         </li>
+        <!--disburse project payment-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_project_initiation_disburse_project_payment" data-bs-toggle="collapse"
+                href="{{ route("disburse_project_payment.index") }}">
+                <i class="fa-brands fa-osi"></i><span>Disburse Project Payment</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_project_initiation_disburse_project_payment" class="nav-content collapse " data-bs-parent="#sidebar-nav_project_initiation_disburse_project_payment">
+                <li>
+                    <a href="{{ route("disburse_project_payment.index") }}">
+                        <i class="bi bi-circle"></i><span>Project List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
 
         <!--status-->
         <li class="nav-item">

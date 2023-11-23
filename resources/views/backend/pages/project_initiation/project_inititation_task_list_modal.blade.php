@@ -14,7 +14,7 @@
                             <th>Username</th>
                             <th>Task</th>
                             <th>Status</th>
-                            <th>isAccepted</th>
+                            <th>isApproved</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -25,15 +25,15 @@
                                 <td>{{ $task->assigned_to_user->username }}</td>
                                 <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $task->task }}</td>
                                 <td>{{ $task->status }}</td>
-                                <td>{{ $task->isAccepted ? "Yes" : "No" }}</td>
+                                <td>{{ $task->isApproved ? "Yes" : "No" }}</td>
                                 <td>
                                     <a type="button" data-bs-target="#project_initiation_task_list_ModalToggle_{{ $task->id }}" data-bs-toggle="modal" data-bs-dismiss="modal"
                                         class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-eye"></i>
                                         View Task</a>
-                                    @if ($task->isAccepted == false && $task->status == "completed")
-                                        <a onclick="return confirm('Are you sure?')" href={{ route("task_accepted.update", $task->id) }} class="btn btn-warning btn-sm text-white"><i
+                                    @if ($task->isApproved == false && $task->status == "completed")
+                                        <a onclick="return confirm('Are you sure?')" href={{ route("task_approved.update", $task->id) }} class="btn btn-warning btn-sm text-white"><i
                                                 class="fa-solid fa-circle-check"></i>
-                                            Accept Task</a>
+                                            Approve Task</a>
                                     @endif
                                 </td>
                             </tr>
