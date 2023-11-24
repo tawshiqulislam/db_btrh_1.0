@@ -44,15 +44,9 @@ class UserUpdateRequest extends FormRequest
                 'required',
                 Rule::unique('users')->ignore($id),
             ],
-            'id_type' => 'required',
-            'sq_no_1' => 'nullable',
-            'sq_no_1_ans' => 'nullable',
-            'sq_no_2' => 'nullable',
-            'sq_no_2_ans' => 'nullable',
             'pro_pic' => 'nullable|image|max:2048',
             'date_of_birth' => 'nullable',
             'password' => 'nullable|min:8',
-            'document' => 'file|max:5120',
         ];
     }
     public function messages()
@@ -74,8 +68,8 @@ class UserUpdateRequest extends FormRequest
             'pro_pic.image' => 'Please upload a valid image file.',
             'pro_pic.max' => 'The image size should not exceed 2048 KB.',
             'password.min' => 'The password must be at least 8 characters.',
-            'document.file' => 'Please upload a valid document file.',
-            'document.max' => 'The document size should not exceed 5120 KB.',
+            // 'document.file' => 'Please upload a valid document file.',
+            // 'document.max' => 'The document size should not exceed 5120 KB.',
         ];
     }
 }

@@ -75,11 +75,12 @@
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                 @if ($user->isVerified)
-                                                    <li> <a class="dropdown-item" onclick="confirm('Do you want to unverified this user?')" href="{{ route("user.unverified", $user->id) }}">Unverified
+                                                    <li> <a class="dropdown-item" onclick="return confirm('Do you want to unverified this user?')"
+                                                            href="{{ route("user.unverified", $user->id) }}">Unverified
                                                             User</a>
                                                     </li>
                                                 @else
-                                                    <li> <a class="dropdown-item" onclick="confirm('Do you want to verified this user?')" href="{{ route("user.verified", $user->id) }}">Verified
+                                                    <li> <a class="dropdown-item" onclick="return confirm('Do you want to verified this user?')" href="{{ route("user.verified", $user->id) }}">Verified
                                                             User</a>
                                                     </li>
                                                 @endif
@@ -205,7 +206,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
                                         Security question 1
@@ -214,9 +215,9 @@
                                         : {{ $user->sq_no_1 ?? "" }}
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
                                         Security question 1 answer
@@ -225,9 +226,9 @@
                                         : {{ $user->sq_no_1_ans ?? "" }}
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
                                         Security question 2
@@ -236,9 +237,9 @@
                                         : {{ $user->sq_no_2 ?? "" }}
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
                                         Security question 2 answer
@@ -247,7 +248,7 @@
                                         : {{ $user->sq_no_2_ans ?? "" }}
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-12">
                                 <div class="row">
@@ -289,6 +290,7 @@
                                     </div>
 
                                     <div class="col-12">
+
                                         @if (!$user->documents->count() == 0)
                                             <table class="table table-bordered">
                                                 <thead>

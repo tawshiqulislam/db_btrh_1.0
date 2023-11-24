@@ -10,9 +10,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <label for="user_type">User Type:</label>
-                            <select id="user_type" name="user_type" class="form-control" required>
+                            <select id="user_type" name="user_type" class="form-control">
                                 <option value="" selected disabled>Select One</option>
                                 <option value="user">User</option>
                                 <option value="vendor">Vendor</option>
@@ -26,15 +26,11 @@
                                     <label class="form-check-label" for="user_{{ $user->id }}">
                                         {{ $user->name }} ({{ $user->email }})
                                     </label>
-                                    <input type="text" class="form-control designation-input mb-2" id="designation_{{ $user->id }}" name="designations[{{ $user->id }}]"
-                                        placeholder="Enter Designation" style="display: none;">
-                                    <input type="text" class="form-control comment-input" id="comment_{{ $user->id }}" name="comments[{{ $user->id }}]" placeholder="Enter Comment"
-                                        style="display: none;">
                                 </div>
                             @endforeach
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-12" id="vendor_fields" style="display: none;">
+                        {{-- <div class="col-md-12" id="vendor_fields" style="display: none;">
                             <label for="assigned_to">Assigned To:</label>
                             @foreach ($vendors as $vendor)
                                 <div class="form-check">
@@ -48,7 +44,8 @@
                                         style="display: none;">
                                 </div>
                             @endforeach
-                        </div>
+                        </div> --}}
+
                         <div class="col-md-12">
                             <label for="status">Select Status:</label>
                             <select name="status" id="statis" class="form-control" required>
@@ -58,6 +55,7 @@
                                 @endforeach
                             </select>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

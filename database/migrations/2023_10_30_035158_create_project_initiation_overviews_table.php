@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('project_initiation_overviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_initiation_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('designation')->nullable();
             $table->text('comment')->nullable();
             $table->unsignedBigInteger('assigned_by');

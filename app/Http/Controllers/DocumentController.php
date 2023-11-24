@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
 
         //working validation
@@ -31,7 +31,7 @@ class DocumentController extends Controller
         // }
         $uploadedDocument = FileDocuments::uploadDocument($request->keyword, $request->document);
         Document::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => $id,
             'keyword' => $request->keyword,
             'document' => $uploadedDocument,
         ]);

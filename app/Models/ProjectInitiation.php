@@ -77,4 +77,8 @@ class ProjectInitiation extends Model
     {
         return $this->hasMany(KeyDeliverable::class);
     }
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

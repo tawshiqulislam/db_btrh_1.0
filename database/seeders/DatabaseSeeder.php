@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Designation;
 use Faker\Factory as FakerFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -33,10 +34,10 @@ class DatabaseSeeder extends Seeder
             'address' => '123 Main St, City',
             'id_number' => '123456789',
             'id_type' => 'NID',
-            'sq_no_1' => null,
-            'sq_no_1_ans' => null,
-            'sq_no_2' => null,
-            'sq_no_2_ans' => null,
+            // 'sq_no_1' => null,
+            // 'sq_no_1_ans' => null,
+            // 'sq_no_2' => null,
+            // 'sq_no_2_ans' => null,
             'pro_pic' => null,
             'date_of_birth' => '1990-01-01',
             'email_verified_at' => null,
@@ -59,7 +60,7 @@ class DatabaseSeeder extends Seeder
 
         ]);
         //random user creation
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'username' => $faker->unique()->userName,
@@ -67,20 +68,20 @@ class DatabaseSeeder extends Seeder
                 'phone_no' => $faker->unique()->phoneNumber,
                 'TFA' => $faker->randomElement([0, 1, 2]),
                 'last_login' => $faker->dateTimeThisYear,
-                'isVerified' => true,
+                'isVerified' => false,
                 'address' => $faker->address,
                 'id_number' => $faker->unique()->randomNumber(8),
                 'id_type' => $faker->randomElement(['Birth Certificate', 'NID', 'Passport']),
-                'sq_no_1' => $faker->optional(0.2, null)->sentence,
-                'sq_no_1_ans' => $faker->optional(0.2, null)->sentence,
-                'sq_no_2' => $faker->optional(0.2, null)->sentence,
-                'sq_no_2_ans' => $faker->optional(0.2, null)->sentence,
+                // 'sq_no_1' => $faker->optional(0.2, null)->sentence,
+                // 'sq_no_1_ans' => $faker->optional(0.2, null)->sentence,
+                // 'sq_no_2' => $faker->optional(0.2, null)->sentence,
+                // 'sq_no_2_ans' => $faker->optional(0.2, null)->sentence,
                 'pro_pic' =>  $faker->word . '.jpg',
                 'date_of_birth' => $faker->date,
                 // 'verified_by' => $faker->optional(0.3, null)->numberBetween(1, 5),
                 'email_verified_at' => $faker->boolean(90) ? now() : null, // 90% chance of being verified
                 'password' => Hash::make('123456789'), // You can change the default password
-                'user_type' => 'user', //or vendor
+                'user_type' => $faker->randomElement(['user', 'vendor']), //or vendor
             ]);
         }
 
@@ -140,6 +141,11 @@ class DatabaseSeeder extends Seeder
                 'document' => $faker->word . '.pdf',
                 'date_added' => $faker->date,
             ]);
+        }
+        //designation
+        $designations = ['team leader', 'co leader', 'senior developer', 'junior developer'];
+        foreach ($designations as $designation) {
+            Designation::create(['name' => $designation]);
         }
     }
 }

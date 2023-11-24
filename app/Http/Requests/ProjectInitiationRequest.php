@@ -25,7 +25,7 @@ class ProjectInitiationRequest extends FormRequest
             'name' => 'required|string|max:255|unique:project_initiations',
             'description' => 'required',
             'goal' => 'required',
-            'deadline' => 'required',
+            // 'deadline' => 'required',
             'required_file' => 'nullable|file|max:5120',
         ];
     }
@@ -38,7 +38,7 @@ class ProjectInitiationRequest extends FormRequest
             'name.unique' => 'The name is already taken.',
             'description.required' => 'The description field is required.',
             'goal.required' => 'The goal field is required.',
-            'deadline.required' => 'The deadline field is required.',
+            // 'deadline.required' => 'The deadline field is required.',
             'required_file.file' => 'The required file must be a file.',
             'required_file.max' => 'The required file may not be greater than 5120 kilobytes.',
         ];

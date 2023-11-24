@@ -25,6 +25,26 @@
                 </li>
             </ul>
         </li>
+
+        <!--vendor-->
+        <li class="nav-item active">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_vendor" data-bs-toggle="collapse" href="{{ route("vendor.index") }}">
+                <i class="fa-solid fa-user-tie"></i><span>Vendor</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_vendor" class="nav-content collapse " data-bs-parent="#sidebar-nav_vendor">
+                <li>
+                    <a href="{{ route("vendor.index") }}">
+                        <i class="bi bi-circle"></i><span>Vendor List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("vendor.create") }}">
+                        <i class="bi bi-circle"></i><span>Add Vendor</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <!--Role-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_role" data-bs-toggle="collapse" href="{{ route("role.index") }}">
@@ -61,7 +81,7 @@
                 </li>
             </ul>
         </li>
-        <!--security question-->
+        {{-- <!--security question-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_security_question" data-bs-toggle="collapse" href="{{ route("security_question.index") }}">
                 <i class="fa-solid fa-circle-question"></i><span>Security Question</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -78,7 +98,7 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
 
         <!--departments-->
 
@@ -170,6 +190,43 @@
                 <li>
                     <a href="{{ route("resource.create") }}">
                         <i class="bi bi-circle"></i><span>Add Resource</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--task-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_task" data-bs-toggle="collapse" href="{{ route("task.index") }}">
+                <i class="fa-solid fa-list-check"></i><span>Task</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_task" class="nav-content collapse " data-bs-parent="#sidebar-nav_task">
+                <li>
+                    <a href="{{ route("task.index") }}">
+                        <i class="bi bi-circle"></i><span>Task List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("task.create") }}">
+                        <i class="bi bi-circle"></i><span>Assign Task</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!--designation-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_designation" data-bs-toggle="collapse" href="{{ route("designation.index") }}">
+                <i class="fa-solid fa-plane"></i><span>Designation</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_designation" class="nav-content collapse " data-bs-parent="#sidebar-nav_designation">
+                <li>
+                    <a href="{{ route("designation.index") }}">
+                        <i class="bi bi-circle"></i><span>Designation List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route("designation.create") }}">
+                        <i class="bi bi-circle"></i><span>Add Designation</span>
                     </a>
                 </li>
             </ul>

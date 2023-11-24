@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('subject');
             $table->longText('message');
             $table->string('document')->nullable();
+            $table->date('date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

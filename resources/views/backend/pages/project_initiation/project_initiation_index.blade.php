@@ -58,7 +58,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">SL No</th>
                             <th scope="col">Category</th>
-                            <th scope="col">Deadline</th>
+                            {{-- <th scope="col">Deadline</th> --}}
                             <th scope="col">isVerified</th>
                             <th scope="col">Status</th>
                             <th scope="col">Actions</th>
@@ -72,7 +72,7 @@
                                     {{ $project_initiation->name ?? "" }}</td>
                                 <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $project_initiation->project_category->name ?? "" }}</td>
-                                <td>{{ $project_initiation->deadline ?? "" }}</td>
+                                {{-- <td>{{ $project_initiation->deadline ?? "" }}</td> --}}
                                 <td>{{ $project_initiation->isVerified == true ? "Yes" : "No" }}</td>
                                 <td>{{ ucfirst($project_initiation->status) ?? "" }}</td>
                                 <td>
@@ -80,7 +80,8 @@
                                         <i class="fa-solid fa-circle-info"></i> Info</a>
                                     <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class="btn btn-primary btn-sm text-white">
                                         <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                    <a type="button" class=" btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiationDeleteModal_{{ $project_initiation->id }}"><i class="fa-solid fa-trash"></i>
+                                    <a type="button" class=" btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiationDeleteModal_{{ $project_initiation->id }}"><i
+                                            class="fa-solid fa-trash"></i>
                                         Delete</a>
                                 </td>
                             </tr>
