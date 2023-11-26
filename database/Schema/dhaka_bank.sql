@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 12, 2023 at 05:01 PM
+-- Generation Time: Nov 23, 2023 at 09:13 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin_lists` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -43,9 +43,9 @@ CREATE TABLE `admin_lists` (
 
 CREATE TABLE `departments` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
-  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `designation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -57,9 +57,60 @@ CREATE TABLE `departments` (
 
 INSERT INTO `departments` (`id`, `name`, `user_id`, `designation`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 'Backend Developement', NULL, NULL, NULL, NULL, NULL),
-(2, 'ForontEnd Development', 5, 'sint', NULL, NULL, NULL),
-(3, 'Mobile Application', 4, 'accusantium', NULL, NULL, NULL),
-(4, 'UI/UX', 3, NULL, NULL, NULL, NULL);
+(2, 'ForontEnd Development', NULL, NULL, NULL, NULL, NULL),
+(3, 'Mobile Application', 4, NULL, NULL, NULL, NULL),
+(4, 'UI/UX', NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `designations`
+--
+
+CREATE TABLE `designations` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `designations`
+--
+
+INSERT INTO `designations` (`id`, `name`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'team leader', NULL, '2023-11-22 04:43:42', '2023-11-22 04:43:42'),
+(2, 'co leader', NULL, '2023-11-22 04:43:42', '2023-11-22 04:43:42'),
+(3, 'senior developer', NULL, '2023-11-22 04:43:42', '2023-11-22 04:43:42'),
+(4, 'junior developer', NULL, '2023-11-22 04:43:42', '2023-11-22 04:43:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `disburse_project_payments`
+--
+
+CREATE TABLE `disburse_project_payments` (
+  `id` bigint UNSIGNED NOT NULL,
+  `project_initiation_id` bigint UNSIGNED NOT NULL,
+  `project_submission_id` bigint UNSIGNED NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `isDisbursed` tinyint(1) NOT NULL DEFAULT '0',
+  `send_by` bigint UNSIGNED DEFAULT NULL,
+  `disbursed_by` bigint UNSIGNED DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `disburse_project_payments`
+--
+
+INSERT INTO `disburse_project_payments` (`id`, `project_initiation_id`, `project_submission_id`, `description`, `payment_status`, `isDisbursed`, `send_by`, `disbursed_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'disburse payment', 'disbursed', 1, 1, 1, NULL, '2023-11-23 02:18:28', '2023-11-23 03:10:25');
 
 -- --------------------------------------------------------
 
@@ -70,8 +121,8 @@ INSERT INTO `departments` (`id`, `name`, `user_id`, `designation`, `deleted_at`,
 CREATE TABLE `documents` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `document` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `document` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -84,13 +135,36 @@ CREATE TABLE `documents` (
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `id` bigint UNSIGNED NOT NULL,
+  `project_initiation_id` bigint UNSIGNED NOT NULL,
+  `generated_by` bigint UNSIGNED NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `project_initiation_id`, `generated_by`, `amount`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 10.50, NULL, '2023-11-23 03:10:25', '2023-11-23 03:10:25');
 
 -- --------------------------------------------------------
 
@@ -102,22 +176,14 @@ CREATE TABLE `key_deliverables` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `project_initiation_id` bigint UNSIGNED NOT NULL,
-  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `document` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `document` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` date DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `key_deliverables`
---
-
-INSERT INTO `key_deliverables` (`id`, `user_id`, `project_initiation_id`, `subject`, `message`, `document`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Cillum natus volupta', 'Dolore qui harum off', '1699699325-Cillum natus volupta.docx', '2023-11-11 04:54:02', '2023-11-11 04:42:05', '2023-11-11 04:54:02'),
-(2, 1, 1, 'Est fugiat non volu', 'Voluptas irure tenet', '1699700102-Est fugiat non volu.docx', NULL, '2023-11-11 04:55:02', '2023-11-11 04:55:02'),
-(3, 1, 1, 'Sapiente consequatur', 'Sapiente fuga Eum d', NULL, NULL, '2023-11-11 05:16:24', '2023-11-11 05:16:24');
 
 -- --------------------------------------------------------
 
@@ -127,7 +193,7 @@ INSERT INTO `key_deliverables` (`id`, `user_id`, `project_initiation_id`, `subje
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -155,7 +221,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2023_11_07_184019_create_resource_management_table', 1),
 (18, '2023_11_11_054913_create_time_durations_table', 1),
 (19, '2023_11_11_060559_create_key_deliverables_table', 1),
-(20, '2023_11_12_093315_create_tasks_table', 2);
+(20, '2023_11_12_093315_create_tasks_table', 1),
+(21, '2023_11_14_112346_create_designations_table', 1),
+(22, '2023_11_21_095427_create_project_submissions_table', 1),
+(24, '2023_11_23_050128_create_disburse_project_payments_table', 2),
+(25, '2023_11_23_084633_create_invoices_table', 3);
 
 -- --------------------------------------------------------
 
@@ -165,7 +235,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `model_has_permissions` (
   `permission_id` bigint UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -177,7 +247,7 @@ CREATE TABLE `model_has_permissions` (
 
 CREATE TABLE `model_has_roles` (
   `role_id` bigint UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -186,7 +256,21 @@ CREATE TABLE `model_has_roles` (
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\User', 1);
+(1, 'App\\Models\\User', 1),
+(3, 'App\\Models\\User', 2),
+(3, 'App\\Models\\User', 6),
+(3, 'App\\Models\\User', 7),
+(3, 'App\\Models\\User', 10),
+(3, 'App\\Models\\User', 11),
+(3, 'App\\Models\\User', 13),
+(3, 'App\\Models\\User', 16),
+(3, 'App\\Models\\User', 17),
+(3, 'App\\Models\\User', 18),
+(3, 'App\\Models\\User', 19),
+(3, 'App\\Models\\User', 22),
+(3, 'App\\Models\\User', 24),
+(3, 'App\\Models\\User', 25),
+(3, 'App\\Models\\User', 26);
 
 -- --------------------------------------------------------
 
@@ -195,8 +279,8 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -208,8 +292,8 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `permissions` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -222,11 +306,11 @@ CREATE TABLE `permissions` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -241,8 +325,8 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `project_categories` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -253,11 +337,11 @@ CREATE TABLE `project_categories` (
 --
 
 INSERT INTO `project_categories` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Facilis itaque quibusdam harum animi.', 'Debitis autem magnam ipsa suscipit. Nam voluptatum qui fuga veniam maxime iste excepturi. Ratione provident quis in velit. Tempora ipsa autem ex nobis temporibus amet doloremque.', NULL, NULL, NULL),
-(2, 'Illum neque quasi ullam nam voluptatum reiciendis.', 'Sunt quisquam eos eligendi dolorem possimus nam consequuntur. Itaque repudiandae omnis est maxime. Quas dolorem explicabo error voluptatem a itaque. Quidem corrupti neque non consequatur aut sint ipsum.', NULL, NULL, NULL),
-(3, 'Similique dignissimos accusantium occaecati aliquid recusandae.', 'Voluptatem omnis nihil asperiores harum dolores quo est. Occaecati minus ex quam dolores molestiae. Est atque vitae perferendis dolores totam provident adipisci aspernatur. Autem inventore nostrum eos sunt at sed sunt.', NULL, NULL, NULL),
-(4, 'Ullam magnam quae reprehenderit non aut quis.', 'Error fugiat fuga et harum consequatur incidunt. Officiis qui perferendis pariatur sint ut quam blanditiis. Deleniti et aut eum officia et. Sit assumenda tenetur quaerat recusandae esse debitis iure.', NULL, NULL, NULL),
-(5, 'Nemo qui consequatur autem sunt et est illum.', 'Excepturi placeat exercitationem fugit reiciendis nisi quia cum. Repellat aut iusto quo. Architecto quaerat dolore cupiditate est excepturi fuga. Voluptas quo sed consequatur.', NULL, NULL, NULL);
+(1, 'Enim incidunt voluptas ea accusamus et.', 'Eligendi repellat nobis necessitatibus voluptatem. Rerum quidem illum odit qui et facere ut. Quibusdam aut ea dolores nulla. Autem doloremque cum et voluptas repellat eos quisquam dolores.', NULL, NULL, NULL),
+(2, 'Rem quia sunt asperiores voluptatum accusantium vel.', 'Possimus molestias excepturi adipisci facere impedit repellat. Sed placeat sunt ut quia illo labore. Quod exercitationem neque consequuntur sit repellat sint. Animi consequatur et et dolor placeat.', NULL, NULL, NULL),
+(3, 'Consequatur vitae quam praesentium mollitia enim vero autem.', 'Laborum nihil eum eos rerum aut nam necessitatibus molestiae. Quo natus aperiam molestias ab dolore perferendis. Nulla dicta nobis assumenda et aut esse doloremque.', NULL, NULL, NULL),
+(4, 'Consequatur placeat necessitatibus voluptatibus.', 'Velit qui voluptatum et et officia. Consequatur minima nesciunt aut quisquam fugit maiores. Molestias et hic omnis minus nihil.', NULL, NULL, NULL),
+(5, 'Voluptatibus et laboriosam omnis corporis.', 'Sit exercitationem quas impedit dolor velit et non perferendis. Fugiat sit rem unde sint. Quaerat voluptatem ut dolorem sed. Reiciendis et blanditiis quos blanditiis qui quo.', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -269,8 +353,8 @@ CREATE TABLE `project_documents` (
   `id` bigint UNSIGNED NOT NULL,
   `project_category_id` bigint UNSIGNED NOT NULL,
   `project_initiation_id` bigint UNSIGNED NOT NULL,
-  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `document` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `document` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -286,20 +370,20 @@ CREATE TABLE `project_initiations` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `project_category_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `goal` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deadline` date NOT NULL,
-  `required_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `goal` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deadline` date DEFAULT NULL,
+  `required_file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `activated_by` bigint UNSIGNED DEFAULT NULL,
   `inactivated_by` bigint UNSIGNED DEFAULT NULL,
   `assigned_to` bigint UNSIGNED DEFAULT NULL,
   `assigned_by` bigint UNSIGNED DEFAULT NULL,
   `verified_by` bigint UNSIGNED DEFAULT NULL,
   `unverified_by` bigint UNSIGNED DEFAULT NULL,
-  `project_unique_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `project_unique_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `isVerified` tinyint(1) NOT NULL DEFAULT '0',
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -310,11 +394,11 @@ CREATE TABLE `project_initiations` (
 --
 
 INSERT INTO `project_initiations` (`id`, `user_id`, `project_category_id`, `name`, `description`, `goal`, `deadline`, `required_file`, `activated_by`, `inactivated_by`, `assigned_to`, `assigned_by`, `verified_by`, `unverified_by`, `project_unique_id`, `isVerified`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 2, 4, 'Eos sit molestiae corporis dolorum saepe sit odio.', 'Commodi non pariatur aspernatur aliquam. Labore quasi et vel sit explicabo. Nostrum expedita et aut magnam esse nesciunt et quis. Quod rerum in sit expedita libero totam rem.', 'Accusamus deleniti est et harum vel eaque commodi. Ipsum consequatur accusamus voluptatem natus. Repellat vero magnam et.', '1988-02-06', 'id.pdf', 1, NULL, NULL, 1, 1, NULL, NULL, 1, 'active', NULL, '2023-11-11 04:37:26', NULL),
-(2, 1, 1, 'Asperiores incidunt nostrum repudiandae laborum deserunt quibusdam et.', 'Placeat atque esse aut nam id itaque perferendis accusamus. Voluptates animi in eos error earum. Et architecto laudantium vel. Nemo et explicabo rerum ipsa modi aut aspernatur quam. Tempore odio qui consequuntur aut error.', 'Ratione dolorum placeat qui rerum eveniet. Ea rem dolore et eum. Nobis et fugit vero deserunt ea.', '2014-11-01', 'consectetur.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
-(3, 1, 3, 'Velit voluptatem cumque nisi et quisquam.', 'Qui vero delectus sint dolore corporis ea voluptas. Quasi sint eos explicabo dolorem. Possimus error rem ullam. Ducimus ducimus neque atque quod dignissimos suscipit.', 'Dolor modi et molestiae nemo debitis rerum aut. Et explicabo illum molestiae minima. Nostrum aliquid sit dicta quod impedit omnis maxime. Itaque ut sapiente assumenda nihil dolores.', '1993-04-29', 'eaque.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
-(4, 2, 3, 'Necessitatibus laborum accusantium autem impedit fugiat cumque.', 'Qui et officiis eos qui esse inventore recusandae. Doloribus sunt ex eveniet culpa maiores.', 'Sit rerum delectus sed fugit. Voluptatem ducimus omnis totam sint est deserunt sed.', '2001-10-14', 'ut.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
-(5, 3, 2, 'Eaque ad voluptatem ullam.', 'Voluptas ipsum est rem ut. Eos sint quod quibusdam voluptas excepturi. Veniam porro ut pariatur. Voluptates repellendus corporis in voluptatem et saepe. Vero quos nihil sapiente repellat nesciunt.', 'Nihil pariatur at aliquid quia consectetur similique assumenda. Nesciunt voluptas soluta doloribus aut quos sit. A odit recusandae aliquid natus placeat molestiae. Delectus sed libero voluptatum accusamus deleniti.', '1997-06-24', 'veniam.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL);
+(1, 1, 1, 'Reprehenderit et tempore autem aut tenetur quis perferendis natus.', 'Labore in incidunt quos. Perspiciatis reiciendis consectetur modi et nihil eaque nobis porro. Est ut ut dolorum itaque molestiae.', 'Qui eum rerum qui. Velit aspernatur enim omnis officia enim. Aperiam labore adipisci reprehenderit aut. Nihil earum ratione voluptatem sint est.', '2014-10-24', 'at.pdf', 1, NULL, NULL, 1, 1, NULL, NULL, 1, 'active', NULL, '2023-11-22 04:47:37', NULL),
+(2, 1, 3, 'Soluta culpa officiis dolor ut.', 'Ea a perspiciatis ratione recusandae sint cupiditate aperiam. Quo porro quia et rem rem harum. Non nobis facilis repudiandae.', 'Sequi aut illo tenetur et ea sit. Consequuntur eum voluptatem ullam eius et cupiditate blanditiis. Consequatur atque labore culpa corrupti facere modi. Sint sapiente voluptates in esse adipisci similique. Nobis ut est hic blanditiis asperiores.', '2017-03-26', 'reprehenderit.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
+(3, 5, 3, 'Omnis at iusto nostrum numquam sunt voluptatum est.', 'Delectus ut aspernatur dolorem itaque. Nihil consequuntur iusto placeat eos architecto. Similique occaecati accusantium nobis molestiae dolorum quia.', 'Sit id quis non ullam et molestiae fuga. Vel ut aut provident ipsam. Nesciunt odit corporis quisquam laborum et. Voluptas aut consequatur officiis odit amet.', '1977-12-12', 'aut.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
+(4, 2, 1, 'Tempore assumenda fuga porro quidem sunt quidem fuga.', 'Sit nihil delectus natus. Dignissimos et magni sint consequatur. Aliquam excepturi ab repellat atque ratione veniam ipsam neque.', 'Libero ad omnis doloremque rerum qui rerum. In in qui sunt autem vel.', '2023-04-17', 'dignissimos.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
+(5, 2, 1, 'Temporibus sit dignissimos eum praesentium tenetur earum possimus aut.', 'Et voluptas adipisci ea beatae aspernatur quae facere. Laborum non consequatur minima qui suscipit sint. Laudantium error mollitia natus eum qui.', 'Est aliquam eum voluptatibus est eveniet occaecati odio reiciendis. Omnis magni dignissimos nemo dolore deserunt repellendus. Aspernatur facilis natus laboriosam dolores natus. Saepe repellendus non voluptas dolorem eligendi quaerat soluta voluptatem.', '1980-04-10', 'similique.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -325,9 +409,9 @@ INSERT INTO `project_initiations` (`id`, `user_id`, `project_category_id`, `name
 CREATE TABLE `project_initiation_overviews` (
   `id` bigint UNSIGNED NOT NULL,
   `project_initiation_id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED NOT NULL,
-  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `comment` text COLLATE utf8mb4_unicode_ci,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `designation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `assigned_by` bigint UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -339,8 +423,38 @@ CREATE TABLE `project_initiation_overviews` (
 --
 
 INSERT INTO `project_initiation_overviews` (`id`, `project_initiation_id`, `user_id`, `designation`, `comment`, `assigned_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 'Sit occaecat qui la', 'Sit sint vitae sed', 1, NULL, '2023-11-11 04:37:26', '2023-11-11 04:37:26'),
-(2, 1, 3, 'Ut voluptatem Ex al', 'Velit corporis fugi', 1, NULL, '2023-11-11 04:37:26', '2023-11-11 04:37:26');
+(1, 1, 1, 'team leader', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:47:49'),
+(2, 1, 2, 'senior developer', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:47:59'),
+(3, 1, 6, 'junior developer', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:48:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_submissions`
+--
+
+CREATE TABLE `project_submissions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `project_initiation_id` bigint UNSIGNED NOT NULL,
+  `project_submitted_by` bigint UNSIGNED NOT NULL,
+  `project_approved_by` bigint UNSIGNED NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `isApproved` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `project_submissions`
+--
+
+INSERT INTO `project_submissions` (`id`, `project_initiation_id`, `project_submitted_by`, `project_approved_by`, `description`, `comment`, `file`, `link`, `status`, `isApproved`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 'Ut est laboriosam n', 'Dolore quia nulla ex', NULL, 'Doloribus repellendu', 'completed', 1, NULL, '2023-11-22 05:01:05', '2023-11-22 05:01:22');
 
 -- --------------------------------------------------------
 
@@ -351,12 +465,12 @@ INSERT INTO `project_initiation_overviews` (`id`, `project_initiation_id`, `user
 CREATE TABLE `resources` (
   `id` bigint UNSIGNED NOT NULL,
   `added_by` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
-  `resource_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `resource_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `quantity` int DEFAULT NULL,
   `cost` decimal(10,2) DEFAULT NULL,
-  `document` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `document` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_added` date DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -368,11 +482,11 @@ CREATE TABLE `resources` (
 --
 
 INSERT INTO `resources` (`id`, `added_by`, `name`, `description`, `resource_type`, `quantity`, `cost`, `document`, `date_added`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Jayda Spinka', 'Repellat non aspernatur et atque.', 'incidunt', 34, 722.63, 'praesentium.pdf', '2007-04-28', NULL, NULL, NULL),
-(2, 1, 'Dr. Donavon Herzog III', 'Consequatur est repellat enim dolore quos assumenda aut.', 'dicta', 72, 141.31, 'praesentium.pdf', '1979-03-06', NULL, NULL, NULL),
-(3, 1, 'Ashly Leuschke', 'Quaerat et corporis doloribus et explicabo.', 'sed', 84, 274.16, 'enim.pdf', '2008-12-13', NULL, NULL, NULL),
-(4, 1, 'Prof. Garry Brekke DDS', 'Unde nulla repellat in ratione fugiat ullam dolorem.', 'est', 21, 439.86, 'et.pdf', '1997-06-06', NULL, NULL, NULL),
-(5, 1, 'Osborne Witting', 'Aspernatur possimus maiores iure asperiores perspiciatis.', 'facilis', 71, 948.71, 'sapiente.pdf', '1996-03-31', NULL, NULL, NULL);
+(1, 1, 'Miss Lauryn Barton', 'Quia sit cumque eaque consequatur eaque ut enim veritatis.', 'adipisci', 15, 360.41, 'quisquam.pdf', '2022-03-27', NULL, NULL, NULL),
+(2, 1, 'Dr. Morgan Turner', 'Nemo magnam laudantium quo iusto aut.', 'est', 63, 115.51, 'ut.pdf', '2000-04-05', NULL, NULL, NULL),
+(3, 1, 'Norris Armstrong', 'Alias est minima ut excepturi molestias temporibus.', 'adipisci', 53, 213.16, 'hic.pdf', '2003-09-25', NULL, NULL, NULL),
+(4, 1, 'Dr. Dale Gislason V', 'Magni est delectus sit a totam.', 'non', 7, 556.17, 'est.pdf', '1980-01-23', NULL, NULL, NULL),
+(5, 1, 'Dr. Keith Schoen', 'Facilis dolore deserunt laudantium commodi quo.', 'ex', 38, 200.48, 'totam.pdf', '1996-09-25', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -399,8 +513,8 @@ CREATE TABLE `resource_management` (
 
 CREATE TABLE `roles` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -410,11 +524,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'super_admin', 'web', '2023-11-11 04:34:55', '2023-11-11 04:34:55'),
-(2, 'admin', 'web', '2023-11-11 04:34:55', '2023-11-11 04:34:55'),
-(3, 'user', 'web', '2023-11-11 04:34:55', '2023-11-11 04:34:55'),
-(4, 'vendor', 'web', '2023-11-11 04:34:55', '2023-11-11 04:34:55'),
-(5, 'controller', 'web', '2023-11-11 04:34:55', '2023-11-11 04:34:55');
+(1, 'super_admin', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
+(2, 'admin', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
+(3, 'user', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
+(4, 'vendor', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
+(5, 'controller', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34');
 
 -- --------------------------------------------------------
 
@@ -435,7 +549,7 @@ CREATE TABLE `role_has_permissions` (
 
 CREATE TABLE `security_questions` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -460,7 +574,7 @@ INSERT INTO `security_questions` (`id`, `name`, `created_at`, `updated_at`) VALU
 
 CREATE TABLE `statuses` (
   `id` bigint UNSIGNED NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -474,7 +588,9 @@ INSERT INTO `statuses` (`id`, `status`, `deleted_at`, `created_at`, `updated_at`
 (1, 'active', NULL, NULL, NULL),
 (2, 'inactive', NULL, NULL, NULL),
 (3, 'pending', NULL, NULL, NULL),
-(4, 'canceled', NULL, NULL, NULL);
+(4, 'canceled', NULL, NULL, NULL),
+(5, 'completed', NULL, NULL, NULL),
+(6, 'approved', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -487,10 +603,11 @@ CREATE TABLE `tasks` (
   `assigned_by` bigint UNSIGNED NOT NULL,
   `assigned_to` bigint UNSIGNED NOT NULL,
   `project_initiation_id` bigint UNSIGNED NOT NULL,
-  `task` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `document` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `task` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `document` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deadline` date DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `isApproved` tinyint(1) NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -500,9 +617,8 @@ CREATE TABLE `tasks` (
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `assigned_by`, `assigned_to`, `project_initiation_id`, `task`, `document`, `deadline`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 6, 4, '<p>sfasdfasdf</p>', '1699791173-7b118779-f972-4ee5-bc00-51530abef9c3.jpg', '1974-10-28', 'active', NULL, '2023-11-12 06:12:53', '2023-11-12 06:24:48'),
-(2, 1, 1, 2, '<p>sdafasdfadsf</p>', NULL, '2019-04-01', 'canceled', '2023-11-12 06:22:44', '2023-11-12 06:16:38', '2023-11-12 06:22:44');
+INSERT INTO `tasks` (`id`, `assigned_by`, `assigned_to`, `project_initiation_id`, `task`, `document`, `deadline`, `status`, `isApproved`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 'Cum officiis quis en', NULL, '1975-07-26', 'completed', 1, NULL, '2023-11-22 05:00:12', '2023-11-22 05:00:47');
 
 -- --------------------------------------------------------
 
@@ -526,7 +642,7 @@ CREATE TABLE `time_durations` (
 --
 
 INSERT INTO `time_durations` (`id`, `user_id`, `project_initiation_id`, `starting_date`, `ending_date`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '1985-06-23', '2010-04-13', NULL, '2023-11-11 04:37:42', '2023-11-11 04:37:42');
+(1, 1, 1, '1974-02-08', '1993-02-02', NULL, '2023-11-22 04:45:46', '2023-11-22 04:46:07');
 
 -- --------------------------------------------------------
 
@@ -536,29 +652,29 @@ INSERT INTO `time_durations` (`id`, `user_id`, `project_initiation_id`, `startin
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TFA` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `last_login` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `TFA` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `last_login` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `isVerified` tinyint(1) NOT NULL DEFAULT '0',
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sq_no_1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sq_no_1_ans` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sq_no_2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sq_no_2_ans` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pro_pic` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sq_no_1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sq_no_1_ans` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sq_no_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sq_no_2_ans` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pro_pic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_of_birth` date NOT NULL,
   `verified_by` bigint UNSIGNED DEFAULT NULL,
   `unverified_by` bigint UNSIGNED DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -568,12 +684,32 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone_no`, `TFA`, `last_login`, `isVerified`, `address`, `id_number`, `id_type`, `sq_no_1`, `sq_no_1_ans`, `sq_no_2`, `sq_no_2_ans`, `pro_pic`, `date_of_birth`, `verified_by`, `unverified_by`, `email_verified_at`, `password`, `user_type`, `deleted_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'super_admin', 'admin@example.com', '0123456789', '0', NULL, 1, '123 Main St, City', '123456789', 'NID', NULL, NULL, NULL, NULL, NULL, '1990-01-01', 1, NULL, NULL, '$2y$10$qXsiepcJJdbtEP//iZSFwOOzkJX6cO8gHzFAcLyhxBqrSOEmp5sxS', 'user', NULL, NULL, '2023-11-11 04:34:55', '2023-11-11 04:34:55'),
-(2, 'Tyrel Boehm', 'cbeer', 'xdickinson@example.net', '+1 (517) 671-9631', '1', '2023-02-04 07:02:48', 1, '266 Hettinger Heights\nSalmatown, UT 73611-5524', '60122096', 'NID', 'Reprehenderit incidunt illo officiis sunt voluptatem.', NULL, NULL, NULL, 'tempora.jpg', '1978-01-01', NULL, NULL, '2023-11-11 04:34:55', '$2y$10$ue9tZKPooRjffPnuYQAE2u5k26xre9twHQlvIAmnuF9tx.7U88xOe', 'user', NULL, NULL, NULL, NULL),
-(3, 'Ned Schmidt PhD', 'fidel99', 'jmarquardt@example.com', '+13864480819', '0', '2023-10-31 01:34:32', 1, '1739 Ruecker Vista Apt. 368\nFrancescaborough, NC 07612-9519', '5877262', 'Passport', NULL, NULL, NULL, NULL, 'voluptatem.jpg', '1986-06-19', NULL, NULL, NULL, '$2y$10$AXiWYJNIwnU02mDI.HtaJ.ydMvH2juWmljGu6Tdnq/yWl5cVRWGmK', 'user', NULL, NULL, NULL, NULL),
-(4, 'Theo Crona', 'stracke.fredy', 'marianna13@example.net', '1-732-203-9836', '2', '2023-09-29 13:02:41', 1, '99558 Vinnie Pass\nOberbrunnerland, MD 41400', '57170345', 'Birth Certificate', NULL, 'Natus iste eos voluptatem occaecati nihil dolores quasi numquam.', NULL, NULL, 'voluptatem.jpg', '2002-04-03', NULL, NULL, '2023-11-11 04:34:56', '$2y$10$LobRlqmXcOMuosR8v.PZM.tWT2kVd9aC7RgG.6umXby1qkKps0dBi', 'user', NULL, NULL, NULL, NULL),
-(5, 'Onie Wehner', 'gus89', 'akunde@example.org', '+1-870-492-9357', '1', '2023-03-28 04:35:42', 1, '48603 Donavon Drive\nFosterburgh, UT 84611', '59278839', 'Birth Certificate', NULL, NULL, NULL, NULL, 'provident.jpg', '1990-10-25', NULL, NULL, '2023-11-11 04:34:56', '$2y$10$R8YpiLQ50yxRoaGBW4z5aOR5GEe3P1cmv4f9abE6B0YBfyqbCFbau', 'user', NULL, NULL, NULL, NULL),
-(6, 'Melany Farrell', 'turner.elyssa', 'katheryn44@example.com', '+1-480-762-6258', '2', '2023-06-03 06:55:31', 1, '49839 Kunze Club\nNew Georgianna, MT 63432', '13978709', 'NID', NULL, NULL, NULL, NULL, 'est.jpg', '1975-06-04', NULL, NULL, '2023-11-11 04:34:56', '$2y$10$J.RmsmbNKMit.A88cqM93ewmCxpw4rBjeBgUNb4GuvKxVGpa6UYuS', 'user', NULL, NULL, NULL, NULL);
+(1, 'Super Admin', 'super_admin', 'admin@example.com', '0123456789', '0', NULL, 1, '123 Main St, City', '123456789', 'NID', NULL, NULL, NULL, NULL, NULL, '1990-01-01', 1, NULL, NULL, '$2y$10$rXdyEqdvz9J8iVCiXiHGVOArqIyy/49GSUfC4Z44QbwhtdVfozSq.', 'user', NULL, NULL, '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
+(2, 'Sammy Pagac', 'hettinger.augustus', 'zjenkins@example.net', '+1 (323) 428-0710', '0', '2023-06-03 01:35:24', 1, '5000 Ethan Via Apt. 778\nDurganland, ND 04538-3224', '24373979', 'Birth Certificate', NULL, NULL, NULL, NULL, 'et.jpg', '1998-01-21', NULL, NULL, '2023-11-22 04:43:34', '$2y$10$/x3yLawTxv1RjMemgJn61.eVnl6tOZp5qBWhcK/Zvgg.Auv89kKiu', 'user', NULL, NULL, '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
+(3, 'Ms. Reba Romaguera DVM', 'torrey.schneider', 'darrel.bogisich@example.org', '(678) 319-1521', '2', '2023-08-14 17:10:15', 0, '5789 Bailey Lock\nNew Vincenzoville, AL 44628', '76740952', 'Passport', NULL, NULL, NULL, NULL, 'culpa.jpg', '1971-10-08', NULL, NULL, '2023-11-22 04:43:35', '$2y$10$vLsO799nHpnkP7O.PfpUe.4SsREUY0EqGXndFxyff2n61jJCJNy/2', 'vendor', NULL, NULL, '2023-11-22 04:43:35', '2023-11-22 04:43:35'),
+(4, 'Kelli Macejkovic IV', 'alanna.stamm', 'cruickshank.lucile@example.net', '510.426.9024', '0', '2023-01-20 02:59:10', 0, '61216 Bergstrom Lodge Apt. 474\nCleorafort, IL 12742', '71575108', 'NID', NULL, NULL, NULL, NULL, 'minima.jpg', '2014-11-08', NULL, NULL, '2023-11-22 04:43:35', '$2y$10$km.egrSJNGaQAjzt96LOFegM8.E4XQUZtzqMbjtJNv1CWK2SgBCSq', 'vendor', NULL, NULL, '2023-11-22 04:43:35', '2023-11-22 04:43:35'),
+(5, 'Arvid Mueller', 'qnicolas', 'dashawn18@example.com', '564.812.9460', '0', '2023-02-26 07:05:23', 0, '4773 Catharine Shoal Apt. 380\nWisozktown, UT 73877-7336', '13514796', 'Birth Certificate', NULL, NULL, NULL, NULL, 'veniam.jpg', '2007-05-22', NULL, NULL, '2023-11-22 04:43:35', '$2y$10$zvOKSwszfzWex3anmPpy2.DoYhEWvaWfQZ4deyXzMQc2uJMBi54kC', 'user', NULL, NULL, '2023-11-22 04:43:35', '2023-11-22 04:43:35'),
+(6, 'Prof. Mazie Leannon', 'charley58', 'marvin.travis@example.net', '1-737-321-8100', '0', '2023-10-23 15:03:21', 1, '22447 Wilkinson Stream Suite 340\nLowellbury, DE 10760', '34034394', 'Passport', NULL, NULL, NULL, NULL, 'soluta.jpg', '1986-09-29', NULL, NULL, '2023-11-22 04:43:36', '$2y$10$lsz3aqif/cx61f301DFZEemwgCndYWaZVvNQVMtUmnuFhrKiY4Kq2', 'user', NULL, NULL, '2023-11-22 04:43:36', '2023-11-22 04:43:36'),
+(7, 'Dr. Mohamed Padberg III', 'jessyca73', 'jabbott@example.net', '1-586-498-7914', '0', '2023-11-17 12:28:19', 1, '479 Rubye Knolls Suite 183\nNorth Madalyn, MT 65204-6511', '76736319', 'Birth Certificate', NULL, NULL, NULL, NULL, 'culpa.jpg', '2009-09-23', NULL, NULL, '2023-11-22 04:43:36', '$2y$10$zVWhrxVmTGyGRLhaRmWV1OqRX6C8zhpReCMYThv.f3QAyKRG33an6', 'vendor', NULL, NULL, '2023-11-22 04:43:36', '2023-11-22 04:43:36'),
+(8, 'Prof. Ervin Smith Jr.', 'luigi.lynch', 'elyssa.reinger@example.com', '864.502.1445', '1', '2023-10-23 14:05:40', 0, '7551 Wyman Viaduct\nCasperton, MD 13572-3184', '74690359', 'Passport', NULL, NULL, NULL, NULL, 'quos.jpg', '1995-02-06', NULL, NULL, '2023-11-22 04:43:36', '$2y$10$C9sok8V6up4gbiNp1oDb9e6Y46kMGk9kG0h9eLexi6QQ9SU0JKVUW', 'user', NULL, NULL, '2023-11-22 04:43:36', '2023-11-22 04:43:36'),
+(9, 'Glennie Anderson', 'karolann72', 'lucas.leuschke@example.net', '(682) 204-2245', '2', '2023-02-26 13:01:38', 0, '224 Summer Green\nNorth Joshuah, IL 45880', '11337940', 'NID', NULL, NULL, NULL, NULL, 'veritatis.jpg', '2023-08-21', NULL, NULL, '2023-11-22 04:43:36', '$2y$10$POQOk7FsqENhdUCTLf117e5PB0jhLxFMXmeTnpQ08wOZkVcImZE1W', 'user', NULL, NULL, '2023-11-22 04:43:37', '2023-11-22 04:43:37'),
+(10, 'Josh Murazik', 'cpagac', 'darrell.cruickshank@example.org', '520.468.3189', '0', '2023-08-31 19:48:58', 1, '3435 Kreiger Wells Suite 594\nProsaccoborough, VT 64102-4977', '47110710', 'Birth Certificate', NULL, NULL, NULL, NULL, 'quia.jpg', '1988-09-02', NULL, NULL, '2023-11-22 04:43:37', '$2y$10$vwZAknaxx.4EvYJNy7ckDOpRFZHhZpctrFkBv03gV6hXsiLiFTJo6', 'vendor', NULL, NULL, '2023-11-22 04:43:37', '2023-11-22 04:43:37'),
+(11, 'Prof. Justyn Bruen', 'swift.kelvin', 'jaydon.hamill@example.com', '+1-702-918-7481', '0', '2023-01-07 02:45:32', 1, '194 Roob Ridge Suite 349\nMadysonshire, LA 69930-1317', '82676741', 'Passport', NULL, NULL, NULL, NULL, 'id.jpg', '1990-08-09', NULL, NULL, '2023-11-22 04:43:37', '$2y$10$DnUfZX/iAzp.t62U/yY3BuYln58MYntk9M97UgBqSwR8Mjh0MHdX.', 'user', NULL, NULL, '2023-11-22 04:43:37', '2023-11-22 04:43:37'),
+(12, 'Cleveland Reinger', 'bernadine06', 'deborah31@example.com', '+13042483391', '1', '2023-04-16 21:05:01', 0, '2452 Annetta Junction Suite 451\nRyanfort, VT 23833-8861', '61084427', 'Birth Certificate', NULL, NULL, NULL, NULL, 'sit.jpg', '2011-12-24', NULL, NULL, '2023-11-22 04:43:37', '$2y$10$p9L5swGWT55EWmRNK2eCYuzdzPekX.lx/B2suQS73cLaJWpS15WwG', 'user', NULL, NULL, '2023-11-22 04:43:38', '2023-11-22 04:43:38'),
+(13, 'Liana Kemmer', 'veichmann', 'agaylord@example.net', '+1-401-868-2469', '0', '2023-08-14 06:37:42', 1, '4450 Lorena Estate\nIgnacioville, TX 84275', '96540810', 'Passport', NULL, NULL, NULL, NULL, 'reiciendis.jpg', '1990-05-05', NULL, NULL, '2023-11-22 04:43:38', '$2y$10$7AW/yjCDUl/H3E.l1nKGyOJCkXUY6J7jBq/Vaf29pr5v2apqgH0E2', 'vendor', NULL, NULL, '2023-11-22 04:43:38', '2023-11-22 04:43:38'),
+(14, 'Dr. Cecilia Johnston', 'johanna54', 'conroy.blanche@example.net', '+1-704-675-5633', '0', '2023-07-02 08:40:42', 0, '9691 Norwood Shore\nDannyville, CO 42518-3967', '78948875', 'Birth Certificate', NULL, NULL, NULL, NULL, 'quia.jpg', '1999-10-29', NULL, NULL, '2023-11-22 04:43:38', '$2y$10$mJVgMgxVqzGVdJSN.fO.q.qmZzqgiiKiosgMqn3IpyXdL8ATDfkCO', 'vendor', NULL, NULL, '2023-11-22 04:43:38', '2023-11-22 04:43:38'),
+(15, 'Ole Barton', 'tommie.wolff', 'lisandro71@example.com', '938-286-4046', '0', '2023-04-24 00:51:32', 0, '679 Yvette Road\nCharleyfurt, SC 95717-4670', '35000076', 'Passport', NULL, NULL, NULL, NULL, 'enim.jpg', '1983-07-02', NULL, NULL, '2023-11-22 04:43:38', '$2y$10$1uCyoQoiRr6rpOEPbWmmCearc8faa3pNRL2.blb/bO.y6RQqDBpCy', 'vendor', NULL, NULL, '2023-11-22 04:43:38', '2023-11-22 04:43:38'),
+(16, 'Carroll Farrell', 'juliana14', 'tressa.abshire@example.org', '(878) 612-3118', '0', '2023-10-24 17:04:08', 1, '661 O\'Hara Forge Suite 310\nLoyton, OH 86740', '47685349', 'NID', NULL, NULL, NULL, NULL, 'laudantium.jpg', '1998-06-28', NULL, NULL, '2023-11-22 04:43:38', '$2y$10$HGTSmQ2IVZ5ebuNdNOxWveDNVj1m3EPiy0k0K9r1AVJyjbDRg1aZ2', 'vendor', NULL, NULL, '2023-11-22 04:43:39', '2023-11-22 04:43:39'),
+(17, 'Danyka Schroeder DVM', 'denesik.breanne', 'frederic46@example.org', '(586) 246-6946', '2', '2023-10-14 09:29:27', 1, '6290 Chadrick Mills\nBeershire, VA 66290-2178', '52457853', 'Birth Certificate', NULL, NULL, NULL, NULL, 'nihil.jpg', '1974-06-03', NULL, NULL, '2023-11-22 04:43:39', '$2y$10$naT7SAGhwOjVE7W1wXFRnuJQEIlHrOJyOLANB4rHcwhVSMcnDc8QK', 'vendor', NULL, NULL, '2023-11-22 04:43:39', '2023-11-22 04:43:39'),
+(18, 'Dr. Alfred Thompson', 'laney06', 'nelda.koepp@example.com', '+19857037342', '0', '2023-07-30 20:54:05', 1, '37543 Raynor Junctions\nPercyfort, WI 16711-0031', '46301343', 'Passport', NULL, NULL, NULL, NULL, 'et.jpg', '2012-05-14', NULL, NULL, '2023-11-22 04:43:39', '$2y$10$FfNla3lxMHmMXD/W87y3guwIL8win4wk202947TkJ2KheLv3jNrjG', 'vendor', NULL, NULL, '2023-11-22 04:43:39', '2023-11-22 04:43:39'),
+(19, 'Mrs. Creola Terry V', 'ykeebler', 'lcrist@example.net', '1-669-569-0284', '0', '2023-01-02 03:47:12', 1, '5809 Cartwright Well\nWest Ceciliastad, SC 71524-2044', '17562981', 'Passport', NULL, NULL, NULL, NULL, 'laboriosam.jpg', '1992-07-03', NULL, NULL, '2023-11-22 04:43:39', '$2y$10$xNkJNUPwAjl6Gq2pILAtgObi3DR/K2YJpWSQtaNl2swL0FySG/W2K', 'vendor', NULL, NULL, '2023-11-22 04:43:40', '2023-11-22 04:43:40'),
+(20, 'Dr. Gayle Reinger', 'dooley.brook', 'triston.davis@example.com', '574-357-5052', '2', '2023-03-27 23:16:53', 0, '23768 Gerda Highway Apt. 727\nWest Kris, ID 20489', '63276431', 'Birth Certificate', NULL, NULL, NULL, NULL, 'temporibus.jpg', '1997-03-21', NULL, NULL, '2023-11-22 04:43:40', '$2y$10$tDHOcPUKCNxsmV4QJSieMO9c/woS8WlsKwejuncv4YmcIN8jmErii', 'vendor', NULL, NULL, '2023-11-22 04:43:40', '2023-11-22 04:43:40'),
+(21, 'Mr. Braulio Kohler IV', 'bechtelar.abdiel', 'murazik.krystel@example.com', '+1-719-765-3543', '2', '2023-01-20 19:37:02', 0, '143 Tyra Valley Suite 668\nWest Cynthiaburgh, TX 67534-4440', '94640296', 'NID', NULL, NULL, NULL, NULL, 'modi.jpg', '1988-12-16', NULL, NULL, '2023-11-22 04:43:40', '$2y$10$QvYId5aKnPAvbh71wbh3HeHHngMufiBi4YSJzeOkj8BCrWaOF/AGO', 'user', NULL, NULL, '2023-11-22 04:43:40', '2023-11-22 04:43:40'),
+(22, 'Juana Bode', 'kenton14', 'valerie.kuphal@example.com', '1-858-290-1513', '2', '2023-11-08 01:26:56', 1, '730 Vito Point\nSouth Deondreburgh, MN 57108', '76930158', 'Passport', NULL, NULL, NULL, NULL, 'iusto.jpg', '1979-09-06', NULL, NULL, '2023-11-22 04:43:40', '$2y$10$AMY/u7/eUotbPDN1rW7S0O9BwQ6pqP30oc8gruj/HnnxZSNEYT6ZC', 'user', NULL, NULL, '2023-11-22 04:43:40', '2023-11-22 04:43:40'),
+(23, 'Dr. Rubie Durgan IV', 'vpacocha', 'fmayer@example.org', '623.681.9500', '0', '2023-05-24 00:31:03', 0, '5864 Lloyd Mews\nNorth Meredithtown, NM 79438-4580', '25384210', 'Passport', NULL, NULL, NULL, NULL, 'iste.jpg', '1997-05-08', NULL, NULL, '2023-11-22 04:43:40', '$2y$10$Q5olStsxYdcYAh0dDoZIT.9hGMn82rvxZ7CL5XCq/OmMZPIvx/Zzm', 'user', NULL, NULL, '2023-11-22 04:43:41', '2023-11-22 04:43:41'),
+(24, 'Providenci Spinka', 'deron.cruickshank', 'echristiansen@example.net', '+14236627806', '1', '2023-04-20 02:51:53', 1, '36478 Fredrick Spring\nWilkinsonhaven, SD 61015-7559', '24938652', 'Birth Certificate', NULL, NULL, NULL, NULL, 'dolorem.jpg', '1986-11-19', NULL, NULL, '2023-11-22 04:43:41', '$2y$10$niwuDlK8NimQg2xImcs8eOKsTa3rV7i0aw8jrJP08CnbwwR9UMvX6', 'vendor', NULL, NULL, '2023-11-22 04:43:41', '2023-11-22 04:43:41'),
+(25, 'Brad Wiza', 'kozey.jessie', 'abraham28@example.org', '+1.313.377.2900', '2', '2023-08-23 06:52:27', 1, '612 Alexane Viaduct Apt. 705\nPort Aurelia, OK 64488', '77810449', 'Birth Certificate', NULL, NULL, NULL, NULL, 'asperiores.jpg', '1979-12-22', NULL, NULL, '2023-11-22 04:43:41', '$2y$10$tz8Dp4UqCIRLGpiHKtmO6uREiBNjNgxFbShdAeU/SYz8/pmpqji9e', 'vendor', NULL, NULL, '2023-11-22 04:43:41', '2023-11-22 04:43:41'),
+(26, 'Mellie Witting', 'hills.audie', 'tillman.mason@example.net', '775.351.3139', '1', '2023-02-16 14:19:54', 1, '122 McGlynn Cape Suite 519\nEast Isaias, ID 59621-5840', '18523991', 'Birth Certificate', NULL, NULL, NULL, NULL, 'odio.jpg', '1973-01-04', NULL, NULL, '2023-11-22 04:43:41', '$2y$10$Bo.mPpVMDtk3YqGe/OLUX.cnpd3RbxzGw1T/TcKT.b/0Fl0qVycLG', 'user', NULL, NULL, '2023-11-22 04:43:41', '2023-11-22 04:43:41');
 
 -- --------------------------------------------------------
 
@@ -584,9 +720,9 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone_no`, `TFA`, `last
 CREATE TABLE `user_details` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `designation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -609,6 +745,18 @@ ALTER TABLE `departments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `designations`
+--
+ALTER TABLE `designations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `disburse_project_payments`
+--
+ALTER TABLE `disburse_project_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `documents`
 --
 ALTER TABLE `documents`
@@ -620,6 +768,12 @@ ALTER TABLE `documents`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `key_deliverables`
@@ -691,6 +845,12 @@ ALTER TABLE `project_initiations`
 -- Indexes for table `project_initiation_overviews`
 --
 ALTER TABLE `project_initiation_overviews`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `project_submissions`
+--
+ALTER TABLE `project_submissions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -781,6 +941,18 @@ ALTER TABLE `departments`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `designations`
+--
+ALTER TABLE `designations`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `disburse_project_payments`
+--
+ALTER TABLE `disburse_project_payments`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
@@ -793,16 +965,22 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `key_deliverables`
 --
 ALTER TABLE `key_deliverables`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -838,7 +1016,13 @@ ALTER TABLE `project_initiations`
 -- AUTO_INCREMENT for table `project_initiation_overviews`
 --
 ALTER TABLE `project_initiation_overviews`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `project_submissions`
+--
+ALTER TABLE `project_submissions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `resources`
@@ -868,13 +1052,13 @@ ALTER TABLE `security_questions`
 -- AUTO_INCREMENT for table `statuses`
 --
 ALTER TABLE `statuses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `time_durations`
@@ -886,7 +1070,7 @@ ALTER TABLE `time_durations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `user_details`

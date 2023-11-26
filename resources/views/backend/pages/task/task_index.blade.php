@@ -2,10 +2,10 @@
 @section("content")
     <!-- Page Title -->
     <div class="pagetitle">
-        <h1>Project Initiation</h1>
+        <h1>Task</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route("project_initiation.index") }}">Project Initiation</a></li>
+                <li class="breadcrumb-item"><a href="{{ route("task.index") }}">Task</a></li>
                 <li class="breadcrumb-item active">Index</li>
             </ol>
         </nav>

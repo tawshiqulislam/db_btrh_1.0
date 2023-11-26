@@ -67,7 +67,7 @@ class TaskController extends Controller
         //soft delete the data
         $task->delete();
         //error message
-        toastr()->error('Project initiation deleted!', 'Delete');
+        toastr()->error('Task has been deleted!', 'Delete');
         //redirect to the same page
         return redirect()->back();
     }
@@ -124,6 +124,14 @@ class TaskController extends Controller
         }
     }
 
+    public function task_accepted_info(Task $task)
+    {
+        $task->update([
+            'isAccepted' => true,
+        ]);
+        toastr()->success('Task has been accepted successfully!', 'Congrats');
+        return redirect()->back();
+    }
 
     //file upload function
     public function uploadFile($title, $file)

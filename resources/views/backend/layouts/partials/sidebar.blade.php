@@ -157,6 +157,34 @@
             </ul>
         </li>
 
+        <!--Project Submission-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_project_initiation_submission" data-bs-toggle="collapse" href="{{ route("project_submission.index") }}">
+                <i class="fa-brands fa-osi"></i><span>Project Submission</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_project_initiation_submission" class="nav-content collapse " data-bs-parent="#sidebar-nav_project_initiation_submission">
+                <li>
+                    <a href="{{ route("project_submission.index") }}">
+                        <i class="bi bi-circle"></i><span>Project Submission List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--disburse project payment-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_project_initiation_disburse_project_payment" data-bs-toggle="collapse"
+                href="{{ route("disburse_project_payment.index") }}">
+                <i class="fa-brands fa-osi"></i><span>Disburse Project Payment</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_project_initiation_disburse_project_payment" class="nav-content collapse " data-bs-parent="#sidebar-nav_project_initiation_disburse_project_payment">
+                <li>
+                    <a href="{{ route("disburse_project_payment.index") }}">
+                        <i class="bi bi-circle"></i><span>Project List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <!--status-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_status" data-bs-toggle="collapse" href="{{ route("status.index") }}">
@@ -208,6 +236,20 @@
                 <li>
                     <a href="{{ route("task.create") }}">
                         <i class="bi bi-circle"></i><span>Assign Task</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!--task-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_my_task" data-bs-toggle="collapse" href="{{ route("my_task.index") }}">
+                <i class="fa-solid fa-list-check"></i><span>My Task</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_my_task" class="nav-content collapse " data-bs-parent="#sidebar-nav_my_task">
+                <li>
+                    <a href="{{ route("my_task.index") }}">
+                        <i class="bi bi-circle"></i><span>My Task List</span>
                     </a>
                 </li>
             </ul>
