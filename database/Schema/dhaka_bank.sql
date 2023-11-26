@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 23, 2023 at 09:13 AM
+-- Generation Time: Nov 26, 2023 at 11:22 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -225,7 +225,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2023_11_14_112346_create_designations_table', 1),
 (22, '2023_11_21_095427_create_project_submissions_table', 1),
 (24, '2023_11_23_050128_create_disburse_project_payments_table', 2),
-(25, '2023_11_23_084633_create_invoices_table', 3);
+(25, '2023_11_23_084633_create_invoices_table', 3),
+(29, '2023_11_26_081527_create_sign_off_projects_table', 4);
 
 -- --------------------------------------------------------
 
@@ -569,6 +570,31 @@ INSERT INTO `security_questions` (`id`, `name`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sign_off_projects`
+--
+
+CREATE TABLE `sign_off_projects` (
+  `id` bigint UNSIGNED NOT NULL,
+  `project_initiation_id` bigint UNSIGNED NOT NULL,
+  `project_signoff_by` bigint UNSIGNED DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sign_off_projects`
+--
+
+INSERT INTO `sign_off_projects` (`id`, `project_initiation_id`, `project_signoff_by`, `description`, `file`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(5, 1, 1, 'At commodi totam con', '1700996059-656323db47b73.jpg', 'closed', NULL, '2023-11-26 04:54:19', '2023-11-26 04:54:19');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `statuses`
 --
 
@@ -890,6 +916,12 @@ ALTER TABLE `security_questions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sign_off_projects`
+--
+ALTER TABLE `sign_off_projects`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `statuses`
 --
 ALTER TABLE `statuses`
@@ -980,7 +1012,7 @@ ALTER TABLE `key_deliverables`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1047,6 +1079,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `security_questions`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `sign_off_projects`
+--
+ALTER TABLE `sign_off_projects`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `statuses`
