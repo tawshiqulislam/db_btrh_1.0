@@ -185,6 +185,20 @@
             </ul>
         </li>
 
+        <!--sign off project-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav_signoff_project" data-bs-toggle="collapse" href="{{ route("signoff_project.index") }}">
+                <i class="fa-brands fa-osi"></i><span>Sign-Off Project</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav_signoff_project" class="nav-content collapse " data-bs-parent="#sidebar-nav_signoff_project">
+                <li>
+                    <a href="{{ route("signoff_project.index") }}">
+                        <i class="bi bi-circle"></i><span>Sign-Off Project List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <!--status-->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav_status" data-bs-toggle="collapse" href="{{ route("status.index") }}">

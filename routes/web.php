@@ -16,6 +16,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserDetailController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\SignOffProjectController;
 use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectDocumentController;
 use App\Http\Controllers\SecurityQuestionController;
@@ -228,6 +229,12 @@ Route::prefix('admin/project_submission')->middleware(['auth', isVerified::class
 Route::prefix('admin/disburse_project_payment')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [DisburseProjectPaymentController::class, 'index'])->name('disburse_project_payment.index');
     Route::get('/info/{disburse_project_payment}', [DisburseProjectPaymentController::class, 'info'])->name('disburse_project_payment.info');
+});
+//admin disburse project payment sign off routes
+Route::prefix('admin/signoff_project')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [SignOffProjectController::class, 'index'])->name('signoff_project.index');
+    Route::get('/info/{signoff_project}', [SignOffProjectController::class, 'info'])->name('signoff_project.info');
+    Route::post('/store/{id}', [SignOffProjectController::class, 'store'])->name('signoff_project.store');
 });
 
 //admin invoice routes

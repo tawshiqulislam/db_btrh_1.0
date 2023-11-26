@@ -95,4 +95,8 @@ class ProjectInitiation extends Model
     {
         return $this->hasOne(Invoice::class);
     }
+    public function project_signoff()
+    {
+        return $this->hasOne(SignOffProject::class);
+    }
 }

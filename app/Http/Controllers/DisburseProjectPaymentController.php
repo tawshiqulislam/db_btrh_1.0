@@ -21,6 +21,8 @@ class DisburseProjectPaymentController extends Controller
     {
         return view('backend.pages.disburse_project_payment.disburse_project_payment_info', compact('disburse_project_payment'));
     }
+
+
     //file upload function
     public function uploadFile($title, $file)
     {
