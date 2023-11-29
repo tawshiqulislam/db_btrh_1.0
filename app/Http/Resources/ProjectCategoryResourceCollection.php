@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProjectCategoryResourceCollection extends ResourceCollection
 {
-    public $preserveKeys = true;
+    // public $preserveKeys = true;
     public static $wrap = 'project_category';
 
     public function toArray(Request $request): array
