@@ -15,20 +15,26 @@
     @if ($departments->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no department added yet.</h4>
-            <a href="{{ route("department.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
-                Add Department</a>
+            @role(["super_admin", "admin"])
+                <a href="{{ route("department.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
+                    Add Department</a>
+            @endrole
 
         </div>
     @else
         <div class="container">
-            <a href="{{ route("department.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
-                Add Department</a>
+            @role(["super_admin", "admin"])
+                <a href="{{ route("department.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
+                    Add Department</a>
+            @endrole
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>SL No</th>
                         <th>Department</th>
+
                         <th>Actions</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -38,14 +44,17 @@
 
                             <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 {{ $department->name ?? "" }}</td>
+
                             <td>
                                 <a href="{{ route("department.info", $department->id) }}" class="btn btn-info btn-sm text-white">
                                     <i class="fa-solid fa-circle-info"></i> Info</a>
-                                <a href="{{ route("department.edit", $department->id) }}" class="btn btn-primary btn-sm text-white">
-                                    <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#departmentDeleteModal_{{ $department->id }}"><i class="fa-solid fa-trash"></i>
-                                    Delete</a>
-                            </td>
+                                @role(["super_admin", "admin"])
+                                    <a href="{{ route("department.edit", $department->id) }}" class="btn btn-primary btn-sm text-white">
+                                        <i class="fa-solid fa-file-pen"></i> Edit</a>
+                                    <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#departmentDeleteModal_{{ $department->id }}"><i class="fa-solid fa-trash"></i>
+                                        Delete</a>
+                                </td>
+                            @endrole
                         </tr>
                     @endforeach
                 </tbody>

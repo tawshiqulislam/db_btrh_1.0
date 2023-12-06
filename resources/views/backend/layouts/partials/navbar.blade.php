@@ -185,6 +185,11 @@
                          <h6>{{ auth()->user()->name ?? "" }}</h6>
 
                          <span>{{ auth()->user()->user_type ?? "user" }}</span>
+                         <p>
+                             @foreach (auth()->user()->roles as $role)
+                                 <span>({{ $role->name }})</span>
+                             @endforeach
+                         </p>
                      </li>
                      <li>
                          <hr class="dropdown-divider">

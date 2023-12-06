@@ -20,8 +20,10 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h5 class="card-text">{{ $department->name ?? "" }}</h5>
-                        <a href="{{ route("department.edit", $department->id) }}" class="btn btn-primary btn-sm text-white">
-                            <i class="fa-solid fa-file-pen"></i> Edit</a>
+                        @role(["super_admin", "admin"])
+                            <a href="{{ route("department.edit", $department->id) }}" class="btn btn-primary btn-sm text-white">
+                                <i class="fa-solid fa-file-pen"></i> Edit</a>
+                        @endrole
                     </div>
                     <div class="card-body">
                         <p class='mt-3'><strong>User List:</strong></p>
@@ -37,10 +39,10 @@
                             <tbody>
                                 @foreach ($departments as $department)
                                     <tr>
-                                        <td>{{ $department->user->name }}</td>
-                                        <td>{{ $department->user->username }}</td>
-                                        <td>{{ $department->user->email }}</td>
-                                        <td>{{ $department->designation }}</td>
+                                        <td>{{ $department->user->name ?? "" }}</td>
+                                        <td>{{ $department->user->username ?? "" }}</td>
+                                        <td>{{ $department->user->email ?? "" }}</td>
+                                        <td>{{ $department->designation ?? "" }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

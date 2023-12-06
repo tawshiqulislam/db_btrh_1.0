@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MonitoringTeam;
 use App\Http\Middleware\isVerified;
 use Illuminate\Support\Facades\Route;
 use App\Models\DisburseProjectPayment;
@@ -16,6 +17,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserDetailController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\MonitoringTeamController;
 use App\Http\Controllers\SignOffProjectController;
 use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectDocumentController;
@@ -240,6 +242,17 @@ Route::prefix('admin/signoff_project')->middleware(['auth', isVerified::class])-
 //admin invoice routes
 Route::prefix('admin/invoice')->middleware(['auth', isVerified::class])->group(function () {
     Route::post('/store/{id}', [InvoiceController::class, 'store'])->name('invoice.store');
+});
+
+
+//admin designation routes
+Route::prefix('admin/monitoring_team')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [MonitoringTeamController::class, 'index'])->name('monitoring_team.index');
+    Route::get('/create', [MonitoringTeamController::class, 'create'])->name('monitoring_team.create');
+    Route::post('/store', [MonitoringTeamController::class, 'store'])->name('monitoring_team.store');
+    Route::get('/delete/{id}', [MonitoringTeamController::class, 'delete'])->name('monitoring_team.delete');
+    Route::get('/edit/{id}', [MonitoringTeamController::class, 'edit'])->name('monitoring_team.edit');
+    Route::post('/update/{id}', [MonitoringTeamController::class, 'update'])->name('monitoring_team.update');
 });
 
 

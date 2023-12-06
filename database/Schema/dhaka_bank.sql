@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 26, 2023 at 11:22 AM
+-- Generation Time: Dec 06, 2023 at 06:15 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -95,8 +95,8 @@ CREATE TABLE `disburse_project_payments` (
   `id` bigint UNSIGNED NOT NULL,
   `project_initiation_id` bigint UNSIGNED NOT NULL,
   `project_submission_id` bigint UNSIGNED NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
-  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `payment_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `isDisbursed` tinyint(1) NOT NULL DEFAULT '0',
   `send_by` bigint UNSIGNED DEFAULT NULL,
   `disbursed_by` bigint UNSIGNED DEFAULT NULL,
@@ -164,7 +164,7 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`id`, `project_initiation_id`, `generated_by`, `amount`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 10.50, NULL, '2023-11-23 03:10:25', '2023-11-23 03:10:25');
+(1, 1, 1, '10.50', NULL, '2023-11-23 03:10:25', '2023-11-23 03:10:25');
 
 -- --------------------------------------------------------
 
@@ -184,6 +184,14 @@ CREATE TABLE `key_deliverables` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `key_deliverables`
+--
+
+INSERT INTO `key_deliverables` (`id`, `user_id`, `project_initiation_id`, `subject`, `message`, `document`, `date`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 6, 'Et fugit perferendi', 'Animi non quo rerum', NULL, '1987-06-14', NULL, '2023-12-06 03:00:45', '2023-12-06 03:00:45'),
+(2, 1, 6, 'Quo reprehenderit a', 'Sit aut et dolor vo', NULL, '1988-04-08', NULL, '2023-12-06 04:36:10', '2023-12-06 04:36:10');
 
 -- --------------------------------------------------------
 
@@ -226,7 +234,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2023_11_21_095427_create_project_submissions_table', 1),
 (24, '2023_11_23_050128_create_disburse_project_payments_table', 2),
 (25, '2023_11_23_084633_create_invoices_table', 3),
-(29, '2023_11_26_081527_create_sign_off_projects_table', 4);
+(29, '2023_11_26_081527_create_sign_off_projects_table', 4),
+(34, '2023_12_06_105139_create_monitoring_teams_table', 5);
 
 -- --------------------------------------------------------
 
@@ -258,20 +267,41 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(3, 'App\\Models\\User', 2),
-(3, 'App\\Models\\User', 6),
-(3, 'App\\Models\\User', 7),
-(3, 'App\\Models\\User', 10),
-(3, 'App\\Models\\User', 11),
-(3, 'App\\Models\\User', 13),
-(3, 'App\\Models\\User', 16),
-(3, 'App\\Models\\User', 17),
-(3, 'App\\Models\\User', 18),
-(3, 'App\\Models\\User', 19),
-(3, 'App\\Models\\User', 22),
-(3, 'App\\Models\\User', 24),
-(3, 'App\\Models\\User', 25),
-(3, 'App\\Models\\User', 26);
+(6, 'App\\Models\\User', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_teams`
+--
+
+CREATE TABLE `monitoring_teams` (
+  `id` bigint UNSIGNED NOT NULL,
+  `project_initiation_id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `monitoring_teams`
+--
+
+INSERT INTO `monitoring_teams` (`id`, `project_initiation_id`, `user_id`, `designation`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 6, 1, NULL, '2023-12-06 11:56:58', '2023-12-06 06:01:22', '2023-12-06 11:56:58'),
+(2, 6, 9, NULL, '2023-12-06 11:57:40', '2023-12-06 06:01:22', '2023-12-06 11:57:40'),
+(3, 1, 5, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 12:15:01'),
+(4, 6, 21, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 06:01:23'),
+(5, 6, 22, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 06:01:23'),
+(6, 6, 23, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 06:01:23'),
+(7, 6, 26, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 06:01:23'),
+(8, 2, 2, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30'),
+(9, 2, 6, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30'),
+(10, 2, 8, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30'),
+(11, 2, 9, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30'),
+(12, 2, 26, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30');
 
 -- --------------------------------------------------------
 
@@ -361,6 +391,13 @@ CREATE TABLE `project_documents` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `project_documents`
+--
+
+INSERT INTO `project_documents` (`id`, `project_category_id`, `project_initiation_id`, `keyword`, `document`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 6, 'etin', '5U0ionMyUtNg-etin.jpg', '2023-12-06 03:09:08', '2023-12-06 03:09:08', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -399,7 +436,8 @@ INSERT INTO `project_initiations` (`id`, `user_id`, `project_category_id`, `name
 (2, 1, 3, 'Soluta culpa officiis dolor ut.', 'Ea a perspiciatis ratione recusandae sint cupiditate aperiam. Quo porro quia et rem rem harum. Non nobis facilis repudiandae.', 'Sequi aut illo tenetur et ea sit. Consequuntur eum voluptatem ullam eius et cupiditate blanditiis. Consequatur atque labore culpa corrupti facere modi. Sint sapiente voluptates in esse adipisci similique. Nobis ut est hic blanditiis asperiores.', '2017-03-26', 'reprehenderit.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
 (3, 5, 3, 'Omnis at iusto nostrum numquam sunt voluptatum est.', 'Delectus ut aspernatur dolorem itaque. Nihil consequuntur iusto placeat eos architecto. Similique occaecati accusantium nobis molestiae dolorum quia.', 'Sit id quis non ullam et molestiae fuga. Vel ut aut provident ipsam. Nesciunt odit corporis quisquam laborum et. Voluptas aut consequatur officiis odit amet.', '1977-12-12', 'aut.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
 (4, 2, 1, 'Tempore assumenda fuga porro quidem sunt quidem fuga.', 'Sit nihil delectus natus. Dignissimos et magni sint consequatur. Aliquam excepturi ab repellat atque ratione veniam ipsam neque.', 'Libero ad omnis doloremque rerum qui rerum. In in qui sunt autem vel.', '2023-04-17', 'dignissimos.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
-(5, 2, 1, 'Temporibus sit dignissimos eum praesentium tenetur earum possimus aut.', 'Et voluptas adipisci ea beatae aspernatur quae facere. Laborum non consequatur minima qui suscipit sint. Laudantium error mollitia natus eum qui.', 'Est aliquam eum voluptatibus est eveniet occaecati odio reiciendis. Omnis magni dignissimos nemo dolore deserunt repellendus. Aspernatur facilis natus laboriosam dolores natus. Saepe repellendus non voluptas dolorem eligendi quaerat soluta voluptatem.', '1980-04-10', 'similique.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL);
+(5, 2, 1, 'Temporibus sit dignissimos eum praesentium tenetur earum possimus aut.', 'Et voluptas adipisci ea beatae aspernatur quae facere. Laborum non consequatur minima qui suscipit sint. Laudantium error mollitia natus eum qui.', 'Est aliquam eum voluptatibus est eveniet occaecati odio reiciendis. Omnis magni dignissimos nemo dolore deserunt repellendus. Aspernatur facilis natus laboriosam dolores natus. Saepe repellendus non voluptas dolorem eligendi quaerat soluta voluptatem.', '1980-04-10', 'similique.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
+(6, 1, 1, 'demo', '<p>demo</p>', '<p>demo</p>', NULL, NULL, 1, NULL, NULL, 1, 1, NULL, '6570346cf370b202312684428', 1, 'active', '2023-12-06 02:44:28', '2023-12-06 03:03:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -426,7 +464,10 @@ CREATE TABLE `project_initiation_overviews` (
 INSERT INTO `project_initiation_overviews` (`id`, `project_initiation_id`, `user_id`, `designation`, `comment`, `assigned_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 'team leader', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:47:49'),
 (2, 1, 2, 'senior developer', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:47:59'),
-(3, 1, 6, 'junior developer', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:48:09');
+(3, 1, 6, 'junior developer', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:48:09'),
+(4, 6, 1, NULL, NULL, 1, NULL, '2023-12-06 03:03:13', '2023-12-06 03:03:13'),
+(5, 6, 2, NULL, NULL, 1, NULL, '2023-12-06 03:03:13', '2023-12-06 03:03:13'),
+(6, 6, 6, NULL, NULL, 1, NULL, '2023-12-06 03:03:13', '2023-12-06 03:03:13');
 
 -- --------------------------------------------------------
 
@@ -455,7 +496,8 @@ CREATE TABLE `project_submissions` (
 --
 
 INSERT INTO `project_submissions` (`id`, `project_initiation_id`, `project_submitted_by`, `project_approved_by`, `description`, `comment`, `file`, `link`, `status`, `isApproved`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'Ut est laboriosam n', 'Dolore quia nulla ex', NULL, 'Doloribus repellendu', 'completed', 1, NULL, '2023-11-22 05:01:05', '2023-11-22 05:01:22');
+(1, 1, 1, 1, 'Ut est laboriosam n', 'Dolore quia nulla ex', NULL, 'Doloribus repellendu', 'completed', 1, NULL, '2023-11-22 05:01:05', '2023-11-22 05:01:22'),
+(2, 6, 1, 1, 'Ea natus deserunt do', 'Quo iure fuga Ipsum', '1701858343-c0e90666-d383-4476-8307-8107b07d7953.jpg', 'Cupiditate eos tempo', 'active', 0, NULL, '2023-12-06 04:25:43', '2023-12-06 04:25:43');
 
 -- --------------------------------------------------------
 
@@ -483,11 +525,11 @@ CREATE TABLE `resources` (
 --
 
 INSERT INTO `resources` (`id`, `added_by`, `name`, `description`, `resource_type`, `quantity`, `cost`, `document`, `date_added`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Miss Lauryn Barton', 'Quia sit cumque eaque consequatur eaque ut enim veritatis.', 'adipisci', 15, 360.41, 'quisquam.pdf', '2022-03-27', NULL, NULL, NULL),
-(2, 1, 'Dr. Morgan Turner', 'Nemo magnam laudantium quo iusto aut.', 'est', 63, 115.51, 'ut.pdf', '2000-04-05', NULL, NULL, NULL),
-(3, 1, 'Norris Armstrong', 'Alias est minima ut excepturi molestias temporibus.', 'adipisci', 53, 213.16, 'hic.pdf', '2003-09-25', NULL, NULL, NULL),
-(4, 1, 'Dr. Dale Gislason V', 'Magni est delectus sit a totam.', 'non', 7, 556.17, 'est.pdf', '1980-01-23', NULL, NULL, NULL),
-(5, 1, 'Dr. Keith Schoen', 'Facilis dolore deserunt laudantium commodi quo.', 'ex', 38, 200.48, 'totam.pdf', '1996-09-25', NULL, NULL, NULL);
+(1, 1, 'Miss Lauryn Barton', 'Quia sit cumque eaque consequatur eaque ut enim veritatis.', 'adipisci', 15, '360.41', 'quisquam.pdf', '2022-03-27', NULL, NULL, NULL),
+(2, 1, 'Dr. Morgan Turner', 'Nemo magnam laudantium quo iusto aut.', 'est', 63, '115.51', 'ut.pdf', '2000-04-05', NULL, NULL, NULL),
+(3, 1, 'Norris Armstrong', 'Alias est minima ut excepturi molestias temporibus.', 'adipisci', 53, '213.16', 'hic.pdf', '2003-09-25', NULL, NULL, NULL),
+(4, 1, 'Dr. Dale Gislason V', 'Magni est delectus sit a totam.', 'non', 7, '556.17', 'est.pdf', '1980-01-23', NULL, NULL, NULL),
+(5, 1, 'Dr. Keith Schoen', 'Facilis dolore deserunt laudantium commodi quo.', 'ex', 38, '200.48', 'totam.pdf', '1996-09-25', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -527,9 +569,9 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'super_admin', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
 (2, 'admin', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
-(3, 'user', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
-(4, 'vendor', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34'),
-(5, 'controller', 'web', '2023-11-22 04:43:34', '2023-11-22 04:43:34');
+(6, 'stuff', 'web', '2023-12-06 02:04:42', '2023-12-06 02:04:42'),
+(7, 'team_lead', 'web', '2023-12-06 02:04:56', '2023-12-06 02:04:56'),
+(8, 'team_members', 'web', '2023-12-06 02:05:08', '2023-12-06 02:05:08');
 
 -- --------------------------------------------------------
 
@@ -577,9 +619,9 @@ CREATE TABLE `sign_off_projects` (
   `id` bigint UNSIGNED NOT NULL,
   `project_initiation_id` bigint UNSIGNED NOT NULL,
   `project_signoff_by` bigint UNSIGNED DEFAULT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
-  `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -644,7 +686,9 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `assigned_by`, `assigned_to`, `project_initiation_id`, `task`, `document`, `deadline`, `status`, `isApproved`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'Cum officiis quis en', NULL, '1975-07-26', 'completed', 1, NULL, '2023-11-22 05:00:12', '2023-11-22 05:00:47');
+(1, 1, 1, 1, 'Cum officiis quis en', NULL, '1975-07-26', 'completed', 1, NULL, '2023-11-22 05:00:12', '2023-11-22 05:00:47'),
+(2, 1, 1, 6, 'Dolore minima volupt', NULL, '1984-02-12', 'canceled', 0, '2023-12-06 03:41:55', '2023-12-06 03:41:25', '2023-12-06 03:41:55'),
+(3, 1, 1, 6, 'Lorem rem fugit est', '1701855751-d4040beb-db74-4b2e-8596-d32dd8673e65.jpg', '1997-07-12', 'active', 0, NULL, '2023-12-06 03:42:31', '2023-12-06 03:42:31');
 
 -- --------------------------------------------------------
 
@@ -668,7 +712,8 @@ CREATE TABLE `time_durations` (
 --
 
 INSERT INTO `time_durations` (`id`, `user_id`, `project_initiation_id`, `starting_date`, `ending_date`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '1974-02-08', '1993-02-02', NULL, '2023-11-22 04:45:46', '2023-11-22 04:46:07');
+(1, 1, 1, '1974-02-08', '1993-02-02', NULL, '2023-11-22 04:45:46', '2023-11-22 04:46:07'),
+(2, 1, 6, '2007-02-21', '2015-06-26', NULL, '2023-12-06 02:59:14', '2023-12-06 02:59:14');
 
 -- --------------------------------------------------------
 
@@ -827,6 +872,14 @@ ALTER TABLE `model_has_permissions`
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `monitoring_teams`
+--
+ALTER TABLE `monitoring_teams`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `monitoring_teams_project_initiation_id_foreign` (`project_initiation_id`),
+  ADD KEY `monitoring_teams_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `password_reset_tokens`
@@ -1006,13 +1059,19 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT for table `key_deliverables`
 --
 ALTER TABLE `key_deliverables`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `monitoring_teams`
+--
+ALTER TABLE `monitoring_teams`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1036,25 +1095,25 @@ ALTER TABLE `project_categories`
 -- AUTO_INCREMENT for table `project_documents`
 --
 ALTER TABLE `project_documents`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `project_initiations`
 --
 ALTER TABLE `project_initiations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `project_initiation_overviews`
 --
 ALTER TABLE `project_initiation_overviews`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `project_submissions`
 --
 ALTER TABLE `project_submissions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `resources`
@@ -1072,7 +1131,7 @@ ALTER TABLE `resource_management`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `security_questions`
@@ -1096,13 +1155,13 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `time_durations`
 --
 ALTER TABLE `time_durations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1137,6 +1196,13 @@ ALTER TABLE `model_has_permissions`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `monitoring_teams`
+--
+ALTER TABLE `monitoring_teams`
+  ADD CONSTRAINT `monitoring_teams_project_initiation_id_foreign` FOREIGN KEY (`project_initiation_id`) REFERENCES `project_initiations` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `monitoring_teams_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `resources`
