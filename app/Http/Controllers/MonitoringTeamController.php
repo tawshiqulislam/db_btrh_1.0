@@ -4,57 +4,71 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\MonitoringTeam;
 use App\Models\ProjectInitiation;
+use Illuminate\Support\Facades\DB;
 
 class MonitoringTeamController extends Controller
 {
     public function index()
     {
-        $monitoring_teams = monitoring_team::paginate(10);
+        $monitoring_teams = MonitoringTeam::paginate(10);
+
+
+
 
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
-        return view('backend.pages.monitoring_team.monitoring_team_index', compact('monitoring_teams', 'sl'));
+        return view('backend.pages.monitoring_team.monitoring_team_index', compact('sl', 'monitoring_teams'));
     }
 
     public function create()
     {
         $project_initiations = ProjectInitiation::all();
-        $users = User::all();
+        $users = User::where('user_type', 'user')->get();
 
         return view('backend.pages.monitoring_team.monitoring_team_create', compact('project_initiations', 'users'));
     }
 
     public function store(Request $request)
     {
+        try {
+            foreach ($request->user_ids as $user_id) {
+                MonitoringTeam::create([
+                    'project_initiation_id' => $request->project_initiation_id,
+                    'user_id' => $user_id,
+                ]);
+            }
 
-        monitoring_team::create([
-            'name' => strtolower($request->name),
-        ]);
-        toastr()->success('monitoring_team created successfully!', 'Congrats');
-        return redirect()->route('monitoring_team.index');
+            toastr()->success('Monitoring Team created successfully!', 'Congrats');
+
+            return redirect()->route('monitoring_team.index');
+        } catch (\Exception $e) {
+            toastr()->error('An error occurred while creating the Monitoring Team.', 'Error');
+            return redirect()->back()->withInput();
+        }
     }
 
     public function delete($id)
     {
-        $monitoring_team =  monitoring_team::where('id', $id)->first();
+        $monitoring_team =  MonitoringTeam::where('id', $id)->first();
         $monitoring_team->delete();
-        toastr()->error('monitoring_team deleted!', 'Delete');
+        toastr()->error('Monitoring Team deleted!', 'Delete');
         return redirect()->back();
     }
 
     public function edit($id)
     {
-        $monitoring_team = monitoring_team::find($id);
-        return view('backend.pages.monitoring_team.monitoring_team_edit', compact('monitoring_team'));
+        $monitoring_team = MonitoringTeam::find($id);
+        $project_initiations = ProjectInitiation::all();
+        $users = User::where('user_type', 'user')->get();
+        return view('backend.pages.monitoring_team.monitoring_team_edit', compact('monitoring_team', 'project_initiations', 'users'));
     }
-    public function update(Updatemonitoring_teamRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         $data = $request->except('_token');
-        monitoring_team::where('id', $id)->update([
-            'name' => strtolower($data['name']),
-        ]);
-        toastr()->success('monitoring_team updated successfully!', 'Congrats');
+        MonitoringTeam::where('id', $id)->update($data);
+        toastr()->success('Monitoring Team updated successfully!', 'Congrats');
         return redirect()->route('monitoring_team.index');
     }
 }

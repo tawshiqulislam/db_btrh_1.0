@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\AdminList;
 use App\Models\Department;
 use App\Models\UserDetail;
+use App\Models\MonitoringTeam;
 use App\Models\SignOffProject;
 use App\Models\ProjectSubmission;
 use App\Models\Resource\Resource;
@@ -158,6 +159,11 @@ class User extends Authenticatable
     public function signoff_projects()
     {
         return $this->hasMany(SignOffProject::class, 'project_signoff_by');
+    }
+
+    public function monitoring_teams()
+    {
+        return $this->hasMany(MonitoringTeam::class);
     }
     // //role creation
     // const SUPER_ADMIN = 'super_admin';

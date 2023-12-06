@@ -11,4 +11,14 @@ class MonitoringTeam extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+
+    public function project_initiation()
+    {
+        return $this->belongsTo(ProjectInitiation::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -314,12 +314,12 @@
         <!--monitoring team-->
         @role(["super_admin", "admin"])
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav_monitoring_team" data-bs-toggle="collapse" href="{{ route("designation.index") }}">
+                <a class="nav-link collapsed" data-bs-target="#components-nav_monitoring_team" data-bs-toggle="collapse" href="{{ route("monitoring_team.index") }}">
                     <i class="fa-solid fa-plane"></i><span>Monitoring Team</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav_monitoring_team" class="nav-content collapse " data-bs-parent="#sidebar-nav_monitoring_team">
                     <li>
-                        <a href="">
+                        <a href="{{ route("monitoring_team.index") }}">
                             <i class="bi bi-circle"></i><span>Monitoring Team List</span>
                         </a>
                     </li>

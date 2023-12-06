@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('project_initiation_id')->constrained('project_initiations')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('designation')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
