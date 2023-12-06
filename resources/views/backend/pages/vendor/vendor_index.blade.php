@@ -30,7 +30,7 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Type</th>
-                            <th>Role</th>
+
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -42,11 +42,6 @@
                                     {{ $vendor->name ?? "" }}</td>
                                 <td>{{ $vendor->username ?? "" }}</td>
                                 <td>{{ $vendor->user_type ?? "" }}</td>
-                                <td>
-                                    @foreach ($vendor->roles as $role)
-                                        <span class="badge bg-info rounded-pill">{{ $role->name }}</span>
-                                    @endforeach
-                                </td>
                                 <td>
                                     <a href="{{ route("vendor.info", $vendor->id) }}" class="btn btn-info btn-sm text-white">
                                         <i class="fa-solid fa-circle-info"></i> Info</a>

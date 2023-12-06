@@ -49,6 +49,7 @@ class VendorController extends Controller
         }
 
         $data['user_type'] = 'vendor';
+        $data['password'] = bcrypt('vendorpassword');
         $vendor = User::create($data);
         if ($request->document) {
 

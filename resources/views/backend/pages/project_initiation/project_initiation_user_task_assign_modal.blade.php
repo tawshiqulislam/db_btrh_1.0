@@ -16,7 +16,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="task">Task:</label>
-                                    <textarea placeholder="Write task" class="form-control" name="task" id="editor_2" cols="30" rows="10"></textarea>
+                                    <textarea placeholder="Write task" class="form-control" name="task" cols="30" rows="10"></textarea>
                                     @if ($errors->has("task"))
                                         <p class="text-danger">{{ $errors->first("task") }}</p>
                                     @endif

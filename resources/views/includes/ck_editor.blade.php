@@ -12,4 +12,10 @@
         .catch(error => {
             console.error(error);
         });
+    // // task assign to user
+    // ClassicEditor
+    //     .create(document.getElementById('editor_3'))
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
 </script>
