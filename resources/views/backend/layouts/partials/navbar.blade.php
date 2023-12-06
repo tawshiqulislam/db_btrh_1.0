@@ -28,7 +28,7 @@
              </li><!-- End Search Icon-->
 
             <!-- Start Notification Dropdown Nav -->
-             <li class="nav-item dropdown">
+             {{-- <li class="nav-item dropdown">
 
                  <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                      <i class="bi bi-bell"></i>
@@ -102,10 +102,10 @@
 
                  </ul><!-- End Notification Dropdown Items -->
 
-             </li><!-- End Notification Nav -->
+             </li><!-- End Notification Nav --> --}}
 
              <!-- Start Messages Nav -->
-             <li class="nav-item dropdown">
+             {{-- <li class="nav-item dropdown">
 
                  <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                      <i class="bi bi-chat-left-text"></i>
@@ -170,7 +170,8 @@
 
                  </ul><!-- End Messages Dropdown Items -->
 
-             </li><!-- End Messages Nav -->
+             </li> --}}
+             <!-- End Messages Nav -->
 
              <!-- Start Profile Nav -->
              <li class="nav-item dropdown pe-3">
@@ -188,7 +189,7 @@
                      <li class="dropdown-header">
                          <h6>{{ auth()->user()->name ?? "" }}</h6>
 
-                         <span>{{ auth()->user()->user_type ?? "user" }}</span>
+                         {{-- <span>{{ auth()->user()->user_type ?? "user" }}</span> --}}
                          <p>
                              @foreach (auth()->user()->roles as $role)
                                  <span>({{ $role->name }})</span>

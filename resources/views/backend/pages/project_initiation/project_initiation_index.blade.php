@@ -61,8 +61,8 @@
                 <table class="table table-sm table-bordered ">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
                             <th scope="col">SL No</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Category</th>
                             {{-- <th scope="col">Deadline</th> --}}
                             <th scope="col">isVerified</th>
