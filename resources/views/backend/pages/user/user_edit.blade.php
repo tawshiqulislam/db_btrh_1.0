@@ -13,7 +13,7 @@
 
     <div class="container">
 
-        <form action="{{ route("user.update", $user->id) }}" method="POST" enctype="multipart/form-data">
+        <form class="form_create" action="{{ route("user.update", $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-3">
                 <div class="col-md-6">

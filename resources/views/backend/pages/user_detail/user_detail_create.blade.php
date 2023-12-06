@@ -14,7 +14,7 @@
     <!--main container-->
     <div class="container">
 
-        <form action="{{ route("user_detail.store") }}" method="POST" enctype="multipart/form-data">
+        <form class="form_create" action="{{ route("user_detail.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-3">
                 <!--user list-->

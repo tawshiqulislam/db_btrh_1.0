@@ -13,7 +13,7 @@
 
     <div class="container">
 
-        <form action="{{ route("security_question.update", $security_question->id) }}" method="POST">
+        <form class="form_create" action="{{ route("security_question.update", $security_question->id) }}" method="POST">
             @csrf
             <div class="form-group mb-3">
                 <label for="security_question">Security Question:</label>

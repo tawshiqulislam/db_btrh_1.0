@@ -29,7 +29,7 @@
 
         <!-- if the data are present in my task table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <div class="table-data table-responsive">
                 <table class="table table-sm table-bordered ">
                     <thead>

@@ -13,7 +13,7 @@
 
     <div class="container">
 
-        <form action="{{ route("department.update", $department->id) }}" method="POST">
+        <form class="form_create" action="{{ route("department.update", $department->id) }}" method="POST">
             @csrf
             <div class="row g-3">
                 <div class="col-md-12">

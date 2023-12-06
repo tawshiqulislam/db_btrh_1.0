@@ -22,7 +22,7 @@
         </div>
         <!-- if data are present in project categories table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <a href="{{ route("project_category.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add Project Category</a>
             <table class="table table-bordered">

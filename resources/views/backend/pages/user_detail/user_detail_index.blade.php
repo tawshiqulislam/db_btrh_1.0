@@ -24,7 +24,7 @@
 
         <!-- if the data are present in user detail table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <div class="top-button-group mb-3">
                 <div class="add_user_detail_btn">
                     <a href="{{ route("user_detail.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>

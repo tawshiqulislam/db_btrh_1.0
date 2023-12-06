@@ -13,7 +13,7 @@
     </div>
     <!--main container-->
     <div class="container">
-        <form action="{{ route("resource.update", $resource->id) }}" method="POST" enctype="multipart/form-data">
+        <form class="form_create" action="{{ route("resource.update", $resource->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-3">
                 <!--Resource name-->

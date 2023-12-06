@@ -13,7 +13,7 @@
 
     <div class="container">
 
-        <form action="{{ route("user.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("user.store") }}" method="POST" class="form_create" enctype="multipart/form-data">
             @csrf
 
             <div class="row g-3">

@@ -19,7 +19,7 @@
 
         </div>
     @else
-        <div class="container">
+        <div class="container table_create">
             <a href="{{ route("security_question.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add Security Question</a>
             <table class="table table-bordered">

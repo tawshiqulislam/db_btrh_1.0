@@ -30,7 +30,7 @@
 
         <!-- if the data are present in project initiations table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <div class="top-button-group d-flex justify-content-between mb-3">
                 <div class="add_project_initiation_btn">
                     <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>

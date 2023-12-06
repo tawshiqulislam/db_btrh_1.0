@@ -13,7 +13,7 @@
 
     <div class="container">
 
-        <form action="{{ route("role.update", $role->id) }}" method="POST">
+        <form class="form_create" action="{{ route("role.update", $role->id) }}" method="POST">
             @csrf
             <div class="form-group mb-3">
                 <label for="role">Role:</label>

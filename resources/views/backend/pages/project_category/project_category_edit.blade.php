@@ -14,7 +14,7 @@
     <!-- main content -->
     <div class="container">
         <h2>Edit Project Category</h2>
-        <form action="{{ route("project_category.update", $project_category->id) }}" method="POST">
+        <form class="form_create" action="{{ route("project_category.update", $project_category->id) }}" method="POST">
             @csrf
             <div class="row g-3">
                 <!-- project category name -->

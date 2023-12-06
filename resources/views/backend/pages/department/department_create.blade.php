@@ -12,7 +12,7 @@
     </div><!-- End Page Title -->
     <div class="container">
 
-        <form action="{{ route("department.store") }}" method="POST">
+        <form action="{{ route("department.store") }}" method="POST" class="form_create">
             @csrf
 
             <div class="row g-3">

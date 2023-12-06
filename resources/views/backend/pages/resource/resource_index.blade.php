@@ -30,7 +30,7 @@
 
         <!-- if the data are present in Resources table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <div class="top-button-group d-flex justify-content-between mb-3">
                 <div class="add_resource_btn">
                     <a href="{{ route("resource.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>

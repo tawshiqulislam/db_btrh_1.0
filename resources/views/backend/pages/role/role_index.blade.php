@@ -19,7 +19,7 @@
 
         </div>
     @else
-        <div class="container">
+        <div class="container table_create">
             <a href="{{ route("role.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add Role</a>
             <table class="table table-bordered">
