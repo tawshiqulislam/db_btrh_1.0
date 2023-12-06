@@ -80,7 +80,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_user_detail" data-bs-toggle="collapse"
                     href="{{ route('user_detail.index') }}">
-                    <i class="fa-brands fa-osi"></i><span>User Detail</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-person-lines-fill"></i><span>User Detail</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
 
                 <ul id="nav_user_detail" class="nav-content collapse " data-bs-parent="#nav_user_detail">
@@ -161,12 +161,13 @@
                 </ul>
             </li>
         @endrole
+
         <!--project initiation-->
         @role(['super_admin', 'admin', 'stuff', 'team_leader', 'team_members'])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_project_initiation" data-bs-toggle="collapse"
                     href="{{ route('project_initiation.index') }}">
-                    <i class="fa-brands fa-osi"></i><span>Project Initiation</span><i
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i><span>Project Initiation</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="nav_project_initiation" class="nav-content collapse " data-bs-parent="nav_project_initiation">
@@ -189,7 +190,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_project_initiation_submission"
                     data-bs-toggle="collapse" href="{{ route('project_submission.index') }}">
-                    <i class="fa-brands fa-osi"></i><span>Project Submission</span><i
+                    <i class="bi bi-bookmark-fill"></i><span>Project Submission</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="nav_project_initiation_submission" class="nav-content collapse "
@@ -202,12 +203,13 @@
                 </ul>
             </li>
         @endrole
+
         <!--disburse project payment-->
         @role(['super_admin', 'admin'])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_project_initiation_disburse_project_payment"
                     data-bs-toggle="collapse" href="{{ route('disburse_project_payment.index') }}">
-                    <i class="fa-brands fa-osi"></i><span>Disburse Project Payment</span><i
+                    <i class="fa-solid fa-file-invoice-dollar"></i><span>Disburse Project Payment</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="nav_project_initiation_disburse_project_payment" class="nav-content collapse "
@@ -220,12 +222,13 @@
                 </ul>
             </li>
         @endrole
+
         <!--sign off project-->
         @role(['super_admin', 'admin'])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_signoff_project" data-bs-toggle="collapse"
                     href="{{ route('signoff_project.index') }}">
-                    <i class="fa-brands fa-osi"></i><span>Sign-Off Project</span><i
+                    <i class="fa-solid fa-folder-tree"></i><span>Sign-Off Project</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="nav_signoff_project" class="nav-content collapse " data-bs-parent="nav_signoff_project">
@@ -237,6 +240,7 @@
                 </ul>
             </li>
         @endrole
+
         <!--status-->
         @role(['super_admin', 'admin'])
             <li class="nav-item">
@@ -258,12 +262,13 @@
                 </ul>
             </li>
         @endrole
+
         <!--resource-->
         @role(['super_admin', 'admin'])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_resource" data-bs-toggle="collapse"
                     href="{{ route('status.index') }}">
-                    <i class="fa-brands fa-osi"></i><span>Resource</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-sitemap"></i><span>Resource</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="nav_resource" class="nav-content collapse " data-bs-parent="nav_resource">
                     <li>
@@ -279,6 +284,7 @@
                 </ul>
             </li>
         @endrole
+
         <!--task-->
         @role(['super_admin', 'admin', 'stuff', 'team_leader', 'team_members'])
             <li class="nav-item">
@@ -306,7 +312,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_my_task" data-bs-toggle="collapse"
                     href="{{ route('my_task.index') }}">
-                    <i class="fa-solid fa-list-check"></i><span>My Task</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-bars-progress"></i><span>My Task</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="nav_my_task" class="nav-content collapse " data-bs-parent="nav_my_task">
                     <li>
@@ -323,7 +329,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_designation" data-bs-toggle="collapse"
                     href="{{ route('designation.index') }}">
-                    <i class="fa-solid fa-plane"></i><span>Designation</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="fa-solid fa-user-shield"></i><span>Designation</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="nav_designation" class="nav-content collapse " data-bs-parent="nav_designation">
                     <li>
@@ -345,7 +351,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_monitoring_team" data-bs-toggle="collapse"
                     href="{{ route('monitoring_team.index') }}">
-                    <i class="fa-solid fa-plane"></i><span>Monitoring Team</span><i
+                    <i class="fa-solid fa-people-group"></i><span>Monitoring Team</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="nav_monitoring_team" class="nav-content collapse " data-bs-parent="#nav_monitoring_team">
@@ -356,7 +362,7 @@
                     </li>
                     <li>
                         <a class="nav-content-item" href="{{ route('monitoring_team.create') }}">
-                            <i class="fa-solid fa-file-circle-plus"><span>Make Monitoring Team</span>
+                            <i class="fa-solid fa-file-circle-plus"></i><span>Make Monitoring Team</span>
                         </a>
                     </li>
                 </ul>
