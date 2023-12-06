@@ -13,8 +13,7 @@
     </div>
     <!-- back to index page -->
     <div class="container">
-        <a href="{{ route("project_category.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i
-                class="fa-solid fa-backward"></i>
+        <a href="{{ route("project_category.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
             Back</a>
         <!-- main container -->
         <div class="row">
@@ -22,9 +21,10 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between ">
                         <h5 class="card-text">{{ $project_category->name ?? "" }}</h5>
-                        <a href="{{ route("project_category.edit", $project_category->id) }}"
-                            class="btn btn-primary btn-sm text-white">
-                            <i class="fa-solid fa-file-pen"></i> Edit</a>
+                        @role(["super_admin", "admin"])
+                            <a href="{{ route("project_category.edit", $project_category->id) }}" class="btn btn-primary btn-sm text-white">
+                                <i class="fa-solid fa-file-pen"></i> Edit</a>
+                        @endrole
                     </div>
                     <div class="card-body">
                         @if ($project_category->description)

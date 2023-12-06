@@ -24,8 +24,10 @@
     @if ($project_initiations->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no project initiation added yet.</h4>
-            <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
-                Add Project Initiation</a>
+            @role(["super_admin", "admin"])
+                <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
+                    Add Project Initiation</a>
+            @endrole
         </div>
 
         <!-- if the data are present in project initiations table -->
@@ -33,23 +35,27 @@
         <div class="container">
             <div class="top-button-group d-flex justify-content-between mb-3">
                 <div class="add_project_initiation_btn">
-                    <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>
-                        Add Project Initiation</a>
+                    @role(["super_admin", "admin"])
+                        <a href="{{ route("project_initiation.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>
+                            Add Project Initiation</a>
+                    @endrole
                 </div>
-                <div class="verify_unverify_btn d-flex gap-3">
-                    <button type="button" class="btn btn-success btn-sm position-relative">
-                        Verified Project
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{ $total_verified_project_initiations }}
-                        </span>
-                    </button>
-                    <button type="button" class="btn btn-dark btn-sm position-relative">
-                        Unverified Project
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{ $total_unverified_project_initiations }}
-                        </span>
-                    </button>
-                </div>
+                @role(["super_admin", "admin"])
+                    <div class="verify_unverify_btn d-flex gap-3">
+                        <button type="button" class="btn btn-success btn-sm position-relative">
+                            Verified Project
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ $total_verified_project_initiations }}
+                            </span>
+                        </button>
+                        <button type="button" class="btn btn-dark btn-sm position-relative">
+                            Unverified Project
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ $total_unverified_project_initiations }}
+                            </span>
+                        </button>
+                    </div>
+                @endrole
             </div>
             <div class="table-data table-responsive">
                 <table class="table table-sm table-bordered ">
@@ -78,11 +84,13 @@
                                 <td>
                                     <a href="{{ route("project_initiation.info", $project_initiation->id) }}" class="btn btn-info btn-sm text-white">
                                         <i class="fa-solid fa-circle-info"></i> Info</a>
-                                    <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class="btn btn-primary btn-sm text-white">
-                                        <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                    <a type="button" class=" btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiationDeleteModal_{{ $project_initiation->id }}"><i
-                                            class="fa-solid fa-trash"></i>
-                                        Delete</a>
+                                    @role(["super_admin", "admin"])
+                                        <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class="btn btn-primary btn-sm text-white">
+                                            <i class="fa-solid fa-file-pen"></i> Edit</a>
+                                        <a type="button" class=" btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiationDeleteModal_{{ $project_initiation->id }}"><i
+                                                class="fa-solid fa-trash"></i>
+                                            Delete</a>
+                                    @endrole
                                 </td>
                             </tr>
                         @endforeach

@@ -25,41 +25,54 @@
                         <div class="col-md-12">
                             <div class="card-header">
                                 <div class="button-group d-flex justify-content-end  gap-2 mb-2">
-                                    <a class="btn btn-sm btn-warning text-white" type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_task_list_ModalToggle"><i
-                                            class="fa-solid fa-eye"></i>
-                                        Task List</a>
+                                    @role(["super_admin", "admin", "stuff", "team_leader", "team_members"])
+                                        <a class="btn btn-sm btn-warning text-white" type="button" data-bs-toggle="modal" data-bs-target="#project_initiation_task_list_ModalToggle"><i
+                                                class="fa-solid fa-eye"></i>
 
-                                    <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
-                                        Edit</a>
+                                            Task List</a>
+                                    @endrole
+                                    @role(["super_admin", "admin"])
+                                        <a href="{{ route("project_initiation.edit", $project_initiation->id) }}" class=" btn btn-primary btn-sm text-white"><i class="fa-solid fa-file-pen"></i>
+                                            Edit</a>
+                                    @endrole
 
                                     <!--verify and unverify button-->
-                                    @role("super_admin")
-                                        <span class="dropdown">
+
+                                    <span class="dropdown">
+                                        @role(["super_admin", "admin", "team_leader"])
                                             <button class="btn btn-dark text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fa-solid fa-certificate"></i> Project
                                             </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        @endrole
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                                                @if (!$project_initiation->isVerified)
+                                            @if (!$project_initiation->isVerified)
+                                                @role(["super_admin", "admin"])
                                                     <li> <a class="dropdown-item" onclick="return confirm('Do you want to verify this project?')"
                                                             href="{{ route("project_initiation.verify", $project_initiation->id) }}">
                                                             Verify</a></li>
-                                                @endif
+                                                @endrole
+                                            @endif
 
-                                                @if ($project_initiation->isVerified)
+                                            @if ($project_initiation->isVerified)
+                                                @role(["super_admin", "admin"])
                                                     <li> <a class="dropdown-item" onclick=" return confirm('Do you want to unverify this project?')"
                                                             href="{{ route("project_initiation.unverify", $project_initiation->id) }}">
                                                             Univerify</a></li>
-                                                @endif
-                                                {{-- <li> <a class="dropdown-item" onclick=" return confirm('Do you want to unverify this project?')"
+                                                @endrole
+                                            @endif
+                                            {{-- <li> <a class="dropdown-item" onclick=" return confirm('Do you want to unverify this project?')"
                                                         href="{{ route("project_initiation.unverify", $project_initiation->id) }}">
                                                         Univerify</a></li> --}}
+
+                                            @role(["super_admin", "admin", "team_leader"])
                                                 <li> <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#projectSubmissionModal">
                                                         Project Submission</a></li>
+                                            @endrole
 
-                                            </ul>
-                                        </span>
-                                    @endrole
+                                        </ul>
+                                    </span>
+
                                     {{-- @if ($project_initiation->isVerified == false)
                                         @role("super_admin")
                                             <a onclick="confirm('Do you want to verify this project?')" href="{{ route("project_initiation.verify", $project_initiation->id) }}"
@@ -75,7 +88,7 @@
                                     @endif --}}
                                     {{-- project status --}}
                                     @if ($project_initiation->isVerified)
-                                        @role("super_admin")
+                                        @role(["super_admin", "admin"])
                                             <span class="dropdown">
                                                 <button class="btn btn-success text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-circle-check"></i> Project Status
@@ -123,16 +136,23 @@
                                         @endrole
                                     @endif --}}
                                     @if ($project_initiation->status == "active")
-                                        <button class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_time_Modal"><i class="fa-solid fa-clock"></i> Set Project
-                                            Time</button>
+                                        @role(["super_admin", "admin"])
+                                            <button class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_time_Modal"><i class="fa-solid fa-clock"></i> Set Project
+                                                Time</button>
+                                        @endrole
                                     @endif
                                     @if ($project_initiation->time_duration)
-                                        <button class="btn btn-danger text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_key_deliverable_Modal"><i
-                                                class="fa-solid fa-box-tissue"></i>
-                                            Key Deliverable</button>
+                                        @role(["super_admin", "admin", "team_leader"])
+                                            <button class="btn btn-danger text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_key_deliverable_Modal"><i
+                                                    class="fa-solid fa-box-tissue"></i>
+                                                Key Deliverable</button>
+                                        @endrole
                                     @endif
-                                    <button class="btn btn-secondary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload
-                                        Documents</button>
+
+                                    @role(["super_admin", "admin", "team_leader"])
+                                        <button class="btn btn-secondary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#projectDocumentModal"><i class="fa-solid fa-file"></i> Upload
+                                            Documents</button>
+                                    @endrole
                                 </div>
                                 <h5>{{ $project_initiation->name ?? "" }}</h5>
 
@@ -210,7 +230,9 @@
                                     @if (!$project_initiation->activated_by)
                                         <span>Project not activated</span>
                                     @else
-                                        <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#project_initiation_assign_member_Modal">Assign member</a>
+                                        @role(["super_admin", "admin"])
+                                            <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#project_initiation_assign_member_Modal">Assign member</a>
+                                        @endrole
                                     @endif
 
                                 </p>
@@ -223,7 +245,9 @@
                                                 <th>Username</th>
                                                 <th>Email</th>
                                                 <th>Designation</th>
-                                                <th>Actions</th>
+                                                @role(["super_admin", "admin"])
+                                                    <th>Actions</th>
+                                                @endrole
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -237,34 +261,38 @@
                                                         @if ($project_initiation_overview->designation)
                                                             {{ $project_initiation_overview->designation }}
                                                         @else
-                                                            <a class="text-primary" type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#project_initiation_user_designation_Modal_{{ $project_initiation_overview->id }}">Add
-                                                                Designation</a>
+                                                            @role(["super_admin", "admin", "team_leader"])
+                                                                <a class="text-primary" type="button" data-bs-toggle="modal"
+                                                                    data-bs-target="#project_initiation_user_designation_Modal_{{ $project_initiation_overview->id }}">Add
+                                                                    Designation</a>
+                                                            @endrole
                                                     </td>
                                             @endif
 
-                                            <td>
-                                                <a target="_blank" href="{{ route("user.info", $project_initiation_overview->user->id) }}" class=" btn btn-info text-white btn-sm"><i
-                                                        class="fa-solid fa-eye"></i>
-                                                    View User</a>
-                                                <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
-                                                    class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
-                                                    Remove</a>
-                                                @php
-                                                    $task = App\Models\Task::where("project_initiation_id", $project_initiation_overview->project_initiation->id)
-                                                        ->where("assigned_to", $project_initiation_overview->user->id)
-                                                        ->first();
-                                                @endphp
-                                                @if ($project_initiation_overview->user->assigned_to_tasks->count() > 0 && $project_initiation_overview->project_initiation->tasks->count() > 0)
-                                                    <a href="{{ route("task.info", $task->id) }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-eye"></i>
-                                                        View Task</a>
-                                                @else
-                                                    <a class="text-white btn btn-sm btn-warning" type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#project_initiation_user_assign_task_Modal_{{ $project_initiation_overview->id }}"><i class="fa-solid fa-thumbtack"></i> Assign
-                                                        Task</a>
-                                                @endif
+                                            @role(["super_admin", "admin"])
+                                                <td>
+                                                    <a target="_blank" href="{{ route("user.info", $project_initiation_overview->user->id) }}" class=" btn btn-info text-white btn-sm"><i
+                                                            class="fa-solid fa-eye"></i>
+                                                        View User</a>
+                                                    <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
+                                                        class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
+                                                        Remove</a>
+                                                    @php
+                                                        $task = App\Models\Task::where("project_initiation_id", $project_initiation_overview->project_initiation->id)
+                                                            ->where("assigned_to", $project_initiation_overview->user->id)
+                                                            ->first();
+                                                    @endphp
+                                                    @if ($project_initiation_overview->user->assigned_to_tasks->count() > 0 && $project_initiation_overview->project_initiation->tasks->count() > 0)
+                                                        <a href="{{ route("task.info", $task->id) }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-eye"></i>
+                                                            View Task</a>
+                                                    @else
+                                                        <a class="text-white btn btn-sm btn-warning" type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#project_initiation_user_assign_task_Modal_{{ $project_initiation_overview->id }}"><i class="fa-solid fa-thumbtack"></i> Assign
+                                                            Task</a>
+                                                    @endif
 
-                                            </td>
+                                                </td>
+                                            @endrole
                                             </tr>
                                 @endforeach
                                 </tbody>
@@ -302,14 +330,16 @@
                                                             <td>
                                                                 <a target="_blank" href="{{ asset("storage/document/" . $project_document->document) }}" class="btn btn-sm btn-primary text-white"><i
                                                                         class="fa-solid fa-eye"></i> View</a>
-                                                                <a data-bs-toggle="modal" data-bs-target="#updateProjectDocumentModal_{{ $project_document->id }}"
-                                                                    class="btn btn-warning text-white btn-sm me-1 editBtn">
-                                                                    <i class="fa-solid fa-file-pen"></i> Update
-                                                                </a>
+                                                                @role(["super_admin", "admin", "team_leader"])
+                                                                    <a data-bs-toggle="modal" data-bs-target="#updateProjectDocumentModal_{{ $project_document->id }}"
+                                                                        class="btn btn-warning text-white btn-sm me-1 editBtn">
+                                                                        <i class="fa-solid fa-file-pen"></i> Update
+                                                                    </a>
 
-                                                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                                    data-bs-target="#project_documentDeleteModal_{{ $project_document->id }}"><i class="fa-solid fa-trash"></i>
-                                                                    Delete</a>
+                                                                    <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                                        data-bs-target="#project_documentDeleteModal_{{ $project_document->id }}"><i class="fa-solid fa-trash"></i>
+                                                                        Delete</a>
+                                                                @endrole
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -348,9 +378,11 @@
                                                             <td>
                                                                 <button class="btn btn-info text-white btn-sm" data-bs-toggle="modal"
                                                                     data-bs-target="#project_initiation_issue_read_Modal_{{ $key_delivery->id }}"><i class="fa-solid fa-book-open"></i> Read</button>
-                                                                <a href="{{ route("key_deliverable.delete", $key_delivery->id) }}" target='_blank' onclick="return confirm('Are you sure?')"
-                                                                    class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
-                                                                    Delete</a>
+                                                                @role(["super_admin", "admin"])
+                                                                    <a href="{{ route("key_deliverable.delete", $key_delivery->id) }}" target='_blank' onclick="return confirm('Are you sure?')"
+                                                                        class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
+                                                                        Delete</a>
+                                                                @endrole
                                                             </td>
                                                         </tr>
                                                     @endforeach

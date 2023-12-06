@@ -20,8 +20,15 @@
             <div class="col-md-12 mx-auto">
                 <div class="card">
                     <div class="card-header">
+                        @php
+                            $project_initiation = $project_submission->project_initiation;
+                        @endphp
 
                         {{ $project_submission->project_initiation->name }}
+
+                        <button class="btn btn-danger text-white btn-sm" data-bs-toggle="modal" data-bs-target="#project_initiation_key_deliverable_Modal"><i class="fa-solid fa-box-tissue"></i>
+                            Key Deliverable</button>
+
                         @if ($project_submission->isApproved == false)
                             <a onclick="return confirm('Are you sure?')" href="{{ route("project_submission.approved", $project_submission->id) }}" class=" btn btn-warning text-white btn-sm float-end"><i
                                     class="fa-solid fa-eye"></i>
@@ -48,4 +55,5 @@
         </div>
     </div>
     @include("backend.pages.project_submission.project_submission_disbursing_project_payment_modal")
+    @include("backend.pages.project_initiation.project_initiation_key_deliverable_modal")
 @endsection
