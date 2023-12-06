@@ -12,6 +12,7 @@ use App\Models\SignOffProject;
 use App\Models\ProjectSubmission;
 use App\Models\Resource\Resource;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\ProjectNotification;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use App\Models\ProjectInitiationOverview;
@@ -164,6 +165,10 @@ class User extends Authenticatable
     public function monitoring_teams()
     {
         return $this->hasMany(MonitoringTeam::class);
+    }
+    public function project_notifications()
+    {
+        return $this->hasMany(ProjectNotification::class);
     }
     // //role creation
     // const SUPER_ADMIN = 'super_admin';

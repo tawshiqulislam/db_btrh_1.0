@@ -110,6 +110,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
                             <!-- pagination link -->
                             {{ $approved_projects->links("pagination::bootstrap-4") }}
                         </div>

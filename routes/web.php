@@ -25,6 +25,7 @@ use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\ProjectInitiationController;
 use App\Http\Controllers\ProjectSubmissionController;
 use App\Http\Controllers\DisburseProjectPaymentController;
+use App\Http\Controllers\ProjectNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -225,6 +226,8 @@ Route::prefix('admin/project_submission')->middleware(['auth', isVerified::class
     Route::get('/index', [ProjectSubmissionController::class, 'index'])->name('project_submission.index');
     Route::get('/info/{project_submission}', [ProjectSubmissionController::class, 'info'])->name('project_submission.info');
     Route::get('/project_submission_approved/{project_submission}', [ProjectSubmissionController::class, 'project_submission_approved'])->name('project_submission.approved');
+    Route::post('/project_notification/{id}', [ProjectNotificationController::class, 'send_project_notification'])->name('project_notification.store');
+    Route::get('/project_notification/delete/{id}', [ProjectNotificationController::class, 'project_notification_delete'])->name('project_notification.delete');
 });
 
 //admin disburse project payment routes
