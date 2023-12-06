@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 06, 2023 at 06:15 PM
+-- Generation Time: Dec 06, 2023 at 07:59 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -235,7 +235,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (24, '2023_11_23_050128_create_disburse_project_payments_table', 2),
 (25, '2023_11_23_084633_create_invoices_table', 3),
 (29, '2023_11_26_081527_create_sign_off_projects_table', 4),
-(34, '2023_12_06_105139_create_monitoring_teams_table', 5);
+(34, '2023_12_06_105139_create_monitoring_teams_table', 5),
+(36, '2023_12_06_185054_create_project_notifications_table', 6);
 
 -- --------------------------------------------------------
 
@@ -290,18 +291,7 @@ CREATE TABLE `monitoring_teams` (
 --
 
 INSERT INTO `monitoring_teams` (`id`, `project_initiation_id`, `user_id`, `designation`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 6, 1, NULL, '2023-12-06 11:56:58', '2023-12-06 06:01:22', '2023-12-06 11:56:58'),
-(2, 6, 9, NULL, '2023-12-06 11:57:40', '2023-12-06 06:01:22', '2023-12-06 11:57:40'),
-(3, 1, 5, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 12:15:01'),
-(4, 6, 21, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 06:01:23'),
-(5, 6, 22, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 06:01:23'),
-(6, 6, 23, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 06:01:23'),
-(7, 6, 26, NULL, NULL, '2023-12-06 06:01:23', '2023-12-06 06:01:23'),
-(8, 2, 2, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30'),
-(9, 2, 6, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30'),
-(10, 2, 8, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30'),
-(11, 2, 9, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30'),
-(12, 2, 26, NULL, NULL, '2023-12-06 06:44:30', '2023-12-06 06:44:30');
+(17, 1, 5, NULL, NULL, '2023-12-06 12:50:18', '2023-12-06 12:50:27');
 
 -- --------------------------------------------------------
 
@@ -468,6 +458,33 @@ INSERT INTO `project_initiation_overviews` (`id`, `project_initiation_id`, `user
 (4, 6, 1, NULL, NULL, 1, NULL, '2023-12-06 03:03:13', '2023-12-06 03:03:13'),
 (5, 6, 2, NULL, NULL, 1, NULL, '2023-12-06 03:03:13', '2023-12-06 03:03:13'),
 (6, 6, 6, NULL, NULL, 1, NULL, '2023-12-06 03:03:13', '2023-12-06 03:03:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_notifications`
+--
+
+CREATE TABLE `project_notifications` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `project_submission_id` bigint UNSIGNED NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `document` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `project_notifications`
+--
+
+INSERT INTO `project_notifications` (`id`, `user_id`, `project_submission_id`, `subject`, `message`, `document`, `date`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Possimus molestias', 'Nulla ipsam dolorum', '1701891223-Possimus molestias.jpg', '1976-01-17', '2023-12-06 13:55:57', '2023-12-06 13:33:43', '2023-12-06 13:55:57'),
+(2, 1, 1, 'Fugiat ipsa do debi', 'In dolores corporis', NULL, '1995-09-05', NULL, '2023-12-06 13:52:51', '2023-12-06 13:52:51');
 
 -- --------------------------------------------------------
 
@@ -927,6 +944,13 @@ ALTER TABLE `project_initiation_overviews`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `project_notifications`
+--
+ALTER TABLE `project_notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `project_notifications_project_submission_id_foreign` (`project_submission_id`);
+
+--
 -- Indexes for table `project_submissions`
 --
 ALTER TABLE `project_submissions`
@@ -1065,13 +1089,13 @@ ALTER TABLE `key_deliverables`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `monitoring_teams`
 --
 ALTER TABLE `monitoring_teams`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1108,6 +1132,12 @@ ALTER TABLE `project_initiations`
 --
 ALTER TABLE `project_initiation_overviews`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `project_notifications`
+--
+ALTER TABLE `project_notifications`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `project_submissions`
@@ -1203,6 +1233,12 @@ ALTER TABLE `model_has_roles`
 ALTER TABLE `monitoring_teams`
   ADD CONSTRAINT `monitoring_teams_project_initiation_id_foreign` FOREIGN KEY (`project_initiation_id`) REFERENCES `project_initiations` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `monitoring_teams_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `project_notifications`
+--
+ALTER TABLE `project_notifications`
+  ADD CONSTRAINT `project_notifications_project_submission_id_foreign` FOREIGN KEY (`project_submission_id`) REFERENCES `project_submissions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `resources`

@@ -32,12 +32,9 @@ class MonitoringTeamController extends Controller
     public function store(Request $request)
     {
         try {
-            foreach ($request->user_ids as $user_id) {
-                MonitoringTeam::create([
-                    'project_initiation_id' => $request->project_initiation_id,
-                    'user_id' => $user_id,
-                ]);
-            }
+
+            MonitoringTeam::create($request->all());
+
 
             toastr()->success('Monitoring Team created successfully!', 'Congrats');
 

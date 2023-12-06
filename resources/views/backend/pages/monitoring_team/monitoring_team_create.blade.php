@@ -26,19 +26,13 @@
                     </select>
                 </div>
                 <div class="col-md-12">
-                    <label for="assigned_to">Select User:</label>
-                    <div class="row g-2">
+                    <label for="user_id">Select User:</label>
+                    <select name="user_id" id="user_id" class="form-control" required>
+                        <option selected disabled>Select Project</option>
                         @foreach ($users as $user)
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="user_ids[]" value="{{ $user->id }}" id="user_{{ $user->id }}">
-                                    <label class="form-check-label" for="user_{{ $user->id }}">
-                                        {{ $user->name }} ({{ $user->email }})
-                                    </label>
-                                </div>
-                            </div>
+                            <option value="{{ $user->id }}">{{ $user->name ?? "" }}</option>
                         @endforeach
-                    </div>
+                    </select>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-sm mt-3 text-white">

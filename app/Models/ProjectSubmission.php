@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\ProjectInitiation;
+use App\Models\ProjectNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,5 +32,10 @@ class ProjectSubmission extends Model
     public function disburse_project_payment()
     {
         return $this->hasOne(DisburseProjectPayment::class);
+    }
+
+    public function project_notifications()
+    {
+        return $this->hasMany(ProjectNotification::class);
     }
 }
