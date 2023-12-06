@@ -31,17 +31,30 @@
                                 <i class="fa-solid fa-sack-dollar"></i>
                                 Send for disbursing payment</a>
                         @endif --}}
+                        @if (!$disburse_project_payment->project_initiation->project_signoff)
+                            <a type="button" data-bs-toggle="modal" data-bs-target="#projectSignOffModal" class=" btn btn-danger text-white btn-sm float-end"><i class="fa-solid fa-closed-captioning"></i>
+                                Project Sign-Off</a>
+                        @endif
                     </div>
+                    @php
+                        $signoff_project = App\Models\SignOffProject::where("project_initiation_id", $disburse_project_payment->project_initiation->id)->first();
+                    @endphp
                     <div class="card-body mt-2">
                         <p><strong>Project Description: </strong>{{ $disburse_project_payment->description ?? "" }}</p>
                         <p><strong>Payment Status: </strong>{{ $disburse_project_payment->payment_status ?? "" }}</p>
                         <p><strong>Send By: </strong>{{ $disburse_project_payment->disburse_project_payment_send_by->username ?? "" }}</p>
                         <p><strong>isDisbursed: </strong>{{ $disburse_project_payment->isDisbursed ? "Yes" : "No" }}</p>
                         <p><strong>Disbursed By: </strong>{{ $disburse_project_payment->disburse_project_payment_disbursed_by->username ?? "Not disbursed yet!" }}</p>
+                        <p><strong>Project Sign-off: </strong>{{ $signoff_project ? "Yes" : "No" }}</p>
+                        @if ($signoff_project)
+                            <p><strong>Comment: </strong>This project is closed now & sign off by {{ $signoff_project->signoff_by->username ?? "" }}</p>
+                        @endif
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
     @include("backend.pages.disburse_project_payment.disburse_project_payment_make_invoice_modal")
+    @include("backend.pages.disburse_project_payment.disburse_project_payment_signoff_modal")
 @endsection

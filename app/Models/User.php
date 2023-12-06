@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\AdminList;
 use App\Models\Department;
 use App\Models\UserDetail;
+use App\Models\SignOffProject;
 use App\Models\ProjectSubmission;
 use App\Models\Resource\Resource;
 use Laravel\Sanctum\HasApiTokens;
@@ -152,6 +153,11 @@ class User extends Authenticatable
     public function invoices()
     {
         return $this->hasMany(Invoice::class, 'generated_by');
+    }
+
+    public function signoff_projects()
+    {
+        return $this->hasMany(SignOffProject::class, 'project_signoff_by');
     }
     // //role creation
     // const SUPER_ADMIN = 'super_admin';
