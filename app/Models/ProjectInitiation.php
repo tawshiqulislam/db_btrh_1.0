@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\MonitoringTeam;
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
 use App\Models\ProjectSubmission;
@@ -98,5 +99,9 @@ class ProjectInitiation extends Model
     public function project_signoff()
     {
         return $this->hasOne(SignOffProject::class);
+    }
+    public function monitoring_teams()
+    {
+        return $this->hasManay(MonitoringTeam::class);
     }
 }

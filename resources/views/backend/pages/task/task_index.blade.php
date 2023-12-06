@@ -24,8 +24,10 @@
     @if ($tasks->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no task assigned yet.</h4>
-            <a href="{{ route("task.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
-                Assign Task</a>
+            @role(["super_admin", "admin", "team_leader"])
+                <a href="{{ route("task.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
+                    Assign Task</a>
+            @endrole
         </div>
 
         <!-- if the data are present in project initiations table -->
@@ -33,8 +35,10 @@
         <div class="container table_create">
             <div class="top-button-group d-flex justify-content-between mb-3">
                 <div class="add_project_initiation_btn">
-                    <a href="{{ route("task.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>
-                        Assign Task</a>
+                    @role(["super_admin", "admin", "team_leader"])
+                        <a href="{{ route("task.create") }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-plus"></i>
+                            Assign Task</a>
+                    @endrole
                 </div>
             </div>
             <div class="table-data table-responsive">
@@ -65,10 +69,12 @@
                                 <td>
                                     <a href="{{ route("task.info", $task->id) }}" class="btn btn-info btn-sm text-white">
                                         <i class="fa-solid fa-circle-info"></i> Info</a>
-                                    <a href="{{ route("task.edit", $task->id) }}" class="btn btn-primary btn-sm text-white">
-                                        <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                    <a type="button" class=" btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#taskDeleteModal_{{ $task->id }}"><i class="fa-solid fa-trash"></i>
-                                        Delete</a>
+                                    @role(["super_admin", "admin", "team_leader"])
+                                        <a href="{{ route("task.edit", $task->id) }}" class="btn btn-primary btn-sm text-white">
+                                            <i class="fa-solid fa-file-pen"></i> Edit</a>
+                                        <a type="button" class=" btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#taskDeleteModal_{{ $task->id }}"><i class="fa-solid fa-trash"></i>
+                                            Delete</a>
+                                    @endrole
                                 </td>
                             </tr>
                         @endforeach

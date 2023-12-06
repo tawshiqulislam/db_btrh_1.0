@@ -16,22 +16,28 @@
     @if ($project_categorys->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no project category added yet.</h4>
-            <a href="{{ route("project_category.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
-                Add Project Category</a>
+            @role(["super_admin", "admin"])
+                <a href="{{ route("project_category.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
+                    Add Project Category</a>
+            @endrole
 
         </div>
         <!-- if data are present in project categories table -->
     @else
         <div class="container table_create">
-            <a href="{{ route("project_category.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
-                Add Project Category</a>
+            @role(["super_admin", "admin"])
+                <a href="{{ route("project_category.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
+                    Add Project Category</a>
+            @endrole
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>SL No</th>
                         <th>Name</th>
                         <th>Description</th>
+
                         <th>Actions</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -47,10 +53,13 @@
                             <td>
                                 <a href="{{ route("project_category.info", $project_category->id) }}" class="btn btn-info btn-sm text-white">
                                     <i class="fa-solid fa-circle-info"></i> Info</a>
-                                <a href="{{ route("project_category.edit", $project_category->id) }}" class="btn btn-primary btn-sm text-white">
-                                    <i class="fa-solid fa-file-pen"></i> Edit</a>
-                                <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_categoryDeleteModal_{{ $project_category->id }}"><i class="fa-solid fa-trash"></i>
-                                    Delete</a>
+                                @role(["super_admin", "admin"])
+                                    <a href="{{ route("project_category.edit", $project_category->id) }}" class="btn btn-primary btn-sm text-white">
+                                        <i class="fa-solid fa-file-pen"></i> Edit</a>
+                                    <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#project_categoryDeleteModal_{{ $project_category->id }}"><i
+                                            class="fa-solid fa-trash"></i>
+                                        Delete</a>
+                                @endrole
                             </td>
                         </tr>
                     @endforeach
