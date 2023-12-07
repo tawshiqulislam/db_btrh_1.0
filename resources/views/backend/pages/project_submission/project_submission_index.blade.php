@@ -28,7 +28,7 @@
 
         <!-- if the data are present in my task table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <div class="projet_submission">
                 <ul class="nav nav-tabs" id="myTabs">
                     <li class="nav-item">

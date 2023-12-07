@@ -12,7 +12,7 @@
     </div><!-- End Page Title -->
     <div class="container">
 
-        <form action="{{ route("role.store") }}" method="POST" enctype="multipart/form-data">
+        <form class="form_create" action="{{ route("role.store") }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group mb-3">

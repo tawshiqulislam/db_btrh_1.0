@@ -42,6 +42,7 @@
 
         <!-- Vendor JS Files -->
         @include("backend.layouts.partials.script")
+        @include('backend.layouts.partials.siedebar_script')
     </body>
 
 </html>

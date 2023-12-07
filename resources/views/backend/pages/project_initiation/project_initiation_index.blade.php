@@ -32,7 +32,7 @@
 
         <!-- if the data are present in project initiations table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <div class="top-button-group d-flex justify-content-between mb-3">
                 <div class="add_project_initiation_btn">
                     @role(["super_admin", "admin"])
@@ -61,8 +61,8 @@
                 <table class="table table-sm table-bordered ">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
                             <th scope="col">SL No</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Category</th>
                             {{-- <th scope="col">Deadline</th> --}}
                             <th scope="col">isVerified</th>

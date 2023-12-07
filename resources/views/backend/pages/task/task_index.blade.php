@@ -32,7 +32,7 @@
 
         <!-- if the data are present in project initiations table -->
     @else
-        <div class="container">
+        <div class="container table_create">
             <div class="top-button-group d-flex justify-content-between mb-3">
                 <div class="add_project_initiation_btn">
                     @role(["super_admin", "admin", "team_leader"])

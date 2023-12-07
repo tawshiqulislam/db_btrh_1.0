@@ -20,13 +20,15 @@
      <nav class="header-nav ms-auto">
          <ul class="d-flex align-items-center">
 
+            <!-- Start Search Icon-->
              <li class="nav-item d-block d-lg-none">
                  <a class="nav-link nav-icon search-bar-toggle " href="#">
                      <i class="bi bi-search"></i>
                  </a>
              </li><!-- End Search Icon-->
 
-             <li class="nav-item dropdown">
+            <!-- Start Notification Dropdown Nav -->
+             {{-- <li class="nav-item dropdown">
 
                  <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                      <i class="bi bi-bell"></i>
@@ -100,9 +102,10 @@
 
                  </ul><!-- End Notification Dropdown Items -->
 
-             </li><!-- End Notification Nav -->
+             </li><!-- End Notification Nav --> --}}
 
-             <li class="nav-item dropdown">
+             <!-- Start Messages Nav -->
+             {{-- <li class="nav-item dropdown">
 
                  <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                      <i class="bi bi-chat-left-text"></i>
@@ -167,8 +170,10 @@
 
                  </ul><!-- End Messages Dropdown Items -->
 
-             </li><!-- End Messages Nav -->
+             </li> --}}
+             <!-- End Messages Nav -->
 
+             <!-- Start Profile Nav -->
              <li class="nav-item dropdown pe-3">
 
                  <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -184,7 +189,7 @@
                      <li class="dropdown-header">
                          <h6>{{ auth()->user()->name ?? "" }}</h6>
 
-                         <span>{{ auth()->user()->user_type ?? "user" }}</span>
+                         {{-- <span>{{ auth()->user()->user_type ?? "user" }}</span> --}}
                          <p>
                              @foreach (auth()->user()->roles as $role)
                                  <span>({{ $role->name }})</span>
