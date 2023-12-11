@@ -55,3 +55,34 @@
         </div>
     </form>
 </div>
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script>
+        $(document).ready(function () {
+            // Function to show/hide fields based on the selected user type
+            function toggleFields(userType) {
+                if (userType === 'user') {
+                    $('#user_fields').show();
+                    $('#vendor_fields').hide();
+                    $('.vendor-input').hide(); // hide vendor-specific inputs
+                } else if (userType === 'vendor') {
+                    $('#user_fields').hide();
+                    $('#vendor_fields').show();
+                    $('.vendor-input').show(); // show vendor-specific inputs
+                } else {
+                    $('#user_fields').hide();
+                    $('#vendor_fields').hide();
+                    $('.vendor-input').hide(); // hide vendor-specific inputs
+                }
+            }
+
+            // Initial state on document load
+            toggleFields('');
+
+            // Change event handler for the user type dropdown
+            $('#user_type').change(function () {
+                var selectedUserType = $(this).val();
+                toggleFields(selectedUserType);
+            });
+        });
+    </script>
