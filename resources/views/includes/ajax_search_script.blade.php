@@ -1,4 +1,4 @@
-@include("backend.layouts.partials.script")
+{{-- @include("backend.layouts.partials.script") --}}
 <script>
     $(document).ready(function() {
         $('#search').on('keyup', function() {
