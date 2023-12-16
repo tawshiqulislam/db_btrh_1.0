@@ -230,11 +230,10 @@
                                     @if (!$project_initiation->activated_by)
                                         <span>Project not activated</span>
                                     @else
-                                        @role(["super_admin", "admin"])
+                                        @can("team-member-assign")
                                             <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#project_initiation_assign_member_Modal">Assign member</a>
-                                        @endrole
+                                        @endcan
                                     @endif
-
                                 </p>
                                 @if (App\Models\ProjectInitiationOverview::where("project_initiation_id", $project_initiation->id)->count() > 0)
                                     <table class="table table-sm table-bordered">
@@ -245,6 +244,7 @@
                                                 <th>Username</th>
                                                 <th>Email</th>
                                                 <th>Designation</th>
+                                                <th>Permissions</th>
                                                 @role(["super_admin", "admin"])
                                                     <th>Actions</th>
                                                 @endrole
@@ -257,6 +257,7 @@
                                                     <td>{{ $project_initiation_overview->user->name }}</td>
                                                     <td>{{ $project_initiation_overview->user->username }}</td>
                                                     <td>{{ $project_initiation_overview->user->email }}</td>
+
                                                     <td>
                                                         @if ($project_initiation_overview->designation)
                                                             {{ $project_initiation_overview->designation }}
@@ -267,8 +268,21 @@
                                                                     Designation</a>
                                                             @endrole
                                                     </td>
-                                            @endif
+                                                    {{-- @php
+                                                        $user = App\Models\User::find($project_initiation_overview->user->id);
 
+                                                    @endphp --}}
+                                                    {{-- <td>
+                                                        @foreach ($project_initiation_overview->user->permissions as $permission)
+                                                            <span class="badge bg-info rounded-pill">{{ $permission->name ?? "Permission not assignd" }}</span>
+                                                        @endforeach
+                                                    </td> --}}
+                                            @endif
+                                            <td>
+                                                @foreach ($project_initiation_overview->user->permissions as $permission)
+                                                    <span class="badge bg-info rounded-pill">{{ $permission->name ?? "Permission not assignd" }}</span>
+                                                @endforeach
+                                            </td>
                                             @role(["super_admin", "admin"])
                                                 <td>
                                                     <a target="_blank" href="{{ route("user.info", $project_initiation_overview->user->id) }}" class=" btn btn-info text-white btn-sm"><i
@@ -290,6 +304,24 @@
                                                             data-bs-target="#project_initiation_user_assign_task_Modal_{{ $project_initiation_overview->id }}"><i class="fa-solid fa-thumbtack"></i> Assign
                                                             Task</a>
                                                     @endif
+                                                    <span class="dropdown">
+
+                                                        <button class="btn btn-success text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <i class="fa-solid fa-certificate"></i> Permission
+                                                        </button>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                            <li> <button class="btn btn-success btn-sm dropdown-item" data-bs-toggle="modal"
+                                                                    data-bs-target="#permissionModal_{{ $project_initiation_overview->id }}">
+                                                                    Give Permission</button></li>
+                                                            <li> <button class="btn btn-success btn-sm dropdown-item" data-bs-toggle="modal"
+                                                                    data-bs-target="#remove_permissionModal_{{ $project_initiation_overview->id }}">
+                                                                    Remove Permission</button></li>
+
+                                                        </ul>
+                                                    </span>
 
                                                 </td>
                                             @endrole
@@ -413,5 +445,7 @@
     @include("includes.ck_editor")
     @include("backend.pages.project_initiation.project_inititation_task_list_modal")
     @include("backend.pages.project_initiation.project_initiation_submission_modal")
+    @include("backend.pages.project_initiation.project_initiation_give_permission_modal")
+    @include("backend.pages.project_initiation.project_initiation_remove_permission_modal")
 
 @endsection

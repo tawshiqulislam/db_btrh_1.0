@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use App\Models\Task;
+use App\Models\User;
+use App\Models\Status;
 use App\Helpers\UniqueID;
-use App\Http\Requests\ProjectInitiationRequest;
-use App\Http\Requests\ProjectInitiationUpdateRequest;
 use App\Models\Designation;
+use Illuminate\Support\Str;
+use App\Models\TimeDuration;
+use Illuminate\Http\Request;
 use App\Models\KeyDeliverable;
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
+use Spatie\Permission\Models\Permission;
 use App\Models\ProjectInitiationOverview;
-use App\Models\Status;
-use App\Models\Task;
-use App\Models\TimeDuration;
-use App\Models\User;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Http\Requests\ProjectInitiationRequest;
+use App\Http\Requests\ProjectInitiationUpdateRequest;
 
 
 class ProjectInitiationController extends Controller
@@ -152,7 +153,20 @@ class ProjectInitiationController extends Controller
         $vendors = User::where('user_type', 'vendor')->get();
         $tasks = Task::where('project_initiation_id', $id)->get();
         $project_initiation_overviews = ProjectInitiationOverview::where('project_initiation_id', $id)->get();
-        return view('backend.pages.project_initiation.project_initiation_info', compact('project_initiation', 'tasks', 'statuses', 'users', 'project_initiation_overviews', 'vendors', 'designations'));
+        $permissions = Permission::all();
+        return view(
+            'backend.pages.project_initiation.project_initiation_info',
+            compact(
+                'project_initiation',
+                'tasks',
+                'statuses',
+                'users',
+                'project_initiation_overviews',
+                'vendors',
+                'designations',
+                'permissions'
+            )
+        );
     }
     //project verification
     public function verify($id)

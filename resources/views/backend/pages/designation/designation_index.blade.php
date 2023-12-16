@@ -27,6 +27,7 @@
                     <tr>
                         <th>SL No</th>
                         <th>Designation</th>
+                        <th>Permissions</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -37,12 +38,19 @@
 
                             <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 {{ $designation->name ?? "" }}</td>
-
+                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                @foreach ($designation->permissions as $permission)
+                                    <span class="badge bg-info rounded-pill">{{ $permission->name ?? "Permission not assignd" }}</span>
+                                @endforeach
+                            </td>
                             <td>
+                                {{-- <a href="{{ route("designation.info", $designation->id) }}" class="btn btn-info btn-sm text-white">
+                                    <i class="fa-solid fa-circle-info"></i> Info</a> --}}
                                 <a href="{{ route("designation.edit", $designation->id) }}" class="btn btn-primary btn-sm text-white">
                                     <i class="fa-solid fa-file-pen"></i> Edit</a>
                                 <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#designationDeleteModal_{{ $designation->id }}"><i class="fa-solid fa-trash"></i>
                                     Delete</a>
+
                             </td>
                         </tr>
                     @endforeach
@@ -52,4 +60,5 @@
         </div>
     @endif
     @include("backend.pages.designation.designation_delete_confirmation_modal")
+
 @endsection

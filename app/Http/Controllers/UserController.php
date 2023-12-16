@@ -246,6 +246,20 @@ class UserController extends Controller
         toastr()->error('User is unverified now!', 'Alert!');
         return redirect()->back();
     }
+    public function user_give_permission(Request $request, $id)
+    {
+        User::find($id)->givePermissionTo($request->permissions);
+        toastr()->success('Permission assigned successfully!', 'Congrats!');
+        return redirect()->back();
+    }
+
+    public function user_remove_permission(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->revokePermissionTo($request->permissions);
+        toastr()->error('Permission removed!', 'Alert!');
+        return redirect()->back();
+    }
     //image function
 
     public function uploadImage($title, $image)
