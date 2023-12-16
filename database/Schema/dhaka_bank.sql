@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2023 at 08:41 AM
+-- Generation Time: Dec 16, 2023 at 09:09 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -267,9 +267,6 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 (11, 'App\\Models\\User', 1),
 (12, 'App\\Models\\User', 1),
 (13, 'App\\Models\\User', 1),
-(13, 'App\\Models\\User', 2),
-(14, 'App\\Models\\User', 2),
-(15, 'App\\Models\\User', 2),
 (16, 'App\\Models\\User', 5);
 
 -- --------------------------------------------------------

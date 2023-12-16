@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Document;
+use Illuminate\Http\Request;
+use App\Models\SecurityQuestion;
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Models\Document;
-use App\Models\SecurityQuestion;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -148,7 +149,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::all();
-        return view('backend.pages.user.user_info', compact('user', 'roles'));
+        $permissions = Permission::all();
+        return view('backend.pages.user.user_info', compact('user', 'roles', 'permissions'));
     }
 
     //remove profile picture

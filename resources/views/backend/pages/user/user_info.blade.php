@@ -56,6 +56,21 @@
                                             @endif
                                         @endif
                                         <span class="dropdown">
+
+                                            <button class="btn btn-danger text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Permission
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                <li> <button class="btn btn-success btn-sm dropdown-item" data-bs-toggle="modal" data-bs-target="#permissionModal_{{ $user->id }}">
+                                                        Give Permission</button></li>
+                                                <li> <button class="btn btn-success btn-sm dropdown-item" data-bs-toggle="modal" data-bs-target="#remove_permissionModal_{{ $user->id }}">
+                                                        Remove Permission</button></li>
+
+                                            </ul>
+                                        </span>
+                                        <span class="dropdown">
                                             <button class="btn btn-info text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Profile Picture
                                             </button>
@@ -285,6 +300,18 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
+                                    <div class="col-5">
+                                        Permissions
+                                    </div>
+                                    <div class="col-7">
+                                        : @foreach ($user->permissions as $permission)
+                                            <span class="badge bg-danger rounded-pill">{{ $permission->name ?? "" }}</span>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
                                     <div class="col-12">
                                         Documents:
                                     </div>
@@ -340,5 +367,7 @@
     @include("backend.pages.user.user_document_delete_confirmation_modal")
     @include("backend.pages.user.user_role_assign_modal")
     @include("backend.pages.user.user_role_delete_modal")
+    @include("backend.pages.user.user_give_permission_modal")
+    @include("backend.pages.user.user_remove_permission_modal")
 
 @endsection
