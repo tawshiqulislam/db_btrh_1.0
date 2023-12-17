@@ -259,16 +259,13 @@
                                                     <td>{{ $project_initiation_overview->user->email }}</td>
 
                                                     <td>
-                                                        @if ($project_initiation_overview->user->roles)
+                                                        @if (count($project_initiation_overview->user->roles) > 0)
                                                             @foreach ($project_initiation_overview->user->roles as $role)
-                                                                <span class="badge bg-info rounded-pill">{{ $role->name ?? "Designation not assignd" }}</span>
+                                                                <span class="badge bg-info rounded-pill">{{ $role->name ?? "" }}</span>
                                                             @endforeach
                                                         @else
-                                                            @role(["super_admin", "admin", "team_leader"])
-                                                                <a class="text-primary" type="button" data-bs-toggle="modal"
-                                                                    data-bs-target="#project_initiation_user_designation_Modal_{{ $project_initiation_overview->id }}">Add
-                                                                    Roles</a>
-                                                            @endrole
+                                                            <span>Designation not assigned!</span>
+                                                        @endif
                                                     </td>
                                                     {{-- @php
                                                         $user = App\Models\User::find($project_initiation_overview->user->id);
@@ -279,51 +276,60 @@
                                                             <span class="badge bg-info rounded-pill">{{ $permission->name ?? "Permission not assignd" }}</span>
                                                         @endforeach
                                                     </td> --}}
-                                            @endif
-                                            <td>
-                                                @foreach ($project_initiation_overview->user->permissions as $permission)
-                                                    <span class="badge bg-info rounded-pill">{{ $permission->name ?? "Permission not assignd" }}</span>
-                                                @endforeach
-                                            </td>
-                                            @role(["super_admin", "admin"])
-                                                <td>
-                                                    <a target="_blank" href="{{ route("user.info", $project_initiation_overview->user->id) }}" class=" btn btn-info text-white btn-sm"><i
-                                                            class="fa-solid fa-eye"></i>
-                                                        View User</a>
-                                                    <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
-                                                        class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
-                                                        Remove</a>
-                                                    @php
-                                                        $task = App\Models\Task::where("project_initiation_id", $project_initiation_overview->project_initiation->id)
-                                                            ->where("assigned_to", $project_initiation_overview->user->id)
-                                                            ->first();
-                                                    @endphp
-                                                    @if ($project_initiation_overview->user->assigned_to_tasks->count() > 0 && $project_initiation_overview->project_initiation->tasks->count() > 0)
-                                                        <a href="{{ route("task.info", $task->id) }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-eye"></i>
-                                                            View Task</a>
-                                                    @else
-                                                        <a class="text-white btn btn-sm btn-warning" type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#project_initiation_user_assign_task_Modal_{{ $project_initiation_overview->id }}"><i class="fa-solid fa-thumbtack"></i> Assign
-                                                            Task</a>
-                                                    @endif
-                                                    @php
-                                                        $user = $project_initiation_overview->user;
-                                                    @endphp
-                                                    <span class="dropdown">
-                                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Roles & Permissions
-                                                        </button>
-                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                            <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRolePermissionAssignModal_{{ $user->id }}">Assign
-                                                                    Role & Permission</a>
-                                                            </li>
-                                                            <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRolePermissionDeleteModal_{{ $user->id }}">Remove
-                                                                    Role & Permission</a>
-                                                            </li>
-                                                        </ul>
-                                                    </span>
 
-                                                    {{-- <span class="dropdown">
+                                                    <td>
+                                                        @if (count($project_initiation_overview->user->permissions) > 0)
+                                                            @foreach ($project_initiation_overview->user->permissions as $permission)
+                                                                <span class="badge bg-info rounded-pill">{{ $permission->name ?? "Permission not assignd" }}</span>
+                                                            @endforeach
+                                                        @else
+                                                            <span>Permission not assigned!</span>
+                                                        @endif
+
+                                                    </td>
+                                                    @role(["super_admin", "admin"])
+                                                        <td>
+                                                            <a target="_blank" href="{{ route("user.info", $project_initiation_overview->user->id) }}" class=" btn btn-info text-white btn-sm"><i
+                                                                    class="fa-solid fa-eye"></i>
+                                                                View User</a>
+                                                            <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
+                                                                class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
+                                                                Remove</a>
+                                                            @php
+                                                                $task = App\Models\Task::where("project_initiation_id", $project_initiation_overview->project_initiation->id)
+                                                                    ->where("assigned_to", $project_initiation_overview->user->id)
+                                                                    ->first();
+                                                            @endphp
+                                                            @if ($project_initiation_overview->user->assigned_to_tasks->count() > 0 && $project_initiation_overview->project_initiation->tasks->count() > 0)
+                                                                <a href="{{ route("task.info", $task->id) }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-eye"></i>
+                                                                    View Task</a>
+                                                            @else
+                                                                <a class="text-white btn btn-sm btn-warning" type="button" data-bs-toggle="modal"
+                                                                    data-bs-target="#project_initiation_user_assign_task_Modal_{{ $project_initiation_overview->id }}"><i class="fa-solid fa-thumbtack"></i>
+                                                                    Assign
+                                                                    Task</a>
+                                                            @endif
+                                                            @php
+                                                                $user = $project_initiation_overview->user;
+                                                            @endphp
+                                                            <span class="dropdown">
+                                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false">
+                                                                    Roles & Permissions
+                                                                </button>
+                                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                    <li><a type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                                            data-bs-target="#userRolePermissionAssignModal_{{ $user->id }}">Assign
+                                                                            Role & Permission</a>
+                                                                    </li>
+                                                                    <li><a type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                                            data-bs-target="#userRolePermissionDeleteModal_{{ $user->id }}">Remove
+                                                                            Role & Permission</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </span>
+
+                                                            {{-- <span class="dropdown">
 
                                                         <button class="btn btn-success text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                                             aria-expanded="false">
@@ -342,12 +348,12 @@
                                                         </ul>
                                                     </span> --}}
 
-                                                </td>
-                                            @endrole
-                                            </tr>
-                                @endforeach
-                                </tbody>
-                                </table>
+                                                        </td>
+                                                    @endrole
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 @endif
 
                             </div>

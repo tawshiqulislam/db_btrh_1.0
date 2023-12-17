@@ -16,8 +16,9 @@
                                 @foreach ($user->roles as $key => $role)
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="role_{{ $key }}_{{ $role->id }}" name="roles[]" value="{{ $role->name }}">
-                                            <label class="form-check-label" for="role_{{ $key }}_{{ $role->id }}">{{ $role->name }}</label>
+                                            <input type="checkbox" class="form-check-input" id="role_{{ $key }}_{{ $user->id }}_{{ $role->id }}" name="roles[]"
+                                                value="{{ $role->name }}">
+                                            <label class="form-check-label" for="role_{{ $key }}_{{ $user->id }}_{{ $role->id }}">{{ $role->name }}</label>
                                         </div>
                                     </div>
                                 @endforeach
@@ -29,9 +30,9 @@
                                 @foreach ($user->permissions as $key => $permission)
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="permission_{{ $key }}_{{ $permission->id }}" name="permissions[]"
+                                            <input type="checkbox" class="form-check-input" id="permission_{{ $key }}_{{ $user->id }}_{{ $permission->id }}" name="permissions[]"
                                                 value="{{ $permission->name }}">
-                                            <label class="form-check-label" for="permission_{{ $key }}_{{ $permission->id }}">{{ $permission->name }}</label>
+                                            <label class="form-check-label" for="permission_{{ $key }}_{{ $user->id }}_{{ $permission->id }}">{{ $permission->name }}</label>
                                         </div>
                                     </div>
                                 @endforeach

@@ -221,12 +221,16 @@ class UserController extends Controller
     {
 
         $user = User::find($id);
+        if ($request->roles) {
+            foreach ($request->roles as $role) {
+                $user->removeRole($role);
+            };
+        }
 
-        foreach ($request->roles as $role) {
-            $user->removeRole($role);
-        };
+        if ($request->permissions) {
+            $user->revokePermissionTo($request->permissions);
+        }
 
-        $user->revokePermissionTo($request->permissions);
         toastr()->error('Role & Permission removed!', 'Alert');
         return redirect()->back();
     }
