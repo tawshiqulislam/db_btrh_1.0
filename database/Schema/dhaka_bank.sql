@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2023 at 09:09 AM
+-- Generation Time: Dec 17, 2023 at 07:50 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -267,7 +267,11 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 (11, 'App\\Models\\User', 1),
 (12, 'App\\Models\\User', 1),
 (13, 'App\\Models\\User', 1),
-(16, 'App\\Models\\User', 5);
+(15, 'App\\Models\\User', 1),
+(14, 'App\\Models\\User', 2),
+(15, 'App\\Models\\User', 2),
+(16, 'App\\Models\\User', 2),
+(14, 'App\\Models\\User', 5);
 
 -- --------------------------------------------------------
 
@@ -287,9 +291,10 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(6, 'App\\Models\\User', 2),
-(2, 'App\\Models\\User', 5),
-(9, 'App\\Models\\User', 5),
+(7, 'App\\Models\\User', 1),
+(8, 'App\\Models\\User', 1),
+(7, 'App\\Models\\User', 2),
+(8, 'App\\Models\\User', 5),
 (6, 'App\\Models\\User', 27);
 
 -- --------------------------------------------------------

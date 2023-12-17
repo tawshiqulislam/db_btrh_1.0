@@ -259,13 +259,15 @@
                                                     <td>{{ $project_initiation_overview->user->email }}</td>
 
                                                     <td>
-                                                        @if ($project_initiation_overview->designation)
-                                                            {{ $project_initiation_overview->designation }}
+                                                        @if ($project_initiation_overview->user->roles)
+                                                            @foreach ($project_initiation_overview->user->roles as $role)
+                                                                <span class="badge bg-info rounded-pill">{{ $role->name ?? "Designation not assignd" }}</span>
+                                                            @endforeach
                                                         @else
                                                             @role(["super_admin", "admin", "team_leader"])
                                                                 <a class="text-primary" type="button" data-bs-toggle="modal"
                                                                     data-bs-target="#project_initiation_user_designation_Modal_{{ $project_initiation_overview->id }}">Add
-                                                                    Designation</a>
+                                                                    Roles</a>
                                                             @endrole
                                                     </td>
                                                     {{-- @php
@@ -304,7 +306,24 @@
                                                             data-bs-target="#project_initiation_user_assign_task_Modal_{{ $project_initiation_overview->id }}"><i class="fa-solid fa-thumbtack"></i> Assign
                                                             Task</a>
                                                     @endif
+                                                    @php
+                                                        $user = $project_initiation_overview->user;
+                                                    @endphp
                                                     <span class="dropdown">
+                                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Roles & Permissions
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                            <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRolePermissionAssignModal_{{ $user->id }}">Assign
+                                                                    Role & Permission</a>
+                                                            </li>
+                                                            <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRolePermissionDeleteModal_{{ $user->id }}">Remove
+                                                                    Role & Permission</a>
+                                                            </li>
+                                                        </ul>
+                                                    </span>
+
+                                                    {{-- <span class="dropdown">
 
                                                         <button class="btn btn-success text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                                             aria-expanded="false">
@@ -321,7 +340,7 @@
                                                                     Remove Permission</button></li>
 
                                                         </ul>
-                                                    </span>
+                                                    </span> --}}
 
                                                 </td>
                                             @endrole
@@ -445,7 +464,11 @@
     @include("includes.ck_editor")
     @include("backend.pages.project_initiation.project_inititation_task_list_modal")
     @include("backend.pages.project_initiation.project_initiation_submission_modal")
-    @include("backend.pages.project_initiation.project_initiation_give_permission_modal")
-    @include("backend.pages.project_initiation.project_initiation_remove_permission_modal")
+    {{-- @include("backend.pages.project_initiation.project_initiation_give_permission_modal")
+    @include("backend.pages.project_initiation.project_initiation_remove_permission_modal") --}}
+    @foreach ($project_initiation_overviews as $key => $project_initiation_overview)
+        @include("backend.pages.user.user_role_permission_assign_modal", ["user" => $project_initiation_overview->user])
+        @include("backend.pages.user.user_role_permission_delete_modal", ["user" => $project_initiation_overview->user])
+    @endforeach
 
 @endsection

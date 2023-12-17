@@ -196,35 +196,38 @@ class UserController extends Controller
         return redirect()->back();
     }
     //role assign
-    public function role_assign(Request $request, $id)
+    public function role_permission_assign(Request $request, $id)
     {
 
 
         $user = User::find($id);
-        if ($user->hasRole($request->name)) {
-            toastr()->error('Role already exist!', 'Alert');
-        }
-        if (!$user->hasRole($request->name)) {
-            $user->assignRole($request->name);
-            // $user->update([
-            //     'isVerified' => true,
-            //     'verified_by' => auth()->user()->id,
-            // ]);
-            toastr()->success('Role assigned successfully!', 'Congrats');
-        }
-
+        // if ($user->hasRole($request->name)) {
+        //     toastr()->error('Role already exist!', 'Alert');
+        // }
+        // if (!$user->hasRole($request->name)) {
+        //     $user->assignRole($request->name);
+        //     // $user->update([
+        //     //     'isVerified' => true,
+        //     //     'verified_by' => auth()->user()->id,
+        //     // ]);
+        //     toastr()->success('Role assigned successfully!', 'Congrats');
+        // }
+        $user->assignRole($request->roles);
+        $user->givePermissionTo($request->permissions);
+        toastr()->success('Roles & Permissions are assigned successfully!', 'Congrats');
         return redirect()->back();
     }
-    public function role_delete(Request $request, $id)
+    public function role_permission_delete(Request $request, $id)
     {
 
         $user = User::find($id);
 
         foreach ($request->roles as $role) {
-
             $user->removeRole($role);
         };
-        toastr()->error('Role removed!', 'Alert');
+
+        $user->revokePermissionTo($request->permissions);
+        toastr()->error('Role & Permission removed!', 'Alert');
         return redirect()->back();
     }
     public function user_verified($id)
@@ -248,20 +251,20 @@ class UserController extends Controller
         toastr()->error('User is unverified now!', 'Alert!');
         return redirect()->back();
     }
-    public function user_give_permission(Request $request, $id)
-    {
-        User::find($id)->givePermissionTo($request->permissions);
-        toastr()->success('Permission assigned successfully!', 'Congrats!');
-        return redirect()->back();
-    }
+    // public function user_give_permission(Request $request, $id)
+    // {
+    //     User::find($id)->givePermissionTo($request->permissions);
+    //     toastr()->success('Permission assigned successfully!', 'Congrats!');
+    //     return redirect()->back();
+    // }
 
-    public function user_remove_permission(Request $request, $id)
-    {
-        $user = User::find($id);
-        $user->revokePermissionTo($request->permissions);
-        toastr()->error('Permission removed!', 'Alert!');
-        return redirect()->back();
-    }
+    // public function user_remove_permission(Request $request, $id)
+    // {
+    //     $user = User::find($id);
+    //     $user->revokePermissionTo($request->permissions);
+    //     toastr()->error('Permission removed!', 'Alert!');
+    //     return redirect()->back();
+    // }
     //image function
 
     public function uploadImage($title, $image)

@@ -71,15 +71,15 @@ Route::prefix('admin/user')->middleware(['auth', isVerified::class])->group(func
     Route::get('/info/{id}', [UserController::class, 'info'])->name('user.info');
     Route::get('/remove_profile_picture/{id}', [UserController::class, 'remove_profile_picture'])->name('user.remove_profile_picture');
     Route::post('/update_profile_picture/{id}', [UserController::class, 'update_profile_picture'])->name('user.update_profile_picture');
-    Route::post('/role_assign/{id}', [UserController::class, 'role_assign'])->name('user.role_assign');
-    Route::post('/role_delete/{id}', [UserController::class, 'role_delete'])->name('user.role_delete');
+    Route::post('/role_permission_assign/{id}', [UserController::class, 'role_permission_assign'])->name('role_permission_assign.store');
+    Route::post('/role_permission_delete/{id}', [UserController::class, 'role_permission_delete'])->name('role_permission_delete.delete');
     Route::get('/verified/{id}', [UserController::class, 'user_verified'])->name('user.verified');
     Route::get('/unverified/{id}', [UserController::class, 'user_unverified'])->name('user.unverified');
-    Route::post('/give_permission/{id}', [UserController::class, 'user_give_permission'])->name('user_give_permission.store');
-    Route::post('/remove_permission/{id}', [UserController::class, 'user_remove_permission'])->name('user_remove_permission.delete');
+    // Route::post('/give_permission/{id}', [UserController::class, 'user_give_permission'])->name('user_give_permission.store');
+    // Route::post('/remove_permission/{id}', [UserController::class, 'user_remove_permission'])->name('user_remove_permission.delete');
 });
 //admin vendor routes
-//admin user routes
+
 Route::prefix('admin/vendor')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [VendorController::class, 'index'])->name('vendor.index');
     Route::get('/create', [VendorController::class, 'create'])->name('vendor.create');

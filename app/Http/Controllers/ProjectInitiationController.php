@@ -15,6 +15,7 @@ use App\Models\KeyDeliverable;
 use App\Models\ProjectCategory;
 use App\Models\ProjectDocument;
 use App\Models\ProjectInitiation;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\ProjectInitiationOverview;
 use App\Http\Requests\ProjectInitiationRequest;
@@ -152,6 +153,7 @@ class ProjectInitiationController extends Controller
         $users = User::where('user_type', 'user')->where('isVerified', 1)->get();
         $vendors = User::where('user_type', 'vendor')->get();
         $tasks = Task::where('project_initiation_id', $id)->get();
+        $roles = Role::all();
         $project_initiation_overviews = ProjectInitiationOverview::where('project_initiation_id', $id)->get();
         $permissions = Permission::all();
         return view(
@@ -164,7 +166,8 @@ class ProjectInitiationController extends Controller
                 'project_initiation_overviews',
                 'vendors',
                 'designations',
-                'permissions'
+                'permissions',
+                'roles'
             )
         );
     }
