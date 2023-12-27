@@ -41,7 +41,7 @@
                     @endrole
                 </div>
                 @role(["super_admin", "admin"])
-                    <div class="verify_unverify_btn d-flex gap-3">
+                    {{-- <div class="verify_unverify_btn d-flex gap-3">
                         <button type="button" class="btn btn-success btn-sm position-relative">
                             Verified Project
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -54,10 +54,29 @@
                                 {{ $total_unverified_project_initiations }}
                             </span>
                         </button>
-                    </div>
+                    </div> --}}
                 @endrole
+
             </div>
             <div class="table-data table-responsive">
+                <div class="filter-checkbox d-flex gap-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="activeCheckbox">
+                        <label class="form-check-label" for="activeCheckbox">Active ({{ $total_active_project_initiations }})</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="inactiveCheckbox">
+                        <label class="form-check-label" for="inactiveCheckbox">Inactive ({{ $total_inactive_project_initiations }})</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="verifiedCheckbox">
+                        <label class="form-check-label" for="verifiedCheckbox">Verified ({{ $total_verified_project_initiations }})</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="unverifiedCheckbox">
+                        <label class="form-check-label" for="unverifiedCheckbox">Unverified ({{ $total_unverified_project_initiations }})</label>
+                    </div>
+                </div>
                 <table class="table table-sm table-bordered ">
                     <thead>
                         <tr>
@@ -72,7 +91,8 @@
                     </thead>
                     <tbody>
                         @foreach ($project_initiations as $project_initiation)
-                            <tr>
+                            <tr
+                                class="project-row {{ $project_initiation->status === "active" ? "active" : "" }} {{ $project_initiation->status === "inactive" ? "inactive" : "" }} {{ $project_initiation->isVerified ? "verified" : "" }} {{ !$project_initiation->isVerified ? "unverified" : "" }}">
                                 <td scope='row'>{{ ++$sl }}</td>
                                 <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                     {{ $project_initiation->name ?? "" }}</td>
@@ -103,4 +123,51 @@
         @include("includes.ajax_search_script")
     @endif
     @include("backend.pages.project_initiation.project_initiation_delete_confirmation_modal")
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var activeCheckbox = document.getElementById('activeCheckbox');
+            var inactiveCheckbox = document.getElementById('inactiveCheckbox');
+            var verifiedCheckbox = document.getElementById('verifiedCheckbox');
+            var unverifiedCheckbox = document.getElementById('unverifiedCheckbox');
+
+            function filterRows() {
+                var projectRows = document.querySelectorAll('.project-row');
+
+                projectRows.forEach(function(row) {
+                    var isActive = row.classList.contains('active');
+                    var isInactive = row.classList.contains('inactive');
+                    var isVerified = row.classList.contains('verified');
+                    var isUnverified = row.classList.contains('unverified');
+
+                    if (activeCheckbox.checked && verifiedCheckbox.checked) {
+                        // Show rows that are active and verified
+                        row.style.display = isActive && isVerified ? 'table-row' : 'none';
+                    } else if (inactiveCheckbox.checked && unverifiedCheckbox.checked) {
+                        // Show rows that are inactive and unverified
+                        row.style.display = isInactive && isUnverified ? 'table-row' : 'none';
+                    } else if (activeCheckbox.checked) {
+                        // Show rows that are active
+                        row.style.display = isActive ? 'table-row' : 'none';
+                    } else if (inactiveCheckbox.checked) {
+                        // Show rows that are inactive
+                        row.style.display = isInactive ? 'table-row' : 'none';
+                    } else if (verifiedCheckbox.checked) {
+                        // Show rows that are verified
+                        row.style.display = isVerified ? 'table-row' : 'none';
+                    } else if (unverifiedCheckbox.checked) {
+                        // Show rows that are unverified
+                        row.style.display = isUnverified ? 'table-row' : 'none';
+                    } else {
+                        // Show all rows
+                        row.style.display = 'table-row';
+                    }
+                });
+            }
+
+            activeCheckbox.addEventListener('change', filterRows);
+            inactiveCheckbox.addEventListener('change', filterRows);
+            verifiedCheckbox.addEventListener('change', filterRows);
+            unverifiedCheckbox.addEventListener('change', filterRows);
+        });
+    </script>
 @endsection

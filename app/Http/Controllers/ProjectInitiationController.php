@@ -20,7 +20,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\ProjectInitiationOverview;
 use App\Http\Requests\ProjectInitiationRequest;
 use App\Http\Requests\ProjectInitiationUpdateRequest;
-
+use App\Models\TeamMemberLog;
 
 class ProjectInitiationController extends Controller
 {
@@ -34,6 +34,8 @@ class ProjectInitiationController extends Controller
         //wheich projects are verified and unverified
         $total_verified_project_initiations = ProjectInitiation::where('isVerified', true)->get()->count();
         $total_unverified_project_initiations = ProjectInitiation::where('isVerified', false)->get()->count();
+        $total_active_project_initiations = ProjectInitiation::where('status', 'active')->get()->count();
+        $total_inactive_project_initiations = ProjectInitiation::where('status', 'inactive')->get()->count();
         // dd($unverified_project_initiations->count());
         //return index page
         return view(
@@ -42,7 +44,9 @@ class ProjectInitiationController extends Controller
                 'project_initiations' => $project_initiations,
                 'sl' => $sl,
                 'total_verified_project_initiations' => $total_verified_project_initiations,
-                'total_unverified_project_initiations' => $total_unverified_project_initiations
+                'total_unverified_project_initiations' => $total_unverified_project_initiations,
+                'total_active_project_initiations' => $total_active_project_initiations,
+                'total_inactive_project_initiations' => $total_inactive_project_initiations
             ]
         );
     }
@@ -317,10 +321,24 @@ class ProjectInitiationController extends Controller
         toastr()->success('Time set in this project successfully!', 'Congrats');
         return redirect()->back();
     }
-    public function delete_assigned_user($id)
+    public function delete_assigned_user(Request $request, $id)
     {
-        ProjectInitiationOverview::find($id)->delete();
-        return redirect()->back();
+
+        try {
+            $project_initiation_overview = ProjectInitiationOverview::find($id);
+            $project_initiation_overview->delete();
+            TeamMemberLog::create([
+                'user_id' => $project_initiation_overview->user->id,
+                'removed_by' => auth()->user()->id,
+                'project_initiation_id' => $project_initiation_overview->project_initiation->id,
+                'reason' => $request->reason,
+            ]);
+            toastr()->error('User has been deleted from this project!', 'Alert');
+            return redirect()->back();
+        } catch (Exception $e) {
+            toastr()->error('Something went wrong please try again later!', 'Alert');
+            return redirect()->back();
+        }
     }
     //create issue key deliverale method
     public function create_key_deliverable(Request $request, $id)

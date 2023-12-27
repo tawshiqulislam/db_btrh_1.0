@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 17, 2023 at 07:50 AM
+-- Generation Time: Dec 26, 2023 at 11:23 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -245,7 +245,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2023_11_23_084633_create_invoices_table', 3),
 (29, '2023_11_26_081527_create_sign_off_projects_table', 4),
 (34, '2023_12_06_105139_create_monitoring_teams_table', 5),
-(36, '2023_12_06_185054_create_project_notifications_table', 6);
+(36, '2023_12_06_185054_create_project_notifications_table', 6),
+(38, '2023_12_26_101635_create_team_member_logs_table', 7);
 
 -- --------------------------------------------------------
 
@@ -270,8 +271,8 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 (15, 'App\\Models\\User', 1),
 (14, 'App\\Models\\User', 2),
 (15, 'App\\Models\\User', 2),
-(16, 'App\\Models\\User', 2),
-(14, 'App\\Models\\User', 5);
+(14, 'App\\Models\\User', 5),
+(14, 'App\\Models\\User', 29);
 
 -- --------------------------------------------------------
 
@@ -295,7 +296,9 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (8, 'App\\Models\\User', 1),
 (7, 'App\\Models\\User', 2),
 (8, 'App\\Models\\User', 5),
-(6, 'App\\Models\\User', 27);
+(6, 'App\\Models\\User', 27),
+(8, 'App\\Models\\User', 29),
+(9, 'App\\Models\\User', 29);
 
 -- --------------------------------------------------------
 
@@ -462,14 +465,14 @@ CREATE TABLE `project_initiations` (
 --
 
 INSERT INTO `project_initiations` (`id`, `user_id`, `project_category_id`, `name`, `description`, `goal`, `deadline`, `required_file`, `activated_by`, `inactivated_by`, `assigned_to`, `assigned_by`, `verified_by`, `unverified_by`, `project_unique_id`, `isVerified`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'Reprehenderit et tempore autem aut tenetur quis perferendis natus.', 'Labore in incidunt quos. Perspiciatis reiciendis consectetur modi et nihil eaque nobis porro. Est ut ut dolorum itaque molestiae.', 'Qui eum rerum qui. Velit aspernatur enim omnis officia enim. Aperiam labore adipisci reprehenderit aut. Nihil earum ratione voluptatem sint est.', '2014-10-24', 'at.pdf', 1, NULL, NULL, 1, 1, NULL, NULL, 1, 'active', NULL, '2023-11-22 04:47:37', NULL),
+(1, 1, 1, 'Reprehenderit et tempore autem aut tenetur quis perferendis natus.', 'Labore in incidunt quos. Perspiciatis reiciendis consectetur modi et nihil eaque nobis porro. Est ut ut dolorum itaque molestiae.', 'Qui eum rerum qui. Velit aspernatur enim omnis officia enim. Aperiam labore adipisci reprehenderit aut. Nihil earum ratione voluptatem sint est.', '2014-10-24', 'at.pdf', 1, NULL, NULL, 1, 1, NULL, NULL, 1, 'active', NULL, '2023-12-17 04:14:19', '2023-12-17 04:14:19'),
 (2, 1, 3, 'Soluta culpa officiis dolor ut.', 'Ea a perspiciatis ratione recusandae sint cupiditate aperiam. Quo porro quia et rem rem harum. Non nobis facilis repudiandae.', 'Sequi aut illo tenetur et ea sit. Consequuntur eum voluptatem ullam eius et cupiditate blanditiis. Consequatur atque labore culpa corrupti facere modi. Sint sapiente voluptates in esse adipisci similique. Nobis ut est hic blanditiis asperiores.', '2017-03-26', 'reprehenderit.pdf', 1, NULL, NULL, 1, 1, NULL, NULL, 1, 'active', NULL, '2023-12-14 03:23:21', NULL),
 (3, 5, 3, 'Omnis at iusto nostrum numquam sunt voluptatum est.', 'Delectus ut aspernatur dolorem itaque. Nihil consequuntur iusto placeat eos architecto. Similique occaecati accusantium nobis molestiae dolorum quia.', 'Sit id quis non ullam et molestiae fuga. Vel ut aut provident ipsam. Nesciunt odit corporis quisquam laborum et. Voluptas aut consequatur officiis odit amet.', '1977-12-12', 'aut.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
 (4, 2, 1, 'Tempore assumenda fuga porro quidem sunt quidem fuga.', 'Sit nihil delectus natus. Dignissimos et magni sint consequatur. Aliquam excepturi ab repellat atque ratione veniam ipsam neque.', 'Libero ad omnis doloremque rerum qui rerum. In in qui sunt autem vel.', '2023-04-17', 'dignissimos.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
 (5, 2, 1, 'Temporibus sit dignissimos eum praesentium tenetur earum possimus aut.', 'Et voluptas adipisci ea beatae aspernatur quae facere. Laborum non consequatur minima qui suscipit sint. Laudantium error mollitia natus eum qui.', 'Est aliquam eum voluptatibus est eveniet occaecati odio reiciendis. Omnis magni dignissimos nemo dolore deserunt repellendus. Aspernatur facilis natus laboriosam dolores natus. Saepe repellendus non voluptas dolorem eligendi quaerat soluta voluptatem.', '1980-04-10', 'similique.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'inactive', NULL, NULL, NULL),
 (6, 1, 1, 'demo', '<p>demo</p>', '<p>demo</p>', NULL, NULL, 1, NULL, NULL, 1, 1, NULL, '6570346cf370b202312684428', 1, 'active', '2023-12-06 02:44:28', '2023-12-06 03:03:13', NULL),
 (7, 1, 6, 'IT Management', '<p>IT Management</p>', '<p>IT Management</p>', NULL, '1701930462-IT Management.jpg', NULL, NULL, NULL, NULL, 1, NULL, '657165de431dd202312762742', 1, 'inactive', '2023-12-07 00:27:42', '2023-12-07 00:28:59', NULL),
-(8, 5, 6, 'E Commerce Website', '<p>E Commerce Website</p>', '<p>E Commerce Website</p>', NULL, '1701931140-E Commerce Website.jpg', 5, NULL, NULL, NULL, 5, NULL, '65716884cf73e20231276390', 1, 'active', '2023-12-07 00:39:00', '2023-12-07 00:44:27', NULL);
+(8, 5, 6, 'E Commerce Website', '<p>E Commerce Website</p>', '<p>E Commerce Website</p>', NULL, '1701931140-E Commerce Website.jpg', 5, NULL, NULL, 1, 5, NULL, '65716884cf73e20231276390', 1, 'active', '2023-12-07 00:39:00', '2023-12-26 02:32:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -494,15 +497,22 @@ CREATE TABLE `project_initiation_overviews` (
 --
 
 INSERT INTO `project_initiation_overviews` (`id`, `project_initiation_id`, `user_id`, `designation`, `comment`, `assigned_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'team leader', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:47:49'),
-(2, 1, 2, 'senior developer', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:47:59'),
-(3, 1, 6, 'junior developer', NULL, 1, NULL, '2023-11-22 04:47:37', '2023-11-22 04:48:09'),
+(1, 1, 1, 'team leader', NULL, 1, '2023-12-17 04:14:19', '2023-11-22 04:47:37', '2023-12-17 04:14:19'),
+(2, 1, 2, 'senior developer', NULL, 1, '2023-12-17 04:14:19', '2023-11-22 04:47:37', '2023-12-17 04:14:19'),
+(3, 1, 6, 'junior developer', NULL, 1, '2023-12-17 04:14:19', '2023-11-22 04:47:37', '2023-12-17 04:14:19'),
 (4, 6, 1, NULL, NULL, 1, NULL, '2023-12-06 03:03:13', '2023-12-06 03:03:13'),
 (5, 6, 2, NULL, NULL, 1, NULL, '2023-12-06 03:03:13', '2023-12-06 03:03:13'),
 (6, 6, 6, NULL, NULL, 1, '2023-12-07 01:09:28', '2023-12-06 03:03:13', '2023-12-07 01:09:28'),
 (7, 2, 1, 'project-manager', NULL, 1, NULL, '2023-12-14 03:23:21', '2023-12-14 05:42:23'),
 (8, 2, 2, 'team-leader', NULL, 1, NULL, '2023-12-14 03:23:21', '2023-12-16 02:41:04'),
-(9, 2, 5, 'junior-developer', NULL, 1, NULL, '2023-12-14 03:23:21', '2023-12-16 02:41:26');
+(9, 2, 5, 'junior-developer', NULL, 1, NULL, '2023-12-14 03:23:21', '2023-12-16 02:41:26'),
+(10, 8, 1, NULL, NULL, 1, NULL, '2023-12-26 02:32:21', '2023-12-26 02:32:21'),
+(11, 8, 6, NULL, NULL, 1, '2023-12-26 05:08:04', '2023-12-26 02:32:21', '2023-12-26 05:08:04'),
+(12, 8, 11, NULL, NULL, 1, '2023-12-26 05:07:55', '2023-12-26 02:32:21', '2023-12-26 05:07:55'),
+(13, 8, 22, NULL, NULL, 1, '2023-12-26 05:06:52', '2023-12-26 02:32:21', '2023-12-26 05:06:52'),
+(14, 8, 26, NULL, NULL, 1, '2023-12-26 05:04:09', '2023-12-26 02:32:21', '2023-12-26 05:04:09'),
+(15, 8, 29, NULL, NULL, 1, '2023-12-26 05:08:19', '2023-12-26 02:32:21', '2023-12-26 05:08:19'),
+(16, 8, 29, NULL, NULL, 1, NULL, '2023-12-26 05:22:58', '2023-12-26 05:22:58');
 
 -- --------------------------------------------------------
 
@@ -757,6 +767,34 @@ INSERT INTO `tasks` (`id`, `assigned_by`, `assigned_to`, `project_initiation_id`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `team_member_logs`
+--
+
+CREATE TABLE `team_member_logs` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `removed_by` bigint UNSIGNED NOT NULL,
+  `project_initiation_id` bigint UNSIGNED NOT NULL,
+  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reason` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `team_member_logs`
+--
+
+INSERT INTO `team_member_logs` (`id`, `user_id`, `removed_by`, `project_initiation_id`, `designation`, `reason`, `created_at`, `updated_at`) VALUES
+(1, 14, 1, 8, NULL, 'Tempore delectus r', '2023-12-26 05:04:09', '2023-12-26 05:04:09'),
+(2, 22, 1, 8, NULL, 'Aut similique perfer', '2023-12-26 05:06:52', '2023-12-26 05:06:52'),
+(3, 11, 1, 8, NULL, 'Et debitis est et vo', '2023-12-26 05:07:55', '2023-12-26 05:07:55'),
+(4, 6, 1, 8, NULL, 'Inventore fugiat de', '2023-12-26 05:08:04', '2023-12-26 05:08:04'),
+(5, 29, 1, 8, NULL, 'shaon', '2023-12-26 05:08:19', '2023-12-26 05:08:19');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `time_durations`
 --
 
@@ -778,7 +816,8 @@ CREATE TABLE `time_durations` (
 INSERT INTO `time_durations` (`id`, `user_id`, `project_initiation_id`, `starting_date`, `ending_date`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '1974-02-08', '1993-02-02', NULL, '2023-11-22 04:45:46', '2023-11-22 04:46:07'),
 (2, 1, 6, '2007-02-21', '2015-06-26', NULL, '2023-12-06 02:59:14', '2023-12-06 02:59:14'),
-(3, 1, 2, '2003-07-18', '1990-06-02', NULL, '2023-12-14 03:19:10', '2023-12-14 03:19:10');
+(3, 1, 2, '2003-07-18', '1990-06-02', NULL, '2023-12-14 03:19:10', '2023-12-14 03:19:10'),
+(4, 1, 8, '2014-04-28', '1973-01-06', NULL, '2023-12-26 02:31:46', '2023-12-26 02:31:46');
 
 -- --------------------------------------------------------
 
@@ -847,7 +886,8 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone_no`, `TFA`, `last
 (25, 'Brad Wiza', 'kozey.jessie', 'abraham28@example.org', '+1.313.377.2900', '2', '2023-08-23 06:52:27', 1, '612 Alexane Viaduct Apt. 705\nPort Aurelia, OK 64488', '77810449', 'Birth Certificate', NULL, NULL, NULL, NULL, 'asperiores.jpg', '1979-12-22', NULL, NULL, '2023-11-22 04:43:41', '$2y$10$tz8Dp4UqCIRLGpiHKtmO6uREiBNjNgxFbShdAeU/SYz8/pmpqji9e', 'vendor', NULL, NULL, '2023-11-22 04:43:41', '2023-11-22 04:43:41'),
 (26, 'Mellie Witting', 'hills.audie', 'tillman.mason@example.net', '775.351.3139', '1', '2023-02-16 14:19:54', 1, '122 McGlynn Cape Suite 519\nEast Isaias, ID 59621-5840', '18523991', 'Birth Certificate', NULL, NULL, NULL, NULL, 'odio.jpg', '1973-01-04', NULL, NULL, '2023-11-22 04:43:41', '$2y$10$Bo.mPpVMDtk3YqGe/OLUX.cnpd3RbxzGw1T/TcKT.b/0Fl0qVycLG', 'user', NULL, NULL, '2023-11-22 04:43:41', '2023-11-22 04:43:41'),
 (27, 'Saiful Islam', 'shaon001', 'vuzav@mailinator.com', '+1 (144) 483-9426', '0', NULL, 1, 'Perferendis et volup', '90', 'Birth Registration', NULL, NULL, NULL, NULL, '1701929905-Saiful Islam.jpg', '1987-07-05', 1, NULL, NULL, '$2y$10$OCFylkksAZtcxumngBtl8.GID1gRRpDSYhYzhBIwiL9x7SLMNiKh.', 'user', NULL, NULL, '2023-12-07 00:14:36', '2023-12-07 00:19:42'),
-(28, 'Saiful', 'Islam', 'tozagulepy@mailinator.com', '+1 (365) 149-6442', '0', NULL, 0, 'Eius recusandae Vit', '596', 'NID', NULL, NULL, NULL, NULL, '1701930076-Saiful.jpg', '1971-04-05', NULL, NULL, NULL, '$2y$10$OvdGaaFg1AY2t3IEKajT2upN0RLpcalWedr74lfXbkp5iq2Qczeba', 'vendor', NULL, NULL, '2023-12-07 00:21:16', '2023-12-07 00:21:16');
+(28, 'Saiful', 'Islam', 'tozagulepy@mailinator.com', '+1 (365) 149-6442', '0', NULL, 0, 'Eius recusandae Vit', '596', 'NID', NULL, NULL, NULL, NULL, '1701930076-Saiful.jpg', '1971-04-05', NULL, NULL, NULL, '$2y$10$OvdGaaFg1AY2t3IEKajT2upN0RLpcalWedr74lfXbkp5iq2Qczeba', 'vendor', NULL, NULL, '2023-12-07 00:21:16', '2023-12-07 00:21:16'),
+(29, 'Saiful Islam Shaon', 'shaon', 'shaon@gmail.com', '01670046492', '0', NULL, 1, 'Adipisci cillum temp', '283', 'Birth Registration', NULL, NULL, NULL, NULL, NULL, '1979-01-22', 1, NULL, NULL, '$2y$10$/ajDM5rFvTHtuw/ZS/cYJ.npbRyh78zMBHJZ7UgYHs22ZmcDqvIJO', 'user', NULL, NULL, '2023-12-26 02:29:00', '2023-12-26 02:30:12');
 
 -- --------------------------------------------------------
 
@@ -1062,6 +1102,14 @@ ALTER TABLE `tasks`
   ADD KEY `tasks_project_initiation_id_foreign` (`project_initiation_id`);
 
 --
+-- Indexes for table `team_member_logs`
+--
+ALTER TABLE `team_member_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `team_member_logs_user_id_foreign` (`user_id`),
+  ADD KEY `team_member_logs_project_initiation_id_foreign` (`project_initiation_id`);
+
+--
 -- Indexes for table `time_durations`
 --
 ALTER TABLE `time_durations`
@@ -1139,7 +1187,7 @@ ALTER TABLE `key_deliverables`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `monitoring_teams`
@@ -1181,7 +1229,7 @@ ALTER TABLE `project_initiations`
 -- AUTO_INCREMENT for table `project_initiation_overviews`
 --
 ALTER TABLE `project_initiation_overviews`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `project_notifications`
@@ -1238,16 +1286,22 @@ ALTER TABLE `tasks`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `team_member_logs`
+--
+ALTER TABLE `team_member_logs`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `time_durations`
 --
 ALTER TABLE `time_durations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `user_details`
@@ -1316,6 +1370,13 @@ ALTER TABLE `role_has_permissions`
 --
 ALTER TABLE `tasks`
   ADD CONSTRAINT `tasks_project_initiation_id_foreign` FOREIGN KEY (`project_initiation_id`) REFERENCES `project_initiations` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `team_member_logs`
+--
+ALTER TABLE `team_member_logs`
+  ADD CONSTRAINT `team_member_logs_project_initiation_id_foreign` FOREIGN KEY (`project_initiation_id`) REFERENCES `project_initiations` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `team_member_logs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `time_durations`

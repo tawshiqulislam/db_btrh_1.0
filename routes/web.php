@@ -13,6 +13,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\MyProjectController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserDetailController;
@@ -133,7 +134,7 @@ Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class
     Route::get('/project_initiation_search', [ProjectInitiationController::class, 'search'])->name('project_initiation.search'); // ajax search
     Route::post('/activate/{id}', [ProjectInitiationController::class, 'activate'])->name('project_initiation.activate'); //project activate
     Route::get('/inactivate/{id}', [ProjectInitiationController::class, 'inactivate'])->name('project_initiation.inactivate');
-    Route::get('/delete/overview/{id}', [ProjectInitiationController::class, 'delete_assigned_user'])->name('delete_assigned_user.delete');
+    Route::post('/delete/overview/{id}', [ProjectInitiationController::class, 'delete_assigned_user'])->name('delete_assigned_user.delete');
     Route::post('/set_time/{id}', [ProjectInitiationController::class, 'set_time'])->name('set_time.store');
     Route::post('/key_deliverable/{id}', [ProjectInitiationController::class, 'create_key_deliverable'])->name('key_deliverable.store');
     Route::get('/key_deliverable/delete/{id}', [ProjectInitiationController::class, 'key_deliverable_delete'])->name('key_deliverable.delete');
@@ -145,6 +146,12 @@ Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class
     Route::post('/send_for_disbursing_payment/{id}', [ProjectSubmissionController::class, 'send_for_disbursing_payment'])->name('send_for_disbursing_payment.store');
 
     //project submission
+
+});
+// admin my project routes
+Route::prefix('admin/my_project')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [MyProjectController::class, 'index'])->name('my_project.index'); //index page
+    Route::get('/info/{id}', [MyProjectController::class, 'info'])->name('my_project.info'); //info page
 
 });
 

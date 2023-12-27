@@ -71,7 +71,7 @@
                 </ul>
             </li>
         @endrole
-        <!--Role-->
+        <!--Permission-->
         @role(["super_admin"])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_permission" data-bs-toggle="collapse" href="{{ route("role.index") }}">
@@ -176,7 +176,7 @@
         @endrole
 
         <!--project initiation-->
-        @role(["super_admin", "admin", "stuff", "team_leader", "team_members"])
+        @role(["super_admin", "admin", "stuff", "team_leader"])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_project_initiation" data-bs-toggle="collapse" href="{{ route("project_initiation.index") }}">
                     <i class="fa-solid fa-arrow-right-to-bracket"></i><span>Project Initiation</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -195,6 +195,21 @@
                 </ul>
             </li>
         @endrole
+
+        <!--my project-->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#nav_my_project" data-bs-toggle="collapse" href="{{ route("my_project.index") }}">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i><span>My Project</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="nav_my_project" class="nav-content collapse " data-bs-parent="nav_my_project">
+                <li>
+                    <a class="nav-content-item" href="{{ route("my_project.index") }}">
+                        <i class="fa-regular fa-rectangle-list"></i><span>My Project List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
 
         <!--Project Submission-->
         @role(["super_admin", "admin"])
@@ -287,7 +302,7 @@
         @endrole
 
         <!--task-->
-        @role(["super_admin", "admin", "stuff", "team_leader", "team_members"])
+        @role(["super_admin", "admin", "stuff", "team_leader"])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_task" data-bs-toggle="collapse" href="{{ route("task.index") }}">
                     <i class="fa-solid fa-list-check"></i><span>Task</span><i class="bi bi-chevron-down ms-auto"></i>
