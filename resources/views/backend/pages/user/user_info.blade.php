@@ -46,15 +46,33 @@
                                             @else
                                                 <span class="dropdown">
                                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Role
+                                                        Roles & Permissions
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleAssignModal">Assign Role</a></li>
-                                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRoleDeleteModal">Remove Role</a></li>
+                                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRolePermissionAssignModal_{{ $user->id }}">Assign Role &
+                                                                Permission</a></li>
+                                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userRolePermissionDeleteModal_{{ $user->id }}">Remove Role &
+                                                                Permission</a></li>
                                                     </ul>
                                                 </span>
                                             @endif
                                         @endif
+                                        {{-- permission --}}
+                                        {{-- <span class="dropdown">
+
+                                            <button class="btn btn-danger text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Permission
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                                <li> <button class="btn btn-success btn-sm dropdown-item" data-bs-toggle="modal" data-bs-target="#permissionModal_{{ $user->id }}">
+                                                        Give Permission</button></li>
+                                                <li> <button class="btn btn-success btn-sm dropdown-item" data-bs-toggle="modal" data-bs-target="#remove_permissionModal_{{ $user->id }}">
+                                                        Remove Permission</button></li>
+
+                                            </ul>
+                                        </span> --}}
                                         <span class="dropdown">
                                             <button class="btn btn-info text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Profile Picture
@@ -277,9 +295,30 @@
                                         Roles
                                     </div>
                                     <div class="col-7">
-                                        : @foreach ($user->roles as $role)
-                                            <span class="badge bg-danger rounded-pill">{{ $role->name ?? "" }}</span>
-                                        @endforeach
+                                        @if (count($user->roles) > 0)
+                                            : @foreach ($user->roles as $role)
+                                                <span class="badge bg-danger rounded-pill">{{ $role->name ?? "" }}</span>
+                                            @endforeach
+                                        @else
+                                            : <span>No roles assigned yet!</span>
+                                        @endif
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Permissions
+                                    </div>
+                                    <div class="col-7">
+                                        @if (count($user->permissions) > 0)
+                                            : @foreach ($user->permissions as $permission)
+                                                <span class="badge bg-danger rounded-pill">{{ $permission->name ?? "" }}</span>
+                                            @endforeach
+                                        @else
+                                            : <span>No permissions assigned yet!</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -338,7 +377,9 @@
     @include("backend.pages.user.user_document_upload_modal")
     @include("backend.pages.user.user_document_edit_modal")
     @include("backend.pages.user.user_document_delete_confirmation_modal")
-    @include("backend.pages.user.user_role_assign_modal")
-    @include("backend.pages.user.user_role_delete_modal")
+    @include("backend.pages.user.user_role_permission_assign_modal")
+    @include("backend.pages.user.user_role_permission_delete_modal")
+    {{-- @include("backend.pages.user.user_give_permission_modal")
+    @include("backend.pages.user.user_remove_permission_modal") --}}
 
 @endsection

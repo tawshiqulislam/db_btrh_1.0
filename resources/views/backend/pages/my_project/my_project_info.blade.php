@@ -3,10 +3,10 @@
 
     <!-- Page Title -->
     <div class="pagetitle">
-        <h1>Project Initiation</h1>
+        <h1>My Project</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route("project_initiation.index") }}">Project Initiation</a></li>
+                <li class="breadcrumb-item"><a href="{{ route("my_project.index") }}">My Project</a></li>
                 <li class="breadcrumb-item active">Info</li>
             </ol>
         </nav>
@@ -14,7 +14,7 @@
     </div>
     <!-- main container -->
     <div class="container">
-        <a href="{{ route("project_initiation.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
+        <a href="{{ route("my_project_info.index") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-backward"></i>
             Back</a>
         <div class="row">
 
@@ -292,10 +292,7 @@
                                                             <a target="_blank" href="{{ route("user.info", $project_initiation_overview->user->id) }}" class=" btn btn-info text-white btn-sm"><i
                                                                     class="fa-solid fa-eye"></i>
                                                                 View User</a>
-                                                            {{-- <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
-                                                                class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
-                                                                Remove</a> --}}
-                                                            <a type="button" data-bs-toggle="modal" data-bs-target="#remove_team_member_Modal_{{ $project_initiation_overview->id }}"
+                                                            <a href="{{ route("delete_assigned_user.delete", $project_initiation_overview->id) }}" onclick="return confirm('Are you sure?')"
                                                                 class=" btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>
                                                                 Remove</a>
                                                             @php
@@ -479,7 +476,5 @@
         @include("backend.pages.user.user_role_permission_assign_modal", ["user" => $project_initiation_overview->user])
         @include("backend.pages.user.user_role_permission_delete_modal", ["user" => $project_initiation_overview->user])
     @endforeach
-
-    @include("backend.pages.project_initiation.project_initiation_remove_team_member_modal")
 
 @endsection

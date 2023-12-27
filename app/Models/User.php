@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\AdminList;
 use App\Models\Department;
 use App\Models\UserDetail;
+use App\Models\TeamMemberLog;
 use App\Models\MonitoringTeam;
 use App\Models\SignOffProject;
 use App\Models\ProjectSubmission;
@@ -169,6 +170,14 @@ class User extends Authenticatable
     public function project_notifications()
     {
         return $this->hasMany(ProjectNotification::class);
+    }
+    public function team_member_logs()
+    {
+        return $this->hasMany(TeamMemberLog::class);
+    }
+    public function removed_by_user_team_member_logs()
+    {
+        return $this->hasMany(TeamMemberLog::class, 'removed_by');
     }
     // //role creation
     // const SUPER_ADMIN = 'super_admin';

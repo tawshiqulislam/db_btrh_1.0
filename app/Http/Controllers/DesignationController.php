@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Designation;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use App\Http\Requests\StoreDesignationRequest;
 use App\Http\Requests\UpdateDesignationRequest;
-use App\Models\Designation;
 
 class DesignationController extends Controller
 {
     public function index()
     {
         $designations = Designation::paginate(10);
+        $permissions = Permission::all();
 
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
-        return view('backend.pages.designation.designation_index', compact('designations', 'sl'));
+        return view('backend.pages.designation.designation_index', compact('designations', 'sl', 'permissions'));
     }
 
     public function create()
@@ -54,5 +57,30 @@ class DesignationController extends Controller
         ]);
         toastr()->success('Designation updated successfully!', 'Congrats');
         return redirect()->route('designation.index');
+    }
+
+    public function info($id)
+    {
+        $permissions = Permission::all();
+        $designation = Designation::find($id);
+        return view('backend.pages.designation.designation_info', compact('designation', 'permissions'));
+    }
+
+    public function designation_give_permission(Request $request, $id)
+    {
+        $designation = Designation::find($id);
+
+        // foreach ($request->permissions as $permission) {
+        $designation->givePermissionTo($request->permissions);
+        // }
+
+        toastr()->success('Permission assigned successfully!', 'Congrats');
+        return redirect()->back();
+    }
+    public function designation_remove_permission(Request $request, $id)
+    {
+        $designation = Designation::find($id);
+        $designation->revokePermissionTo($request->permissions);
+        return redirect()->back();
     }
 }

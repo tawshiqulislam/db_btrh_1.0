@@ -13,7 +13,9 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\MyProjectController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserDetailController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\AuthenticationController;
@@ -24,8 +26,8 @@ use App\Http\Controllers\ProjectDocumentController;
 use App\Http\Controllers\SecurityQuestionController;
 use App\Http\Controllers\ProjectInitiationController;
 use App\Http\Controllers\ProjectSubmissionController;
-use App\Http\Controllers\DisburseProjectPaymentController;
 use App\Http\Controllers\ProjectNotificationController;
+use App\Http\Controllers\DisburseProjectPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,13 +72,15 @@ Route::prefix('admin/user')->middleware(['auth', isVerified::class])->group(func
     Route::get('/info/{id}', [UserController::class, 'info'])->name('user.info');
     Route::get('/remove_profile_picture/{id}', [UserController::class, 'remove_profile_picture'])->name('user.remove_profile_picture');
     Route::post('/update_profile_picture/{id}', [UserController::class, 'update_profile_picture'])->name('user.update_profile_picture');
-    Route::post('/role_assign/{id}', [UserController::class, 'role_assign'])->name('user.role_assign');
-    Route::post('/role_delete/{id}', [UserController::class, 'role_delete'])->name('user.role_delete');
+    Route::post('/role_permission_assign/{id}', [UserController::class, 'role_permission_assign'])->name('role_permission_assign.store');
+    Route::post('/role_permission_delete/{id}', [UserController::class, 'role_permission_delete'])->name('role_permission_delete.delete');
     Route::get('/verified/{id}', [UserController::class, 'user_verified'])->name('user.verified');
     Route::get('/unverified/{id}', [UserController::class, 'user_unverified'])->name('user.unverified');
+    // Route::post('/give_permission/{id}', [UserController::class, 'user_give_permission'])->name('user_give_permission.store');
+    // Route::post('/remove_permission/{id}', [UserController::class, 'user_remove_permission'])->name('user_remove_permission.delete');
 });
 //admin vendor routes
-//admin user routes
+
 Route::prefix('admin/vendor')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [VendorController::class, 'index'])->name('vendor.index');
     Route::get('/create', [VendorController::class, 'create'])->name('vendor.create');
@@ -130,7 +134,7 @@ Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class
     Route::get('/project_initiation_search', [ProjectInitiationController::class, 'search'])->name('project_initiation.search'); // ajax search
     Route::post('/activate/{id}', [ProjectInitiationController::class, 'activate'])->name('project_initiation.activate'); //project activate
     Route::get('/inactivate/{id}', [ProjectInitiationController::class, 'inactivate'])->name('project_initiation.inactivate');
-    Route::get('/delete/overview/{id}', [ProjectInitiationController::class, 'delete_assigned_user'])->name('delete_assigned_user.delete');
+    Route::post('/delete/overview/{id}', [ProjectInitiationController::class, 'delete_assigned_user'])->name('delete_assigned_user.delete');
     Route::post('/set_time/{id}', [ProjectInitiationController::class, 'set_time'])->name('set_time.store');
     Route::post('/key_deliverable/{id}', [ProjectInitiationController::class, 'create_key_deliverable'])->name('key_deliverable.store');
     Route::get('/key_deliverable/delete/{id}', [ProjectInitiationController::class, 'key_deliverable_delete'])->name('key_deliverable.delete');
@@ -142,6 +146,12 @@ Route::prefix('admin/project_initiation')->middleware(['auth', isVerified::class
     Route::post('/send_for_disbursing_payment/{id}', [ProjectSubmissionController::class, 'send_for_disbursing_payment'])->name('send_for_disbursing_payment.store');
 
     //project submission
+
+});
+// admin my project routes
+Route::prefix('admin/my_project')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [MyProjectController::class, 'index'])->name('my_project.index'); //index page
+    Route::get('/info/{id}', [MyProjectController::class, 'info'])->name('my_project.info'); //info page
 
 });
 
@@ -192,6 +202,16 @@ Route::prefix('admin/role')->middleware(['auth', isVerified::class])->group(func
     Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update');
 });
 
+//admin permission routes
+Route::prefix('admin/permission')->middleware(['auth', isVerified::class])->group(function () {
+    Route::get('/index', [PermissionController::class, 'index'])->name('permission.index');
+    Route::get('/create', [PermissionController::class, 'create'])->name('permission.create');
+    Route::post('/store', [PermissionController::class, 'store'])->name('permission.store');
+    Route::get('/delete/{id}', [PermissionController::class, 'delete'])->name('permission.delete');
+    Route::get('/edit/{id}', [PermissionController::class, 'edit'])->name('permission.edit');
+    Route::post('/update/{id}', [PermissionController::class, 'update'])->name('permission.update');
+});
+
 //admin task routes
 Route::prefix('admin/task')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [TaskController::class, 'index'])->name('task.index');
@@ -219,6 +239,7 @@ Route::prefix('admin/designation')->middleware(['auth', isVerified::class])->gro
     Route::get('/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
     Route::get('/edit/{id}', [DesignationController::class, 'edit'])->name('designation.edit');
     Route::post('/update/{id}', [DesignationController::class, 'update'])->name('designation.update');
+    Route::get('/info/{id}', [DesignationController::class, 'info'])->name('designation.info');
 });
 
 //admin project submission routes
@@ -248,7 +269,7 @@ Route::prefix('admin/invoice')->middleware(['auth', isVerified::class])->group(f
 });
 
 
-//admin designation routes
+//admin monitoring routes
 Route::prefix('admin/monitoring_team')->middleware(['auth', isVerified::class])->group(function () {
     Route::get('/index', [MonitoringTeamController::class, 'index'])->name('monitoring_team.index');
     Route::get('/create', [MonitoringTeamController::class, 'create'])->name('monitoring_team.create');

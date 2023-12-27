@@ -104,4 +104,8 @@ class ProjectInitiation extends Model
     {
         return $this->hasManay(MonitoringTeam::class);
     }
+    public function team_member_logs()
+    {
+        return $this->hasManay(TeamMemberLog::class);
+    }
 }
