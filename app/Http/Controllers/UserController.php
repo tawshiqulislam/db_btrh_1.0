@@ -21,6 +21,7 @@ class UserController extends Controller
 
     public function index()
     {
+
         $users = User::where('user_type', 'user')->paginate(10);
 
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
@@ -168,6 +169,9 @@ class UserController extends Controller
         toastr()->error('Profile picture deleted!', 'Delete');
         return redirect()->back();
     }
+    // public function user_search(Request 4r)
+    // {
+    // }
     //upload profile picture
     public function update_profile_picture(Request $request, $id)
     {
@@ -269,6 +273,22 @@ class UserController extends Controller
     //     toastr()->error('Permission removed!', 'Alert!');
     //     return redirect()->back();
     // }
+
+    //search method using ajax
+    public function user_search(Request $request)
+    {
+        $users = User::where('name', 'like', '%' . $request->search_string . '%')
+            ->orWhere('username', 'like', '%' . $request->search_string . '%')
+            ->orderBy('id', 'desc')->get();
+        $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
+        if ($users->count() >= 1) {
+            return view('backend.pages.user.user_search', compact('users', 'sl'))->render();
+        } else {
+            return response()->json([
+                'status' => 'nothing_found'
+            ]);
+        }
+    }
     //image function
 
     public function uploadImage($title, $image)

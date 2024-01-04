@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Models\MonitoringTeam;
 use App\Http\Middleware\isVerified;
 use Illuminate\Support\Facades\Route;
@@ -76,6 +77,9 @@ Route::prefix('admin/user')->middleware(['auth', isVerified::class])->group(func
     Route::post('/role_permission_delete/{id}', [UserController::class, 'role_permission_delete'])->name('role_permission_delete.delete');
     Route::get('/verified/{id}', [UserController::class, 'user_verified'])->name('user.verified');
     Route::get('/unverified/{id}', [UserController::class, 'user_unverified'])->name('user.unverified');
+    Route::get('/search', [UserController::class, 'user_search'])->name('user.search');
+
+
     // Route::post('/give_permission/{id}', [UserController::class, 'user_give_permission'])->name('user_give_permission.store');
     // Route::post('/remove_permission/{id}', [UserController::class, 'user_remove_permission'])->name('user_remove_permission.delete');
 });
