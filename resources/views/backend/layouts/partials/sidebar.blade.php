@@ -93,7 +93,7 @@
         @endrole
 
         <!--user detail-->
-        @role(["super_admin", "admin"])
+        {{-- @role(["super_admin", "admin"])
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#nav_user_detail" data-bs-toggle="collapse" href="{{ route("user_detail.index") }}">
                     <i class="bi bi-person-lines-fill"></i><span>User Detail</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -112,7 +112,7 @@
                     </li>
                 </ul>
             </li>
-        @endrole
+        @endrole --}}
 
         {{-- <!--security question-->
         <li class="nav-item">
@@ -323,20 +323,19 @@
         @endrole
 
         <!--my task-->
-        @role(["super_admin", "admin", "stuff", "team_leader", "team_members"])
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#nav_my_task" data-bs-toggle="collapse" href="{{ route("my_task.index") }}">
-                    <i class="fa-solid fa-bars-progress"></i><span>My Task</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="nav_my_task" class="nav-content collapse " data-bs-parent="nav_my_task">
-                    <li>
-                        <a class="nav-content-item" href="{{ route("my_task.index") }}">
-                            <i class="fa-regular fa-rectangle-list"></i><span>My Task List</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        @endrole
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#nav_my_task" data-bs-toggle="collapse" href="{{ route("my_task.index") }}">
+                <i class="fa-solid fa-bars-progress"></i><span>My Task</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="nav_my_task" class="nav-content collapse " data-bs-parent="nav_my_task">
+                <li>
+                    <a class="nav-content-item" href="{{ route("my_task.index") }}">
+                        <i class="fa-regular fa-rectangle-list"></i><span>My Task List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
 
         <!--designation-->
         @role(["super_admin", "admin"])
