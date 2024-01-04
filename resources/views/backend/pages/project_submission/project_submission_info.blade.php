@@ -45,7 +45,7 @@
                     </div>
                     <div class="card-body mt-2">
                         <p><strong>Project Description: </strong>{{ $project_submission->description ?? "" }}</p>
-                        <p><strong>Comment: </strong>{{ $project_submission->comment ?? "" }}</p>
+                        <p><strong>Note: </strong>{{ $project_submission->comment ?? "" }}</p>
                         <p><strong>File: </strong><a target="_blank" href="{{ asset("storage/project_submission/" . $project_submission->file) }}">Project File</a></p>
                         <p><strong>Project URL: </strong>{{ $project_submission->link ?? "" }}</p>
                         <p><strong>Status: </strong>{{ $project_submission->status ?? "" }}</p>
