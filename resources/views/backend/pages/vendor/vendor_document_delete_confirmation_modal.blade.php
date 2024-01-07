@@ -1,4 +1,4 @@
-@foreach ($vendor->documents as $document)
+@foreach ($documents as $document)
     <!-- Modal -->
     <div class="modal fade" id="documentDeleteModal_{{ $document->id }}" tabindex="-1" aria-labelledby="documentDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">

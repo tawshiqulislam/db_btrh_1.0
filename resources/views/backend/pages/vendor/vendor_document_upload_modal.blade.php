@@ -22,6 +22,7 @@
                                 });
                             </script>
                         @endif
+                        <input type="text" name="vendor" value="vendor" hidden>
                         <input type="file" name="document" class="form-control mb-3" id="document" required>
                     </div>
                     {{-- <a type="button" class="btn btn-primary btn-sm" id="add-more">Add More</a>

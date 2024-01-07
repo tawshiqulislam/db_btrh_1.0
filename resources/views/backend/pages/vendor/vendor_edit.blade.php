@@ -17,66 +17,75 @@
             @csrf
             <div class="row g-3">
                 <div class="col-md-6">
+                    <!-- Company Name -->
                     <div class="form-group">
-                        <label for="userName">Name:</label>
-                        <input value="{{ $vendor->name }}" placeholder="Enter vendor name" type="text" class="form-control" id="userName" name="name" required>
-                        @if ($errors->has("name"))
-                            <p class="text-danger">{{ $errors->first("name") }}</p>
-                        @endif
+                        <label for="company_name">Company Name</label>
+                        <input value="{{ $vendor->company_name }}" type="text" class="form-control" id="company_name" name="company_name" placeholder='Enter company name' required>
                     </div>
+                    @if ($errors->has("company_name"))
+                        <p class="text-danger">{{ $errors->first("company_name") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
+                    <!-- Company Address -->
                     <div class="form-group">
-                        <label for="user_name">Username:</label>
-                        <input value="{{ $vendor->username }}" placeholder="Enter username" type="text" class="form-control" id="user_name" name="username" required>
-                        @if ($errors->has("username"))
-                            <p class="text-danger">{{ $errors->first("username") }}</p>
-                        @endif
+                        <label for="company_address">Company Address</label>
+                        <textarea class="form-control" id="company_address" name="company_address" rows="3" required>{{ $vendor->company_address }}</textarea>
                     </div>
+                    @if ($errors->has("company_address"))
+                        <p class="text-danger">{{ $errors->first("company_address") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
+                    <!-- Company Email Address -->
                     <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input value="{{ $vendor->email }}" placeholder="Enter vendors email" type="email" class="form-control" id="email" name="email" required>
-                        @if ($errors->has("email"))
-                            <p class="text-danger">{{ $errors->first("email") }}</p>
-                        @endif
+                        <label for="company_email_address">Company Email Address</label>
+                        <input value="{{ $vendor->company_email_address }}" type="email" class="form-control" id="company_email_address" name="company_email_address" required>
                     </div>
+                    @if ($errors->has("company_email_address"))
+                        <p class="text-danger">{{ $errors->first("company_email_address") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
+                    <!-- Key Contact Person Name -->
                     <div class="form-group">
-                        <label for="phone_no">Phone Number:</label>
-                        <input value="{{ $vendor->phone_no }}" placeholder="Enter vendors phone number" type="text" class="form-control" id="phone_no" name="phone_no" required>
-                        @if ($errors->has("phone_no"))
-                            <p class="text-danger">{{ $errors->first("phone_no") }}</p>
-                        @endif
+                        <label for="company_key_contact_person_name">Key Contact Person Name</label>
+                        <input value="{{ $vendor->company_key_contact_person_name }}" type="text" class="form-control" id="company_key_contact_person_name" name="company_key_contact_person_name"
+                            required>
                     </div>
+                    @if ($errors->has("company_key_contact_person_name"))
+                        <p class="text-danger">{{ $errors->first("company_key_contact_person_name") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-12">
+                    <!-- Designation of Key Contact Person -->
                     <div class="form-group">
-                        <label for="address">Address:</label>
-                        <input value="{{ $vendor->address }}" placeholder="Enter address" type="text" class="form-control" id="address" name="address" required>
-                        @if ($errors->has("address"))
-                            <p class="text-danger">{{ $errors->first("address") }}</p>
-                        @endif
+                        <label for="designation_of_key_contact_person">Designation of Key Contact Person</label>
+                        <input value="{{ $vendor->designation_of_key_contact_person }}" type="text" class="form-control" id="designation_of_key_contact_person" name="designation_of_key_contact_person"
+                            required>
                     </div>
+                    @if ($errors->has("designation_of_key_contact_person"))
+                        <p class="text-danger">{{ $errors->first("designation_of_key_contact_person") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
+                    <!-- Key Contact Person Email Address -->
                     <div class="form-group">
-                        <label for="id_number">ID Number(Birth Registration/NID/Passport):</label>
-                        <input value="{{ $vendor->id_number }}" placeholder="Enter ID number" type="text" class="form-control" id="id_number" name="id_number" required>
-                        @if ($errors->has("id_number"))
-                            <p class="text-danger">{{ $errors->first("id_number") }}</p>
-                        @endif
+                        <label for="key_contact_person_email_address">Key Contact Person Email Address</label>
+                        <input value="{{ $vendor->key_contact_person_email_address }}" type="email" class="form-control" id="key_contact_person_email_address" name="key_contact_person_email_address"
+                            required>
                     </div>
+                    @if ($errors->has("key_contact_person_email_address"))
+                        <p class="text-danger">{{ $errors->first("key_contact_person_email_address") }}</p>
+                    @endif
                 </div>
 
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="id_type">ID Type(Birth Registration/NID/Passport):</label>
                         <select name="id_type" id="id_type" class="form-control" required>
@@ -90,8 +99,17 @@
                             <p class="text-danger">{{ $errors->first("id_type") }}</p>
                         @endif
                     </div>
+                </div> --}}
+                <div class="col-md-6">
+                    <!-- VAT BIN Number -->
+                    <div class="form-group">
+                        <label for="vat_bin_no">VAT/BIN Number</label>
+                        <input value="{{ $vendor->vat_bin_no }}" type="text" class="form-control" id="vat_bin_no" name="vat_bin_no">
+                    </div>
+                    @if ($errors->has("vat_bin_no"))
+                        <p class="text-danger">{{ $errors->first("vat_bin_no") }}</p>
+                    @endif
                 </div>
-
                 {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="sq_no_1">Security Question 1:</label>
@@ -130,21 +148,21 @@
                     </div>
                 </div> --}}
                 <!--current picture-->
-                <div class="col-md-12" id="current_image">
+                {{-- <div class="col-md-12" id="current_image">
                     <label for="current_image">Current Image:</label><br>
                     @if ($vendor->pro_pic)
                         <img style="width: 100px" class="border border-1 p-1" src="{{ asset("storage/vendor/" . $vendor->pro_pic) }}" alt="{{ $vendor->name }}">
                     @else
                         <img style="width: 100px" class="border border-1 p-1" src="{{ asset("image/no_image.png") }}" alt="no image">
                     @endif
-                </div>
+                </div> --}}
                 <!-- uploaded image (hidden by default) -->
-                <div class="col-md-12" id="uploaded_image" style="display: none;">
+                {{-- <div class="col-md-12" id="uploaded_image" style="display: none;">
                     <label for="uploaded_image">Uploaded Image:</label><br>
                     <img style="width: 100px" class="border border-1 p-1" id="uploaded_image_display" src="" alt="">
-                </div>
+                </div> --}}
                 <!--profile picture-->
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="pro_pic">Profile Picture:</label>
                         <input type="file" class="form-control" id="pro_pic" name="pro_pic">
@@ -152,13 +170,17 @@
                             <p class="text-danger">{{ $errors->first("pro_pic") }}</p>
                         @endif
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="col-md-6">
+                    <!-- TIN Number -->
                     <div class="form-group">
-                        <label for="date_of_birth">Date of Birth:</label>
-                        <input value="{{ $vendor->date_of_birth }}" type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                        <label for="tin_no">TIN Number</label>
+                        <input value="{{ $vendor->tin_no }}" type="text" class="form-control" id="tin_no" name="tin_no">
                     </div>
+                    @if ($errors->has("tin_no"))
+                        <p class="text-danger">{{ $errors->first("tin_no") }}</p>
+                    @endif
                 </div>
 
                 {{-- <div class="col-md-12">

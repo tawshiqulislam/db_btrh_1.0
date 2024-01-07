@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\VendorStoreRequest;
 use App\Http\Requests\UpdateVendorRequest;
+use App\Http\Requests\VendorUpdateRequest;
 
 class VendorController extends Controller
 {
@@ -51,6 +52,7 @@ class VendorController extends Controller
 
         // $data['user_type'] = 'vendor';
         // $data['password'] = bcrypt('vendorpassword');
+        $data['user_type'] = 'vendor';
         $vendor = Vendor::create($data);
         if ($request->document) {
 
@@ -72,7 +74,7 @@ class VendorController extends Controller
 
     public function delete($id)
     {
-        $vendor =  User::where('id', $id)->first();
+        $vendor =  Vendor::where('id', $id)->first();
         // $user_documents = Document::where('id', $id)->get();
 
 
@@ -80,7 +82,7 @@ class VendorController extends Controller
         //     $this->unlink($vendor->pro_pic);
         // }
 
-        $documents = Document::where('user_id', $id)->get();
+        $documents = Document::where('vendor_id', $id)->get();
         if ($documents) {
             foreach ($documents as $document) {
                 // FileDocuments::unlinkDocument($document->document);
@@ -99,9 +101,9 @@ class VendorController extends Controller
         $security_questions = SecurityQuestion::all();
         return view('backend.pages.vendor.vendor_edit', compact('vendor', 'security_questions'));
     }
-    public function update(UpdateVendorRequest $request, $id)
+    public function update(VendorUpdateRequest $request, $id)
     {
-        $vendor = User::find($id);
+        $vendor = Vendor::find($id);
         $data = $request->except('_token');
         $newData = [];
 
@@ -116,28 +118,28 @@ class VendorController extends Controller
             }
         }
 
-        if ($request->password === null) {
-            $data['password'] = $vendor->password;
-        }
+        // if ($request->password === null) {
+        //     $data['password'] = $vendor->password;
+        // }
 
-        if ($request->hasFile('pro_pic')) {
-            // Handle profile picture upload and update
-            $this->unlink($vendor->pro_pic);
-            $data['pro_pic'] = $this->uploadImage($request->name, $request->pro_pic);
-        }
+        // if ($request->hasFile('pro_pic')) {
+        //     // Handle profile picture upload and update
+        //     $this->unlink($vendor->pro_pic);
+        //     $data['pro_pic'] = $this->uploadImage($request->name, $request->pro_pic);
+        // }
 
         $vendor->update($data);
 
         // Update the vendor's document (if necessary)
         if (!empty($newData)) {
-            $document = Document::where('user_id', $id)->first();
+            $document = Document::where('vendor_id', $id)->first();
             if ($document) {
                 FileDocuments::unlinkDocument($document->document);
                 $document->update($newData);
             } else {
                 // If the document record doesn't exist, create a new one
                 Document::create([
-                    'user_id' => $id,
+                    'vendor_id' => $id,
                     'document' => $newData['document'],
                 ]);
             }
@@ -150,8 +152,9 @@ class VendorController extends Controller
     public function info($id)
     {
         $vendor = Vendor::find($id);
+        $documents = Document::where('vendor_id', $id)->get();
         // $roles = Role::all();
-        return view('backend.pages.vendor.vendor_info', compact('vendor'));
+        return view('backend.pages.vendor.vendor_info', compact('vendor', 'documents'));
     }
 
     //remove profile picture

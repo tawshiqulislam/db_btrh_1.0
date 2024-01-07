@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="row p-2">
                         <!--cheking profile picture is present or not-->
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             @if ($vendor->pro_pic)
                                 <div class="row g-2">
                                     <div class="col-md-12">
@@ -37,7 +37,7 @@
 
                                 </div>
                             @endif
-                        </div>
+                        </div> --}}
                         <div class="col-md-12">
                             <div class="card-header float-end">
                                 <div class="row">
@@ -56,7 +56,7 @@
                                                 </span>
                                             @endif
                                         @endif --}}
-                                        <span class="dropdown">
+                                        {{-- <span class="dropdown">
                                             <button class="btn btn-info text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Profile Picture
                                             </button>
@@ -68,9 +68,9 @@
                                                     <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal">Upload Picture</a></li>
                                                 @endif
                                             </ul>
-                                        </span>
+                                        </span> --}}
 
-                                        <span class="dropdown">
+                                        {{-- <span class="dropdown">
                                             <button class="btn btn-dark text-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Vendor Verification
                                             </button>
@@ -87,7 +87,7 @@
                                                     </li>
                                                 @endif
                                             </ul>
-                                        </span>
+                                        </span> --}}
                                         {{-- @if ($vendor->pro_pic)
                                             <button type="button" data-bs-toggle="modal" data-bs-target="#profilePictureUpdateModal" class="btn btn-sm btn-warning text-white "><i
                                                     class="fa-solid fa-image"></i>
@@ -293,7 +293,7 @@
 
                                     <div class="col-12">
 
-                                        @if (!$vendor->documents->count() == 0)
+                                        @if ($documents)
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
@@ -303,14 +303,13 @@
                                                 </thead>
                                                 <tbody>
 
-                                                    @foreach ($vendor->documents as $document)
+                                                    @foreach ($documents as $document)
                                                         <tr>
                                                             <td><a target="_blank" href="{{ asset("storage/document/" . $document->document) }}">{{ $document->document ?? "" }}</a></td>
                                                             <td>
                                                                 <a target="_blank" href="{{ asset("storage/document/" . $document->document) }}" class="btn btn-sm btn-primary text-white"><i
                                                                         class="fa-solid fa-eye"></i> View</a>
-                                                                <a data-bs-toggle="modal" data-bs-target="#updateDocumentModal_{{ $document->id }}"
-                                                                    class="btn btn-warning text-white btn-sm me-1 editBtn">
+                                                                <a data-bs-toggle="modal" data-bs-target="#updateDocumentModal_{{ $document->id }}" class="btn btn-warning text-white btn-sm me-1 editBtn">
                                                                     <i class="fa-solid fa-file-pen"></i> Update
                                                                 </a>
 
@@ -340,6 +339,6 @@
     @include("backend.pages.vendor.vendor_document_upload_modal")
     @include("backend.pages.vendor.vendor_document_edit_modal")
     @include("backend.pages.vendor.vendor_document_delete_confirmation_modal")
-    @include("backend.pages.vendor.vendor_role_assign_modal")
-    @include("backend.pages.vendor.vendor_role_delete_modal")
+    {{-- @include("backend.pages.vendor.vendor_role_assign_modal")
+    @include("backend.pages.vendor.vendor_role_delete_modal") --}}
 @endsection

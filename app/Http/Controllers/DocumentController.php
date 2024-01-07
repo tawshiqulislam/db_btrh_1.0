@@ -11,31 +11,26 @@ class DocumentController extends Controller
     public function store(Request $request, $id)
     {
 
-        //working validation
-        // $request->validate([
-        //     'title' => [Rule::unique('documents,keyword')->where(function ($query) {
-        //         return $query->where('user_id', '!=', auth()->id());
-        //     })],
-        // ]);
 
-
-        // foreach ($request->file('documents') as $document) {
-        //     if ($document) {
-        //         $uuid = Str::uuid();
-        //         $uploadedDocument = $this->uploadImage($uuid, $document);
-        //         Document::create([
-        //             'user_id' => $id,
-        //             'document' => $uploadedDocument,
-        //         ]);
-        //     }
-        // }
         $uploadedDocument = FileDocuments::uploadDocument($request->keyword, $request->document);
-        Document::create([
-            'user_id' => $id,
-            'keyword' => $request->keyword,
-            'document' => $uploadedDocument,
-        ]);
-        toastr()->success('Documents uploaded successfully!', 'Congrats');
+        if ($request->vendor == 'vendor') {
+            Document::create([
+                'vendor_id' => $id,
+                'keyword' => $request->keyword,
+                'document' => $uploadedDocument,
+            ]);
+            toastr()->success('Vendor documents uploaded successfully!', 'Congrats');
+        }
+
+        if ($request->user == 'user') {
+            Document::create([
+                'user_id' => $id,
+                'keyword' => $request->keyword,
+                'document' => $uploadedDocument,
+            ]);
+            toastr()->success('User documents uploaded successfully!', 'Congrats');
+        }
+
         return redirect()->back();
     }
 
