@@ -303,9 +303,14 @@
                                                                     ->where("assigned_to", $project_initiation_overview->user->id)
                                                                     ->first();
                                                             @endphp
-                                                            @if ($project_initiation_overview->user->assigned_to_tasks->count() > 0 && $project_initiation_overview->project_initiation->tasks->count() > 0)
+
+                                                            @if ($task)
+                                                                {{-- @if ($project_initiation_overview->user->assigned_to_tasks->count() > 0 && $project_initiation_overview->project_initiation->tasks->count() > 0) --}}
                                                                 <a href="{{ route("task.info", $task->id) }}" class="btn btn-primary btn-sm text-white"><i class="fa-solid fa-eye"></i>
                                                                     View Task</a>
+                                                                {{-- @else
+
+                                                                @endif --}}
                                                             @else
                                                                 <a class="text-white btn btn-sm btn-warning" type="button" data-bs-toggle="modal"
                                                                     data-bs-target="#project_initiation_user_assign_task_Modal_{{ $project_initiation_overview->id }}"><i class="fa-solid fa-thumbtack"></i>

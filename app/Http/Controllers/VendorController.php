@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\FileDocuments;
-use App\Http\Requests\StoreVendorRequest;
-use App\Http\Requests\UpdateVendorRequest;
-use App\Models\Document;
-use App\Models\SecurityQuestion;
 use App\Models\User;
+use App\Models\Vendor;
+use App\Models\Document;
 use Illuminate\Http\Request;
+use App\Helpers\FileDocuments;
+use App\Models\SecurityQuestion;
 use Spatie\Permission\Models\Role;
+use App\Http\Requests\StoreVendorRequest;
+use App\Http\Requests\VendorStoreRequest;
+use App\Http\Requests\UpdateVendorRequest;
 
 class VendorController extends Controller
 {
@@ -21,8 +23,7 @@ class VendorController extends Controller
 
     public function index()
     {
-        $vendors = User::where('user_type', 'vendor')->paginate(10);
-
+        $vendors = Vendor::latest()->paginate(10);
         $sl = !is_null(\request()->page) ? (\request()->page - 1) * 10 : 0;
         return view('backend.pages.vendor.vendor_index', compact('vendors', 'sl'));
     }
@@ -33,7 +34,7 @@ class VendorController extends Controller
         return view('backend.pages.vendor.vendor_create', compact('security_questions'));
     }
 
-    public function store(StoreVendorRequest $request)
+    public function store(VendorStoreRequest $request)
     {
 
         if ($request->document) {
@@ -43,20 +44,20 @@ class VendorController extends Controller
         }
 
 
-        if ($request->pro_pic) {
-            $image = $this->uploadImage($request->name, $request->pro_pic);
-            $data['pro_pic'] = $image;
-        }
+        // if ($request->pro_pic) {
+        //     $image = $this->uploadImage($request->name, $request->pro_pic);
+        //     $data['pro_pic'] = $image;
+        // }
 
-        $data['user_type'] = 'vendor';
-        $data['password'] = bcrypt('vendorpassword');
-        $vendor = User::create($data);
+        // $data['user_type'] = 'vendor';
+        // $data['password'] = bcrypt('vendorpassword');
+        $vendor = Vendor::create($data);
         if ($request->document) {
 
-            $document = FileDocuments::uploadDocument($request->name, $request->document);
+            $document = FileDocuments::uploadDocument($request->company_name, $request->document);
             Document::create([
                 'document' => $document,
-                'user_id' => $vendor->id
+                'vendor_id' => $vendor->id
             ]);
         }
         // if ($vendor->user_type == 'vendor') {
@@ -94,7 +95,7 @@ class VendorController extends Controller
 
     public function edit($id)
     {
-        $vendor = User::find($id);
+        $vendor = Vendor::find($id);
         $security_questions = SecurityQuestion::all();
         return view('backend.pages.vendor.vendor_edit', compact('vendor', 'security_questions'));
     }
@@ -148,9 +149,9 @@ class VendorController extends Controller
 
     public function info($id)
     {
-        $vendor = User::find($id);
-        $roles = Role::all();
-        return view('backend.pages.vendor.vendor_info', compact('vendor', 'roles'));
+        $vendor = Vendor::find($id);
+        // $roles = Role::all();
+        return view('backend.pages.vendor.vendor_info', compact('vendor'));
     }
 
     //remove profile picture

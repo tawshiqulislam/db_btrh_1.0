@@ -27,10 +27,8 @@
                     <thead>
                         <tr>
                             <th>SL No</th>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>Type</th>
-
+                            <th>Company Name</th>
+                            <th>Company Key Contact Person</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -39,9 +37,8 @@
                             <tr>
                                 <td>{{ ++$sl }}</td>
                                 <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                    {{ $vendor->name ?? "" }}</td>
-                                <td>{{ $vendor->username ?? "" }}</td>
-                                <td>{{ $vendor->user_type ?? "" }}</td>
+                                    {{ $vendor->company_name ?? "" }}</td>
+                                <td>{{ $vendor->company_key_contact_person_name ?? "" }}</td>
                                 <td>
                                     <a href="{{ route("vendor.info", $vendor->id) }}" class="btn btn-info btn-sm text-white">
                                         <i class="fa-solid fa-circle-info"></i> Info</a>

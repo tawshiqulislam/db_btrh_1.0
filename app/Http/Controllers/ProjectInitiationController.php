@@ -326,6 +326,18 @@ class ProjectInitiationController extends Controller
 
         try {
             $project_initiation_overview = ProjectInitiationOverview::find($id);
+            // eikhane role and permission remove kore shudhu user ta add kore rakhbo
+            $user = User::find($project_initiation_overview->user->id);
+
+            if ($user->roles) {
+                foreach ($user->roles as $role) {
+                    $user->removeRole($role);
+                };
+            }
+            if ($user->permissions) {
+                $user->revokePermissionTo($user->permissions);
+            }
+            $user->assignRole('user');
             $project_initiation_overview->delete();
             TeamMemberLog::create([
                 'user_id' => $project_initiation_overview->user->id,
@@ -333,6 +345,9 @@ class ProjectInitiationController extends Controller
                 'project_initiation_id' => $project_initiation_overview->project_initiation->id,
                 'reason' => $request->reason,
             ]);
+
+
+
             toastr()->error('User has been deleted from this project!', 'Alert');
             return redirect()->back();
         } catch (Exception $e) {

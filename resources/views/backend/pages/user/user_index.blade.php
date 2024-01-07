@@ -11,7 +11,13 @@
         </nav>
         <hr>
     </div><!-- End Page Title -->
-
+    <!--  Search Bar -->
+    <div class="input-group mb-3">
+        <input type="search" id="search" class="form-control" placeholder="Search user...">
+        <button id="search-button" type="button" class="btn btn-primary">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
     @if ($users->count() == 0)
         <div class="container mt-5 text-center">
             <h4>There is no user added yet.</h4>
@@ -22,7 +28,7 @@
         <div class="container table_create">
             <a href="{{ route("user.create") }}" class="btn btn-primary btn-sm mb-3 text-white"><i class="fa-solid fa-plus"></i>
                 Add User</a>
-            <div class="table-responsive">
+            <div class="table-data table-responsive">
                 <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
@@ -67,6 +73,35 @@
             </div>
             {{ $users->links("pagination::bootstrap-4") }}
         </div>
+        <script>
+            $(document).ready(function() {
+                $('#search').on('keyup', function() {
+                    let search_string = $(this).val();
+                    console.log('Search string:', search_string);
+                    if (search_string.length === 0) {
+                        // Reload the page
+                        location.reload();
+                    }
+
+                    $.ajax({
+                        url: "{{ route("user.search") }}",
+                        method: 'GET',
+                        data: {
+                            search_string: search_string
+                        },
+                        success: function(res) {
+                            $('.table-data').html(res);
+                            if (res.status === 'nothing_found') {
+                                $('.table-data').html(
+                                    '<span class="text-danger">Nothing Found</span>');
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
     @endif
+
     @include("backend.pages.user.user_delete_confirmation_modal")
+
 @endsection

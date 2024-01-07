@@ -22,7 +22,7 @@ class ProjectInitiationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:project_initiations',
+            'name' => 'required|string|max:255',
             'description' => 'required',
             'goal' => 'required',
             // 'deadline' => 'required',
@@ -35,7 +35,7 @@ class ProjectInitiationRequest extends FormRequest
             'name.required' => 'The name field is required.',
             'name.string' => 'The name must be a string.',
             'name.max' => 'The name may not be greater than 255 characters.',
-            'name.unique' => 'The name is already taken.',
+            // 'name.unique' => 'The name is already taken.',
             'description.required' => 'The description field is required.',
             'goal.required' => 'The goal field is required.',
             // 'deadline.required' => 'The deadline field is required.',

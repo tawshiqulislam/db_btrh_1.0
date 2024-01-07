@@ -21,7 +21,7 @@
 
                         <!-- Comment Field -->
                         <div class="col-md-12 form-group">
-                            <label for="comment">Comment:</label>
+                            <label for="comment">Note:</label>
                             <textarea class="form-control" placeholder="Enter comment" id="comment" name="comment" required></textarea>
                             @if ($errors->has("comment"))
                                 <p class="text-danger">{{ $errors->first("comment") }}</p>
@@ -40,7 +40,7 @@
                         <!-- Link Field -->
                         <div class="col-md-12 form-group">
                             <label for="link">Link:</label>
-                            <input type="text" placeholder="Enter project uploaded file link" class="form-control" id="link" name="link" required>
+                            <input type="text" placeholder="Enter project uploaded file link" class="form-control" id="link" name="link">
                             @if ($errors->has("link"))
                                 <p class="text-danger">{{ $errors->first("link") }}</p>
                             @endif
