@@ -23,6 +23,9 @@
                         <label for="company_name">Company Name</label>
                         <input type="text" class="form-control" id="company_name" name="company_name" placeholder='Enter company name' required>
                     </div>
+                    @if ($errors->has("company_name"))
+                        <p class="text-danger">{{ $errors->first("company_name") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
@@ -31,6 +34,9 @@
                         <label for="company_address">Company Address</label>
                         <textarea class="form-control" id="company_address" name="company_address" rows="3" required></textarea>
                     </div>
+                    @if ($errors->has("company_address"))
+                        <p class="text-danger">{{ $errors->first("company_address") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
@@ -39,6 +45,9 @@
                         <label for="company_email_address">Company Email Address</label>
                         <input type="email" class="form-control" id="company_email_address" name="company_email_address" required>
                     </div>
+                    @if ($errors->has("company_email_address"))
+                        <p class="text-danger">{{ $errors->first("company_email_address") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
@@ -47,7 +56,9 @@
                         <label for="company_key_contact_person_name">Key Contact Person Name</label>
                         <input type="text" class="form-control" id="company_key_contact_person_name" name="company_key_contact_person_name" required>
                     </div>
-
+                    @if ($errors->has("company_key_contact_person_name"))
+                        <p class="text-danger">{{ $errors->first("company_key_contact_person_name") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-12">
@@ -56,6 +67,9 @@
                         <label for="designation_of_key_contact_person">Designation of Key Contact Person</label>
                         <input type="text" class="form-control" id="designation_of_key_contact_person" name="designation_of_key_contact_person" required>
                     </div>
+                    @if ($errors->has("designation_of_key_contact_person"))
+                        <p class="text-danger">{{ $errors->first("designation_of_key_contact_person") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
@@ -64,14 +78,19 @@
                         <label for="key_contact_person_email_address">Key Contact Person Email Address</label>
                         <input type="email" class="form-control" id="key_contact_person_email_address" name="key_contact_person_email_address" required>
                     </div>
+                    @if ($errors->has("key_contact_person_email_address"))
+                        <p class="text-danger">{{ $errors->first("key_contact_person_email_address") }}</p>
+                    @endif
                 </div>
                 <div class="col-md-6">
                     <!-- Trade License Number -->
                     <div class="form-group">
                         <label for="trade_license_no">Trade License Number</label>
-                        <input type="text" class="form-control" id="trade_license_no" name="trade_license_no">
+                        <input value="{{ $vendor->trade_license_no }}" type="text" class="form-control" id="trade_license_no" name="trade_license_no">
                     </div>
-
+                    @if ($errors->has("trade_license_no"))
+                        <p class="text-danger">{{ $errors->first("trade_license_no") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
@@ -80,6 +99,9 @@
                         <label for="vat_bin_no">VAT/BIN Number</label>
                         <input type="text" class="form-control" id="vat_bin_no" name="vat_bin_no">
                     </div>
+                    @if ($errors->has("vat_bin_no"))
+                        <p class="text-danger">{{ $errors->first("vat_bin_no") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-6">
@@ -88,6 +110,9 @@
                         <label for="tin_no">TIN Number</label>
                         <input type="text" class="form-control" id="tin_no" name="tin_no">
                     </div>
+                    @if ($errors->has("tin_no"))
+                        <p class="text-danger">{{ $errors->first("tin_no") }}</p>
+                    @endif
                 </div>
 
                 <div class="col-md-12">

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('vat_bin_no')->nullable();
             $table->string('tin_no')->nullable();
             $table->string('documents')->nullable();
+            $table->string('user_type')->default('vendor');
             $table->softDeletes();
             $table->timestamps();
         });

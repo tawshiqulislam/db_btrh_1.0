@@ -1,6 +1,6 @@
 {{-- @include("includes.toastr_script") --}}
 <!-- Modal for updating a specific document -->
-@foreach ($vendor->documents as $document)
+@foreach ($documents as $document)
     <div class="modal fade" id="updateDocumentModal_{{ $document->id }}" tabindex="-1" aria-labelledby="updateDocumentModalLabel" aria-hidden="true">
         <form action="{{ route("document.update", $document->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
