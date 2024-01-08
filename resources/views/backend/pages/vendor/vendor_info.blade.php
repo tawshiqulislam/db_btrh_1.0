@@ -1,4 +1,5 @@
 @extends("backend.layouts.master")
+
 @section("content")
     <div class="pagetitle">
         <h1>Vendor</h1>
@@ -123,31 +124,20 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        Name
+                                        Comapny Name
                                     </div>
                                     <div class="col-7">
-                                        : {{ $vendor->name ?? "" }}
+                                        : {{ $vendor->company_name ?? "" }}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        Username
+                                        Company Address
                                     </div>
                                     <div class="col-7">
-                                        : {{ $vendor->username ?? "" }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-5">
-                                        Email
-                                    </div>
-                                    <div class="col-7">
-                                        : {{ $vendor->email ?? "" }}
+                                        : {{ $vendor->company_address ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -155,10 +145,10 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        Phone number
+                                        Company Email
                                     </div>
                                     <div class="col-7">
-                                        : {{ $vendor->phone_no ?? "" }}
+                                        : {{ $vendor->company_email_address ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -166,10 +156,10 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        Address
+                                        Company Key Contact Person Name
                                     </div>
                                     <div class="col-7">
-                                        : {{ $vendor->address ?? "" }}
+                                        : {{ $vendor->company_key_contact_person_name ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -177,10 +167,10 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        ID Number
+                                        Designation of Key Contact Person
                                     </div>
                                     <div class="col-7">
-                                        : {{ $vendor->id_number ?? "" }}
+                                        : {{ $vendor->designation_of_key_contact_person ?? "" }}
                                     </div>
                                 </div>
                             </div>
@@ -188,10 +178,21 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        ID type
+                                        Key Contact Person Email Address
                                     </div>
                                     <div class="col-7">
-                                        : {{ $vendor->id_type ?? "" }}
+                                        : {{ $vendor->key_contact_person_email_address ?? "" }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-5">
+                                        Trade License No
+                                    </div>
+                                    <div class="col-7">
+                                        : {{ $vendor->trade_license_no ?? "" }}
                                     </div>
                                 </div>
 
@@ -199,10 +200,10 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        isVerified
+                                        VAT/BIN No
                                     </div>
                                     <div class="col-7">
-                                        : {{ $vendor->isVerified == true ? "Verified" : "Unverified" }}
+                                        : {{ $vendor->vat_bin_no ?? "" }}
                                     </div>
                                 </div>
 
@@ -254,14 +255,14 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
-                                        Date of Birth
+                                        TIN No
                                     </div>
                                     <div class="col-7">
-                                        : {{ $vendor->date_of_birth ?? "" }}
+                                        : {{ $vendor->tin_no ?? "" }}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
                                         Type
@@ -270,9 +271,9 @@
                                         : {{ $vendor->user_type ?? "" }}
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-5">
                                         Roles
@@ -283,7 +284,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-12">
@@ -341,5 +342,4 @@
     @include("backend.pages.vendor.vendor_document_delete_confirmation_modal")
     @include("backend.pages.vendor.vendor_role_assign_modal")
     @include("backend.pages.vendor.vendor_role_delete_modal")
-
 @endsection

@@ -18,77 +18,83 @@
 
             <div class="row g-3">
                 <div class="col-md-6">
+                    <!-- Company Name -->
                     <div class="form-group">
-                        <label for="userName">Name:</label>
-                        <input placeholder="Enter vendor name" type="text" class="form-control" id="userName" name="name" required>
-                        @if ($errors->has("name"))
-                            <p class="text-danger">{{ $errors->first("name") }}</p>
-                        @endif
+                        <label for="company_name">Company Name</label>
+                        <input type="text" class="form-control" id="company_name" name="company_name" placeholder='Enter company name' required>
                     </div>
                 </div>
 
                 <div class="col-md-6">
+                    <!-- Company Address -->
                     <div class="form-group">
-                        <label for="user_name">Username:</label>
-                        <input placeholder="Enter username" type="text" class="form-control" id="user_name" name="username" required>
-                        @if ($errors->has("username"))
-                            <p class="text-danger">{{ $errors->first("username") }}</p>
-                        @endif
+                        <label for="company_address">Company Address</label>
+                        <textarea class="form-control" id="company_address" name="company_address" rows="3" required></textarea>
                     </div>
                 </div>
 
                 <div class="col-md-6">
+                    <!-- Company Email Address -->
                     <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input placeholder="Enter vendors email" type="email" class="form-control" id="email" name="email" required>
-                        @if ($errors->has("email"))
-                            <p class="text-danger">{{ $errors->first("email") }}</p>
-                        @endif
+                        <label for="company_email_address">Company Email Address</label>
+                        <input type="email" class="form-control" id="company_email_address" name="company_email_address" required>
                     </div>
                 </div>
 
                 <div class="col-md-6">
+                    <!-- Key Contact Person Name -->
                     <div class="form-group">
-                        <label for="phone_no">Phone Number:</label>
-                        <input placeholder="Enter vendors phone number" type="text" class="form-control" id="phone_no" name="phone_no" required>
-                        @if ($errors->has("phone_no"))
-                            <p class="text-danger">{{ $errors->first("phone_no") }}</p>
-                        @endif
+                        <label for="company_key_contact_person_name">Key Contact Person Name</label>
+                        <input type="text" class="form-control" id="company_key_contact_person_name" name="company_key_contact_person_name" required>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+                    <!-- Designation of Key Contact Person -->
+                    <div class="form-group">
+                        <label for="designation_of_key_contact_person">Designation of Key Contact Person</label>
+                        <input type="text" class="form-control" id="designation_of_key_contact_person" name="designation_of_key_contact_person" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Key Contact Person Email Address -->
+                    <div class="form-group">
+                        <label for="key_contact_person_email_address">Key Contact Person Email Address</label>
+                        <input type="email" class="form-control" id="key_contact_person_email_address" name="key_contact_person_email_address" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Trade License Number -->
+                    <div class="form-group">
+                        <label for="trade_license_no">Trade License Number</label>
+                        <input type="text" class="form-control" id="trade_license_no" name="trade_license_no">
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <!-- VAT BIN Number -->
+                    <div class="form-group">
+                        <label for="vat_bin_no">VAT/BIN Number</label>
+                        <input type="text" class="form-control" id="vat_bin_no" name="vat_bin_no">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- TIN Number -->
+                    <div class="form-group">
+                        <label for="tin_no">TIN Number</label>
+                        <input type="text" class="form-control" id="tin_no" name="tin_no">
                     </div>
                 </div>
 
                 <div class="col-md-12">
+                    <!-- Documents -->
                     <div class="form-group">
-                        <label for="address">Address:</label>
-                        <input placeholder="Enter address" type="text" class="form-control" id="address" name="address" required>
-                        @if ($errors->has("address"))
-                            <p class="text-danger">{{ $errors->first("address") }}</p>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="id_number">ID Number(Birth Registration/NID/Passport):</label>
-                        <input placeholder="Enter ID number" type="text" class="form-control" id="id_number" name="id_number" required>
-                        @if ($errors->has("id_number"))
-                            <p class="text-danger">{{ $errors->first("id_number") }}</p>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="id_type">ID Type(Birth Registration/NID/Passport):</label>
-                        <select name="id_type" id="id_type" class="form-control" required>
-                            <option selected disabled>Select</option>
-                            <option value="Birth Registration">Birth Registration</option>
-                            <option value="NID">NID</option>
-                            <option value="Passport">Passport</option>
-                        </select>
-                        @if ($errors->has("id_type"))
-                            <p class="text-danger">{{ $errors->first("id_type") }}</p>
-                        @endif
+                        <label for="document">Documents</label>
+                        <input type="file" class="form-control-file form-control" id="document" name="document">
                     </div>
                 </div>
 
@@ -130,14 +136,14 @@
                     </div>
                 </div> --}}
                 <!-- uploaded image -->
-                <div class="col-md-12" style='display:none' id='image_preview_div'>
+                {{-- <div class="col-md-12" style='display:none' id='image_preview_div'>
                     <div class="form-group">
                         <label for="uploaded_image">Vendor Image:</label><br>
                         <img style="width: 100px" class="border border-1 p-1" id="uploaded_image" src="" alt="">
                     </div>
-                </div>
+                </div> --}}
                 <!-- Profile picture -->
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="pro_pic">Profile Picture:</label>
                         <input type="file" class="form-control" id="pro_pic" name="pro_pic">
@@ -145,8 +151,8 @@
                             <p class="text-danger">{{ $errors->first("pro_pic") }}</p>
                         @endif
                     </div>
-                </div>
-                <div class="col-md-6">
+                </div> --}}
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="date_of_birth">Date of Birth:</label>
                         <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
@@ -154,7 +160,7 @@
                             <p class="text-danger">{{ $errors->first("date_of_birth") }}</p>
                         @endif
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- <div class="col-md-12">
                     <div class="form-group">
@@ -182,7 +188,7 @@
                         @endif
                     </div>
                 </div> --}}
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <div class="form-group">
                         <label for="document">Upload Vendor Documents:</label>
                         <input type="file" class="form-control" id="document" name="document">
@@ -190,7 +196,7 @@
                             <p class="text-danger">{{ $errors->first("document") }}</p>
                         @endif
                     </div>
-                </div>
+                </div> --}}
 
             </div>
 
